@@ -115,13 +115,19 @@ set :deploy_to, '/var/www/flipstack.com'
 
 task :deploy do
   deploy do
-    # Put things that prepare here.
+    # Put things that prepare the empty release folder here.
     # Commands queued here will be ran on a new release directory.
     invoke :'git:checkout'
     invoke :'bundle:install'
 
+    # These are instructions to start the app after it's been prepared.
     to :restart do
       run 'touch tmp/restart.txt'
+    end
+
+    # This optional block defines how a broken release should be cleaned up.
+    to :clean do
+      queue 'log "failed deployment for #{current_version}"'
     end
   end
 end
