@@ -36,12 +36,10 @@ task :restart do
   run!
 end
 
-task(:'scm:checkout') { }
 task(:'growl:notify') {}
-task(:'cdn:propagate') { }
-task(:'cdn:activate') { }
-task(:'cdn:cleanup') { }
-task(:'git:tag_release') { }
+task(:'cdn:propagate') {}
+task(:'cdn:activate') {}
+task(:'cdn:cleanup') {}
 
 # task :force_unlock do
 #   queue "rm -f #{deploy_to}/deploy.lock"
