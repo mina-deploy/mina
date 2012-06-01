@@ -37,18 +37,11 @@ fi
 touch "<%= lock_file %>"
 
 # ============================
-# === SCM Checkout
-(
-  echo "-----> Initializing project files"
-  <%= indent(2, generate(:'scm:checkout')).strip %>
-) &&
-
-# ============================
 # === Bootstrap script (in deployer)
 (
   cd "<%= release_path %>" &&
   (
-    <%= deploy_code %>
+    <%= prepare %>
   )
 ) &&
 
@@ -64,7 +57,7 @@ touch "<%= lock_file %>"
 # === Start up server (in deployer)
 (
   echo "-----> Launching"
-  <%= restart_code %>
+  <%= restart %>
 ) &&
 
 # ============================
@@ -78,6 +71,9 @@ touch "<%= lock_file %>"
 # === Failed deployment
 (
   echo "-----> ERROR: Deploy failed."
+
+  <%= clean %>
+
   echo -n "-----> Cleaning up... "
   [ -e "<%= release_path %>" ] && (
     echo -n "deleting, "

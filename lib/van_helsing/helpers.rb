@@ -18,11 +18,15 @@ module VanHelsing
       yield
       new_code, @codes = @codes, old
 
-      p new_code
       prepare = new_code[:default].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
       restart = new_code[:restart].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
       clean   = new_code[:clean].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-      queue "deploy && ( #{prepare} ) && ( symlink ) && ( #{restart} ) || ( #{clean} )"
+
+      require 'erb'
+      erb = ERB.new(File.read(VanHelsing.root_path('data/deploy.sh.erb')))
+      code = erb.result(binding)
+        
+      queue code
     end
 
     # Deploys and runs.
