@@ -14,10 +14,10 @@ module VanHelsing
     def deploy(&blk)
       validate_set :deploy_to
 
-      set :current_version, Time.now.strftime("%Y-%m-%d--%H-%m-%S")
-      set :release_path, "#{deploy_to}/releases/#{current_version}"
-      set :current_path, "#{deploy_to}/current"
-      set :lock_file, "#{deploy_to}/deploy.lock"
+      settings.current_version ||= Time.now.strftime("%Y-%m-%d--%H-%m-%S")
+      settings.release_path    ||= "#{deploy_to}/releases/#{current_version}"
+      settings.current_path    ||= "#{deploy_to}/current"
+      settings.lock_file       ||= "#{deploy_to}/deploy.lock"
 
       old, @codes = @codes, nil
       yield
