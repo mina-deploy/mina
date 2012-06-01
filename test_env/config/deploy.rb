@@ -50,7 +50,9 @@ task(:'git:tag_release') { }
 
 namespace :nginx do
   task :restart do
-    queue 'echo "-----> Restarting nginx"'
-    queue 'sudo /opt/sbin/nginx -s reload'
+    queue %{
+      echo "-----> Restarting nginx"
+      sudo /opt/sbin/nginx -s reload
+    }
   end
 end

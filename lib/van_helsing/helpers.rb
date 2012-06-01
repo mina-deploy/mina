@@ -18,6 +18,7 @@ module VanHelsing
       yield
       new_code, @codes = @codes, old
 
+      p new_code
       prepare = new_code[:default].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
       restart = new_code[:restart].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
       clean   = new_code[:clean].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
@@ -46,9 +47,10 @@ module VanHelsing
     end
 
     def codes
-      @codes ||= Hash.new { |h, k| h[k] = Array.new }
-      @code_block = :default
-      @codes
+      @codes ||= begin
+        @code_block = :default
+        Hash.new { |h, k| h[k] = Array.new }
+      end
     end
 
     def to(name, &blk)
