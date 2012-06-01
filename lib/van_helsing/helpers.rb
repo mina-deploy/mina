@@ -24,9 +24,9 @@ module VanHelsing
 
       isolate do
         yield
-        prepare = codes[:default].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-        restart = codes[:restart].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-        clean   = codes[:clean].map   { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+        prepare = codes(:default).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+        restart = codes(:restart).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+        clean   = codes(:clean).map   { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
 
         require 'erb'
         erb = ERB.new(File.read(VanHelsing.root_path('data/deploy.sh.erb')))
@@ -56,7 +56,7 @@ module VanHelsing
 
       code = [
         '( cat <<DEPLOY_EOF',
-        indent(2, codes[:default].join("\n").gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
+        indent(2, codes(:default).join("\n").gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
         "DEPLOY_EOF",
         ") | ssh #{args} -- bash -"
       ].join("\n")
@@ -99,10 +99,10 @@ module VanHelsing
     #
     #     queue "sudo restart"
     #     queue "true"
-    #     codes[:default].should == ['sudo restart', 'true']
+    #     codes(:default).should == ['sudo restart', 'true']
     #
     def queue(code)
-      codes[@code_block] << code.gsub(/^ */, '')
+      codes(@code_block) << code.gsub(/^ */, '')
     end
 
     # Returns a hash of the code blocks where commands have been queued.
@@ -113,32 +113,35 @@ module VanHelsing
     #     to :clean do
     #       queue "rm"
     #     end
-    #     codes == { :default => ["sudo restart", "true"], :clean => ["rm"] }
     #
-    def codes
-      @codes ||= begin
+    #     codes == ["sudo restart", "true"]
+    #     codes(:clean) == ["rm"]
+    #
+    def codes(aspect=:default)
+      (@codes ||= begin
         @code_block = :default
         Hash.new { |h, k| h[k] = Array.new }
-      end
+      end)[aspect]
     end
 
     # Starts a new block where new #codes are collected.
     #
     #     queue "sudo restart"
     #     queue "true"
-    #     codes[:default].should == ['sudo restart', 'true']
+    #     codes.should == ['sudo restart', 'true']
     #
     #     isolate do
     #       queue "reload"
-    #       codes[:default].should == ['reload']
+    #       codes.should == ['reload']
     #     end
     #
-    #     codes[:default].should == ['sudo restart', 'true']
+    #     codes.should == ['sudo restart', 'true']
     #
     def isolate(&blk)
       old, @codes = @codes, nil
       yield
       new_code, @codes = @codes, old
+      old
     end
 
     # Defines instructions on how to do a certain thing.
@@ -151,8 +154,8 @@ module VanHelsing
     #       run "nginx -s restart"
     #     end
     #
-    #     codes[:prepare] == ["bundle install"]
-    #     codes[:restart] == ["nginx -s restart"]
+    #     codes(:prepare) == ["bundle install"]
+    #     codes(:restart) == ["nginx -s restart"]
     #
     def to(name, &blk)
       old, @code_block = @code_block, name

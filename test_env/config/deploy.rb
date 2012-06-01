@@ -27,7 +27,9 @@ task :deploy do
     end
   end
 
-  invoke :'git:tag_release' # post deploy
+  unless ENV['simulate']
+    invoke :'git:tag_release' # post deploy
+  end
 end
 
 desc "Restarts the nginx server."
