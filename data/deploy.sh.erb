@@ -11,7 +11,7 @@ fi
 # Check lockfile
 if [ -e "<%= lock_file %>" ]; then
   echo "-----> ERROR: another deployment is ongoing."
-  echo "'<%= lock_file %> found."
+  echo "The file '<%= lock_file %>' was found."
   echo "If no other deployment is ongoing, delete the file to continue."
   exit 17
 fi
@@ -39,6 +39,7 @@ touch "<%= lock_file %>"
 # ============================
 # === Bootstrap script (in deployer)
 (
+  mkdir -p "<%= release_path %>" &&
   cd "<%= release_path %>" &&
   (
     <%= prepare %>

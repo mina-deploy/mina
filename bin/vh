@@ -3,8 +3,19 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 
 require 'van_helsing'
 
+file = lambda { |path| path if File.exists?(path) }
+
+config_file =
+  file['Vhfile'] ||
+  file['./config/deploy.rb']
+
+unless config_file
+  puts 'Config not found.'
+  exit 1
+end
+
 ARGV.unshift '-r', VanHelsing::root_path('lib/van_helsing/rake.rb')
-ARGV.unshift '-f', './config/deploy.rb'
+ARGV.unshift '-f', config_file
 
 require 'rake'
 Rake.application.run

@@ -61,7 +61,11 @@ module VanHelsing
         ") | ssh #{args} -- bash -"
       ].join("\n")
 
-      puts code
+      if ENV['simulate']
+        puts code
+      else
+        system code
+      end
     end
 
     # Queues code to be ran.
