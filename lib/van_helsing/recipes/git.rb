@@ -1,4 +1,5 @@
 namespace :git do
+  desc "Clones the Git repository to the release path."
   task :clone do
     validate_set :repository
 

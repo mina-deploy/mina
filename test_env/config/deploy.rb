@@ -6,6 +6,7 @@ set :hostname, 'streakdeals.com.ph'
 set :deploy_to, '/var/www/streakdeals.com.ph'
 set :repository, 'git://github.com/rstacruz/sinatra-assetpack'
 
+desc "Deploys."
 task :deploy do
   invoke :'growl:notify' # pre deploy
 
@@ -31,6 +32,7 @@ task :deploy do
   invoke :'git:tag_release' # post deploy
 end
 
+desc "Restarts the nginx server."
 task :restart do
   invoke :'nginx:restart'
   run!
