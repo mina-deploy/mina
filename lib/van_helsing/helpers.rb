@@ -60,14 +60,20 @@ module VanHelsing
         ") | ssh #{args} -- bash -"
       ].join("\n")
 
+      result = 0
       if ENV['simulate']
         puts code
       else
-        pretty_system code
+        result = pretty_system(code)
+      end
+
+      unless result == 0
+        raise Failed.new(message: "Failed with status #{result}", exitstatus: result)
       end
     end
 
     # Works like 'system', but indents
+    # Returns the exit code in integer form.
     def pretty_system(code)
       require 'open3'
       Open3.popen3('bash', '-') do |i, o, e, t|
@@ -89,6 +95,9 @@ module VanHelsing
 
           last = c
         end
+
+        # t.value is Process::Status
+        t.value.exitstatus
       end
     end
 

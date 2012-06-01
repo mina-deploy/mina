@@ -6,6 +6,11 @@ module VanHelsing
 
   autoload :Helpers, 'van_helsing/helpers'
 
+  Failed = Class.new(StandardError)
+  class Failed < StandardError
+    attr_writer :exitstatus
+  end
+
   def self.root_path(*a)
     File.join ROOT, *a
   end
