@@ -8,7 +8,7 @@ namespace :git do
       echo "-----> Initializing path #{release_path}"
       mkdir -p "#{release_path}" &&
       git clone "#{repository}" "#{release_path}" -n --recursive &&
-      git checkout "#{revision}" &&
+      git checkout "#{revision}" 2>/dev/null &&
       rm -rf "#{curent_path}.git"
     }
   end
