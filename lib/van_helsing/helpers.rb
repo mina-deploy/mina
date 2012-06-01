@@ -64,7 +64,32 @@ module VanHelsing
       if ENV['simulate']
         puts code
       else
-        system code
+        pretty_system code
+      end
+    end
+
+    # Works like 'system', but indents
+    def pretty_system(code)
+      require 'open3'
+      Open3.popen3('bash', '-') do |i, o, e, t|
+        i.write "( #{code} ) 2>&1\n"
+        i.close
+
+        last = nil
+        while c = o.getc
+          break if o.closed?
+          if last == "\n"
+            if c == "-" && ((c += o.read(5)) == "----->")
+              print c
+            else
+              print " "*7 + c
+            end
+          else
+            print c
+          end
+
+          last = c
+        end
       end
     end
 
