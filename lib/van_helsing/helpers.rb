@@ -72,6 +72,19 @@ module VanHelsing
       end
     end
 
+    # Defines instructions on how to do a certain thing.
+    # This makes the codes that are `queue`d go into a different bucket in codes.
+    #
+    #     to :prepare do
+    #       run "bundle install"
+    #     end
+    #     to :restart do
+    #       run "nginx -s restart"
+    #     end
+    #
+    #     codes[:prepare] == ["bundle install"]
+    #     codes[:restart] == ["nginx -s restart"]
+    #
     def to(name, &blk)
       old, @code_block = @code_block, name
       yield
