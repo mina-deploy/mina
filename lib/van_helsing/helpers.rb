@@ -65,6 +65,7 @@ module VanHelsing
     end
 
     # Queues code to be ran.
+    # This queues code to be ran to the current code bucket (defaults to `:default`).
     # To get the things that have been queued, use codes[:default]
     def queue(code)
       codes
