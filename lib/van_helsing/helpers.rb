@@ -20,20 +20,19 @@ module VanHelsing
       settings.current_path    ||= "#{deploy_to}/current"
       settings.lock_file       ||= "#{deploy_to}/deploy.lock"
 
-      code = ''
-
-      isolate do
+      code = isolate do
         yield
-        prepare = codes(:default).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-        restart = codes(:restart).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-        clean   = codes(:clean).map   { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-
-        require 'erb'
-        erb = ERB.new(File.read(VanHelsing.root_path('data/deploy.sh.erb')))
-        code = erb.result(binding)
+        erb VanHelsing.root_path('data/deploy.sh.erb')
       end
 
       queue code
+    end
+
+    # Evaluates an ERB block and returns a string.
+    def erb(file, b=binding)
+      require 'erb'
+      erb = ERB.new(File.read(file))
+      erb.result b
     end
 
     # Deploys and runs immediately.
@@ -139,9 +138,9 @@ module VanHelsing
     #
     def isolate(&blk)
       old, @codes = @codes, nil
-      yield
+      result = yield
       new_code, @codes = @codes, old
-      old
+      result
     end
 
     # Defines instructions on how to do a certain thing.

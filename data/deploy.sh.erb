@@ -1,3 +1,8 @@
+<%
+  prepare = codes(:default).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+  restart = codes(:restart).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+  clean   = codes(:clean).map   { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+%>
 #!/usr/bin/env bash
 
 # Sanity check
