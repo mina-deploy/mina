@@ -1,6 +1,6 @@
-require 'van_helsing/recipes/bundler'
-require 'van_helsing/recipes/rails'
-require 'van_helsing/recipes/git'
+require 'van_helsing/bundler'
+require 'van_helsing/rails'
+require 'van_helsing/git'
 
 set :host, 'streakdeals.com.ph'
 set :deploy_to, '/var/www/streakdeals.com.ph'
