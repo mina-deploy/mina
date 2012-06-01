@@ -2,7 +2,7 @@ require 'van_helsing/recipes/bundler'
 require 'van_helsing/recipes/rails'
 require 'van_helsing/recipes/git'
 
-set :hostname, 'streakdeals.com.ph'
+set :host, 'streakdeals.com.ph'
 set :deploy_to, '/var/www/streakdeals.com.ph'
 set :repository, 'git://github.com/rstacruz/sinatra-assetpack'
 
