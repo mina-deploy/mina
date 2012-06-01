@@ -2,9 +2,9 @@ require 'van_helsing/bundler'
 require 'van_helsing/rails'
 require 'van_helsing/git'
 
-set :host, 'streakdeals.com.ph'
-set :deploy_to, '/var/www/streakdeals.com.ph'
-set :repository, 'git://github.com/rstacruz/sinatra-assetpack'
+set :host, 'localhost'
+set :deploy_to, "#{Dir.pwd}/releases"
+set :repository, 'git://github.com/nadarei/van_helsing.git'
 
 desc "Deploys."
 task :deploy do
