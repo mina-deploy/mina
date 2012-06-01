@@ -11,23 +11,20 @@ task :deploy do
   invoke :'growl:notify' # pre deploy
 
   deploy! do
-    # prepare do
-      invoke :'git:clone'
-      invoke :'bundle:install'
-      invoke :'rails:assets_precompile'
-      invoke :'rails:db_migrate'
-      invoke :'cdn:propagate'
-      invoke :'vh:update_symlinks'
-    # end
+    invoke :'git:clone'
+    invoke :'bundle:install'
+    invoke :'rails:assets_precompile'
+    invoke :'rails:db_migrate'
+    invoke :'cdn:propagate'
 
-    # start do
+    to :restart do
       invoke :'nginx:restart'
       invoke :'cdn:activate'
-    # end
+    end
 
-    # failure do
-    #   invoke :'cdn:cleanup'
-    # end
+    to :clean do
+      invoke :'cdn:cleanup'
+    end
   end
 
   invoke :'git:tag_release' # post deploy

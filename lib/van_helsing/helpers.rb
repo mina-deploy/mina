@@ -14,12 +14,14 @@ module VanHelsing
       set :current_path, "#{deploy_to}/current"
       set :lock_file, "#{deploy_to}/deploy.lock"
 
-      old, @code = @code, Array.new
+      old, @codes = @codes, nil
       yield
-      new_code, @code = @code, old
+      new_code, @codes = @codes, old
 
-      deploy_codes = new_code.map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-      queue "deploy && ( #{deploy_codes} ) || ( cleanup_on_failure )"
+      prepare = new_code[:default].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+      restart = new_code[:restart].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+      clean   = new_code[:clean].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+      queue "deploy && ( #{prepare} ) && ( symlink ) && ( #{restart} ) || ( #{clean} )"
     end
 
     # Deploys and runs.
@@ -32,15 +34,27 @@ module VanHelsing
     def run!
       validate_set :hostname
 
-      code = "(\n\n#{indent 2, @code.join("\n")}\n\n) | ssh #{hostname} -- bash -"
+      code = "(\n\n#{indent 2, codes[:default].join("\n")}\n\n) | ssh #{hostname} -- bash -"
       puts "Running this code:"
       puts code
     end
 
     # Queues code to be ran.
     def queue(code)
-      @code ||= Array.new
-      @code << code.gsub(/^ */, '')
+      codes
+      codes[@code_block] << code.gsub(/^ */, '')
+    end
+
+    def codes
+      @codes ||= Hash.new { |h, k| h[k] = Array.new }
+      @code_block = :default
+      @codes
+    end
+
+    def to(name, &blk)
+      old, @code_block = @code_block, name
+      yield
+      @code_block = old
     end
 
     def set(key, value)
