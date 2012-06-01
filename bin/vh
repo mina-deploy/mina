@@ -3,4 +3,8 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 
 require 'van_helsing'
 
-system "rake -f ./config/deploy.rb -r #{VanHelsing::PREFIX}/van_helsing/rake.rb #{ARGV.join(' ')}"
+ARGV.unshift '-r', VanHelsing::root_path('lib/van_helsing/rake.rb')
+ARGV.unshift '-f', './config/deploy.rb'
+
+require 'rake'
+Rake.application.run
