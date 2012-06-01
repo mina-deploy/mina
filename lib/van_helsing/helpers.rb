@@ -6,6 +6,11 @@ module VanHelsing
     end
 
     # Wraps the things inside it in a deploy script.
+    #
+    #     deploy! do
+    #       invoke :'git:checkout'
+    #     end
+    #
     def deploy(&blk)
       validate_set :deploy_to
 
@@ -29,13 +34,17 @@ module VanHelsing
       queue code
     end
 
-    # Deploys and runs.
+    # Deploys and runs immediately.
     def deploy!(&blk)
       deploy &blk
       run!
     end
 
     # SSHs into the host and runs the code that has been queued.
+    #
+    #     queue "sudo restart"
+    #     run!
+    #
     def run!
       validate_set :host
 
