@@ -139,7 +139,6 @@ module VanHelsing
       old, @codes = @codes, nil
       yield
       new_code, @codes = @codes, old
-      codes
     end
 
     # Defines instructions on how to do a certain thing.
