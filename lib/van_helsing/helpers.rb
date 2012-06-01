@@ -113,11 +113,14 @@ module VanHelsing
     #
     #     set :host, 'kickflip.me'
     #     settings.host  #=> 'kickflip.me'
+    #     host           #=> 'kickflip.me'
     #
     def settings
       @settings ||= OpenStruct.new
     end
 
+    # Hook to get settings.
+    # See #settings for an explanation.
     def method_missing(meth, *args, &blk)
       @settings.send meth, *args
     end
