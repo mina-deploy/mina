@@ -136,8 +136,9 @@ The deploy process looks like this:
 6. Invoke the commands queued up in the `to :restart` block. These often
    commands to restart the webserver process.
 
-If it fails at any point, the release path will be deleted. It will be as if
-nothing happened.
+If it fails at any point, the release path will be deleted. If any commands are
+queued using the `to :clean` block, they will be ran. It will be as if nothing
+happened.
 
 Directory structure
 -------------------
