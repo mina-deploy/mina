@@ -11,6 +11,8 @@ module VanHelsing
 
       set :current_version, Time.now.strftime("%Y-%m-%d--%H-%m-%S")
       set :release_path, "#{deploy_to}/releases/#{current_version}"
+      set :current_path, "#{deploy_to}/current"
+      set :lock_file, "#{deploy_to}/deploy.lock"
 
       old, @code = @code, Array.new
       yield

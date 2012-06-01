@@ -53,21 +53,6 @@ touch "<%= lock_file %>"
 ) &&
 
 # ============================
-# === Symlinking 'current'
-(
-  echo "-----> Finishing up"
-  rm -f "<%= current_path %>"
-  ln -s "<%= release_path %>" "<%= current_path %>"
-) &&
-
-# ============================
-# === Start up server (in deployer)
-(
-  echo "-----> Launching"
-  <%= indent(2, generate(:restart)).strip %>
-) &&
-
-# ============================
 # === Complete & unlock
 (
   rm -f "<%= lock_file %>"

@@ -17,9 +17,10 @@ task :deploy do
       invoke :'rails:assets_precompile'
       invoke :'rails:db_migrate'
       invoke :'cdn:propagate'
+      invoke :'vh:update_symlinks'
     # end
 
-    # restart do
+    # start do
       invoke :'nginx:restart'
       invoke :'cdn:activate'
     # end
