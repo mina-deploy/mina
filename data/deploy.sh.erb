@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# Sanity check
+if [ ! -d "<%= deploy_to %>" ]; then
+  echo "-----> Error: not set up."
+  echo "The path '<%= deploy_to %>' is not found on the server."
+  echo "You may need to run 'dep setup' first."
+  exit 16
+fi
+
+# Check lockfile
+if [ -e "<%= lock_file %>" ]; then
+  echo "-----> ERROR: another deployment is ongoing."
+  echo "'<%= lock_file %> found."
+  echo "If no other deployment is ongoing, delete the file to continue."
+  exit 17
+fi
+
+# ============================
+# === Initialize dynamic variables
+
+cd "<%= deploy_to %>"
+[ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
+
+echo "-----> Deploying as <%= File.basename(release_path) %>"
+
+# ============================
+# === Sanity check
+
+if [ -e "<%= release_path %>" ]; then
+  echo "-----> ERROR: Path already exists"
+  echo "The path '<%= release_path %>' already exist You may have to delete it first."
+  exit 18
+fi
+
+# Lock
+touch "<%= lock_file %>"
+
+# ============================
+# === SCM Checkout
+(
+  echo "-----> Initializing project files"
+  <%= indent(2, generate(:'scm:checkout')).strip %>
+) &&
+
+# ============================
+# === Bootstrap script (in deployer)
+(
+  cd "<%= release_path %>" &&
+  (
+    <%= deploy_code %>
+  )
+) &&
+
+# ============================
+# === Symlinking 'current'
+(
+  echo "-----> Finishing up"
+  rm -f "<%= current_path %>"
+  ln -s "<%= release_path %>" "<%= current_path %>"
+) &&
+
+# ============================
+# === Start up server (in deployer)
+(
+  echo "-----> Launching"
+  <%= indent(2, generate(:restart)).strip %>
+) &&
+
+# ============================
+# === Complete & unlock
+(
+  rm -f "<%= lock_file %>"
+  echo "-----> Done"
+) ||
+
+# ============================
+# === Failed deployment
+(
+  echo "-----> ERROR: Deploy failed."
+  echo -n "-----> Cleaning up... "
+  [ -e "<%= release_path %>" ] && (
+    echo -n "deleting, "
+    rm -rf "<%= release_path %>"
+  )
+  (
+    echo -n "unlinking, "
+    rm -f "<%= current_path %>"
+    [ -n "$previous_path" ] && ln -s "$previous_path" "<%= current_path %>"
+  )
+  echo "OK"
+
+  # Unlock
+  rm -f "<%= lock_file %>"
+  exit 8
+)
