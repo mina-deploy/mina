@@ -16,6 +16,7 @@ module VanHelsing
 
       settings.current_version ||= Time.now.strftime("%Y-%m-%d--%H-%m-%S")
       settings.release_path    ||= "#{deploy_to}/releases/#{current_version}"
+      settings.shared_path     ||= "#{deploy_to}/shared"
       settings.current_path    ||= "#{deploy_to}/current"
       settings.lock_file       ||= "#{deploy_to}/deploy.lock"
 
