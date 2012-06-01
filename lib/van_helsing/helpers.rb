@@ -32,7 +32,7 @@ module VanHelsing
         erb = ERB.new(File.read(VanHelsing.root_path('data/deploy.sh.erb')))
         code = erb.result(binding)
       end
-      
+
       queue code
     end
 
