@@ -22,11 +22,11 @@ namespace :rails do
   desc "Precompiles assets (skips if nothing has changed since the last release)."
   task :'assets_precompile:fast' do
     queue %{
-      if [ -d "#{current_path}" ]; then
+      if [ -d "#{current_path}/public/assets" ]; then
 
         count=`(
-          diff -r "#{current_path}/vendor/assets/" "#{release_path}/vendor/assets/";
-          diff -r "#{current_path}/app/assets/" "#{release_path}/app/assets/"
+          diff -r "#{current_path}/vendor/assets/" "#{release_path}/vendor/assets/" 2>/dev/null;
+          diff -r "#{current_path}/app/assets/" "#{release_path}/app/assets/" 2>/dev/null
         ) | wc -l`
 
         if [ "$((count))" = "0" ]; then
