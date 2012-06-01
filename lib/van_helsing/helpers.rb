@@ -56,7 +56,7 @@ module VanHelsing
 
       code = [
         '( cat <<DEPLOY_EOF',
-        indent(2, codes[:default].join("\n").gsub('$', '\$').strip),
+        indent(2, codes[:default].join("\n").gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
         "DEPLOY_EOF",
         ") | ssh #{args} -- bash -"
       ].join("\n")
