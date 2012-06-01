@@ -158,8 +158,9 @@ module VanHelsing
     #
     def to(name, &blk)
       old, @code_block = @code_block, name
-      yield
+      result = yield
       @code_block = old
+      result
     end
 
     # Sets settings.
