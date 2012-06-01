@@ -29,7 +29,8 @@ echo "-----> Deploying as <%= File.basename(release_path) %>"
 
 if [ -e "<%= release_path %>" ]; then
   echo "-----> ERROR: Path already exists"
-  echo "The path '<%= release_path %>' already exist You may have to delete it first."
+  echo "The path '<%= release_path %>' already exists."
+  echo "You may have to delete it first."
   exit 18
 fi
 
