@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path('../../lib', __FILE__)
+
+require 'van_helsing'
+
+system "rake -f ./config/deploy.rb -r #{VanHelsing::PREFIX}/van_helsing/rake.rb #{ARGV.join(' ')}"
