@@ -135,7 +135,7 @@ The deploy process looks like this:
 1. Decide on a release name based on the current timestamp, say,
    `2012-06-02--04-58-23`.
 2. cd to `/var/www/flipstack.com` (the *deploy_to* path).
-3. Create `./releases/2012-06-02--04-58-23` (the *release path*).
+3. Create `./releases/2012-06-02-045823` (the *release path*).
 4. Invoke the queued up commands in the `deploy` block. Usually, this is a git
    checkout, along with some commands to initialize the app, such as running DB
    migrations.
