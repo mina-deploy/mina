@@ -67,15 +67,24 @@ module VanHelsing
     # Queues code to be ran.
     # This queues code to be ran to the current code bucket (defaults to `:default`).
     # To get the things that have been queued, use codes[:default]
+    #
+    #     queue "sudo restart"
+    #     queue "true"
+    #     codes[:default].should == ['sudo restart', 'true']
+    #
     def queue(code)
-      codes
       codes[@code_block] << code.gsub(/^ */, '')
     end
 
     # Returns a hash of the code blocks where commands have been queued.
     #
-    #     > codes
-    #     #=> { :default => [ 'echo', 'sudo restart', ... ] }
+    #     queue "sudo restart"
+    #     queue "true"
+    #
+    #     to :clean do
+    #       queue "rm"
+    #     end
+    #     codes == { :default => ["sudo restart", "true"], :clean => ["rm"] }
     #
     def codes
       @codes ||= begin
@@ -87,14 +96,15 @@ module VanHelsing
     # Starts a new block where new #codes are collected.
     #
     #     queue "sudo restart"
-    #     codes[:default].should == ['sudo restart']
+    #     queue "true"
+    #     codes[:default].should == ['sudo restart', 'true']
     #
     #     isolate do
     #       queue "reload"
     #       codes[:default].should == ['reload']
     #     end
     #
-    #     codes[:default].should == ['sudo restart']
+    #     codes[:default].should == ['sudo restart', 'true']
     #
     def isolate(&blk)
       old, @codes = @codes, nil
