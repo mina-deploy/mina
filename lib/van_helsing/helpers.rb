@@ -37,19 +37,34 @@ module VanHelsing
 
     # SSHs into the host and runs the code that has been queued.
     def run!
-      validate_set :hostname
+      validate_set :host
 
-      code = "(\n\n#{indent 2, codes[:default].join("\n")}\n\n) | ssh #{hostname} -- bash -"
-      puts "Running this code:"
+      args = settings.host
+      args = "#{settings.user}@#{args}" if settings.user
+      args << " -i #{settings.identity_file}" if settings.identity_file
+
+      code = [
+        '( cat <<DEPLOY_EOF',
+        indent(2, codes[:default].join("\n").gsub('$', '\$').strip),
+        "DEPLOY_EOF",
+        ") | ssh #{args} -- bash -"
+      ].join("\n")
+
       puts code
     end
 
     # Queues code to be ran.
+    # To get the things that have been queued, use codes[:default]
     def queue(code)
       codes
       codes[@code_block] << code.gsub(/^ */, '')
     end
 
+    # Returns a hash of the code blocks where commands have been queued.
+    #
+    #     > codes
+    #     #=> { :default => [ 'echo', 'sudo restart', ... ] }
+    #
     def codes
       @codes ||= begin
         @code_block = :default
