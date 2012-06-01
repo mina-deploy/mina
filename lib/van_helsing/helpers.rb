@@ -20,18 +20,19 @@ module VanHelsing
       settings.current_path    ||= "#{deploy_to}/current"
       settings.lock_file       ||= "#{deploy_to}/deploy.lock"
 
-      old, @codes = @codes, nil
-      yield
-      new_code, @codes = @codes, old
+      code = ''
 
-      prepare = new_code[:default].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-      restart = new_code[:restart].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-      clean   = new_code[:clean].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+      isolate do
+        yield
+        prepare = codes[:default].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+        restart = codes[:restart].map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+        clean   = codes[:clean].map   { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
 
-      require 'erb'
-      erb = ERB.new(File.read(VanHelsing.root_path('data/deploy.sh.erb')))
-      code = erb.result(binding)
-        
+        require 'erb'
+        erb = ERB.new(File.read(VanHelsing.root_path('data/deploy.sh.erb')))
+        code = erb.result(binding)
+      end
+      
       queue code
     end
 
@@ -80,6 +81,25 @@ module VanHelsing
         @code_block = :default
         Hash.new { |h, k| h[k] = Array.new }
       end
+    end
+
+    # Starts a new block where new #codes are collected.
+    #
+    #     queue "sudo restart"
+    #     codes[:default].should == ['sudo restart']
+    #
+    #     isolate do
+    #       queue "reload"
+    #       codes[:default].should == ['reload']
+    #     end
+    #
+    #     codes[:default].should == ['sudo restart']
+    #
+    def isolate(&blk)
+      old, @codes = @codes, nil
+      yield
+      new_code, @codes = @codes, old
+      codes
     end
 
     # Defines instructions on how to do a certain thing.
