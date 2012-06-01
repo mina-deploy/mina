@@ -91,10 +91,19 @@ module VanHelsing
       @code_block = old
     end
 
+    # Sets settings.
+    #
+    #     set :host, 'kickflip.me'
+    #
     def set(key, value)
       settings.send :"#{key}=", value
     end
 
+    # Accesses the settings hash.
+    #
+    #     set :host, 'kickflip.me'
+    #     settings.host  #=> 'kickflip.me'
+    #
     def settings
       @settings ||= OpenStruct.new
     end
@@ -111,6 +120,11 @@ module VanHelsing
       $stderr.write "#{str}\n"
     end
 
+    # Throws an error if a certain setting is not set.
+    #
+    #     validate_set :host
+    #     validate_set :deploy_to, :repository
+    #
     def validate_set(*settings)
       settings.each do |key|
         unless @settings.send(key)
