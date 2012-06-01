@@ -18,7 +18,6 @@ How to test
     $ ../bin/vh deploy simulate=1
     $ ../bin/vh deploy
 
-
 Setting up
 ----------
 
@@ -51,7 +50,7 @@ to your server via SSH and create the right directories.
 Use `vh deploy` to run the `deploy` task defined in config/deploy.rb.
 
     $ vh deploy
-    -----> Deploying to 2012-06-12--04-02-48
+    -----> Deploying to 2012-06-12-040248
            ...
            Lots of things happening...
            ...
