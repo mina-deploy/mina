@@ -101,6 +101,7 @@ module VanHelsing
     #     codes(:default).should == ['sudo restart', 'true']
     #
     def queue(code)
+      codes
       codes(@code_block) << code.gsub(/^ */, '')
     end
 
