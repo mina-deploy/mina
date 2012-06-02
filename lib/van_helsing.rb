@@ -5,8 +5,8 @@ module VanHelsing
   autoload :Helpers, 'van_helsing/helpers'
   autoload :Settings, 'van_helsing/settings'
 
-  Failed = Class.new(StandardError)
-  class Failed < StandardError
+  Error = Class.new(StandardError)
+  class Failed < Error
     attr_writer :exitstatus
   end
 

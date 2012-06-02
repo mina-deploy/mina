@@ -17,6 +17,12 @@ describe 'Settings' do
       @settings.foobar?.should be_false
     end
 
+    it 'question mark should work with nils' do
+      @settings.deploy_to = nil
+      @settings.deploy_to?.should be_true
+      @settings.foobar?.should be_false
+    end
+
     it '||= should work (1)' do
       @settings.x = 2
       @settings.x ||= 3
@@ -34,6 +40,15 @@ describe 'Settings' do
 
       @settings.path?.should be_true
       @settings.path.should == "/var/www/3"
+    end
+
+    it 'bangs should check for settings' do
+      begin
+        @settings.non_existent_setting!
+        1.should == 2
+      rescue VanHelsing::Error => e
+        e.message.should include "non_existent_setting"
+      end
     end
   end
 end

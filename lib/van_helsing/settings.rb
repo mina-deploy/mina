@@ -4,7 +4,10 @@ module VanHelsing
       if meth =~ /^(.*)=$/
         self[$1.to_sym] = args.first
       elsif meth =~ /^(.*)\?$/
-        !! self[$1.to_sym]
+        include? $1.to_sym
+      elsif meth =~ /^(.*)!$/
+        raise Error, "Setting :#{$1} is not set" unless include?($1.to_sym)
+        evaluate self[meth]
       else
         evaluate self[meth]
       end

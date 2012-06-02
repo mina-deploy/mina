@@ -27,4 +27,16 @@ describe 'Settings in rake tasks' do
     rake.path.should == "/var/www/42"
     rake.path?.should be_true
   end
+
+  it '#settings with a bang should work' do
+    begin
+      rake  {
+        set :path, lambda { "/var/www/#{version!}" }
+      }
+      rake.path
+      1.should == 2
+    rescue VanHelsing::Error => e
+      e.message.should include "version"
+    end
+  end
 end
