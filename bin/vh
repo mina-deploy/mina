@@ -2,9 +2,6 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
 
 require 'van_helsing'
-
-file = lambda { |path| path if File.exists?(path) }
-
 require 'rake'
 
 Rake.application.instance_eval do
