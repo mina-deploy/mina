@@ -2,9 +2,7 @@ namespace :deploy do
   desc "Forces a deploy unlock."
   task :force_unlock do
     queue %{echo "-----> Unlocking"}
-    queue %{rm -f "#{deploy_to}/deploy.lock"}
-    queue %{exit 234}
-    run!
+    queue %{rm -f "#{lock_file}"}
   end
 
   desc "Links paths set in :shared_paths."
