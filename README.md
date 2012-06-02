@@ -21,7 +21,7 @@ How to test
 Setting up
 ----------
 
-### 1. Create a config/deploy.rb.
+### 1. Create a config/deploy.rb
 
 In your project, type `vh init` to create a sample of this file.
 
@@ -32,10 +32,12 @@ This is just a Rake file with tasks!
 
 See [About deploy.rb](#about-deployrb) for more info on what *deploy.rb* is.
 
-### 2. Set up your server.
+### 2. Set up your server
 
 Make a directory in your server called `/var/www/flipstack.com` (in *deploy_to*)
 change it's ownership to the user `flipstack`.
+
+### 3. Run 'vh setup'
 
 Now do `vh setup` to set up the [folder structure](#directory-structure) in this
 path. This will connect to your server via SSH and create the right directories.
@@ -45,7 +47,7 @@ path. This will connect to your server via SSH and create the right directories.
 
 See [directory structure](#directory-structure) for more info.
 
-### 3. Deploy!
+### 4. Deploy!
 
 Use `vh deploy` to run the `deploy` task defined in *config/deploy.rb*.
 
