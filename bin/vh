@@ -9,11 +9,7 @@ config_file =
   file['Vhfile'] ||
   file['./config/deploy.rb']
 
-unless config_file
-  puts 'Config not found.'
-  exit 1
-end
-
+ARGV.unshift '-r', 'van_helsing/deploy'  if config_file
 ARGV.unshift '-r', VanHelsing::root_path('lib/van_helsing/rake.rb')
 ARGV.unshift '-f', config_file
 
