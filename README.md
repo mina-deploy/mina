@@ -78,7 +78,32 @@ The `queue` command queues up Bash commands to be ran on the remote server.
 If you invoke `vh restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
-### Subtasks
+See [the command queue](#the-command-queue) for more information on the *queue*
+command.
+
+The command queue
+-----------------
+
+At the heart of it, Van Helsing is merely sugar on top of Rake to queue commands
+and execute them remotely at the end.
+
+Take a look at this minimal *deploy.rb* configuration:
+
+``` ruby
+set :user, 'john'
+set :host, 'flipstack.com'
+
+task :logs do
+  queue 'echo "Contents of the log file are as follows:"'
+  queue "tail -f /var/log/apache.log"
+end
+```
+
+Once you type `vh logs` in your terminal, it invokes the *queue*d commands
+remotely on the server using the command `ssh john@flipstack.com`.
+
+Subtasks
+--------
 
 Van Helsing provides the helper `invoke` to invoke other tasks from a
 task.
@@ -102,9 +127,10 @@ In this example above, if you type `vh down`, it simply invokes the other
 subtasks which queues up their commands. The commands will be ran after
 everything.
 
-### Deploying
+Deploying
+---------
 
-Van Helsing provides the `deploy` command which `queue`s up a deploy script for
+Van Helsing provides the `deploy` command which *queue*s up a deploy script for
 you.
 
 ``` ruby
@@ -132,26 +158,8 @@ task :deploy do
 end
 ```
 
-The command queue
------------------
-
-At the heart of it, Van Helsing is merely sugar on top of Rake to queue commands
-and execute them remotely at the end.
-
-Take a look at this minimal *deploy.rb* configuration:
-
-``` ruby
-set :user, 'john'
-set :host, 'flipstack.com'
-
-task :logs do
-  queue 'echo "Contents of the log file are as follows:"'
-  queue "tail -f /var/log/apache.log"
-end
-```
-
-Once you type `vh logs` in your terminal, it invokes the *queue*d commands
-remotely on the server using the command `ssh john@flipstack.com`.
+It works by capturing the *queue*d commands inside the block, wrapping them
+in a deploy script, then *queue*ing them back in.
 
 How deploying works
 -------------------
@@ -246,3 +254,70 @@ end
 # $ vh restart
 # Error: You must set the :nginx_path setting
 ```
+
+Addons: Bundler
+---------------
+
+To manage Bundler installations, add this to your `deploy.rb`:
+
+``` ruby
+require 'van_helsing/bundler'
+```
+
+### Settings
+
+This introduces the following settings:
+
+* __bundle_path__  
+The path where bundles are going to be installed. Defaults to
+`./vendor/bundler`.
+
+* __bundle_options__  
+Options that will be passed onto `bundle install`.  Defaults to
+`--without development:test --path "#{bundle_path}" --binstubs bin/
+--deployment"`.
+
+### Task: bundle:install
+
+Invokes `bundle:install` on the current directory, creating the bundle
+path (specified in `bundle_path`), and invoking `bundle install`.
+
+The `bundle_path` is only created if `bundle_path` is set (which is on
+by default).
+
+Addons: Rails
+-------------
+
+To manage Rails project installations, add this to your `deploy.rb`:
+
+``` ruby
+require 'van_helsing/rails'
+```
+
+### Settings
+
+This introduces the following settings. All of them are optional.
+
+ * __rake__  
+ The `rake` command. Defaults to `RAILS_ENV="#{rails_env}" bundle exec rake`.
+
+ * __rails_env__  
+ Defaults to `production`.
+
+### Task: rails:db_migrate
+
+Invokes rake to migrate the database using `rake db:migrate`.
+
+### Task: rails:assets_precompile
+
+Precompiles assets. This invokes `rake assets:precomplie`.
+
+It also checks the current version to see if it has assets compiled. If it does,
+it reuses them, skipping the compilation step. To stop this behavior, invoke
+the `vh` command with `force_assets=1`.
+
+### Task: rails:assets_precompile:force
+
+Precompiles assets. This always skips the "reuse old assets if possible" step.
+
+
