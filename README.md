@@ -35,7 +35,7 @@ See [About deploy.rb](#about-deployrb) for more info on what *deploy.rb* is.
 ### 2. Set up your server
 
 Make a directory in your server called `/var/www/flipstack.com` (in *deploy_to*)
-change it's ownership to the user `flipstack`.
+change it's ownership to the correct user.
 
     # SSH into your server, then:
     mkdir /var/www/flipstack.com
