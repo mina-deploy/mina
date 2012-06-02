@@ -7,7 +7,7 @@ module VanHelsing
         include? $1.to_sym
       elsif meth =~ /^(.*)!$/
         raise Error, "Setting :#{$1} is not set" unless include?($1.to_sym)
-        evaluate self[meth]
+        evaluate self[$1.to_sym]
       else
         evaluate self[meth]
       end

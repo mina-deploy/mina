@@ -12,7 +12,6 @@ module VanHelsing
     #     end
     #
     def deploy(&blk)
-      settings.deploy_to!
       settings.current_version ||= Time.now.strftime("%Y-%m-%d-%H%m%S")
 
       code = isolate do

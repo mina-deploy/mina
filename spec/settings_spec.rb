@@ -50,6 +50,11 @@ describe 'Settings' do
         e.message.should include "non_existent_setting"
       end
     end
+
+    it 'bangs should return settings' do
+      @settings.version = 4
+      @settings.version!.should == 4
+    end
   end
 end
 
