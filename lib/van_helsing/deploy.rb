@@ -1,7 +1,8 @@
-settings.release_path ||= lambda { "#{settings.deploy_to!}/releases/#{settings.current_version!}" }
-settings.shared_path  ||= lambda { "#{settings.deploy_to!}/shared" }
-settings.current_path ||= lambda { "#{settings.deploy_to!}/current" }
-settings.lock_file    ||= lambda { "#{settings.deploy_to!}/deploy.lock" }
+settings.releases_path ||= lambda { "#{settings.deploy_to!}/releases" }
+settings.shared_path   ||= lambda { "#{settings.deploy_to!}/shared" }
+settings.current_path  ||= lambda { "#{settings.deploy_to!}/current" }
+settings.release_path  ||= lambda { "#{releases_path}/#{settings.current_version!}" }
+settings.lock_file     ||= lambda { "#{settings.deploy_to!}/deploy.lock" }
 
 namespace :deploy do
   desc "Forces a deploy unlock."
@@ -37,5 +38,5 @@ task :setup do
   queue echo_cmd %{mkdir -p "#{deploy_to}"}
   queue echo_cmd %{chmod g+r,a+rwx "#{deploy_to}"}
   queue echo_cmd %{mkdir -p "#{deploy_to}/releases"}
-  queue echo_cmd %{mkdir -p "#{deploy_to}/shared"}
+  queue echo_cmd %{mkdir -p "#{shared_path}"}
 end
