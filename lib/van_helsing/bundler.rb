@@ -9,7 +9,7 @@ namespace :bundle do
     queue %{
       echo "-----> Installing gem dependencies using Bundler"
       mkdir -p "#{shared_path}/bundle"
-      mkdir -p "#{release_path}/vendor"
+      mkdir -p "./vendor"
       ln -s "#{shared_path}/bundle" "#{bundle_path}"
       bundle install #{bundle_options}
     }
