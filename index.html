@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Van Helsing</title>
     <link href="style.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:700,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:400,700,700italic' rel='stylesheet' type='text/css'>
     
 </head>
 <body class='literate toc github'>
@@ -277,6 +277,55 @@ at the end.</p>
 
 <br class="post-pre">
 
+</section></section><section class=" after-pre h2 defaults"><h2 id="defaults" class=" after-pre">Defaults</h2>
+
+<p>There are a few deploy-related tasks and settings that are on by default.</p>
+
+<section class=" h3 settings"><h3 id="settings">Settings</h3>
+
+<ul>
+<li><p><code>releases_path</code> - The path to where releases are kept. Defaults to
+<code>#{deploy_to}/releases</code>.</p></li>
+<li><p><code>shared_path</code> - Where shared files are kept. Defaults to
+<code>#{deploy_to}/shared</code>.</p></li>
+<li><p><code>current_path</code> - The path to the symlink to the current release. Defaults to
+<code>#{deploy_to}/current</code>.</p></li>
+<li><p><code>lock_file</code> - The deploy lock file. A deploy does not start if this file is
+found. Defaults to <code>#{deploy_to}/deploy.lock</code>.</p></li>
+</ul></section><section class=" h3 task_-_setup"><h3 id="task_-_setup">Task - setup</h3>
+<pre class=" lang- prettyprint right"><code>$ vh setup
+-----&gt; Setting up
+       $ mkdir -p /var/www/kickstack.me
+       $ chmod g+r,a+rwx /var/www/kickstack.me
+       $ mkdir -p /var/www/kickstack.me/releases
+       $ mkdir -p /var/www/kickstack.me/shared
+       ...
+</code></pre>
+
+<p>Prepares the <code>deploy_to</code> directory for deployments. Sets up subdirectories and
+sets permissions in the path.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 task_-_deploy_force_unlock"><h3 id="task_-_deploy_force_unlock" class=" after-pre">Task - deploy:force_unlock</h3>
+<pre class=" lang- prettyprint right"><code>$ vh deploy
+-----&gt; ERROR: another deployment is ongoing.
+       Delete the lock file to continue.
+
+$ vh deploy:force_unlock
+-----&gt; Unlocking
+       $ rm /var/www/kickstack.me/deploy.lock
+
+$ vh deploy
+# The deploy should proceed now
+</code></pre>
+
+<p>Removes the deploy lock file. If a deploy is terminated midway, it may leave a
+lock file to signal that deploys shouldn't be made. This forces the removal of
+that lock file.</p>
+
+<br class="post-pre">
+
 </section></section><section class=" after-pre h2 addons_git"><h2 id="addons_git" class=" after-pre">Addons: Git</h2>
 <pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/git'
 
@@ -378,6 +427,11 @@ the <code>vh</code> command with <code>force_assets=1</code>.</p>
 <li><a href="#dynamic_values">Dynamic values</a></li>
 <li><a href="#inside_and_outside_tasks">Inside and outside tasks</a></li>
 <li><a href="#validations">Validations</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#defaults">Defaults</a></h3>
+<ul>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#task_-_setup">Task - setup</a></li>
+<li><a href="#task_-_deploy_force_unlock">Task - deploy:force_unlock</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#addons_git">Addons: Git</a></h3>
 <ul>
 <li><a href="#settings">Settings</a></li>
