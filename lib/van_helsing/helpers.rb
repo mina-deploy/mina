@@ -12,8 +12,7 @@ module VanHelsing
     #     end
     #
     def deploy(&blk)
-      validate_set :deploy_to
-
+      settings.deploy_to!
       settings.current_version ||= Time.now.strftime("%Y-%m-%d-%H%m%S")
 
       code = isolate do
@@ -51,11 +50,9 @@ module VanHelsing
     def ssh(cmd, options={})
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
 
-      validate_set :host
-
-      args = settings.host
-      args = "#{settings.user}@#{args}" if settings.user
-      args << " -i #{settings.identity_file}" if settings.identity_file
+      args = host!
+      args = "#{user}@#{args}" if user?
+      args << " -i #{identity_file}" if identity_file?
 
       code = [
         '( cat <<VH_EOF',
@@ -212,20 +209,6 @@ module VanHelsing
 
     def error(str)
       $stderr.write "#{str}\n"
-    end
-
-    # Throws an error if a certain setting is not set.
-    #
-    #     validate_set :host
-    #     validate_set :deploy_to, :repository
-    #
-    def validate_set(*settings)
-      settings.each do |key|
-        unless @settings.send(key)
-          error "ERROR: You must set the :#{key} setting."
-          exit 1
-        end
-      end
     end
 
     def vh_cleanup!

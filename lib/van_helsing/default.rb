@@ -12,9 +12,7 @@ namespace :deploy do
 
   desc "Links paths set in :shared_paths."
   task :link_shared_paths do
-    validate_set :shared_paths
-
-    dirs = shared_paths.map { |file| File.dirname("#{release_path}/#{file}") }.uniq
+    dirs = shared_paths!.map { |file| File.dirname("#{release_path}/#{file}") }.uniq
 
     cmds = dirs.map do |dir|
       %{mkdir -p "#{dir}"}
