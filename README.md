@@ -434,7 +434,7 @@ Precompiles assets. This always skips the "reuse old assets if possible" step.
 Acknowledgements
 ----------------
 
-© 2011, Nadarei. Released under the [MIT 
+© 2012, Nadarei. Released under the [MIT 
 License](http://www.opensource.org/licenses/mit-license.php).
 
 Van Helsing is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
@@ -449,6 +449,11 @@ Rico:
  * [My website](http://ricostacruz.com) (ricostacruz.com)
  * [Github](http://github.com/rstacruz) (@rstacruz)
  * [Twitter](http://twitter.com/rstacruz) (@rstacruz)
+
+Michael:
+
+ * [My website][mg] (michaelgalero.com)
+ * [Github](http://github.com/mikong) (@mikong)
 
 [rsc]: http://ricostacruz.com
 [mg]:  http://devblog.michaelgalero.com/
