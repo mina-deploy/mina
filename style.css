@@ -1,0 +1,344 @@
+html, body {
+  margin: 0;
+  padding: 0; }
+
+body {
+  background: #fcfcfa;
+  font-family: 'pt sans', sans-serif;
+  color: #444;
+  font-size: 11pt;
+  line-height: 1.5; }
+
+::-moz-selection { background: #88a; color: #fff; text-shadow: none; }
+::selection      { background: #88a; color: #fff; text-shadow: none; }
+
+h1, h2, h3, h4, h5, h6, p, ol, ul, pre, ol>li {
+  max-width: 500px;
+  margin: 20px 0; }
+
+ol, ul {
+  padding-left: 0;
+  margin-left: 30px; }
+
+#all {
+  min-width: 960px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 40px; }
+
+a, a:visited {
+  text-decoration: none;
+  border-bottom: solid 1px #ccf;
+  color: #46b; }
+
+a:hover {
+  background: #fafae0; }
+
+/* List */
+ul li > p > strong:first-child {
+  display: block;
+  font-size: 1.1em; }
+
+/* Headings */
+h1 {
+  font-family: palatino, serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  text-shadow: 2px 2px 0 rgba(55, 55, 55, 0.1);
+  color: #568;
+  font-weight: normal;
+  font-family: shanti, palatino, serif; }
+
+h3 {
+  color: #77a; }
+
+h4, h5, h6 {
+  color: #88a; }
+
+/* The "(class method)" thing */
+h1 .type, h2 .type, h3 .type, h4 .type, h5 .type, h6 .type {
+  font-size: 9pt;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-left: 10px; }
+
+h2 {
+  max-width: none;
+  padding-top: 30px;
+  margin-top: 40px; }
+
+h3 {
+  max-width: none;
+  padding-top: 10px;
+  margin-top: 40px; }
+
+h1 { font-size: 30pt; }
+h2 { font-size: 23pt; }
+h3 { font-size: 14pt; }
+h4 { font-size: 14pt; }
+h5 { font-size: 10pt; }
+h6 { font-size: 10pt; }
+
+h2+p { margin-top: 0; }
+h2+pre.right+p { margin-top: 0; }
+
+/* Code */
+pre, code {
+  font-family: Monaco, monospace; }
+
+code {
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.99);
+  font-family: 'shanti', sans-serif;
+  color: #9090aa; }
+
+pre > code {
+  color: #60606f;
+  text-shadow: none;
+  font-family: Monaco, monospace;
+  background: 0;
+  padding: 0;
+  border: 0; }
+
+pre {
+  font-size: 9pt;
+  padding-top: 5px;
+  background: transparent; }
+
+/* The header */
+.header h1, .header h2, .header h3,
+.header h4, .header h5, .header h6 {
+  text-shadow: none;
+  line-height: 1.35;
+  margin: 0;
+  padding: 0; }
+
+.header h1 a,
+.header h1 {
+  font-family: 'pt sans', sans-serif;
+  font-weight: bold;
+  color: #779; }
+
+.header h1 a {
+  border-bottom: 0; }
+
+.header h2, .header h3,
+.header h4, .header h5, .header h6 {
+  color: #aab; } /* color: #78b; */
+
+.header h4 {
+  font-size: 1.4em;
+  font-family: palatino, serif;
+  font-style: italic;
+  font-weight: normal; }
+
+/* Literate */
+body.literate h4, body.literate h5, body.literate h6, body.literate p,
+body.literate ol, body.literate ul, body.literate pre {
+  max-width: 400px; }
+
+body.literate pre.right {
+  clear: both;
+  max-width: none;
+  width: 490px;
+  margin-left: 50px;
+  float: right; }
+
+body.literate pre.right code {
+  color: #78a; }
+
+body.literate h1 + pre.right,
+body.literate h2 + pre.right,
+body.literate h3 + pre.right {
+  margin-top: 0; }
+
+h1, h2, h3 {
+  clear: both; }
+
+.clear {
+  clear: both; }
+
+br.post-pre {
+  clear: both; }
+
+h4 { margin-bottom: 5px; }
+h4+p,
+h4+pre.right,
+h4+pre.right+p { margin-top: 0; }
+
+/* Section-wrap */
+section {
+  width: 960px;
+  margin-top: 0;
+  margin-left: 0;
+  padding-left: 40px;
+  margin-left: -40px;
+  padding-right: 9000px; }
+
+section::after {
+  content: '';
+  display: table;
+  clear: both; }
+
+section.h2:nth-child(even) {
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8); }
+
+section:first-of-type {
+  margin-top: 40px; }
+
+section.h1, section.h2, section.h3 {
+  padding-top: 30px;
+  padding-bottom: 40px;
+  border-top: solid 1px #eee; }
+
+section.h1 {
+  border-top: solid 10px #ddd; }
+
+section.h3 {
+  padding-top: 20px;
+  margin-top: 40px;
+  padding-left: 30px;
+  border-left: solid 10px #e7e7f4;
+  border-top: dotted 1px #ddd; }
+
+section.h3:nth-child(odd) {
+  border-left-color: #d0d0e8; }
+
+section.h3 + section.h3 {
+  margin-top: -20px; }
+
+section.h1>:first-child, section.h2>:first-child, section.h3>:first-child {
+  padding-top: 0;
+  margin-top: 0; }
+
+/* API */
+section.api h2,
+section.api h3 {
+  margin-bottom: 0; }
+
+section.api h2 + p,
+section.api h2 + pre + p,
+section.api h3 + p,
+section.api h3 + pre + p {
+  margin-top: 0; }
+
+h2 .args,
+h3 .args {
+  margin-left: 3px;
+  font-size: 0.9em;
+  margin-right: 15px;
+  color: #aab; }
+
+/* Pretty printing styles. Used with prettify.js. */
+.str { color: #080; }
+.kwd { color: #008; }
+.com { color: #607077; background: rgba(0, 0, 0, 0.05); padding: 1px 3px; }
+.typ { color: #606; }
+.lit { color: #066; }
+.pun { color: #660; }
+.pln { color: #000; }
+.tag { color: #008; }
+.atn { color: #606; }
+.atv { color: #080; }
+.dec { color: #606; }
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1, li.L3, li.L5, li.L7, li.L9 { background: #eee }
+
+@media print {
+  .str { color: #060; }
+  .kwd { color: #006; font-weight: bold; }
+  .com { color: #600; font-style: italic; }
+  .typ { color: #404; font-weight: bold; }
+  .lit { color: #044; }
+  .pun { color: #440; }
+  .pln { color: #000; }
+  .tag { color: #006; font-weight: bold; }
+  .atn { color: #404; }
+  .atv { color: #060; }
+}
+
+/* TOC */
+body.toc {
+  margin-left: 200px; }
+
+aside#toc {
+  font-size: 0.9em;
+  line-height: 1.7;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  width: 180px;
+  overflow-y: auto;
+  box-shadow: inset -2px 0 2px rgba(0, 0, 0, 0.1);
+  border-right: solid 1px #ccc;
+  background: #f4f4fa; }
+
+aside#toc h1,
+aside#toc h2,
+aside#toc h3 {
+  margin: 10px 0;
+  padding: 0;
+  font-size: 1.1em; }
+
+aside#toc h1 {
+  color: #aaa;
+  text-shadow: none;
+  font-size: 1.3em; }
+
+aside#toc h2,
+aside#toc h3 {
+  border-top: solid 1px #ddd;
+  padding-top: 10px; }
+
+aside#toc h2 .type,
+aside#toc h3 .type {
+  margin-top: 2px;
+  margin-left: 0; }
+
+aside#toc ul,
+aside#toc li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+
+aside#toc h1 a,
+aside#toc h2 a,
+aside#toc h3 a {
+  color: #333; }
+
+aside#toc a {
+  height: 1.6em;
+  overflow: hidden;
+  line-height: 1.6em;
+  position: relative;
+  display: block;
+  border-bottom: 0;
+  color: #555; }
+
+aside#toc a span.args {
+  display: none; }
+
+aside#toc a span.type {
+  font-weight: normal;
+  color: #999;
+  text-transform: uppercase;
+  font-size: 8pt;
+  float: right; }
+
+aside#toc::-webkit-scrollbar {  
+  height: 15px; width: 15px;
+}
+
+aside#toc::-webkit-scrollbar-thumb {  
+  border-width: 7px 7px 7px 7px;
+  -webkit-border-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZEMERCMUZGRUI2MTFERkIwQ0RGMkFBNEE3NDlCOUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZEMERCMjBGRUI2MTFERkIwQ0RGMkFBNEE3NDlCOUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkQwREIxREZFQjYxMURGQjBDREYyQUE0QTc0OUI5QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkQwREIxRUZFQjYxMURGQjBDREYyQUE0QTc0OUI5QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpHo8kwAAACBSURBVHjaYvz//z8DJYCJgUJAsQEsyBxGRkYwBcS6QKwBxLJQqcdAfAOILwPxf2RvM6JwICbYA7EDDgsPAPFBZBPQvaCLRzMDVE4XXxhoEOFtDXwGyBJhgCxNo/ExEXoe4zPgBhEG3MBnwGVoVDHgicbLKGkHLR1QlpCGZmYCCDAAxuMoE4WhhWUAAAAASUVORK5CYII=) 7 7 7 7 round round;
+}

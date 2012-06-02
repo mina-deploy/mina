@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Van Helsing</title>
+    <link href="style.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:700,700italic' rel='stylesheet' type='text/css'>
+    
+</head>
+<body class='literate toc github'>
+  
+    <a href="https://github.com/nadarei/van_helsing"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+  
+  <div id='all'>
+
+<hgroup class="header"><h1 id="van_helsing">Van Helsing</h1></hgroup><p class=" brief">Really fast deployer and server automation tool.</p>
+
+<p>Van Helsing works really fast because it's a deploy Bash script generator. It
+generates an entire procedure as a Bash script and runs it remotely in the
+server.</p>
+
+<p>Compare this to the likes of Vlad or Capistrano, where each command
+is ran separately on their own SSH sessions. Van Helsing only creates <em>one</em> SSH.
+session per deploy, minimizing the SSH connection overhead.</p>
+
+<section class=" h2 how_to_test"><h2 id="how_to_test">How to test</h2>
+<pre class=" lang- prettyprint right"><code>$ cd test_env
+$ ../bin/vh deploy simulate=1
+$ ../bin/vh deploy
+</code></pre>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h2 setting_up"><h2 id="setting_up" class=" after-pre">Setting up</h2>
+
+<section class=" h3 1_create_a_config_deploy_rb"><h3 id="1_create_a_config_deploy_rb">1. Create a config/deploy.rb.</h3>
+<pre class=" lang- prettyprint right"><code>$ vh init
+Created config/deploy.rb.
+</code></pre>
+
+<p>In your project, type <code>vh init</code> to create a sample of this file.</p>
+
+<p>This is just a Rake file with tasks!</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">See <a href="#about-deployrb">About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
+
+</section><section class=" h3 2_set_up_your_server"><h3 id="2_set_up_your_server">2. Set up your server.</h3>
+<pre class=" lang- prettyprint right"><code>$ vh setup
+-----&gt; Creating folders... done.
+</code></pre>
+
+<p>Make a directory in your server called <code>/var/www/flipstack.com</code> (in <em>deploy_to</em>)
+change it's ownership to the user <code>flipstack</code>.</p>
+
+<p>Now do <code>vh setup</code> to set up the <a href="#directory-structure">folder structure</a> in this
+path. This will connect to your server via SSH and create the right directories.</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">See <a href="#directory-structure">directory structure</a> for more info.</p>
+
+</section><section class=" h3 3_deploy"><h3 id="3_deploy">3. Deploy!</h3>
+<pre class=" lang- prettyprint right"><code>$ vh deploy
+-----&gt; Deploying to 2012-06-12-040248
+       ...
+       Lots of things happening...
+       ...
+-----&gt; Done.
+</code></pre>
+
+<p>Use <code>vh deploy</code> to run the <code>deploy</code> task defined in <em>config/deploy.rb</em>.</p>
+
+<br class="post-pre">
+
+</section></section><section class=" after-pre h2 about_deploy_rb"><h2 id="about_deploy_rb" class=" after-pre">About deploy.rb</h2>
+<pre class=" lang- prettyprint right"><code class="ruby"># Sample config/deploy.rb
+set :host, 'your.server.com'
+
+task :restart do
+  queue 'sudo service restart apache'
+end
+</code></pre>
+
+<p>The file <code>deploy.rb</code> is simply a Rakefile invoked by Rake. In fact, <code>vh</code> is
+mostly an alias that invokes Rake to load <code>deploy.rb</code>.</p>
+
+<p>As it's all Rake, you can define tasks that you can invoke using <code>vh</code>. In this
+example, it provides the <code>vh restart</code> command.</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">The magic of Van Helsing is in the new commands it gives you.</p>
+
+<p>The <code>queue</code> command queues up Bash commands to be ran on the remote server.
+If you invoke <code>vh restart</code>, it will invoke the task above and run the queued
+commands on the remote server <code>your.server.com</code> via SSH.</p>
+
+<p>See <a href="#the-command-queue">the command queue</a> for more information on the <em>queue</em>
+command.</p>
+
+</section><section class=" h2 the_command_queue"><h2 id="the_command_queue">The command queue</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">set :user, 'john'
+set :host, 'flipstack.com'
+
+task :logs do
+  queue 'echo "Contents of the log file are as follows:"'
+  queue "tail -f /var/log/apache.log"
+end
+</code></pre>
+
+<p>At the heart of it, Van Helsing is merely sugar on top of Rake to queue commands
+and execute them remotely at the end.</p>
+
+<p>Take a look at this minimal <em>deploy.rb</em> configuration:</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">Once you type <code>vh logs</code> in your terminal, it invokes the <em>queue</em>d commands
+remotely on the server using the command <code>ssh john@flipstack.com</code>.</p>
+
+</section><section class=" h2 subtasks"><h2 id="subtasks">Subtasks</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">task :down do
+  invoke :maintenance_on
+  invoke :restart
+end
+
+task :maintenance_on
+  queue 'touch maintenance.txt'
+end
+
+task :restart
+  queue 'sudo service restart apache'
+end
+</code></pre>
+
+<p>Van Helsing provides the helper <code>invoke</code> to invoke other tasks from a
+task.</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">In this example above, if you type <code>vh down</code>, it simply invokes the other
+subtasks which queues up their commands. The commands will be ran after
+everything.</p>
+
+</section><section class=" h2 deploying"><h2 id="deploying">Deploying</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">set :host, 'flipstack.com'
+set :user, 'flipstack'
+set :deploy_to, '/var/www/flipstack.com'
+
+task :deploy do
+  deploy do
+    # Put things that prepare the empty release folder here.
+    # Commands queued here will be ran on a new release directory.
+    invoke :'git:checkout'
+    invoke :'bundle:install'
+
+    # These are instructions to start the app after it's been prepared.
+    to :restart do
+      run 'touch tmp/restart.txt'
+    end
+
+    # This optional block defines how a broken release should be cleaned up.
+    to :clean do
+      queue 'log "failed deployment for #{current_version}"'
+    end
+  end
+end
+</code></pre>
+
+<p>Van Helsing provides the <code>deploy</code> command which <em>queue</em>s up a deploy script for
+you.</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">It works by capturing the <em>queue</em>d commands inside the block, wrapping them
+in a deploy script, then <em>queue</em>ing them back in.</p>
+
+</section><section class=" h2 how_deploying_works"><h2 id="how_deploying_works">How deploying works</h2>
+
+<p>The deploy process looks like this:</p>
+
+<ol>
+<li>Decide on a release name based on the current timestamp, say,
+<code>2012-06-02-045823</code>.</li>
+<li>cd to <code>/var/www/flipstack.com</code> (the <em>deploy_to</em> path).</li>
+<li>Create <code>./releases/2012-06-02-045823</code> (the <em>release path</em>).</li>
+<li>Invoke the queued up commands in the <code>deploy</code> block. Usually, this is a git
+checkout, along with some commands to initialize the app, such as running DB
+migrations.</li>
+<li>Once it's been prepared, the release path is symlinked into <code>./current</code>.</li>
+<li>Invoke the commands queued up in the <code>to :restart</code> block. These often
+commands to restart the webserver process.</li>
+</ol>
+<p>If it fails at any point, the release path will be deleted. If any commands are
+queued using the <code>to :clean</code> block, they will be ran. It will be as if nothing
+happened.</p>
+
+</section><section class=" h2 directory_structure"><h2 id="directory_structure">Directory structure</h2>
+<pre class=" lang- prettyprint right"><code>/var/www/flipstack.com/     # The deploy_to path
+ |-  releases/              # Holds releases, one subdir per release
+ |   |- 2012-06-12-838948
+ |   |- 2012-06-23-034828
+ |   '- ...
+ |-  shared/                # Holds files shared between releases
+ |   |- logs/               # Log files are usually stored here
+ |   `- ...
+ '-  current/               # A symlink to the current release in releases/
+</code></pre>
+
+<p>The deploy procedures make the assumption that you have a folder like so:</p>
+
+<br class="post-pre">
+
+<p class=" after-pre">It also assumes that the <code>deploy_to</code> path is fully writeable/readable for the
+user we're going to SSH with.</p>
+
+</section><section class=" h2 configuring_settings"><h2 id="configuring_settings">Configuring settings</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">set :version, "v2.0.5"
+
+settings.version    #=&gt; "v2.0.5"
+settings.version?   #=&gt; true
+</code></pre>
+
+<p>Settings are managed using the <code>set</code> and <code>settings</code> methods. This convention is
+inspired by Sinatra and Vlad.</p>
+
+<br class="post-pre">
+
+<pre class=" lang- prettyprint right"><code class="ruby">set :version, "v2.0.5"
+
+version    #=&gt; "v2.0.5"
+version?   #=&gt; true
+</code></pre>
+<p class=" after-pre">You can also retrieve settings without the <code>settings.</code> prefix.</p>
+
+<br class="post-pre">
+
+<section class=" after-pre h3 dynamic_values"><h3 id="dynamic_values" class=" after-pre">Dynamic values</h3>
+<pre class=" lang- prettyprint right"><code class="ruby">set :tag, lambda { "release/#{version}" }
+set :version, "v2.0.5"
+
+tag    #=&gt; "release/v2.0.5"
+</code></pre>
+
+<p>You can also give settings using a lambda. When the setting is retrieved, it
+will be evaluated.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 inside_and_outside_tasks"><h3 id="inside_and_outside_tasks" class=" after-pre">Inside and outside tasks</h3>
+<pre class=" lang- prettyprint right"><code class="ruby">set :admin_email, "johnsmith@gmail.com"
+
+task :email do
+  set :message, "Deploy is done"
+
+  system "echo #{message} | mail #{admin_email}"
+end
+</code></pre>
+
+<p>All of these are accessible inside and outside tasks.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 validations"><h3 id="validations" class=" after-pre">Validations</h3>
+<pre class=" lang- prettyprint right"><code class="ruby">task :restart do
+  queue "#{settings.nginx_path!}/sbin/nginx restart"
+end
+
+# $ vh restart
+# Error: You must set the :nginx_path setting
+</code></pre>
+
+<p>If you would like an error to be thrown if a setting is not present, add a bang
+at the end.</p>
+
+<br class="post-pre">
+
+</section></section><section class=" after-pre h2 addons_git"><h2 id="addons_git" class=" after-pre">Addons: Git</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/git'
+
+set :repository, 'https://github.com/you/your-app.git'
+</code></pre>
+
+<p>To deploy projects using git, add this to your <code>deploy.rb</code>:</p>
+
+<br class="post-pre">
+
+<section class=" after-pre h3 settings"><h3 id="settings" class=" after-pre">Settings</h3>
+
+<p>This introduces the following settings:</p>
+
+<ul>
+<li><p><strong>repository</strong><br>
+The repository path to clone from. <em>Required.</em></p></li>
+<li><p><strong>revision</strong>  The SHA1 of the commit to be deployed. Defaults to whatever is
+the current HEAD in your local copy.</p></li>
+</ul></section><section class=" h3 task_-_git_clone"><h3 id="task_-_git_clone">Task - git:clone</h3>
+
+<p>Clones from the repo into the current folder.</p>
+
+</section></section><section class=" h2 addons_bundler"><h2 id="addons_bundler">Addons: Bundler</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/bundler'
+</code></pre>
+
+<p>To manage Bundler installations, add this to your <code>deploy.rb</code>:</p>
+
+<br class="post-pre">
+
+<section class=" after-pre h3 settings"><h3 id="settings" class=" after-pre">Settings</h3>
+
+<p>This introduces the following settings:</p>
+
+<ul>
+<li><p><strong>bundle_path</strong><br>
+The path where bundles are going to be installed. Defaults to
+<code>./vendor/bundler</code>.</p></li>
+<li><p><strong>bundle_options</strong><br>
+Options that will be passed onto <code>bundle install</code>.  Defaults to
+<code>--without development:test --path "#{bundle_path}" --binstubs bin/
+--deployment"</code>.</p></li>
+</ul></section><section class=" h3 task_-_bundle_install"><h3 id="task_-_bundle_install">Task - bundle:install</h3>
+
+<p>Invokes <code>bundle:install</code> on the current directory, creating the bundle
+path (specified in <code>bundle_path</code>), and invoking <code>bundle install</code>.</p>
+
+<p>The <code>bundle_path</code> is only created if <code>bundle_path</code> is set (which is on
+by default).</p>
+
+</section></section><section class=" h2 addons_rails"><h2 id="addons_rails">Addons: Rails</h2>
+<pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/rails'
+</code></pre>
+
+<p>To manage Rails project installations, add this to your <code>deploy.rb</code>:</p>
+
+<br class="post-pre">
+
+<section class=" after-pre h3 settings"><h3 id="settings" class=" after-pre">Settings</h3>
+
+<p>This introduces the following settings. All of them are optional.</p>
+
+<ul>
+<li><p><strong>rake</strong><br>
+The <code>rake</code> command. Defaults to <code>RAILS_ENV="#{rails_env}" bundle exec rake</code>.</p></li>
+<li><p><strong>rails_env</strong><br>
+Defaults to <code>production</code>.</p></li>
+</ul></section><section class=" h3 task_-_rails_db_migrate"><h3 id="task_-_rails_db_migrate">Task - rails:db_migrate</h3>
+
+<p>Invokes rake to migrate the database using <code>rake db:migrate</code>.</p>
+
+</section><section class=" h3 task_-_rails_assets_precompile"><h3 id="task_-_rails_assets_precompile">Task - rails:assets_precompile</h3>
+
+<p>Precompiles assets. This invokes <code>rake assets:precomplie</code>.</p>
+
+<p>It also checks the current version to see if it has assets compiled. If it does,
+it reuses them, skipping the compilation step. To stop this behavior, invoke
+the <code>vh</code> command with <code>force_assets=1</code>.</p>
+
+</section><section class=" h3 task_-_rails_assets_precompile_force"><h3 id="task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</h3>
+
+<p>Precompiles assets. This always skips the "reuse old assets if possible" step.</p></section></section><aside id="toc"><h1>Van Helsing</h1>
+<nav class="level-2"><h3><a href="#how_to_test">How to test</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#setting_up">Setting up</a></h3>
+<ul>
+<li><a href="#1_create_a_config_deploy_rb">1. Create a config/deploy.rb.</a></li>
+<li><a href="#2_set_up_your_server">2. Set up your server.</a></li>
+<li><a href="#3_deploy">3. Deploy!</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#about_deploy_rb">About deploy.rb</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#the_command_queue">The command queue</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#subtasks">Subtasks</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#deploying">Deploying</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#how_deploying_works">How deploying works</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#directory_structure">Directory structure</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#configuring_settings">Configuring settings</a></h3>
+<ul>
+<li><a href="#dynamic_values">Dynamic values</a></li>
+<li><a href="#inside_and_outside_tasks">Inside and outside tasks</a></li>
+<li><a href="#validations">Validations</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#addons_git">Addons: Git</a></h3>
+<ul>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#task_-_git_clone">Task - git:clone</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#addons_bundler">Addons: Bundler</a></h3>
+<ul>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#task_-_bundle_install">Task - bundle:install</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#addons_rails">Addons: Rails</a></h3>
+<ul>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#task_-_rails_db_migrate">Task - rails:db_migrate</a></li>
+<li><a href="#task_-_rails_assets_precompile">Task - rails:assets_precompile</a></li>
+<li><a href="#task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</a></li>
+</ul></nav></aside></div>
+  <script type='text/javascript' src='http://cachedcommons.org/cache/prettify/1.0.0/javascripts/prettify-min.js'></script>
+  <script>prettyPrint();</script>
+</body>
+</html>
