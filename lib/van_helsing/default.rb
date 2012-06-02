@@ -1,4 +1,5 @@
 # Default tasks here
+desc "Creates a sample config file."
 task :init do
   config_file = Rake.application.rakefile
 
@@ -13,4 +14,18 @@ task :init do
 
   puts 'Created deploy.rb.'
   puts 'Edit it, then run `vh setup` after.'
+end
+
+task :default => :help
+
+desc "Show help."
+task :help do
+  name = Rake.application.name
+  puts "#{name} - Really fast server deployment and automation tool"
+  puts ""
+  puts "Usage:"
+  puts "  #{name} init      # Creates a sample Van Helsing config file."
+  puts "  #{name} setup     # Sets up a server."
+  puts ""
+  puts "See '#{name} -T' for a full list of available tasks."
 end
