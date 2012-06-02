@@ -30,24 +30,24 @@ This is just a Rake file with tasks!
     $ vh init
     Created config/deploy.rb.
 
+See [About deploy.rb](#about-deployrb) for more info on what *deploy.rb* is.
+
 ### 2. Set up your server.
 
 Make a directory in your server called `/var/www/flipstack.com` (in *deploy_to*)
 change it's ownership to the user `flipstack`.
 
-Now do `vh setup` to set up the folder structure in this path. This will connect
-to your server via SSH and create the right directories.
+Now do `vh setup` to set up the [folder structure](#directory-structure) in this
+path. This will connect to your server via SSH and create the right directories.
 
     $ vh setup
     -----> Creating folders... done.
 
-    $ ssh flipstack@flipstack.com -- ls /var/www/flipstack.com
-    releases
-    shared
+See [directory structure](#directory-structure) for more info.
 
 ### 3. Deploy!
 
-Use `vh deploy` to run the `deploy` task defined in config/deploy.rb.
+Use `vh deploy` to run the `deploy` task defined in *config/deploy.rb*.
 
     $ vh deploy
     -----> Deploying to 2012-06-12-040248
@@ -55,7 +55,6 @@ Use `vh deploy` to run the `deploy` task defined in config/deploy.rb.
            Lots of things happening...
            ...
     -----> Done.
-
 
 About deploy.rb
 ---------------
@@ -133,6 +132,27 @@ task :deploy do
 end
 ```
 
+The command queue
+-----------------
+
+At the heart of it, Van Helsing is merely sugar on top of Rake to queue commands
+and execute them remotely at the end.
+
+Take a look at this minimal *deploy.rb* configuration:
+
+``` ruby
+set :user, 'john'
+set :host, 'flipstack.com'
+
+task :logs do
+  queue 'echo "Contents of the log file are as follows:"'
+  queue "tail -f /var/log/apache.log"
+end
+```
+
+Once you type `vh logs` in your terminal, it invokes the *queue*d commands
+remotely on the server using the command `ssh john@flipstack.com`.
+
 How deploying works
 -------------------
 
@@ -170,3 +190,59 @@ The deploy procedures make the assumption that you have a folder like so:
 
 It also assumes that the `deploy_to` path is fully writeable/readable for the
 user we're going to SSH with.
+
+Configuring settings
+--------------------
+
+Settings are managed using the `set` and `settings` methods. This convention is
+inspired by Sinatra and Vlad.
+
+``` ruby
+set :version, "v2.0.5"
+
+settings.version    #=> "v2.0.5"
+settings.version?   #=> true
+```
+
+You can also retrieve settings without `settings.`.
+
+``` ruby
+set :version, "v2.0.5"
+
+version    #=> "v2.0.5"
+version?   #=> true
+```
+
+You can also give settings using a lambda. When the setting is retrieved, it
+will be evaluated.
+
+``` ruby
+set :tag, lambda { "release/#{version}" }
+set :version, "v2.0.5"
+
+tag    #=> "release/v2.0.5"
+```
+
+All of these are accessible inside and outside tasks.
+
+``` ruby
+set :admin_email, "johnsmith@gmail.com"
+
+task :email do
+  set :message, "Deploy is done"
+
+  system "echo #{message} | mail #{admin_email}"
+end
+```
+
+If you would like an error to be thrown if a setting is not present, add a bang
+at the end.
+
+``` ruby
+task :restart do
+  queue "#{settings.nginx_path!}/sbin/nginx restart"
+end
+
+# $ vh restart
+# Error: You must set the :nginx_path setting
+```
