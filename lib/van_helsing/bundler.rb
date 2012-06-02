@@ -5,12 +5,19 @@ settings.bundle_options ||= lambda { %{--without development:test --path "#{bund
 namespace :bundle do
   desc "Install gem dependencies using Bundler."
   task :install do
-    queue %{
-      echo "-----> Installing gem dependencies using Bundler"
-      mkdir -p "#{shared_path}/bundle"
-      mkdir -p "#{File.dirname bundle_path}"
-      ln -s "#{shared_path}/bundle" "#{bundle_path}"
-      bundle install #{bundle_options}
-    }
+    if bundle_path.nil?
+      queue %{
+        echo "-----> Installing gem dependencies using Bundler"
+        bundle install #{bundle_options}
+      }
+    else
+      queue %{
+        echo "-----> Installing gem dependencies using Bundler"
+        mkdir -p "#{shared_path}/bundle"
+        mkdir -p "#{File.dirname bundle_path}"
+        ln -s "#{shared_path}/bundle" "#{bundle_path}"
+        bundle install #{bundle_options}
+      }
+    end
   end
 end
