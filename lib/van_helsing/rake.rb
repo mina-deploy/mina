@@ -3,4 +3,4 @@ require File.expand_path('../../van_helsing', __FILE__)
 
 extend VanHelsing::Helpers
 
-require 'van_helsing/default'
+require 'van_helsing/deploy'
