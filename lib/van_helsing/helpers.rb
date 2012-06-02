@@ -36,11 +36,25 @@ module VanHelsing
     end
 
     # SSHs into the host and runs the code that has been queued.
+    # This is ran before Rake exits to run all commands that have been
+    # queued up.
     #
     #     queue "sudo restart"
     #     run!
     #
     def run!
+      ssh commands(:default), pretty: true
+    end
+
+    # Executes a command via SSH.
+    #
+    # Options:
+    #
+    #     pretty:    Prettify the output.
+    #
+    def ssh(cmd, options={})
+      cmd = cmd.join("\n")  if cmd.is_a?(Array)
+
       validate_set :host
 
       args = settings.host
@@ -48,22 +62,27 @@ module VanHelsing
       args << " -i #{settings.identity_file}" if settings.identity_file
 
       code = [
-        '( cat <<DEPLOY_EOF',
-        indent(2, commands(:default).join("\n").gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
-        "DEPLOY_EOF",
+        '( cat <<VH_EOF',
+        indent(2, cmd.gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
+        "VH_EOF",
         ") | ssh #{args} -- bash -"
       ].join("\n")
 
       result = 0
       if ENV['simulate']
         puts code
-      else
+      elsif options[:pretty]
         result = pretty_system(code)
+      else
+        system(code)
+        result = $?
       end
 
       unless result == 0
         raise Failed.new(message: "Failed with status #{result}", exitstatus: result)
       end
+
+      result
     end
 
     # Works like 'system', but indents
