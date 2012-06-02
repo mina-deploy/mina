@@ -47,11 +47,19 @@ Created config/deploy.rb.
 <p class=" after-pre">See <a href="#about-deployrb">About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
 
 </section><section class=" h3 2_set_up_your_server"><h3 id="2_set_up_your_server">2. Set up your server</h3>
+<pre class=" lang- prettyprint right"><code># SSH into your server, then:
+mkdir /var/www/flipstack.com
+chown -R username /var/www/flipstack.com
+
+# Make sure 'username' is the same as what's on deploy.rb
+</code></pre>
 
 <p>Make a directory in your server called <code>/var/www/flipstack.com</code> (in <em>deploy_to</em>)
 change it's ownership to the user <code>flipstack</code>.</p>
 
-</section><section class=" h3 3_run_vh_setup"><h3 id="3_run_vh_setup">3. Run 'vh setup'</h3>
+<br class="post-pre">
+
+</section><section class=" after-pre h3 3_run_vh_setup"><h3 id="3_run_vh_setup" class=" after-pre">3. Run 'vh setup'</h3>
 <pre class=" lang- prettyprint right"><code>$ vh setup
 -----&gt; Creating folders... done.
 </code></pre>
