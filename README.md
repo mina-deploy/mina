@@ -38,8 +38,8 @@ Make a directory in your server called `/var/www/flipstack.com` (in *deploy_to*)
 change it's ownership to the correct user.
 
     # SSH into your server, then:
-    mkdir /var/www/flipstack.com
-    chown -R username /var/www/flipstack.com
+    $ mkdir /var/www/flipstack.com
+    $ chown -R username /var/www/flipstack.com
 
     # Make sure 'username' is the same as what's on deploy.rb
 
