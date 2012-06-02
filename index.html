@@ -177,7 +177,7 @@ you.</p>
 <p class=" after-pre">It works by capturing the <em>queue</em>d commands inside the block, wrapping them
 in a deploy script, then <em>queue</em>ing them back in.</p>
 
-</section><section class=" h2 how_deploying_works"><h2 id="how_deploying_works">How deploying works</h2>
+<section class=" h3 how_deploying_works"><h3 id="how_deploying_works">How deploying works</h3>
 
 <p>The deploy process looks like this:</p>
 
@@ -197,7 +197,7 @@ commands to restart the webserver process.</li>
 queued using the <code>to :clean</code> block, they will be ran. It will be as if nothing
 happened.</p>
 
-</section><section class=" h2 directory_structure"><h2 id="directory_structure">Directory structure</h2>
+</section></section><section class=" h2 directory_structure"><h2 id="directory_structure">Directory structure</h2>
 <pre class=" lang- prettyprint right"><code>/var/www/flipstack.com/     # The deploy_to path
  |-  releases/              # Holds releases, one subdir per release
  |   |- 2012-06-12-838948
@@ -370,8 +370,9 @@ the <code>vh</code> command with <code>force_assets=1</code>.</p>
 <ul></ul></nav><nav class="level-2"><h3><a href="#the_command_queue">The command queue</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#subtasks">Subtasks</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#deploying">Deploying</a></h3>
-<ul></ul></nav><nav class="level-2"><h3><a href="#how_deploying_works">How deploying works</a></h3>
-<ul></ul></nav><nav class="level-2"><h3><a href="#directory_structure">Directory structure</a></h3>
+<ul>
+<li><a href="#how_deploying_works">How deploying works</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#directory_structure">Directory structure</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#configuring_settings">Configuring settings</a></h3>
 <ul>
 <li><a href="#dynamic_values">Dynamic values</a></li>
