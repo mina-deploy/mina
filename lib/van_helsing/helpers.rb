@@ -211,7 +211,7 @@ module VanHelsing
     end
 
     def echo_cmd(str)
-      "echo #{("$ " + str).inspect}\n#{str}"
+      "echo #{("$ " + str).inspect} &&\n#{str}"
     end
 
     def vh_cleanup!
