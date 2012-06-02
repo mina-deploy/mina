@@ -15,5 +15,12 @@ ARGV.unshift '-f', config_file
 
 require 'rake'
 
-Rake.application.run
+Rake.application.instance_eval do
+  standard_exception_handling do
+    init 'vh'
+    load_rakefile
+    top_level
+  end
+end
+
 vh_cleanup! if Rake.application.top_level_tasks.any?
