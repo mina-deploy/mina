@@ -14,6 +14,20 @@ session per deploy, minimizing the SSH connection overhead.
 How to test
 -----------
 
+It's not out on Rubygems right now but you can install it now:
+
+    # Install the gem yourself
+    $ git clone https://github.com/nadarei/van_helsing.git
+    $ cd van_helsing
+    $ gem build *.gemspec
+    $ gem install *.gem
+
+To test out stuff in development:
+
+    # Run specs
+    $ spec
+
+    # Try out the test environment
     $ cd test_env
     $ ../bin/vh deploy simulate=1
     $ ../bin/vh deploy
