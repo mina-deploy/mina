@@ -326,10 +326,9 @@ set :repository, 'https://github.com/you/your-app.git'
 
 This introduces the following settings:
 
-* __repository__  
-The repository path to clone from. *Required.*
+* `repository` - The repository path to clone from. *Required.*
 
-* __revision__  The SHA1 of the commit to be deployed. Defaults to whatever is
+* `revision` - The SHA1 of the commit to be deployed. Defaults to whatever is
 the current HEAD in your local copy.
 
 ### Task - git:clone
@@ -349,12 +348,11 @@ require 'van_helsing/bundler'
 
 This introduces the following settings:
 
-* __bundle_path__  
-The path where bundles are going to be installed. Defaults to
+* `bundle_path` - The path where bundles are going to be installed. Defaults to
 `./vendor/bundler`.
 
-* __bundle_options__  
-Options that will be passed onto `bundle install`.  Defaults to
+* `bundle_options` - Options that will be passed onto `bundle install`.  
+  Defaults to
 `--without development:test --path "#{bundle_path}" --binstubs bin/
 --deployment"`.
 
@@ -379,11 +377,11 @@ require 'van_helsing/rails'
 
 This introduces the following settings. All of them are optional.
 
- * __rake__  
- The `rake` command. Defaults to `RAILS_ENV="#{rails_env}" bundle exec rake`.
+ * `rake` - The `rake` command. Defaults to `RAILS_ENV="#{rails_env}" bundle 
+ exec rake`.
 
- * __rails_env__  
- Defaults to `production`.
+ * `rails_env` - The environment to run rake commands in. Defaults to
+ `production`.
 
 ### Task - rails:db_migrate
 
