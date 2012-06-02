@@ -210,6 +210,10 @@ module VanHelsing
       $stderr.write "#{str}\n"
     end
 
+    def echo_cmd(str)
+      "echo #{("$ " + str).inspect}\n#{str}"
+    end
+
     def vh_cleanup!
       run! if commands.any?
     end

@@ -28,3 +28,14 @@ namespace :deploy do
     }
   end
 end
+
+desc "Sets up a site."
+task :setup do
+  settings.deploy_to!
+
+  queue %{echo "-----> Setting up"}
+  queue echo_cmd %{mkdir -p "#{deploy_to}"}
+  queue echo_cmd %{chmod g+r,a+rwx "#{deploy_to}"}
+  queue echo_cmd %{mkdir -p "#{deploy_to}/releases"}
+  queue echo_cmd %{mkdir -p "#{deploy_to}/shared"}
+end
