@@ -62,9 +62,11 @@ About deploy.rb
 The file `deploy.rb` is simply a Rakefile invoked by Rake. In fact, `vh` is
 mostly an alias that invokes Rake to load `deploy.rb`.
 
-Here's a sample file:
+As it's all Rake, you can define tasks that you can invoke using `vh`. In this
+example, it provides the `vh restart` command.
 
 ``` ruby
+# Sample config/deploy.rb
 set :host, 'your.server.com'
 
 task :restart do
@@ -161,13 +163,12 @@ end
 It works by capturing the *queue*d commands inside the block, wrapping them
 in a deploy script, then *queue*ing them back in.
 
-How deploying works
--------------------
+### How deploying works
 
 The deploy process looks like this:
 
 1. Decide on a release name based on the current timestamp, say,
-   `2012-06-02--04-58-23`.
+   `2012-06-02-045823`.
 2. cd to `/var/www/flipstack.com` (the *deploy_to* path).
 3. Create `./releases/2012-06-02-045823` (the *release path*).
 4. Invoke the queued up commands in the `deploy` block. Usually, this is a git
@@ -212,7 +213,7 @@ settings.version    #=> "v2.0.5"
 settings.version?   #=> true
 ```
 
-You can also retrieve settings without `settings.`.
+You can also retrieve settings without the `settings.` prefix.
 
 ``` ruby
 set :version, "v2.0.5"
@@ -220,6 +221,8 @@ set :version, "v2.0.5"
 version    #=> "v2.0.5"
 version?   #=> true
 ```
+
+### Dynamic values
 
 You can also give settings using a lambda. When the setting is retrieved, it
 will be evaluated.
@@ -230,6 +233,8 @@ set :version, "v2.0.5"
 
 tag    #=> "release/v2.0.5"
 ```
+
+### Inside and outside tasks
 
 All of these are accessible inside and outside tasks.
 
@@ -243,6 +248,8 @@ task :email do
 end
 ```
 
+### Validations
+
 If you would like an error to be thrown if a setting is not present, add a bang
 at the end.
 
@@ -254,6 +261,31 @@ end
 # $ vh restart
 # Error: You must set the :nginx_path setting
 ```
+
+Addons: Git
+-----------
+
+To deploy projects using git, add this to your `deploy.rb`:
+
+``` ruby
+require 'van_helsing/git'
+
+set :repository, 'https://github.com/you/your-app.git'
+```
+
+### Settings
+
+This introduces the following settings:
+
+* __repository__  
+The repository path to clone from. *Required.*
+
+* __revision__  The SHA1 of the commit to be deployed. Defaults to whatever is
+the current HEAD in your local copy.
+
+### Task - git:clone
+
+Clones from the repo into the current folder.
 
 Addons: Bundler
 ---------------
@@ -277,7 +309,7 @@ Options that will be passed onto `bundle install`.  Defaults to
 `--without development:test --path "#{bundle_path}" --binstubs bin/
 --deployment"`.
 
-### Task: bundle:install
+### Task - bundle:install
 
 Invokes `bundle:install` on the current directory, creating the bundle
 path (specified in `bundle_path`), and invoking `bundle install`.
@@ -304,11 +336,11 @@ This introduces the following settings. All of them are optional.
  * __rails_env__  
  Defaults to `production`.
 
-### Task: rails:db_migrate
+### Task - rails:db_migrate
 
 Invokes rake to migrate the database using `rake db:migrate`.
 
-### Task: rails:assets_precompile
+### Task - rails:assets_precompile
 
 Precompiles assets. This invokes `rake assets:precomplie`.
 
@@ -316,7 +348,7 @@ It also checks the current version to see if it has assets compiled. If it does,
 it reuses them, skipping the compilation step. To stop this behavior, invoke
 the `vh` command with `force_assets=1`.
 
-### Task: rails:assets_precompile:force
+### Task - rails:assets_precompile:force
 
 Precompiles assets. This always skips the "reuse old assets if possible" step.
 
