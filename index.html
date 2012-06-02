@@ -341,9 +341,8 @@ set :repository, 'https://github.com/you/your-app.git'
 <p>This introduces the following settings:</p>
 
 <ul>
-<li><p><strong>repository</strong><br>
-The repository path to clone from. <em>Required.</em></p></li>
-<li><p><strong>revision</strong>  The SHA1 of the commit to be deployed. Defaults to whatever is
+<li><p><code>repository</code> - The repository path to clone from. <em>Required.</em></p></li>
+<li><p><code>revision</code> - The SHA1 of the commit to be deployed. Defaults to whatever is
 the current HEAD in your local copy.</p></li>
 </ul></section><section class=" h3 task_-_git_clone"><h3 id="task_-_git_clone">Task - git:clone</h3>
 
@@ -362,11 +361,10 @@ the current HEAD in your local copy.</p></li>
 <p>This introduces the following settings:</p>
 
 <ul>
-<li><p><strong>bundle_path</strong><br>
-The path where bundles are going to be installed. Defaults to
+<li><p><code>bundle_path</code> - The path where bundles are going to be installed. Defaults to
 <code>./vendor/bundler</code>.</p></li>
-<li><p><strong>bundle_options</strong><br>
-Options that will be passed onto <code>bundle install</code>.  Defaults to
+<li><p><code>bundle_options</code> - Options that will be passed onto <code>bundle install</code>.<br>
+Defaults to
 <code>--without development:test --path "#{bundle_path}" --binstubs bin/
 --deployment"</code>.</p></li>
 </ul></section><section class=" h3 task_-_bundle_install"><h3 id="task_-_bundle_install">Task - bundle:install</h3>
@@ -390,10 +388,10 @@ by default).</p>
 <p>This introduces the following settings. All of them are optional.</p>
 
 <ul>
-<li><p><strong>rake</strong><br>
-The <code>rake</code> command. Defaults to <code>RAILS_ENV="#{rails_env}" bundle exec rake</code>.</p></li>
-<li><p><strong>rails_env</strong><br>
-Defaults to <code>production</code>.</p></li>
+<li><p><code>rake</code> - The <code>rake</code> command. Defaults to <code>RAILS_ENV="#{rails_env}" bundle 
+exec rake</code>.</p></li>
+<li><p><code>rails_env</code> - The environment to run rake commands in. Defaults to
+<code>production</code>.</p></li>
 </ul></section><section class=" h3 task_-_rails_db_migrate"><h3 id="task_-_rails_db_migrate">Task - rails:db_migrate</h3>
 
 <p>Invokes rake to migrate the database using <code>rake db:migrate</code>.</p>
