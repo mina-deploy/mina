@@ -164,6 +164,8 @@ The deploy procedures make the assumption that you have a folder like so:
      |   |- 2012-06-23-034828
      |   '- ...
      |-  shared/                # Holds files shared between releases
+     |   |- logs/               # Log files are usually stored here
+     |   `- ...
      '-  current/               # A symlink to the current release in releases/
 
 It also assumes that the `deploy_to` path is fully writeable/readable for the
