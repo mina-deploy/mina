@@ -6,7 +6,7 @@ namespace :git do
     queue %{
       echo "-----> Initializing path #{release_path}"
       mkdir -p "#{release_path}" &&
-      git clone "#{repository!}" "#{release_path}" -n --recursive &&
+      git clone "#{settings.repository!}" "#{release_path}" -n --recursive &&
       git checkout "#{revision}" 2>/dev/null &&
       rm -rf "#{curent_path}.git"
     }
