@@ -7,7 +7,7 @@ module VanHelsing
 
     # Wraps the things inside it in a deploy script.
     #
-    #     deploy! do
+    #     deploy do
     #       invoke :'git:checkout'
     #     end
     #
