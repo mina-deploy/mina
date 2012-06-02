@@ -201,7 +201,7 @@ module VanHelsing
     #     host           #=> 'kickflip.me'
     #
     def settings
-      @settings ||= OpenStruct.new
+      @settings ||= Settings.new
     end
 
     # Hook to get settings.
