@@ -10,7 +10,7 @@ desc "Deploys."
 task :deploy do
   invoke :'growl:notify' # pre deploy
 
-  deploy! do
+  deploy do
     invoke :'git:clone'
     invoke :'bundle:install'
     invoke :'rails:assets_precompile'
@@ -35,7 +35,6 @@ end
 desc "Restarts the nginx server."
 task :restart do
   invoke :'nginx:restart'
-  run!
 end
 
 task(:'growl:notify') {}

@@ -18,4 +18,6 @@ ARGV.unshift '-r', VanHelsing::root_path('lib/van_helsing/rake.rb')
 ARGV.unshift '-f', config_file
 
 require 'rake'
+
 Rake.application.run
+vh_cleanup! if Rake.application.top_level_tasks.any?

@@ -35,12 +35,6 @@ module VanHelsing
       erb.result b
     end
 
-    # Deploys and runs immediately.
-    def deploy!(&blk)
-      deploy &blk
-      run!
-    end
-
     # SSHs into the host and runs the code that has been queued.
     #
     #     queue "sudo restart"
@@ -217,6 +211,10 @@ module VanHelsing
           exit 1
         end
       end
+    end
+
+    def vh_cleanup!
+      run! if commands.any?
     end
   end
 end
