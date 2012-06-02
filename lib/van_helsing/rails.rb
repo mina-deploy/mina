@@ -12,7 +12,7 @@ namespace :rails do
   end
 
   desc "Precompiles assets."
-  task :assets_precompile do
+  task :'assets_precompile:force' do
     queue %{
       echo "-----> Precompiling asset files"
       #{rake} assets:precompile
@@ -20,7 +20,12 @@ namespace :rails do
   end
 
   desc "Precompiles assets (skips if nothing has changed since the last release)."
-  task :'assets_precompile:fast' do
+  task :'assets_precompile' do
+    if ENV['force_assets']
+      invoke :'rails:assets_procompile:force'
+      return
+    end
+
     queue %{
       if [ -d "#{current_path}/public/assets" ]; then
 
