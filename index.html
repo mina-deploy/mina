@@ -24,10 +24,26 @@ is ran separately on their own SSH sessions. Van Helsing only creates <em>one</e
 session per deploy, minimizing the SSH connection overhead.</p>
 
 <section class=" h2 how_to_test"><h2 id="how_to_test">How to test</h2>
-<pre class=" lang- prettyprint right"><code>$ cd test_env
+<pre class=" lang- prettyprint right"><code># Install the gem yourself
+$ git clone https://github.com/nadarei/van_helsing.git
+$ cd van_helsing
+$ gem build *.gemspec
+$ gem install *.gem
+</code></pre>
+
+<p>It's not out on Rubygems right now but you can install it now:</p>
+
+<br class="post-pre">
+
+<pre class=" lang- prettyprint right"><code># Run specs
+$ spec
+
+# Try out the test environment
+$ cd test_env
 $ ../bin/vh deploy simulate=1
 $ ../bin/vh deploy
 </code></pre>
+<p class=" after-pre">To test out stuff in development:</p>
 
 <br class="post-pre">
 
