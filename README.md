@@ -262,6 +262,55 @@ end
 # Error: You must set the :nginx_path setting
 ```
 
+Defaults
+--------
+
+There are a few deploy-related tasks and settings that are on by default.
+
+### Settings
+
+* `releases_path` - The path to where releases are kept. Defaults to
+  `#{deploy_to}/releases`.
+
+* `shared_path` - Where shared files are kept. Defaults to
+  `#{deploy_to}/shared`.
+
+* `current_path` - The path to the symlink to the current release. Defaults to
+  `#{deploy_to}/current`.
+
+* `lock_file` - The deploy lock file. A deploy does not start if this file is
+  found. Defaults to `#{deploy_to}/deploy.lock`.
+
+### Task - setup
+
+Prepares the `deploy_to` directory for deployments. Sets up subdirectories and
+sets permissions in the path.
+
+    $ vh setup
+    -----> Setting up
+           $ mkdir -p /var/www/kickstack.me
+           $ chmod g+r,a+rwx /var/www/kickstack.me
+           $ mkdir -p /var/www/kickstack.me/releases
+           $ mkdir -p /var/www/kickstack.me/shared
+           ...
+
+### Task - deploy:force_unlock
+
+Removes the deploy lock file. If a deploy is terminated midway, it may leave a
+lock file to signal that deploys shouldn't be made. This forces the removal of
+that lock file.
+
+    $ vh deploy
+    -----> ERROR: another deployment is ongoing.
+           Delete the lock file to continue.
+
+    $ vh deploy:force_unlock
+    -----> Unlocking
+           $ rm /var/www/kickstack.me/deploy.lock
+
+    $ vh deploy
+    # The deploy should proceed now
+
 Addons: Git
 -----------
 

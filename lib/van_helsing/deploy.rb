@@ -37,6 +37,6 @@ task :setup do
   queue %{echo "-----> Setting up"}
   queue echo_cmd %{mkdir -p "#{deploy_to}"}
   queue echo_cmd %{chmod g+r,a+rwx "#{deploy_to}"}
-  queue echo_cmd %{mkdir -p "#{deploy_to}/releases"}
+  queue echo_cmd %{mkdir -p "#{releases_path}"}
   queue echo_cmd %{mkdir -p "#{shared_path}"}
 end
