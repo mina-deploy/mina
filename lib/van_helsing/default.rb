@@ -1,9 +1,10 @@
 # Default tasks here
 desc "Creates a sample config file."
 task :init do
+  name = Rake.application.name
   config_file = Rake.application.rakefile
 
-  unless config_file.empty?
+  unless config_file.to_s.empty?
     error "You already have #{config_file}."
     exit 8
   end
@@ -13,7 +14,7 @@ task :init do
   FileUtils.cp VanHelsing.root_path('data/deploy.rb'), './config/deploy.rb'
 
   puts 'Created deploy.rb.'
-  puts 'Edit it, then run `vh setup` after.'
+  puts 'Edit it, then run `#{name} setup` after.'
 end
 
 task :default => :help
