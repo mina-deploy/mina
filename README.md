@@ -267,7 +267,17 @@ Defaults
 
 There are a few deploy-related tasks and settings that are on by default.
 
+### Required settings
+
+* `deploy_to` - Path to deploy to. *Required.*
+
+* `host` - Hostname to SSH to. *Required.*
+
 ### Settings
+
+* `user` - Username to connect to SSH with. Optional.
+
+* `identity_file` - Local path to the SSH key to use. Optional.
 
 * `releases_path` - The path to where releases are kept. Defaults to
   `#{deploy_to}/releases`.
