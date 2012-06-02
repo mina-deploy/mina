@@ -2,7 +2,7 @@ module VanHelsing
   module Helpers
     # Invokes another Rake task.
     def invoke(task)
-      Rake::Task[task.to_sym].invoke
+      Rake.application.invoke_task task
     end
 
     # Wraps the things inside it in a deploy script.
