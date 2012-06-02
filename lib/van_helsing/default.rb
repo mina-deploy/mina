@@ -5,7 +5,7 @@ task :force_unlock do
   run!
 end
 
-namespace :vh do
+namespace :deploy do
   desc "Links paths set in :shared_paths."
   task :link_shared_paths do
     validate_set :shared_paths
