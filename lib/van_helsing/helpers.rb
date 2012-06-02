@@ -55,7 +55,7 @@ module VanHelsing
 
       code = [
         '( cat <<DEPLOY_EOF',
-        indent(2, codes(:default).join("\n").gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
+        indent(2, commands(:default).join("\n").gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
         "DEPLOY_EOF",
         ") | ssh #{args} -- bash -"
       ].join("\n")
@@ -103,15 +103,15 @@ module VanHelsing
 
     # Queues code to be ran.
     # This queues code to be ran to the current code bucket (defaults to `:default`).
-    # To get the things that have been queued, use codes[:default]
+    # To get the things that have been queued, use commands[:default]
     #
     #     queue "sudo restart"
     #     queue "true"
-    #     codes(:default).should == ['sudo restart', 'true']
+    #     commands(:default).should == ['sudo restart', 'true']
     #
     def queue(code)
-      codes
-      codes(@code_block) << code.gsub(/^ */, '')
+      commands
+      commands(@to) << code.gsub(/^ */, '')
     end
 
     # Returns a hash of the code blocks where commands have been queued.
@@ -123,38 +123,38 @@ module VanHelsing
     #       queue "rm"
     #     end
     #
-    #     codes == ["sudo restart", "true"]
-    #     codes(:clean) == ["rm"]
+    #     commands == ["sudo restart", "true"]
+    #     commands(:clean) == ["rm"]
     #
-    def codes(aspect=:default)
-      (@codes ||= begin
-        @code_block = :default
+    def commands(aspect=:default)
+      (@commands ||= begin
+        @to = :default
         Hash.new { |h, k| h[k] = Array.new }
       end)[aspect]
     end
 
-    # Starts a new block where new #codes are collected.
+    # Starts a new block where new #commands are collected.
     #
     #     queue "sudo restart"
     #     queue "true"
-    #     codes.should == ['sudo restart', 'true']
+    #     commands.should == ['sudo restart', 'true']
     #
     #     isolate do
     #       queue "reload"
-    #       codes.should == ['reload']
+    #       commands.should == ['reload']
     #     end
     #
-    #     codes.should == ['sudo restart', 'true']
+    #     commands.should == ['sudo restart', 'true']
     #
     def isolate(&blk)
-      old, @codes = @codes, nil
+      old, @commands = @commands, nil
       result = yield
-      new_code, @codes = @codes, old
+      new_code, @commands = @commands, old
       result
     end
 
     # Defines instructions on how to do a certain thing.
-    # This makes the codes that are `queue`d go into a different bucket in codes.
+    # This makes the commands that are `queue`d go into a different bucket in commands.
     #
     #     to :prepare do
     #       run "bundle install"
@@ -163,13 +163,13 @@ module VanHelsing
     #       run "nginx -s restart"
     #     end
     #
-    #     codes(:prepare) == ["bundle install"]
-    #     codes(:restart) == ["nginx -s restart"]
+    #     commands(:prepare) == ["bundle install"]
+    #     commands(:restart) == ["nginx -s restart"]
     #
     def to(name, &blk)
-      old, @code_block = @code_block, name
+      old, @to = @to, name
       result = yield
-      @code_block = old
+      @to = old
       result
     end
 
