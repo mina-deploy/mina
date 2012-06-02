@@ -431,4 +431,26 @@ the `vh` command with `force_assets=1`.
 
 Precompiles assets. This always skips the "reuse old assets if possible" step.
 
+Acknowledgements
+----------------
 
+© 2011, Nadarei. Released under the [MIT 
+License](http://www.opensource.org/licenses/mit-license.php).
+
+Van Helsing is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
+Galero][mg] with help from its [contributors][c]. It is sponsored by our 
+startup, [Nadarei][nd].
+
+ * [Nadarei](http://nadarei.co) (nadarei.co)
+ * [Github](http://github.com/nadarei) (@nadarei)
+
+Rico:
+
+ * [My website](http://ricostacruz.com) (ricostacruz.com)
+ * [Github](http://github.com/rstacruz) (@rstacruz)
+ * [Twitter](http://twitter.com/rstacruz) (@rstacruz)
+
+[rsc]: http://ricostacruz.com
+[mg]:  http://devblog.michaelgalero.com/
+[c]:   http://github.com/nadarei/van_helsing/contributors
+[nd]:  http://nadarei.co
