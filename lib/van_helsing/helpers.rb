@@ -98,7 +98,8 @@ module VanHelsing
     #
     #     queue "sudo restart"
     #     queue "true"
-    #     commands(:default).should == ['sudo restart', 'true']
+    #
+    #     commands == ['sudo restart', 'true']
     #
     def queue(code)
       commands
