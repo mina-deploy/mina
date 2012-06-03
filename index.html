@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Van Helsing</title>
     <link href="style.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:400,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:700,700italic' rel='stylesheet' type='text/css'>
     
 </head>
 <body class='literate toc github'>
@@ -23,31 +23,14 @@ server.</p>
 is ran separately on their own SSH sessions. Van Helsing only creates <em>one</em> SSH.
 session per deploy, minimizing the SSH connection overhead.</p>
 
-<section class=" h2 how_to_test"><h2 id="how_to_test">How to test</h2>
-<pre class=" lang- prettyprint right"><code># Install the gem yourself
+<pre class=" lang- prettyprint"><code># Install the gem yourself
 $ git clone https://github.com/nadarei/van_helsing.git
 $ cd van_helsing
 $ gem build *.gemspec
 $ gem install *.gem
 </code></pre>
 
-<p>It's not out on Rubygems right now but you can install it now:</p>
-
-<br class="post-pre">
-
-<pre class=" lang- prettyprint right"><code># Run specs
-$ spec
-
-# Try out the test environment
-$ cd test_env
-$ ../bin/vh deploy simulate=1
-$ ../bin/vh deploy
-</code></pre>
-<p class=" after-pre">To test out stuff in development:</p>
-
-<br class="post-pre">
-
-</section><section class=" after-pre h2 setting_up"><h2 id="setting_up" class=" after-pre">Setting up</h2>
+<section class=" h2 setting_up"><h2 id="setting_up">Setting up</h2>
 
 <section class=" h3 1_create_a_config_deploy_rb"><h3 id="1_create_a_config_deploy_rb">1. Create a config/deploy.rb</h3>
 <pre class=" lang- prettyprint right"><code>$ vh init
@@ -441,7 +424,24 @@ the <code>vh</code> command with <code>force_assets=1</code>.</p>
 
 <p>Precompiles assets. This always skips the "reuse old assets if possible" step.</p>
 
-</section></section><section class=" h2 acknowledgements"><h2 id="acknowledgements">Acknowledgements</h2>
+</section></section><section class=" h2 development_testing"><h2 id="development_testing">Development &amp; testing</h2>
+<pre class=" lang- prettyprint right"><code># Run specs
+$ rspec
+
+# Alias your 'vh' to use it everywhere
+$ alias vh="`pwd -LP`/bin/vh"
+
+# Try out the test environment!
+$ cd test_env
+$ vh deploy simulate=1
+$ vh deploy
+</code></pre>
+
+<p>To test out stuff in development:</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h2 acknowledgements"><h2 id="acknowledgements" class=" after-pre">Acknowledgements</h2>
 
 <p>© 2012, Nadarei. Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT 
 License</a>.</p>
@@ -474,8 +474,7 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li>
 <a href="http://github.com/mikong">Github</a> (@mikong)</li>
 </ul></section><aside id="toc"><h1>Van Helsing</h1>
-<nav class="level-2"><h3><a href="#how_to_test">How to test</a></h3>
-<ul></ul></nav><nav class="level-2"><h3><a href="#setting_up">Setting up</a></h3>
+<nav class="level-2"><h3><a href="#setting_up">Setting up</a></h3>
 <ul>
 <li><a href="#1_create_a_config_deploy_rb">1. Create a config/deploy.rb</a></li>
 <li><a href="#2_set_up_your_server">2. Set up your server</a></li>
@@ -513,7 +512,8 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li><a href="#task_-_rails_db_migrate">Task - rails:db_migrate</a></li>
 <li><a href="#task_-_rails_assets_precompile">Task - rails:assets_precompile</a></li>
 <li><a href="#task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</a></li>
-</ul></nav><nav class="level-2"><h3><a href="#acknowledgements">Acknowledgements</a></h3>
+</ul></nav><nav class="level-2"><h3><a href="#development_testing">Development &amp; testing</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#acknowledgements">Acknowledgements</a></h3>
 <ul></ul></nav></aside></div>
   <script type='text/javascript' src='http://cachedcommons.org/cache/prettify/1.0.0/javascripts/prettify-min.js'></script>
   <script>prettyPrint();</script>
