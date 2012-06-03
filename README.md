@@ -11,26 +11,11 @@ Compare this to the likes of Vlad or Capistrano, where each command
 is ran separately on their own SSH sessions. Van Helsing only creates *one* SSH.
 session per deploy, minimizing the SSH connection overhead.
 
-How to test
------------
-
-It's not out on Rubygems right now but you can install it now:
-
     # Install the gem yourself
     $ git clone https://github.com/nadarei/van_helsing.git
     $ cd van_helsing
     $ gem build *.gemspec
     $ gem install *.gem
-
-To test out stuff in development:
-
-    # Run specs
-    $ spec
-
-    # Try out the test environment
-    $ cd test_env
-    $ ../bin/vh deploy simulate=1
-    $ ../bin/vh deploy
 
 Setting up
 ----------
@@ -430,6 +415,22 @@ the `vh` command with `force_assets=1`.
 ### Task - rails:assets_precompile:force
 
 Precompiles assets. This always skips the "reuse old assets if possible" step.
+
+Development & testing
+---------------------
+
+To test out stuff in development:
+
+    # Run specs
+    $ rspec
+
+    # Alias your 'vh' to use it everywhere
+    $ alias vh="`pwd -LP`/bin/vh"
+
+    # Try out the test environment!
+    $ cd test_env
+    $ vh deploy simulate=1
+    $ vh deploy
 
 Acknowledgements
 ----------------
