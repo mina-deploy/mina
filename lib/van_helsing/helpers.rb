@@ -5,24 +5,6 @@ module VanHelsing
       Rake.application.invoke_task task
     end
 
-    # Wraps the things inside it in a deploy script.
-    #
-    #     deploy do
-    #       invoke :'git:checkout'
-    #     end
-    #
-    def deploy(&blk)
-      settings.build_id   = "%010i%04i" % [Time.now.to_i, rand(9999)]
-      settings.build_path = lambda { "#{releases_path}/build-#{settings.build_id!}" }
-
-      code = isolate do
-        yield
-        erb VanHelsing.root_path('data/deploy.sh.erb')
-      end
-
-      queue code
-    end
-
     # Evaluates an ERB block and returns a string.
     def erb(file, b=binding)
       require 'erb'

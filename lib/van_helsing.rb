@@ -4,6 +4,7 @@ module VanHelsing
 
   require 'van_helsing/version'
 
+  autoload :DeployHelpers, 'van_helsing/deploy_helpers'
   autoload :Helpers, 'van_helsing/helpers'
   autoload :Settings, 'van_helsing/settings'
 
