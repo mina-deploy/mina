@@ -57,15 +57,15 @@ touch "<%= lock_file %>"
 # ============================
 # === Rename to the real release path, then symlink 'current'
 (
-  echo "-----> Build finished (<%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version)"
-  echo "-----> Symlinking <%= current_path.gsub(deploy_to, '.').squeeze('/') %>"
+  echo "-----> Build finished"
+  echo "-----> Symlinking <%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version to <%= current_path.gsub(deploy_to, '.').squeeze('/') %>"
   mv "<%= build_path %>" "$release_path"
   rm -f "<%= current_path %>"
   ln -s "$release_path" "<%= current_path %>"
 ) &&
 
 # ============================
-# === Start up server (in deployer)
+# === Start up serve => (in deployer)
 (
   echo "-----> Launching"
 <%= indent 2, (restart.empty? ? "true" : restart) %>
