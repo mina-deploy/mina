@@ -19,47 +19,65 @@ end
 
 task :default => :help
 
-def get_tasks(&blk)
-  Rake.application.tasks.select &blk
-end
+module HelpHelpers
+  def get_tasks(&blk)
+    Rake.application.tasks.select &blk
+  end
 
-def print_tasks(tasks, width=nil)
-  name = Rake.application.name
+  def print_tasks(tasks, width=nil)
+    name = Rake.application.name
 
-  width ||= tasks.map { |t| t.name_with_args.length }.max || 10
-  tasks.each do |t|
-    if t.comment
-      puts "  #{name} %-#{width}s   # %s" % [ t.name_with_args, t.comment ]
-    else
-      puts "  #{name} %s" % [ t.name_with_args ]
+    width ||= tasks.map { |t| t.name_with_args.length }.max || 10
+    tasks.each do |t|
+      if t.comment
+        puts "  #{name} %-#{width}s   # %s" % [ t.name_with_args, t.comment ]
+      else
+        puts "  #{name} %s" % [ t.name_with_args ]
+      end
+    end
+  end
+
+  SYSTEM_TASKS = %w[help tasks init]
+  def system_tasks() get_tasks { |t| SYSTEM_TASKS.include? t.name }; end
+  def top_tasks()    get_tasks { |t| ! t.name.include?(':') && t.comment && !system_tasks.include?(t) }; end
+  def sub_tasks()    get_tasks { |t| t.name.include?(':') }; end
+
+  def show_task_help(options={})
+    puts "Basic usage:"
+    print_tasks system_tasks
+
+    if top_tasks.any?
+      puts "\nServer tasks:"
+      print_tasks top_tasks
+    end
+
+    if sub_tasks.any? && options[:full]
+      puts "\nMore tasks:"
+      print_tasks sub_tasks
     end
   end
 end
+
+extend HelpHelpers
 
 desc "Show help."
 task :help do
   name = Rake.application.name
 
-  top_tasks = get_tasks { |t| (! t.name.include? ':') && t.name != 'default' }
-  top_tasks = top_tasks.reject { |t| t.name == 'init' }  if Rake.application.have_rakefile
+  puts "#{name} - Really fast server deployment and automation tool\n\n"
+  show_task_help
 
-  puts "#{name} - Really fast server deployment and automation tool"
+  unless Rake.application.have_rakefile
+    puts ""
+    puts "Run this command in a project with a 'config/deploy.rb' file to see more options."
+  end
 
-  puts "Usage:\n\n"
-  print_tasks top_tasks
+  puts ""
+  puts "All of Rake's options are also available as '#{name}' options. See 'rake --help'"
+  puts "for more information."
 end
 
 desc "Show all tasks."
 task :tasks do
-  sub_tasks = get_tasks { |t| t.name.include? ':' }
-  top_tasks = get_tasks { |t| (! t.name.include? ':') && t.name != 'default' }
-  top_tasks = top_tasks.reject { |t| t.name == 'init' }  if Rake.application.have_rakefile
-
-  puts "Top-level tasks:"
-  print_tasks top_tasks
-
-  if sub_tasks.any?
-    puts "\nMore tasks:"
-    print_tasks sub_tasks
-  end
+  show_task_help full: true
 end
