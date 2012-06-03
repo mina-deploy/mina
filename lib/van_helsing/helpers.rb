@@ -55,7 +55,7 @@ module VanHelsing
 
       code = [
         '( cat <<VH_EOF',
-        indent(2, cmd.gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`').strip),
+        indent(2, unindent(cmd.gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`'))),
         "VH_EOF",
         ") | ssh #{args} -- bash -"
       ].join("\n")
@@ -116,7 +116,15 @@ module VanHelsing
     #
     def queue(code)
       commands
-      commands(@to) << code.gsub(/^ */, '')
+      commands(@to) << unindent(code)
+    end
+
+    def unindent(code)
+      if code =~ /^\n([ \t]+)/
+        code = code.gsub(/^#{$1}/, '')
+      end
+
+      code.strip
     end
 
     # Returns a hash of the code blocks where commands have been queued.

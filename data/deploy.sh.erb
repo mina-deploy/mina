@@ -48,7 +48,7 @@ touch "<%= lock_file %>"
   mkdir -p "<%= build_path %>" &&
   cd "<%= build_path %>" &&
   (
-    <%= prepare %>
+<%= indent 4, prepare %>
   )
 ) &&
 
@@ -56,6 +56,7 @@ touch "<%= lock_file %>"
 # === Symlinking 'current'
 (
   echo "-----> Finishing up"
+  <%# TODO: for sequential versions, rename the build_path into $release_path here %>
   rm -f "<%= current_path %>"
   ln -s "<%= build_path %>" "<%= current_path %>"
 ) &&
@@ -64,7 +65,7 @@ touch "<%= lock_file %>"
 # === Start up server (in deployer)
 (
   echo "-----> Launching"
-  <%= restart %>
+<%= indent 2, restart %>
 ) &&
 
 # ============================
@@ -79,9 +80,9 @@ touch "<%= lock_file %>"
 (
   echo "-----> ERROR: Deploy failed."
 
-  <%= clean %>
+<%= indent 2, clean %>
 
-  echo -n "-----> Cleaning up... "
+  echo -n "-----> Cleaning up build... "
   [ -e "<%= build_path %>" ] && (
     echo -n "deleting, "
     rm -rf "<%= build_path %>"
