@@ -13,6 +13,7 @@ set :deploy_to, '/var/www/foobar.com'
 set :repository, 'git://...'
 # set :user, 'foobar.com'
 
+desc "Deploys the current version to the server."
 task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
