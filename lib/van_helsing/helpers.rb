@@ -65,7 +65,7 @@ module VanHelsing
       if ENV['simulate']
         puts code
       elsif options[:pretty]
-        result = pretty_system(code)
+        result = pretty_system("#{code} 2>&1")
       else
         system(code)
         result = $?
