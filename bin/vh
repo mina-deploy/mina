@@ -10,6 +10,11 @@ if ARGV.delete('--help') || ARGV.delete('-h')
   ARGV << 'help'
 end
 
+if ARGV.delete('--version') || ARGV.delete('-V')
+  puts "Van Helsing, version v#{VanHelsing.version}"
+  exit
+end
+
 Rake.application.instance_eval do
   standard_exception_handling do
     # Initialize Rake and make it think it's Van Helsing.
