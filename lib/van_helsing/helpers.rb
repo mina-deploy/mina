@@ -72,7 +72,9 @@ module VanHelsing
       end
 
       unless result == 0
-        raise Failed.new(message: "Failed with status #{result}", exitstatus: result)
+        err = Failed.new("Failed with status #{result}")
+        err.exitstatus = result
+        raise err
       end
 
       result

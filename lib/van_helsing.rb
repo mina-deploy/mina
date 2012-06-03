@@ -7,9 +7,9 @@ module VanHelsing
   autoload :Helpers, 'van_helsing/helpers'
   autoload :Settings, 'van_helsing/settings'
 
-  Error = Class.new(StandardError)
+  Error = Class.new(Exception)
   class Failed < Error
-    attr_writer :exitstatus
+    attr_accessor :exitstatus
   end
 
   def self.root_path(*a)

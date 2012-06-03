@@ -15,6 +15,8 @@ if ARGV.delete('--version') || ARGV.delete('-V')
   exit
 end
 
+scope = self
+
 Rake.application.instance_eval do
   standard_exception_handling do
     # Initialize Rake and make it think it's Van Helsing.
@@ -38,7 +40,8 @@ Rake.application.instance_eval do
 
     # Run.
     top_level
+
+    scope.vh_cleanup! if top_level_tasks.any?
   end
 end
 
-vh_cleanup! if Rake.application.top_level_tasks.any?
