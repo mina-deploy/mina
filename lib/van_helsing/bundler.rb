@@ -1,6 +1,6 @@
 
 settings.bundle_path ||= './vendor/bundle'
-settings.bundle_options ||= lambda { %{--without development:test --path "#{bundle_path}" --binstubs bin/ --deployment"} }
+settings.bundle_options ||= lambda { %{--without development:test --path "#{bundle_path}" --binstubs bin/ --deployment} }
 
 namespace :bundle do
   desc "Install gem dependencies using Bundler."
