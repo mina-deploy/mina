@@ -10,6 +10,12 @@ Rake.application.instance_eval do
     init 'vh'
     @rakefiles = ['Vhfile', 'config/deploy.rb']
 
+    # Workaround: Rake 0.9+ doesn't record task descriptions unless it's needed.
+    # Need it for 'vh help'
+    if Rake::TaskManager.respond_to?(:record_task_metadata)
+      Rake::TaskManager.record_task_metadata = true
+    end
+
     # Load the Van Helsing Rake DSL.
     require 'van_helsing/rake'
 
