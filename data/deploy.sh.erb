@@ -68,6 +68,7 @@ touch "<%= lock_file %>"
 # === Start up serve => (in deployer)
 (
   echo "-----> Launching"
+  cd "$release_path"
 <%= indent 2, (restart.empty? ? "true" : restart) %>
 ) &&
 
