@@ -21,25 +21,23 @@ if [ -e "<%= lock_file %>" ]; then
   exit 17
 fi
 
-# ============================
-# === Initialize dynamic variables
-
+# Go there
 cd "<%= deploy_to %>"
-[ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
 
-echo "-----> Deploying as <%= File.basename(release_path) %>"
+# Determine $previous_path
+[ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
 
 # ============================
 # === Sanity check
 
-if [ -e "<%= release_path %>" ]; then
+if [ -e "<%= build_path %>" ]; then
   echo "-----> ERROR: Path already exists"
-  echo "The path '<%= release_path %>' already exists."
+  echo "The path '<%= build_path %>' already exists."
   echo "You may have to delete it first."
   exit 18
 fi
 
-release_path="<%= release_path %>"
+echo "-----> Deploying"
 
 # Lock
 touch "<%= lock_file %>"
@@ -47,8 +45,8 @@ touch "<%= lock_file %>"
 # ============================
 # === Bootstrap script (in deployer)
 (
-  mkdir -p "$release_path" &&
-  cd "$release_path" &&
+  mkdir -p "<%= build_path %>" &&
+  cd "<%= build_path %>" &&
   (
     <%= prepare %>
   )
@@ -59,7 +57,7 @@ touch "<%= lock_file %>"
 (
   echo "-----> Finishing up"
   rm -f "<%= current_path %>"
-  ln -s "$release_path" "<%= current_path %>"
+  ln -s "<%= build_path %>" "<%= current_path %>"
 ) &&
 
 # ============================
@@ -84,9 +82,9 @@ touch "<%= lock_file %>"
   <%= clean %>
 
   echo -n "-----> Cleaning up... "
-  [ -e "$release_path" ] && (
+  [ -e "<%= build_path %>" ] && (
     echo -n "deleting, "
-    rm -rf "$release_path"
+    rm -rf "<%= build_path %>"
   )
   (
     echo -n "unlinking, "

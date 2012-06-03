@@ -14,7 +14,7 @@ describe "Invoking the 'vh' command in a project" do
       stdout.should =~ /rm -f ".*deploy\.lock"/
     end
 
-    it "should honor release_path" do
+    it "should honor build_path" do
       stdout.should include "#{Dir.pwd}/releases"
       stdout.should =~ /cd ".*releases\/#{Time.now.strftime('%Y-%m-%d')}/
     end
