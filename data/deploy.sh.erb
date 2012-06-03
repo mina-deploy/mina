@@ -1,7 +1,7 @@
 <%
-  prepare = commands(:default).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-  restart = commands(:restart).map { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
-  clean   = commands(:clean).map   { |s| "(\n#{indent 2, s}\n)" }.join(" && ")
+  prepare = commands(:default).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  restart = commands(:restart).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  clean   = commands(:clean).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
 %>
 #!/usr/bin/env bash
 
