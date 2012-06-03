@@ -7,7 +7,7 @@ describe "Invoking the 'vh' command in a project" do
     before :each do
       vh 'deploy', 'simulate=1'
     end
-    
+
     it "should take care of the lockfile" do
       stdout.should =~ /ERROR: another deployment is ongoing/
       stdout.should =~ /touch ".*deploy\.lock"/
