@@ -48,15 +48,18 @@ describe "Invoking the 'vh' command in a project" do
     end
     
     it "take care of the lockfile" do
-      # Lockfile sanity check
-      stdout.should include "another deployment is ongoing"
+      stdout.should =~ /ERROR: another deployment is ongoing/
       stdout.should =~ /touch ".*deploy\.lock"/
-        stdout.should =~ /rm -f ".*deploy\.lock"/
+      stdout.should =~ /rm -f ".*deploy\.lock"/
     end
 
     it "should honor release_path" do
       stdout.should include "#{Dir.pwd}/releases"
       stdout.should =~ /cd ".*releases\/#{Time.now.strftime('%Y-%m-%d')}/
+    end
+
+    it "should symlink the current_path" do
+      stdout.should =~ /ln -s ".*releases\/#{Time.now.strftime('%Y-%m-%d')}.*current/
     end
 
     it "should include deploy directives" do
