@@ -6,6 +6,18 @@ describe "Invoking the 'vh' command in a project" do
     Dir.chdir root('test_env')
   end
 
+  it "should think it's 'vh', not 'rake' (1)" do
+    run_command 'pinkledills'
+    exitstatus.should_not == 0
+    stderr.should include 'vh aborted'
+  end
+
+  it "should think it's 'vh', not 'rake' (1)" do
+    vh '-T'
+    stdout.should include 'vh help'
+    stdout.should include 'vh git:clone'
+  end
+
   it 'with --version should print the version' do
     vh '--version'
     stdout.should include VanHelsing.version
