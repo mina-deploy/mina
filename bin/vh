@@ -4,6 +4,12 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 require 'van_helsing'
 require 'rake'
 
+# Intercept: if invoked as 'vh --help', don't let it pass through Rake, or else
+# we'll see the Rake help screen. Redirect it to 'vh help'.
+if ARGV.delete('--help') || ARGV.delete('-h')
+  ARGV << 'help'
+end
+
 Rake.application.instance_eval do
   standard_exception_handling do
     # Initialize Rake and make it think it's Van Helsing.
