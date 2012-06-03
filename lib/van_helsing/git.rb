@@ -4,10 +4,10 @@ namespace :git do
     settings.revision ||= `git rev-parse HEAD`.strip
 
     queue %{
-      echo "-----> Cloning from the Git repository"
+      echo "-----> Cloning the Git repository"
       git clone "#{settings.repository!}" . -n --recursive &&
-      git rev-parse "#{revision}" 1>/dev/null &&
-      git checkout "#{revision}" 2>/dev/null &&
+      echo "-----> Using revision #{revision}" &&
+      git checkout "#{revision}" -b current_release >/dev/null &&
       rm -rf .git
     }
   end
