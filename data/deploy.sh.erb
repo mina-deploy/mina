@@ -60,8 +60,7 @@ touch "<%= lock_file %>"
   echo "-----> Build finished"
   echo "-----> Symlinking <%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version to <%= current_path.gsub(deploy_to, '.').squeeze('/') %>"
   mv "<%= build_path %>" "$release_path"
-  rm -f "<%= current_path %>"
-  ln -s "$release_path" "<%= current_path %>"
+  ln -nfs "$release_path" "<%= current_path %>"
 ) &&
 
 # ============================
@@ -93,8 +92,7 @@ touch "<%= lock_file %>"
   )
   (
     echo -n "unlinking, "
-    rm -f "<%= current_path %>"
-    [ -n "$previous_path" ] && ln -s "$previous_path" "<%= current_path %>"
+    [ -n "$previous_path" ] && ln -nfs "$previous_path" "<%= current_path %>"
   )
   echo "OK"
 
