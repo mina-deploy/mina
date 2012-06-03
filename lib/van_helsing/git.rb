@@ -7,7 +7,7 @@ namespace :git do
       echo "-----> Cloning the Git repository"
       git clone "#{settings.repository!}" . -n --recursive &&
       echo "-----> Using revision #{revision}" &&
-      git checkout "#{revision}" -b current_release >/dev/null &&
+      git checkout "#{revision}" -b current_release 1>/dev/null &&
       rm -rf .git
     }
   end
