@@ -23,11 +23,11 @@ namespace :doc do
 end
 
 task :spec do
-  system "rspec -c"
+  system "rspec"
 end
 
 task :'spec:verbose' do
-  system "rspec --format documentation -c"
+  system "rspec --format documentation"
 end
 
 task :default => :spec
