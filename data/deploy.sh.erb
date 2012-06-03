@@ -39,14 +39,16 @@ if [ -e "<%= release_path %>" ]; then
   exit 18
 fi
 
+release_path="<%= release_path %>"
+
 # Lock
 touch "<%= lock_file %>"
 
 # ============================
 # === Bootstrap script (in deployer)
 (
-  mkdir -p "<%= release_path %>" &&
-  cd "<%= release_path %>" &&
+  mkdir -p "$release_path" &&
+  cd "$release_path" &&
   (
     <%= prepare %>
   )
@@ -57,7 +59,7 @@ touch "<%= lock_file %>"
 (
   echo "-----> Finishing up"
   rm -f "<%= current_path %>"
-  ln -s "<%= release_path %>" "<%= current_path %>"
+  ln -s "$release_path" "<%= current_path %>"
 ) &&
 
 # ============================
@@ -82,9 +84,9 @@ touch "<%= lock_file %>"
   <%= clean %>
 
   echo -n "-----> Cleaning up... "
-  [ -e "<%= release_path %>" ] && (
+  [ -e "$release_path" ] && (
     echo -n "deleting, "
-    rm -rf "<%= release_path %>"
+    rm -rf "$release_path"
   )
   (
     echo -n "unlinking, "

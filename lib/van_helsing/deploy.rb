@@ -1,8 +1,14 @@
 settings.releases_path ||= lambda { "#{settings.deploy_to!}/releases" }
 settings.shared_path   ||= lambda { "#{settings.deploy_to!}/shared" }
 settings.current_path  ||= lambda { "#{settings.deploy_to!}/current" }
-settings.release_path  ||= lambda { "#{releases_path}/#{settings.current_version!}" }
 settings.lock_file     ||= lambda { "#{settings.deploy_to!}/deploy.lock" }
+
+# WARNING: Don't use this, I'm thinking of deprecating it.
+# Why? (1) The release path should be determined at the server, not locally.
+# (2) The release should be built on a temp directory, then renamed to the actual release_path.
+#
+# The only thing that relies on this now is the deploy script.
+settings.release_path  ||= lambda { "#{releases_path}/#{settings.current_version!}" }
 
 namespace :deploy do
   desc "Forces a deploy unlock."
