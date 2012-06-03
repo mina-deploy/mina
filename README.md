@@ -156,7 +156,7 @@ task :deploy do
 
     # These are instructions to start the app after it's been prepared.
     to :restart do
-      run 'touch tmp/restart.txt'
+      queue 'touch tmp/restart.txt'
     end
 
     # This optional block defines how a broken release should be cleaned up.
