@@ -6,22 +6,33 @@ describe "Invoking the 'vh' command in a project" do
     Dir.chdir root('test_env')
   end
 
+  it 'with --version should print the version' do
+    vh '--version'
+    stdout.should include VanHelsing.version
+  end
+
+  it 'with -V should print the version' do
+    vh '-V'
+    stdout.should include VanHelsing.version
+  end
+
   describe 'without arguments' do
     before :each do
       vh
     end
+
     it 'should print standard help tasks' do
       vh
-      stdout.should include('vh help')
-      stdout.should include('vh init')
-      stdout.should include('vh tasks')
+      stdout.should include 'vh help'
+      stdout.should include 'vh init'
+      stdout.should include 'vh tasks'
     end
 
     it 'should print project-specific tasks' do
       vh
-      stdout.should include('vh deploy')
-      stdout.should include('vh restart')
-      stdout.should include('vh setup')
+      stdout.should include 'vh deploy'
+      stdout.should include 'vh restart'
+      stdout.should include 'vh setup'
     end
 
     it "should be the same as running 'help'" do
@@ -40,36 +51,5 @@ describe "Invoking the 'vh' command in a project" do
 
     stdout.should include('rails:assets_precompile')
     stdout.should include('nginx:restart')
-  end
-
-  describe "to do a simulated deploy" do
-    before :each do
-      vh 'deploy', 'simulate=1'
-    end
-    
-    it "take care of the lockfile" do
-      stdout.should =~ /ERROR: another deployment is ongoing/
-      stdout.should =~ /touch ".*deploy\.lock"/
-      stdout.should =~ /rm -f ".*deploy\.lock"/
-    end
-
-    it "should honor release_path" do
-      stdout.should include "#{Dir.pwd}/releases"
-      stdout.should =~ /cd ".*releases\/#{Time.now.strftime('%Y-%m-%d')}/
-    end
-
-    it "should symlink the current_path" do
-      stdout.should =~ /ln -s ".*releases\/#{Time.now.strftime('%Y-%m-%d')}.*current/
-    end
-
-    it "should include deploy directives" do
-      # The recipes should be there
-      stdout.should include "bundle exec rake db:migrate"
-    end
-
-    it "should include 'to :restart' directives" do
-      # The recipes should be there
-      stdout.should include "sudo /opt/sbin/nginx -s reload"
-    end
   end
 end
