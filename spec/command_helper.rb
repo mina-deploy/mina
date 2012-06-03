@@ -1,4 +1,5 @@
-def vh(*args)
+# Invokes the main 'vh' command.
+def run_command(*args)
   require 'open3'
 
   out = ''
@@ -16,6 +17,12 @@ def vh(*args)
   @result = status
 
   status
+end
+
+# Invokes the main 'vh' command and ensures the exit status is success.
+def vh(*args)
+  run_command *args
+  exitstatus.should == 0
 end
 
 def stdout
