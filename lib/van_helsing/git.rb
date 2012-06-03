@@ -6,6 +6,7 @@ namespace :git do
     queue %{
       echo "-----> Cloning from the Git repository"
       git clone "#{settings.repository!}" . -n --recursive &&
+      git rev-parse "#{revision}" 1>/dev/null &&
       git checkout "#{revision}" 2>/dev/null &&
       rm -rf .git
     }
