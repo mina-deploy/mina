@@ -2,10 +2,16 @@ require 'van_helsing/bundler'
 require 'van_helsing/rails'
 require 'van_helsing/git'
 
-set :host, 'foobar.com'               # The hostname to SSH to
-set :deploy_to, '/var/www/foobar.com' # Path to deploy from
-set :repository, 'git://...'          # Git repo to clone from (needed by van_helsing/git)
-# set :user, 'foobar.com'    # Username in that server (optional)
+# Basic settings:
+# host       - The hostname to SSH to
+# deploy_to  - Path to deploy into
+# repository - Git repo to clone from (needed by van_helsing/git)
+# user       - Username in the  server to SSH to (optional)
+
+set :host, 'foobar.com'
+set :deploy_to, '/var/www/foobar.com'
+set :repository, 'git://...'
+# set :user, 'foobar.com'
 
 task :deploy do
   deploy do
