@@ -14,9 +14,8 @@ describe "Invoking the 'vh' command in a project" do
       stdout.should =~ /rm -f ".*deploy\.lock"/
     end
 
-    it "should honor build_path" do
+    it "should honor releases_path" do
       stdout.should include "#{Dir.pwd}/deploy/releases"
-      stdout.should =~ /cd ".*releases\/build-[0-9]+/
     end
 
     it "should symlink the current_path" do

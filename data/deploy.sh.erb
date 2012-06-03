@@ -24,18 +24,17 @@ fi
 # Go there
 cd "<%= deploy_to %>"
 
-# Determine $previous_path
+# Determine $previous_path and other variables
 [ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
+build_path="./tmp/build-`date +%s`$RANDOM"
 version=$((`cat "<%= deploy_to %>/last_version" 2>/dev/null`+1))
 release_path="<%= releases_path %>/$version"
 
 # ============================
 # === Sanity check
 
-if [ -e "<%= build_path %>" ]; then
+if [ -e "$build_path" ]; then
   echo "-----> ERROR: Path already exists"
-  echo "The path '<%= build_path %>' already exists."
-  echo "You may have to delete it first."
   exit 18
 fi
 
@@ -47,8 +46,8 @@ touch "<%= lock_file %>"
 # ============================
 # === Bootstrap script (in deployer)
 (
-  mkdir -p "<%= build_path %>" &&
-  cd "<%= build_path %>" &&
+  mkdir -p "$build_path" &&
+  cd "$build_path" &&
   (
 <%= indent 4, (prepare.empty? ? "true" : prepare) %>
   )
@@ -58,8 +57,10 @@ touch "<%= lock_file %>"
 # === Rename to the real release path, then symlink 'current'
 (
   echo "-----> Build finished"
+  echo "-----> Moving $build_path to <%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version"
+  mv "$build_path" "$release_path"
+
   echo "-----> Symlinking <%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version to <%= current_path.gsub(deploy_to, '.').squeeze('/') %>"
-  mv "<%= build_path %>" "$release_path"
   ln -nfs "$release_path" "<%= current_path %>"
 ) &&
 
@@ -86,9 +87,9 @@ touch "<%= lock_file %>"
 <%= indent 2, clean %>
 
   echo -n "-----> Cleaning up build... "
-  [ -e "<%= build_path %>" ] && (
+  [ -e "$build_path" ] && (
     echo -n "deleting, "
-    rm -rf "<%= build_path %>"
+    rm -rf "$build_path"
   )
   (
     echo -n "unlinking, "
