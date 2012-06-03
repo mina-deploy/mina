@@ -14,3 +14,7 @@ def rake(&blk)
 
   @scope
 end
+
+def root(*a)
+  File.join File.expand_path('../../', __FILE__), *a
+end
