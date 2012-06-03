@@ -13,8 +13,9 @@ module VanHelsing
     end
 
     # SSHs into the host and runs the code that has been queued.
-    # This is ran before Rake exits to run all commands that have been
-    # queued up.
+    #
+    # This is already automatically invoked before Rake exits to run all
+    # commands that have been queued up.
     #
     #     queue "sudo restart"
     #     run!
@@ -207,6 +208,7 @@ module VanHelsing
       "echo #{("$ " + str).inspect} &&\n#{str}"
     end
 
+    # Invoked when Rake exits.
     def vh_cleanup!
       run! if commands.any?
     end
