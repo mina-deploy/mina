@@ -21,3 +21,13 @@ namespace :doc do
     system "git update-ghpages #{ENV['github']} -i doc"
   end
 end
+
+task :spec do
+  system "rspec -c"
+end
+
+task :'spec:verbose' do
+  system "rspec --format documentation -c"
+end
+
+task :default => :spec

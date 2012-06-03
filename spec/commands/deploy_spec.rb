@@ -1,4 +1,8 @@
 describe "Invoking the 'vh' command in a project" do
+  before :each do
+    Dir.chdir root('test_env')
+  end
+
   describe "to do a simulated deploy" do
     before :each do
       vh 'deploy', 'simulate=1'
