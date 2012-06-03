@@ -161,7 +161,7 @@ task :deploy do
 
     # This optional block defines how a broken release should be cleaned up.
     to :clean do
-      queue 'log "failed deployment for #{current_version}"'
+      queue 'log "failed deployment"'
     end
   end
 end

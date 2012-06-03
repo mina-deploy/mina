@@ -62,6 +62,6 @@ describe "Invoking the 'vh' command in a project" do
     stdout.should include('Install gem dependencies using Bundler')
 
     stdout.should include('rails:assets_precompile')
-    stdout.should include('nginx:restart')
+    stdout.should include('passenger:restart')
   end
 end

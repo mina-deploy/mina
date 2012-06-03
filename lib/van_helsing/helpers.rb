@@ -12,7 +12,8 @@ module VanHelsing
     #     end
     #
     def deploy(&blk)
-      settings.current_version ||= Time.now.strftime("%Y-%m-%d-%H%m%S")
+      settings.build_id   = "%010i%04i" % [Time.now.to_i, rand(9999)]
+      settings.build_path = lambda { "#{releases_path}/build-#{settings.build_id!}" }
 
       code = isolate do
         yield

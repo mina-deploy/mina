@@ -3,8 +3,12 @@ require 'van_helsing/rails'
 require 'van_helsing/git'
 
 set :host, 'localhost'
-set :deploy_to, "#{Dir.pwd}/releases"
+set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, 'git://github.com/nadarei/van_helsing.git'
+
+# Stub
+require 'fileutils'
+FileUtils.mkdir_p deploy_to
 
 desc "Deploys."
 task :deploy do
@@ -12,29 +16,24 @@ task :deploy do
 
   deploy do
     invoke :'git:clone'
-    invoke :'bundle:install'
-    invoke :'rails:assets_precompile'
+    # invoke :'bundle:install'
+    # invoke :'rails:assets_precompile'
     invoke :'rails:db_migrate'
-    invoke :'cdn:propagate'
+    # invoke :'cdn:propagate'
 
     to :restart do
-      invoke :'nginx:restart'
-      invoke :'cdn:activate'
+      invoke :'passenger:restart'
     end
 
     to :clean do
-      invoke :'cdn:cleanup'
+      # invoke :'cdn:cleanup'
     end
-  end
-
-  unless ENV['simulate']
-    invoke :'git:tag_release' # post deploy
   end
 end
 
-desc "Restarts the nginx server."
+desc "Restarts the passenger server."
 task :restart do
-  invoke :'nginx:restart'
+  invoke :'passenger:restart'
 end
 
 task(:'growl:notify') {}
@@ -47,11 +46,11 @@ task(:'cdn:cleanup') {}
 #   run!
 # end
 
-namespace :nginx do
+namespace :passenger do
   task :restart do
     queue %{
-      echo "-----> Restarting nginx"
-      sudo /opt/sbin/nginx -s reload
+      echo "-----> Restarting passenger"
+      touch tmp/restart.txt
     }
   end
 end

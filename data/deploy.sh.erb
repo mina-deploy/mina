@@ -26,6 +26,8 @@ cd "<%= deploy_to %>"
 
 # Determine $previous_path
 [ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
+version=$((`cat "<%= deploy_to %>/last_version" 2>/dev/null`+1))
+release_path="<%= releases_path %>/v$version"
 
 # ============================
 # === Sanity check
@@ -48,31 +50,32 @@ touch "<%= lock_file %>"
   mkdir -p "<%= build_path %>" &&
   cd "<%= build_path %>" &&
   (
-<%= indent 4, prepare %>
+<%= indent 4, (prepare.empty? ? "true" : prepare) %>
   )
 ) &&
 
 # ============================
-# === Symlinking 'current'
+# === Rename to the real release path, then symlink 'current'
 (
   echo "-----> Finishing up"
-  <%# TODO: for sequential versions, rename the build_path into $release_path here %>
+  mv "<%= build_path %>" "$release_path"
   rm -f "<%= current_path %>"
-  ln -s "<%= build_path %>" "<%= current_path %>"
+  ln -s "$release_path" "<%= current_path %>"
 ) &&
 
 # ============================
 # === Start up server (in deployer)
 (
   echo "-----> Launching"
-<%= indent 2, restart %>
+<%= indent 2, (restart.empty? ? "true" : restart) %>
 ) &&
 
 # ============================
 # === Complete & unlock
 (
   rm -f "<%= lock_file %>"
-  echo "-----> Done"
+  echo "$version" > "<%= deploy_to %>/last_version"
+  echo "-----> Done. Deployed v$version"
 ) ||
 
 # ============================

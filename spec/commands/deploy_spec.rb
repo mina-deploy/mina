@@ -15,12 +15,12 @@ describe "Invoking the 'vh' command in a project" do
     end
 
     it "should honor build_path" do
-      stdout.should include "#{Dir.pwd}/releases"
-      stdout.should =~ /cd ".*releases\/#{Time.now.strftime('%Y-%m-%d')}/
+      stdout.should include "#{Dir.pwd}/deploy/releases"
+      stdout.should =~ /cd ".*releases\/build-[0-9]+/
     end
 
     it "should symlink the current_path" do
-      stdout.should =~ /ln -s ".*releases\/#{Time.now.strftime('%Y-%m-%d')}.*current/
+      stdout.should =~ /ln -s ".*current/
     end
 
     it "should include deploy directives" do
@@ -28,7 +28,7 @@ describe "Invoking the 'vh' command in a project" do
     end
 
     it "should include 'to :restart' directives" do
-      stdout.should include "sudo /opt/sbin/nginx -s reload"
+      stdout.should include "touch tmp/restart.txt"
     end
   end
 end
