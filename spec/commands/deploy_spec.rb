@@ -20,7 +20,7 @@ describe "Invoking the 'vh' command in a project" do
     end
 
     it "should symlink the current_path" do
-      stdout.should =~ /ln -s ".*current/
+      stdout.should =~ /ln .*current/
     end
 
     it "should include deploy directives" do
