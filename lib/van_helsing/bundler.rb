@@ -13,9 +13,9 @@ namespace :bundle do
     else
       queue %{
         echo "-----> Installing gem dependencies using Bundler"
-        #{echo_cmd %[mkdir -p "#{shared_path}/bundle"]}
+        #{echo_cmd %[mkdir -p "#{deploy_to}/#{shared_path}/bundle"]}
         #{echo_cmd %[mkdir -p "#{File.dirname bundle_path}"]}
-        #{echo_cmd %[ln -s "#{shared_path}/bundle" "#{bundle_path}"]}
+        #{echo_cmd %[ln -s "#{deploy_to}/#{shared_path}/bundle" "#{bundle_path}"]}
         #{echo_cmd %[bundle install #{bundle_options}]}
       }
     end
