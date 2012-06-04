@@ -15,7 +15,7 @@ describe "Invoking the 'vh' command in a project" do
     end
 
     it "should honor releases_path" do
-      stdout.should include "#{Dir.pwd}/deploy/releases"
+      stdout.should include "releases/"
     end
 
     it "should symlink the current_path" do
