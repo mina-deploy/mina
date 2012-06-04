@@ -87,13 +87,17 @@ touch "<%= lock_file %>"
 
 <%= indent 2, clean %>
 
-  echo -n "-----> Cleaning up build... "
+  echo "-----> Cleaning up build"
   [ -e "$build_path" ] && (
-    echo -n "deleting, "
+    echo "Deleting build"
     rm -rf "$build_path"
   )
+  [ -e "$release_path" ] && (
+    echo "Deleting release"
+    rm -rf "$release_path"
+  )
   (
-    echo -n "unlinking, "
+    echo "Unlinking current"
     [ -n "$previous_path" ] && ln -nfs "$previous_path" "<%= current_path %>"
   )
   echo "OK"
