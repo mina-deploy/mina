@@ -10,7 +10,8 @@ cd "<%= deploy_to %>" || (
   echo "-----> Error: not set up."
   echo "The path '<%= deploy_to %>' is not accessible on the server."
   echo "You may need to run 'dep setup' first."
-) && exit 16
+  exit
+) || exit 16
 
 # Check lockfile
 if [ -e "<%= lock_file %>" ]; then
