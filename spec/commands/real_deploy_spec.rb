@@ -1,12 +1,21 @@
 require 'spec_helper'
 require 'command_helper'
 require 'fileutils'
+require 'tmpdir'
 
 describe "Invoking the 'vh' command in a project", :ssh => true do
   before :each do
-    Dir.chdir root('test_env')
+    @path = Dir.mktmpdir
+    Dir.chdir @path
+
+    FileUtils.mkdir_p './config'
+    FileUtils.cp root('test_env/config/deploy.rb'), './config/deploy.rb'
     FileUtils.rm_rf './deploy'
     FileUtils.mkdir_p './deploy'
+  end
+
+  after :each do
+    FileUtils.rm_rf @path
   end
 
   it 'should set up and deploy fine' do
@@ -24,9 +33,11 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
     File.exists?('deploy/deploy.lock').should be_false
     File.directory?('deploy/releases').should be_true
     File.directory?('deploy/releases/1').should be_true
+    File.exists?('deploy/releases/1/README.md').should be_true
     File.directory?('deploy/releases/2').should be_false
     File.exists?('deploy/current').should be_true
     File.read('deploy/last_version').strip.should == '1'
+    File.exists?('deploy/current/tmp/restart.txt').should be_true
 
     # And again
     print "[deploy 2]" if ENV['verbose']
