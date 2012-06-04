@@ -1,3 +1,18 @@
+v0.0.1.pre5 - Jun 05, 2012
+--------------------------
+
+### Added:
+  * Add '--trace' to the 'vh help' screen.
+  * Rake 0.8 compatibility.
+  * Ruby 1.8.7 compatibility.
+
+### Changed:
+  * Use `:domain` instead of `:host`.
+
+### Misc:
+  * Allow rake 0.8 testing using `rake=0.8 rspec`.
+  * Add more README examples.
+
 v0.0.1.pre4 - Jun 05, 2012
 --------------------------
 
