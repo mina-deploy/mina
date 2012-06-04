@@ -1,7 +1,7 @@
-settings.releases_path ||= lambda { "#{settings.deploy_to!}/releases" }
-settings.shared_path   ||= lambda { "#{settings.deploy_to!}/shared" }
-settings.current_path  ||= lambda { "#{settings.deploy_to!}/current" }
-settings.lock_file     ||= lambda { "#{settings.deploy_to!}/deploy.lock" }
+settings.releases_path ||= "releases"
+settings.shared_path   ||= "shared"
+settings.current_path  ||= "current"
+settings.lock_file     ||= "deploy.lock"
 
 namespace :deploy do
   desc "Forces a deploy unlock."

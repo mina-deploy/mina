@@ -5,13 +5,12 @@
 %>
 #!/usr/bin/env bash
 
-# Sanity check
-if [ ! -d "<%= deploy_to %>" ]; then
+# Go to the deploy path
+cd "<%= deploy_to %>" || (
   echo "-----> Error: not set up."
-  echo "The path '<%= deploy_to %>' is not found on the server."
+  echo "The path '<%= deploy_to %>' is not accessible on the server."
   echo "You may need to run 'dep setup' first."
-  exit 16
-fi
+) && exit 16
 
 # Check lockfile
 if [ -e "<%= lock_file %>" ]; then
@@ -21,30 +20,23 @@ if [ -e "<%= lock_file %>" ]; then
   exit 17
 fi
 
-# Go there
-cd "<%= deploy_to %>"
-
 # Determine $previous_path and other variables
 [ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
 build_path="./tmp/build-`date +%s`$RANDOM"
 version=$((`cat "<%= deploy_to %>/last_version" 2>/dev/null`+1))
 release_path="<%= releases_path %>/$version"
 
-# ============================
-# === Sanity check
-
+# Sanity check
 if [ -e "$build_path" ]; then
   echo "-----> ERROR: Path already exists"
   exit 18
 fi
 
+# Lock and load
 echo "-----> Deploying"
-
-# Lock
 touch "<%= lock_file %>"
 
-# ============================
-# === Bootstrap script (in deployer)
+# Bootstrap script (in deployer)
 (
   mkdir -p "$build_path" &&
   cd "$build_path" &&
@@ -53,14 +45,14 @@ touch "<%= lock_file %>"
   )
 ) &&
 
-# ============================
-# === Rename to the real release path, then symlink 'current'
+#
+# Rename to the real release path, then symlink 'current'
 (
   echo "-----> Build finished"
-  echo "-----> Moving $build_path to <%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version"
+  echo "-----> Moving $build_path to $release_path"
   mv "$build_path" "$release_path"
 
-  echo "-----> Symlinking <%= releases_path.gsub(deploy_to, '.').squeeze('/') %>/$version to <%= current_path.gsub(deploy_to, '.').squeeze('/') %>"
+  echo "-----> Symlinking $release_path to <%= current_path %>"
   ln -nfs "$release_path" "<%= current_path %>"
 ) &&
 
@@ -76,7 +68,7 @@ touch "<%= lock_file %>"
 # === Complete & unlock
 (
   rm -f "<%= lock_file %>"
-  echo "$version" > "<%= deploy_to %>/last_version"
+  echo "$version" > "./last_version"
   echo "-----> Done. Deployed v$version"
 ) ||
 
