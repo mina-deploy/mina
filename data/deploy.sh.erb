@@ -35,7 +35,7 @@ fi
 
 # Lock and load
 echo "-----> Deploying"
-<%= echo_cmd %{touch "%s"} % [lock_file] %>
+<%= echo_cmd %[touch "#{lock_file}"] %>
 
 # Bootstrap script (in deployer)
 (
@@ -51,17 +51,17 @@ echo "-----> Deploying"
 (
   echo "-----> Build finished"
   echo "-----> Moving $build_path to $release_path"
-  <%= echo_cmd %{mv "$build_path" "$release_path"} %>
+  <%= echo_cmd %[mv "$build_path" "$release_path"] %>
 
   echo "-----> Symlinking $release_path to <%= current_path %>"
-  <%= echo_cmd %{ln -nfs "$release_path" "%s"} % [current_path] %>
+  <%= echo_cmd %[ln -nfs "$release_path" "#{current_path}"] %>
 ) &&
 
 # ============================
 # === Start up serve => (in deployer)
 (
   echo "-----> Launching"
-  <%= echo_cmd %{cd "$release_path"} %>
+  <%= echo_cmd %[cd "$release_path"] %>
 <%= indent 2, (restart.empty? ? "true" : restart) %>
 ) &&
 
@@ -82,20 +82,19 @@ echo "-----> Deploying"
 
   echo "-----> Cleaning up build"
   [ -e "$build_path" ] && (
-    echo "Deleting build"
-    rm -rf "$build_path"
+    <%= echo_cmd %[rm -rf "$build_path"] %>
   )
   [ -e "$release_path" ] && (
     echo "Deleting release"
-    rm -rf "$release_path"
+    <%= echo_cmd %[rm -rf "$release_path"] %>
   )
   (
     echo "Unlinking current"
-    [ -n "$previous_path" ] && ln -nfs "$previous_path" "<%= current_path %>"
+    [ -n "$previous_path" ] && <%= echo_cmd %[ln -nfs "$previous_path" "#{current_path}"] %>
   )
   echo "OK"
 
   # Unlock
-  rm -f "<%= lock_file %>"
+  <%= echo_cmd %[rm -f "#{lock_file}"] %>
   exit 8
 )
