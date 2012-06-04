@@ -3,6 +3,11 @@
 # directory.  The commands have been stubbed, so it's harmless. No rails or
 # bundler magic will happen.
 
+# ASSUMPTIONS:
+# - You have git installed. (of course you do)
+# - You have SSH enabled. In OS X, this is "Remote Login" under the Sharing pref pane.
+# - You have your own SSH key added to your own user so you can SSH to your own machine.
+#
 # In fact, let's make that folder right now.
 require 'fileutils'
 ROOT = File.expand_path('../../../', __FILE__)
@@ -15,7 +20,7 @@ require 'van_helsing/bundler'
 require 'van_helsing/git'
 
 set :host, 'localhost'
-set :deploy_to, "#{Dir.pwd}/deploy"
+set :deploy_to, "#{ROOT}/test_env/deploy"
 set :repository, "#{ROOT}"
 
 desc "Deploys."
