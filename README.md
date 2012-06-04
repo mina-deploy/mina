@@ -145,6 +145,15 @@ end
 Once you type `vh logs` in your terminal, it invokes the *queue*d commands
 remotely on the server using the command `ssh john@flipstack.com`.
 
+```
+# Run it in simulation mode so we see the command it will invoke:
+$ vh logs --simulate
+(
+  echo "Contents of the log file are as follows:"
+  tail -f /var/log/apache.log
+) | ssh john@flipstack.com -- bash -
+```
+
 Subtasks
 --------
 
@@ -260,6 +269,20 @@ commands to restart the webserver process. Once this in complete, you're done!
 If it fails at any point, the release path will be deleted. If any commands are
 queued using the `to :clean` block, they will be ran. It will be as if nothing
 happened.
+
+```
+# Lets see what happens if a build fails:
+-----> Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+       Starting nginx... error: can't start service
+-----> ERROR: Deploy failed.
+-----> Cleaning up build
+       $ rm -rf tmp/build-128293482394
+-----> Unlinking current
+       $ ln -nfs releases/3 current
+       OK
+```
 
 Directory structure
 -------------------
