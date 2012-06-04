@@ -22,6 +22,11 @@ end
 # Invokes the main 'vh' command and ensures the exit status is success.
 def vh(*args)
   run_command *args
+  if exitstatus != 0 && ENV['verbose']
+    puts stdout
+    puts stderr
+  end
+
   exitstatus.should == 0
 end
 
