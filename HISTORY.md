@@ -17,18 +17,19 @@ v0.0.1.pre4 - Jun 05, 2012
 --------------------------
 
 ### Added:
-  * --simulate.
-  * --verbose.
-  * a test for an actual deployment.
-  * Build in tmp/ instead of in releases/.
-  * --help now show command line switches (like --verbose).
-  * `verbose_mode and simulate_mode instead. Using 'verbose' causes problems.
-  * New deploy_script helper, to make things more transparent.
+  * `--simulate` switch.
+  * `--verbose` switch.
+  * The help screen now shows command line switches (like `--verbose`).
+  * Build in `tmp/` instead of in `releases/`.
+  * Use `verbose_mode` and `simulate_mode` instead. Using 'verbose' causes
+    problems.
+  * New `#deploy_script` helper, to make things more transparent.
 
 ### Misc:
-  * Make the test_env runnable even without a net connection.
-  * New tests for actual deployment (Just do rspec -t ssh)
-  * Cleanup git:clone code.
+  * Added a test for an actual deployment.
+  * Make the `test_env` runnable even without a net connection.
+  * New tests for actual deployment. Just do `rspec -t ssh`.
+  * Cleanup `git:clone` code.
   * A buncha code cleanups.
 
 v0.0.1.pre3 - Jun 04, 2012
