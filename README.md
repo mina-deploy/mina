@@ -8,7 +8,7 @@ generates an entire procedure as a Bash script and runs it remotely in the
 server.
 
 Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Van Helsing only creates *one* SSH.
+is ran separately on their own SSH sessions. Van Helsing only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
     # Install the gem yourself
@@ -17,10 +17,35 @@ session per deploy, minimizing the SSH connection overhead.
     $ gem build *.gemspec
     $ gem install *.gem
 
-Setting up
-----------
+Features
+--------
 
-### 1. Create a config/deploy.rb
+* __Really fast.__ Van Helsing only makes one SSH connection per deploy. It
+  builds a Bash script and executes it remotely, reducing the overhead of
+  creating SSH connections to do processing locally (like Vlad or Capistrano
+  does).
+
+* __Safe deploys.__ New releases are built on a temp folder. If the deploy
+  script fails at any point, the build is deleted and it'd be as if nothing
+  happened.
+
+* __Locks.__ Deploy scripts rely on a lockfile ensuring only one deploy can
+  happen at a time.
+
+* __Works with anything.__ While Van Helsing is built with Rails projects it
+  mind, it can be used on just about any type of project deployable via SSH,
+  Ruby or not.
+
+* __Built with Rake.__ Setting up tasks will be very familiar! No YAML files
+  here. Everything is written in Ruby, giving you the power to be as flexible in
+  your configuration as needed.
+
+Setting up a project
+--------------------
+
+Let's deploy a project using Van Helsing.
+
+### Step 1: Create a config/deploy.rb
 
 In your project, type `vh init` to create a sample of this file.
 
@@ -31,7 +56,7 @@ This is just a Rake file with tasks!
 
 See [About deploy.rb](#about-deployrb) for more info on what *deploy.rb* is.
 
-### 2. Set up your server
+### Step 2: Set up your server
 
 Make a directory in your server called `/var/www/flipstack.com` (in *deploy_to*)
 change it's ownership to the correct user.
@@ -42,7 +67,7 @@ change it's ownership to the correct user.
 
     # Make sure 'username' is the same as what's on deploy.rb
 
-### 3. Run 'vh setup'
+### Step 3: Run 'vh setup'
 
 Now do `vh setup` to set up the [folder structure](#directory-structure) in this
 path. This will connect to your server via SSH and create the right directories.
@@ -52,7 +77,7 @@ path. This will connect to your server via SSH and create the right directories.
 
 See [directory structure](#directory-structure) for more info.
 
-### 4. Deploy!
+### Step 4: Deploy!
 
 Use `vh deploy` to run the `deploy` task defined in *config/deploy.rb*.
 
