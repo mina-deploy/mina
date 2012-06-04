@@ -155,12 +155,13 @@ you.
 set :domain, 'flipstack.com'
 set :user, 'flipstack'
 set :deploy_to, '/var/www/flipstack.com'
+set :repository, 'http://github.com/flipstack/flipstack.git'
 
 task :deploy do
   deploy do
     # Put things that prepare the empty release folder here.
     # Commands queued here will be ran on a new release directory.
-    invoke :'git:checkout'
+    invoke :'git:clone'
     invoke :'bundle:install'
 
     # These are instructions to start the app after it's been prepared.
@@ -179,20 +180,57 @@ end
 It works by capturing the *queue*d commands inside the block, wrapping them
 in a deploy script, then *queue*ing them back in.
 
-### How deploying works
+How deploying works
+-------------------
 
-The deploy process looks like this:
+Here is an example of a deploy! (Note that some commands have been simplified
+to illustrate the point better.)
 
-1. Decide on a release name based on the current timestamp, say,
-   `2012-06-02-045823`.
-2. cd to `/var/www/flipstack.com` (the *deploy_to* path).
-3. Create `./releases/2012-06-02-045823` (the *release path*).
-4. Invoke the queued up commands in the `deploy` block. Usually, this is a git
-   checkout, along with some commands to initialize the app, such as running DB
-   migrations.
-5. Once it's been prepared, the release path is symlinked into `./current`.
-6. Invoke the commands queued up in the `to :restart` block. These often
-   commands to restart the webserver process.
+### Step 1: Build it
+
+The deploy process builds a new temp folder with instructions you provide.
+In this example, it will do `git:clone` and `bundle:install`.
+
+```
+$ vh deploy --verbose
+-----> Creating the build path
+       $ mkdir tmp/build-128293482394
+-----> Cloning the Git repository
+       $ git clone https://github.com/flipstack/flipstack.git . -n --recursive
+       Cloning... done.
+-----> Installing gem dependencies using Bundler
+       $ bundle install --without development:test
+       Using i18n (0.6.0)
+       Using multi_json (1.0.4)
+       ...
+       Your bundle is complete! It was installed to ./vendor/bundle
+```
+
+### Step 2: Move it to releases
+
+Once the project has been built, it will be moved to `releases/`. A symlink
+called `current/` will be created to point to the active release.
+
+```
+-----> Moving to releases/4
+       $ mv "./tmp/build-128293482394" "releases/4"
+-----> Symlinking to current
+       $ ln -nfs releases/4 current
+```
+
+### Step 3: Launch it
+
+Invoke the commands queued up in the `to :restart` block. These often
+commands to restart the webserver process. Once this in complete, you're done!
+
+```
+-----> Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+-----> Done. Deployed v4
+```
+
+### What about failure?
 
 If it fails at any point, the release path will be deleted. If any commands are
 queued using the `to :clean` block, they will be ran. It will be as if nothing
