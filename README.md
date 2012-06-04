@@ -63,6 +63,15 @@ Use `vh deploy` to run the `deploy` task defined in *config/deploy.rb*.
            ...
     -----> Done.
 
+Command line options
+--------------------
+
+* `--verbose` - This will show commands being done on the server. Off by
+  default.
+
+* `--simulate` - This will not invoke any SSH connections; instead, it will
+  simply output the script it builds.
+
 About deploy.rb
 ---------------
 
@@ -438,7 +447,7 @@ To test out stuff in development:
 
     # Try out the test environment!
     $ cd test_env
-    $ vh deploy simulate=1
+    $ vh deploy --simulate
     $ vh deploy
 
 Acknowledgements
