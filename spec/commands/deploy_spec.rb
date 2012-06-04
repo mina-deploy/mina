@@ -29,7 +29,7 @@ describe "Invoking the 'vh' command in a project" do
       stdout.should include "bundle exec rake db:migrate"
     end
 
-    it "should include 'to :restart' directives" do
+    it "should include 'to :launch' directives" do
       stdout.should include "touch tmp/restart.txt"
     end
   end

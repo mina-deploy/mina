@@ -32,7 +32,7 @@ task :deploy do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
 
-    to :restart do
+    to :launch do
       invoke :'passenger:restart'
     end
   end

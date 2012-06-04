@@ -168,7 +168,7 @@ module VanHelsing
     #     to :prepare do
     #       run "bundle install"
     #     end
-    #     to :restart do
+    #     to :launch do
     #       run "nginx -s restart"
     #     end
     #

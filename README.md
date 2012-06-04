@@ -190,7 +190,7 @@ task :deploy do
     invoke :'bundle:install'
 
     # These are instructions to start the app after it's been prepared.
-    to :restart do
+    to :launch do
       queue 'touch tmp/restart.txt'
     end
 
@@ -245,7 +245,7 @@ called `current/` will be created to point to the active release.
 
 ### Step 3: Launch it
 
-Invoke the commands queued up in the `to :restart` block. These often
+Invoke the commands queued up in the `to :launch` block. These often
 commands to restart the webserver process. Once this in complete, you're done!
 
 ```

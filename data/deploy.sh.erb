@@ -1,6 +1,6 @@
 <%
   prepare = commands(:default).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  restart = commands(:restart).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  launch  = commands(:launch).map  { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
   clean   = commands(:clean).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
 %>
 #!/usr/bin/env bash
@@ -62,7 +62,7 @@ fi
 (
   echo "-----> Launching"
   <%= echo_cmd %[cd "$release_path"] %>
-<%= indent 2, (restart.empty? ? "true" : restart) %>
+<%= indent 2, (launch.empty? ? "true" : launch) %>
 ) &&
 
 # ============================

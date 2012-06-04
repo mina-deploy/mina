@@ -23,7 +23,7 @@ task :deploy do
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
 
-    to :restart do
+    to :launch do
       queue 'touch tmp/restart.txt'
     end
   end
