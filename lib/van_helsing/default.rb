@@ -70,6 +70,7 @@ task :help do
   opts = [
     [ "-h, --help", "Show help" ],
     [ "-V, --version", "Show program version" ],
+    [ "-v, --verbose", "Show commands as they happen" ],
     [ "--simulate", "Run in simulation mode" ]
   ]
   opts.each { |args| puts "  %-15s %s" % args }
