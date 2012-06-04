@@ -34,11 +34,11 @@ if [ -e "$build_path" ]; then
 fi
 
 # Lock and load
-echo "-----> Deploying"
 <%= echo_cmd %[touch "#{lock_file}"] %>
 
 # Bootstrap script (in deployer)
 (
+  echo "-----> Creating a temporary build path"
   mkdir -p "$build_path" &&
   cd "$build_path" &&
   (
@@ -50,10 +50,10 @@ echo "-----> Deploying"
 # Rename to the real release path, then symlink 'current'
 (
   echo "-----> Build finished"
-  echo "-----> Moving $build_path to $release_path"
+  echo "-----> Moving build to $release_path"
   <%= echo_cmd %[mv "$build_path" "$release_path"] %>
 
-  echo "-----> Symlinking $release_path to <%= current_path %>"
+  echo "-----> Updating the <%= current_path %> symlink"
   <%= echo_cmd %[ln -nfs "$release_path" "#{current_path}"] %>
 ) &&
 
