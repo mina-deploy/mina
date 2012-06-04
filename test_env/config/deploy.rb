@@ -5,27 +5,27 @@
 
 # In fact, let's make that folder right now.
 require 'fileutils'
-FileUtils.mkdir_p "#{Dir.pwd}/deploy"
+ROOT = File.expand_path('../../../', __FILE__)
+FileUtils.mkdir_p "#{ROOT}/test_env/deploy"
 
-# -----------------
+# -- Stubs end, deploy script begins! --------------
 
 require 'van_helsing/rails'
+require 'van_helsing/bundler'
 require 'van_helsing/git'
 
 set :host, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
-set :repository, 'git://github.com/nadarei/van_helsing.git'
-set :revision, '0fe80cc'
+set :repository, "#{ROOT}"
 
 desc "Deploys."
 task :deploy do
-  invoke :'growl:notify' # pre deploy
+  queue "bundle() { true; }" # Stub the bundle command.
 
   deploy do
     invoke :'git:clone'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke :'cdn:propagate'
 
     to :restart do
       invoke :'passenger:restart'
@@ -42,23 +42,8 @@ namespace :passenger do
   task :restart do
     queue %{
       echo "-----> Restarting passenger"
-      mkdir -p tmp
-      touch tmp/restart.txt
+      #{echo_cmd %[mkdir -p tmp]}
+      #{echo_cmd %[touch tmp/restart.txt]}
     }
   end
 end
-
-# STUBS!
-# These are here so this deploy script can actually work and it won't do fancy
-# bundle commands or whatever.
-task(:'growl:notify') {}
-task(:'cdn:propagate') {}
-set :rake, "echo $ bundle exec rake"
-desc "Install gem dependencies using Bundler"
-task(:'bundle:install') {
-  queue %{
-    echo "-----> Installing gem dependencies using Bundler"
-    echo $ bundle install #{bundle_options}
-  }
-}
-
