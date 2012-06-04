@@ -20,7 +20,7 @@ generates an entire procedure as a Bash script and runs it remotely in the
 server.</p>
 
 <p>Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Van Helsing only creates <em>one</em> SSH.
+is ran separately on their own SSH sessions. Van Helsing only creates <em>one</em> SSH
 session per deploy, minimizing the SSH connection overhead.</p>
 
 <pre class=" lang- prettyprint"><code># Install the gem yourself
@@ -30,9 +30,29 @@ $ gem build *.gemspec
 $ gem install *.gem
 </code></pre>
 
-<section class=" h2 setting_up"><h2 id="setting_up">Setting up</h2>
+<section class=" h2 features"><h2 id="features">Features</h2>
 
-<section class=" h3 1_create_a_config_deploy_rb"><h3 id="1_create_a_config_deploy_rb">1. Create a config/deploy.rb</h3>
+<ul>
+<li><p><strong>Really fast.</strong> Van Helsing only makes one SSH connection per deploy. It
+builds a Bash script and executes it remotely, reducing the overhead of
+creating SSH connections to do processing locally (like Vlad or Capistrano
+does).</p></li>
+<li><p><strong>Safe deploys.</strong> New releases are built on a temp folder. If the deploy
+script fails at any point, the build is deleted and it'd be as if nothing
+happened.</p></li>
+<li><p><strong>Locks.</strong> Deploy scripts rely on a lockfile ensuring only one deploy can
+happen at a time.</p></li>
+<li><p><strong>Works with anything.</strong> While Van Helsing is built with Rails projects it
+mind, it can be used on just about any type of project deployable via SSH,
+Ruby or not.</p></li>
+<li><p><strong>Built with Rake.</strong> Setting up tasks will be very familiar! No YAML files
+here. Everything is written in Ruby, giving you the power to be as flexible in
+your configuration as needed.</p></li>
+</ul></section><section class=" h2 setting_up_a_project"><h2 id="setting_up_a_project">Setting up a project</h2>
+
+<p>Let's deploy a project using Van Helsing.</p>
+
+<section class=" h3 step_1_create_a_config_deploy_rb"><h3 id="step_1_create_a_config_deploy_rb">Step 1: Create a config/deploy.rb</h3>
 <pre class=" lang- prettyprint right"><code>$ vh init
 Created config/deploy.rb.
 </code></pre>
@@ -45,7 +65,7 @@ Created config/deploy.rb.
 
 <p class=" after-pre">See <a href="#about-deployrb">About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
 
-</section><section class=" h3 2_set_up_your_server"><h3 id="2_set_up_your_server">2. Set up your server</h3>
+</section><section class=" h3 step_2_set_up_your_server"><h3 id="step_2_set_up_your_server">Step 2: Set up your server</h3>
 <pre class=" lang- prettyprint right"><code># SSH into your server, then:
 $ mkdir /var/www/flipstack.com
 $ chown -R username /var/www/flipstack.com
@@ -58,7 +78,7 @@ change it's ownership to the correct user.</p>
 
 <br class="post-pre">
 
-</section><section class=" after-pre h3 3_run_vh_setup"><h3 id="3_run_vh_setup" class=" after-pre">3. Run 'vh setup'</h3>
+</section><section class=" after-pre h3 step_3_run_vh_setup"><h3 id="step_3_run_vh_setup" class=" after-pre">Step 3: Run 'vh setup'</h3>
 <pre class=" lang- prettyprint right"><code>$ vh setup
 -----&gt; Creating folders... done.
 </code></pre>
@@ -70,7 +90,7 @@ path. This will connect to your server via SSH and create the right directories.
 
 <p class=" after-pre">See <a href="#directory-structure">directory structure</a> for more info.</p>
 
-</section><section class=" h3 4_deploy"><h3 id="4_deploy">4. Deploy!</h3>
+</section><section class=" h3 step_4_deploy"><h3 id="step_4_deploy">Step 4: Deploy!</h3>
 <pre class=" lang- prettyprint right"><code>$ vh deploy
 -----&gt; Deploying to 2012-06-12-040248
        ...
@@ -552,12 +572,13 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li>
 <a href="http://github.com/mikong">Github</a> (@mikong)</li>
 </ul></section><aside id="toc"><h1>Van Helsing</h1>
-<nav class="level-2"><h3><a href="#setting_up">Setting up</a></h3>
+<nav class="level-2"><h3><a href="#features">Features</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#setting_up_a_project">Setting up a project</a></h3>
 <ul>
-<li><a href="#1_create_a_config_deploy_rb">1. Create a config/deploy.rb</a></li>
-<li><a href="#2_set_up_your_server">2. Set up your server</a></li>
-<li><a href="#3_run_vh_setup">3. Run 'vh setup'</a></li>
-<li><a href="#4_deploy">4. Deploy!</a></li>
+<li><a href="#step_1_create_a_config_deploy_rb">Step 1: Create a config/deploy.rb</a></li>
+<li><a href="#step_2_set_up_your_server">Step 2: Set up your server</a></li>
+<li><a href="#step_3_run_vh_setup">Step 3: Run 'vh setup'</a></li>
+<li><a href="#step_4_deploy">Step 4: Deploy!</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#command_line_options">Command line options</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#about_deploy_rb">About deploy.rb</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#the_command_queue">The command queue</a></h3>
