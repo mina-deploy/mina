@@ -83,9 +83,16 @@ path. This will connect to your server via SSH and create the right directories.
 
 <br class="post-pre">
 
-</section></section><section class=" after-pre h2 about_deploy_rb"><h2 id="about_deploy_rb" class=" after-pre">About deploy.rb</h2>
+</section></section><section class=" after-pre h2 command_line_options"><h2 id="command_line_options" class=" after-pre">Command line options</h2>
+
+<ul>
+<li><p><code>--verbose</code> - This will show commands being done on the server. Off by
+default.</p></li>
+<li><p><code>--simulate</code> - This will not invoke any SSH connections; instead, it will
+simply output the script it builds.</p></li>
+</ul></section><section class=" h2 about_deploy_rb"><h2 id="about_deploy_rb">About deploy.rb</h2>
 <pre class=" lang- prettyprint right"><code class="ruby"># Sample config/deploy.rb
-set :host, 'your.server.com'
+set :domain, 'your.server.com'
 
 task :restart do
   queue 'sudo service restart apache'
@@ -111,7 +118,7 @@ command.</p>
 
 </section><section class=" h2 the_command_queue"><h2 id="the_command_queue">The command queue</h2>
 <pre class=" lang- prettyprint right"><code class="ruby">set :user, 'john'
-set :host, 'flipstack.com'
+set :domain, 'flipstack.com'
 
 task :logs do
   queue 'echo "Contents of the log file are as follows:"'
@@ -154,7 +161,7 @@ subtasks which queues up their commands. The commands will be ran after
 everything.</p>
 
 </section><section class=" h2 deploying"><h2 id="deploying">Deploying</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">set :host, 'flipstack.com'
+<pre class=" lang- prettyprint right"><code class="ruby">set :domain, 'flipstack.com'
 set :user, 'flipstack'
 set :deploy_to, '/var/www/flipstack.com'
 
@@ -172,7 +179,7 @@ task :deploy do
 
     # This optional block defines how a broken release should be cleaned up.
     to :clean do
-      queue 'log "failed deployment for #{current_version}"'
+      queue 'log "failed deployment"'
     end
   end
 end
@@ -290,25 +297,57 @@ at the end.</p>
 
 <p>There are a few deploy-related tasks and settings that are on by default.</p>
 
-<section class=" h3 ssh_settings"><h3 id="ssh_settings">SSH settings</h3>
+<section class=" h3 base_settings"><h3 id="base_settings">Base settings</h3>
 
 <ul>
-<li><p><code>host</code> - Hostname to SSH to. <em>Required.</em></p></li>
+<li><p><code>verbose_mode</code> - True if the <code>--verbose</code> flag is on, false otherwise. Used to
+signal if commands are to be shown.</p></li>
+<li><p><code>simulate_mode</code> - True if <code>--simulate</code> flag is on, false otherwise. Used to
+signal if no SSH connections are to be made, and the scripts will just be
+printed locally.</p></li>
+</ul></section><section class=" h3 ssh_settings"><h3 id="ssh_settings">SSH settings</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># Example:
+set :domain, 'flipstack.me'
+set :user, 'flipstack_www'
+set :identity_file, 'flipstack.pem'
+</code></pre>
+
+<ul>
+<li><p><code>domain</code> - Hostname to SSH to. <em>Required.</em></p></li>
 <li><p><code>user</code> - Username to connect to SSH with. Optional.</p></li>
 <li><p><code>identity_file</code> - Local path to the SSH key to use. Optional.</p></li>
-</ul></section><section class=" h3 deploy_settings"><h3 id="deploy_settings">Deploy settings</h3>
+</ul>
+<br class="post-pre">
+
+</section><section class=" after-pre h3 deploy_settings"><h3 id="deploy_settings" class=" after-pre">Deploy settings</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># Example:
+set :deploy_to, '/var/www/flipstack.me'
+set :releases_path, 'releases'
+set :shared_path, 'shared'
+set :current_path, 'current'
+set :lock_file, 'deploy.lock'
+
+# This means the following paths will be
+# created on `vh setup`:
+#    /var/www/flipstack.me/
+#    /var/www/flipstack.me/releases/
+#    /var/www/flipstack.me/shared/
+</code></pre>
 
 <ul>
 <li><p><code>deploy_to</code> - Path to deploy to. <em>Required.</em></p></li>
 <li><p><code>releases_path</code> - The path to where releases are kept. Defaults to
-<code>#{deploy_to}/releases</code>.</p></li>
+<code>releases</code>.</p></li>
 <li><p><code>shared_path</code> - Where shared files are kept. Defaults to
-<code>#{deploy_to}/shared</code>.</p></li>
+<code>shared</code>.</p></li>
 <li><p><code>current_path</code> - The path to the symlink to the current release. Defaults to
-<code>#{deploy_to}/current</code>.</p></li>
+<code>current</code>.</p></li>
 <li><p><code>lock_file</code> - The deploy lock file. A deploy does not start if this file is
-found. Defaults to <code>#{deploy_to}/deploy.lock</code>.</p></li>
-</ul></section><section class=" h3 task_-_setup"><h3 id="task_-_setup">Task - setup</h3>
+found. Defaults to <code>deploy.lock</code>.</p></li>
+</ul>
+<br class="post-pre">
+
+</section><section class=" after-pre h3 task_-_setup"><h3 id="task_-_setup" class=" after-pre">Task - setup</h3>
 <pre class=" lang- prettyprint right"><code>$ vh setup
 -----&gt; Setting up
        $ mkdir -p /var/www/kickstack.me
@@ -427,13 +466,16 @@ the <code>vh</code> command with <code>force_assets=1</code>.</p>
 </section></section><section class=" h2 development_testing"><h2 id="development_testing">Development &amp; testing</h2>
 <pre class=" lang- prettyprint right"><code># Run specs
 $ rspec
+$ rspec -t ssh     # Run SSH tests (read test_env/config/deploy.rb first)
+$ rake=0.9 rspec
+$ rake=0.8 rspec
 
 # Alias your 'vh' to use it everywhere
 $ alias vh="`pwd -LP`/bin/vh"
 
 # Try out the test environment!
 $ cd test_env
-$ vh deploy simulate=1
+$ vh deploy --simulate
 $ vh deploy
 </code></pre>
 
@@ -480,7 +522,8 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li><a href="#2_set_up_your_server">2. Set up your server</a></li>
 <li><a href="#3_run_vh_setup">3. Run 'vh setup'</a></li>
 <li><a href="#4_deploy">4. Deploy!</a></li>
-</ul></nav><nav class="level-2"><h3><a href="#about_deploy_rb">About deploy.rb</a></h3>
+</ul></nav><nav class="level-2"><h3><a href="#command_line_options">Command line options</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#about_deploy_rb">About deploy.rb</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#the_command_queue">The command queue</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#subtasks">Subtasks</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#deploying">Deploying</a></h3>
@@ -494,6 +537,7 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li><a href="#validations">Validations</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#defaults">Defaults</a></h3>
 <ul>
+<li><a href="#base_settings">Base settings</a></li>
 <li><a href="#ssh_settings">SSH settings</a></li>
 <li><a href="#deploy_settings">Deploy settings</a></li>
 <li><a href="#task_-_setup">Task - setup</a></li>
