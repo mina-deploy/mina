@@ -6,7 +6,17 @@ def run_command(*args)
   err = ''
   status = nil
 
-  Open3.popen3(root('bin/vh'), *args) do |i, o, e, t|
+  if ENV['rake']
+    rake_version = "~> #{ENV['rake'] || '0.9'}.0"
+    script  = %[require 'rubygems' unless Object.const_defined?(:Gem);]
+    script += %[gem 'rake', '#{rake_version}';]
+    script += %[load '#{root('bin/vh')}']
+    cmd = ['ruby', '-e', "#{script}", "--", *args]
+  else
+    cmd = [root('bin/vh'), *args]
+  end
+
+  Open3.popen3(*cmd) do |i, o, e, t|
     out = o.read
     err = e.read
 

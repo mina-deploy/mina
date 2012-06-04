@@ -464,6 +464,9 @@ To test out stuff in development:
 
     # Run specs
     $ rspec
+    $ rspec -t ssh     # Run SSH tests (read test_env/config/deploy.rb first)
+    $ rake=0.9 rspec
+    $ rake=0.8 rspec
 
     # Alias your 'vh' to use it everywhere
     $ alias vh="`pwd -LP`/bin/vh"
