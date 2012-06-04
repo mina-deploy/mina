@@ -83,7 +83,7 @@ module VanHelsing
 
             if c == "$" && ((c += o.read(1)) == "$ ")
               clear_on_nl = true
-              print " "*7 + "\033[32m#{c}"
+              print " "*7 + "\033[32m#{c}\033[34m"
             elsif c == "-" && ((c += o.read(5)) == "----->")
               print c
             else
