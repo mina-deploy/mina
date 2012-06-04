@@ -15,6 +15,7 @@ require 'van_helsing/git'
 set :host, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, 'git://github.com/nadarei/van_helsing.git'
+set :revision, '0fe80cc'
 
 desc "Deploys."
 task :deploy do
