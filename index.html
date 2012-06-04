@@ -153,10 +153,19 @@ and execute them remotely at the end.</p>
 
 <br class="post-pre">
 
+<pre class=" lang- prettyprint right"><code># Run it in simulation mode so we see the command it will invoke:
+$ vh logs --simulate
+(
+  echo "Contents of the log file are as follows:"
+  tail -f /var/log/apache.log
+) | ssh john@flipstack.com -- bash -
+</code></pre>
 <p class=" after-pre">Once you type <code>vh logs</code> in your terminal, it invokes the <em>queue</em>d commands
 remotely on the server using the command <code>ssh john@flipstack.com</code>.</p>
 
-</section><section class=" h2 subtasks"><h2 id="subtasks">Subtasks</h2>
+<br class="post-pre">
+
+</section><section class=" after-pre h2 subtasks"><h2 id="subtasks" class=" after-pre">Subtasks</h2>
 <pre class=" lang- prettyprint right"><code class="ruby">task :down do
   invoke :maintenance_on
   invoke :restart
@@ -264,12 +273,26 @@ commands to restart the webserver process. Once this in complete, you're done!</
 <br class="post-pre">
 
 </section><section class=" after-pre h3 what_about_failure"><h3 id="what_about_failure" class=" after-pre">What about failure?</h3>
+<pre class=" lang- prettyprint right"><code># Lets see what happens if a build fails:
+-----&gt; Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+       Starting nginx... error: can't start service
+-----&gt; ERROR: Deploy failed.
+-----&gt; Cleaning up build
+       $ rm -rf tmp/build-128293482394
+-----&gt; Unlinking current
+       $ ln -nfs releases/3 current
+       OK
+</code></pre>
 
 <p>If it fails at any point, the release path will be deleted. If any commands are
 queued using the <code>to :clean</code> block, they will be ran. It will be as if nothing
 happened.</p>
 
-</section></section><section class=" h2 directory_structure"><h2 id="directory_structure">Directory structure</h2>
+<br class="post-pre">
+
+</section></section><section class=" after-pre h2 directory_structure"><h2 id="directory_structure" class=" after-pre">Directory structure</h2>
 <pre class=" lang- prettyprint right"><code>/var/www/flipstack.com/     # The deploy_to path
  |-  releases/              # Holds releases, one subdir per release
  |   |- 2012-06-12-838948
