@@ -164,12 +164,13 @@ everything.</p>
 <pre class=" lang- prettyprint right"><code class="ruby">set :domain, 'flipstack.com'
 set :user, 'flipstack'
 set :deploy_to, '/var/www/flipstack.com'
+set :repository, 'http://github.com/flipstack/flipstack.git'
 
 task :deploy do
   deploy do
     # Put things that prepare the empty release folder here.
     # Commands queued here will be ran on a new release directory.
-    invoke :'git:checkout'
+    invoke :'git:clone'
     invoke :'bundle:install'
 
     # These are instructions to start the app after it's been prepared.
@@ -193,22 +194,57 @@ you.</p>
 <p class=" after-pre">It works by capturing the <em>queue</em>d commands inside the block, wrapping them
 in a deploy script, then <em>queue</em>ing them back in.</p>
 
-<section class=" h3 how_deploying_works"><h3 id="how_deploying_works">How deploying works</h3>
+</section><section class=" h2 how_deploying_works"><h2 id="how_deploying_works">How deploying works</h2>
 
-<p>The deploy process looks like this:</p>
+<p>Here is an example of a deploy! (Note that some commands have been simplified
+to illustrate the point better.)</p>
 
-<ol>
-<li>Decide on a release name based on the current timestamp, say,
-<code>2012-06-02-045823</code>.</li>
-<li>cd to <code>/var/www/flipstack.com</code> (the <em>deploy_to</em> path).</li>
-<li>Create <code>./releases/2012-06-02-045823</code> (the <em>release path</em>).</li>
-<li>Invoke the queued up commands in the <code>deploy</code> block. Usually, this is a git
-checkout, along with some commands to initialize the app, such as running DB
-migrations.</li>
-<li>Once it's been prepared, the release path is symlinked into <code>./current</code>.</li>
-<li>Invoke the commands queued up in the <code>to :restart</code> block. These often
-commands to restart the webserver process.</li>
-</ol>
+<section class=" h3 step_1_build_it"><h3 id="step_1_build_it">Step 1: Build it</h3>
+<pre class=" lang- prettyprint right"><code>$ vh deploy --verbose
+-----&gt; Creating the build path
+       $ mkdir tmp/build-128293482394
+-----&gt; Cloning the Git repository
+       $ git clone https://github.com/flipstack/flipstack.git . -n --recursive
+       Cloning... done.
+-----&gt; Installing gem dependencies using Bundler
+       $ bundle install --without development:test
+       Using i18n (0.6.0)
+       Using multi_json (1.0.4)
+       ...
+       Your bundle is complete! It was installed to ./vendor/bundle
+</code></pre>
+
+<p>The deploy process builds a new temp folder with instructions you provide.
+In this example, it will do <code>git:clone</code> and <code>bundle:install</code>.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 step_2_move_it_to_releases"><h3 id="step_2_move_it_to_releases" class=" after-pre">Step 2: Move it to releases</h3>
+<pre class=" lang- prettyprint right"><code>-----&gt; Moving to releases/4
+       $ mv "./tmp/build-128293482394" "releases/4"
+-----&gt; Symlinking to current
+       $ ln -nfs releases/4 current
+</code></pre>
+
+<p>Once the project has been built, it will be moved to <code>releases/</code>. A symlink
+called <code>current/</code> will be created to point to the active release.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 step_3_launch_it"><h3 id="step_3_launch_it" class=" after-pre">Step 3: Launch it</h3>
+<pre class=" lang- prettyprint right"><code>-----&gt; Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+-----&gt; Done. Deployed v4
+</code></pre>
+
+<p>Invoke the commands queued up in the <code>to :restart</code> block. These often
+commands to restart the webserver process. Once this in complete, you're done!</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 what_about_failure"><h3 id="what_about_failure" class=" after-pre">What about failure?</h3>
+
 <p>If it fails at any point, the release path will be deleted. If any commands are
 queued using the <code>to :clean</code> block, they will be ran. It will be as if nothing
 happened.</p>
@@ -527,8 +563,12 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <ul></ul></nav><nav class="level-2"><h3><a href="#the_command_queue">The command queue</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#subtasks">Subtasks</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#deploying">Deploying</a></h3>
+<ul></ul></nav><nav class="level-2"><h3><a href="#how_deploying_works">How deploying works</a></h3>
 <ul>
-<li><a href="#how_deploying_works">How deploying works</a></li>
+<li><a href="#step_1_build_it">Step 1: Build it</a></li>
+<li><a href="#step_2_move_it_to_releases">Step 2: Move it to releases</a></li>
+<li><a href="#step_3_launch_it">Step 3: Launch it</a></li>
+<li><a href="#what_about_failure">What about failure?</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#directory_structure">Directory structure</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#configuring_settings">Configuring settings</a></h3>
 <ul>
