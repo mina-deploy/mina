@@ -206,7 +206,11 @@ module VanHelsing
     end
 
     def echo_cmd(str)
-      "echo #{("$ " + str).inspect} &&\n#{str}"
+      if verbose
+        "echo #{("$ " + str).inspect} &&\n#{str}"
+      else
+        str
+      end
     end
 
     # Invoked when Rake exits.
