@@ -15,6 +15,10 @@ if ARGV.delete('--version') || ARGV.delete('-V')
   exit
 end
 
+if ARGV.delete('--simulate')
+  ENV['simulate'] = '1'
+end
+
 scope = self
 
 Rake.application.instance_eval do
