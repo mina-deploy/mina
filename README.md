@@ -274,6 +274,15 @@ Defaults
 
 There are a few deploy-related tasks and settings that are on by default.
 
+### Base settings
+
+* `verbose_mode` - True if the `--verbose` flag is on, false otherwise. Used to
+  signal if commands are to be shown.
+
+* `simulate_mode` - True if `--simulate` flag is on, false otherwise. Used to
+  signal if no SSH connections are to be made, and the scripts will just be
+  printed locally.
+
 ### SSH settings
 
 * `host` - Hostname to SSH to. *Required.*

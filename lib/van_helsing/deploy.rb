@@ -15,11 +15,11 @@ namespace :deploy do
     dirs = settings.shared_paths!.map { |file| File.dirname("./#{file}") }.uniq
 
     cmds = dirs.map do |dir|
-      %{mkdir -p "#{dir}"}
+      echo_cmd %{mkdir -p "#{dir}"}
     end
 
     cmds += shared_paths.map do |file|
-      %{ln -s "#{shared_path}/#{file}" "./#{file}"}
+      echo_cmd %{ln -s "#{shared_path}/#{file}" "./#{file}"}
     end
 
     queue %{
@@ -33,7 +33,7 @@ desc "Sets up a site."
 task :setup do
   settings.deploy_to!
 
-  queue %{echo "-----> Setting up"}
+  queue %{echo "-----> Setting up #{deploy_to}"}
   queue echo_cmd %{mkdir -p "#{deploy_to}"}
   queue echo_cmd %{chown -R `whoami` "#{deploy_to}"}
   queue echo_cmd %{chmod g+rx,u+rwx "#{deploy_to}"}
@@ -41,4 +41,5 @@ task :setup do
   queue echo_cmd %{chmod g+rx,u+rwx "#{releases_path}"}
   queue echo_cmd %{mkdir -p "#{shared_path}"}
   queue echo_cmd %{chmod g+rx,u+rwx "#{shared_path}"}
+  queue %{echo "-----> Done"}
 end

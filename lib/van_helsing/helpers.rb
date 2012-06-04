@@ -45,7 +45,7 @@ module VanHelsing
       ].join("\n")
 
       result = 0
-      if ENV['simulate']
+      if simulate_mode
         puts code
       elsif options[:pretty]
         result = pretty_system("#{code} 2>&1")
@@ -72,10 +72,19 @@ module VanHelsing
         i.close
 
         last = nil
+        clear_on_nl = false
         while c = o.getc
           break if o.closed?
           if last == "\n"
-            if c == "-" && ((c += o.read(5)) == "----->")
+            if clear_on_nl
+              clear_on_nl = false
+              print "\033[0m"
+            end
+
+            if c == "$" && ((c += o.read(1)) == "$ ")
+              clear_on_nl = true
+              print " "*7 + "\033[32m#{c}"
+            elsif c == "-" && ((c += o.read(5)) == "----->")
               print c
             else
               print " "*7 + c
@@ -206,7 +215,11 @@ module VanHelsing
     end
 
     def echo_cmd(str)
-      "echo #{("$ " + str).inspect} &&\n#{str}"
+      if verbose_mode
+        "echo #{("$ " + str).inspect} &&\n#{str}"
+      else
+        str
+      end
     end
 
     # Invoked when Rake exits.

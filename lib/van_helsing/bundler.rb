@@ -8,15 +8,15 @@ namespace :bundle do
     if bundle_path.nil?
       queue %{
         echo "-----> Installing gem dependencies using Bundler"
-        bundle install #{bundle_options}
+        #{echo_cmd %[bundle install #{bundle_options}]}
       }
     else
       queue %{
         echo "-----> Installing gem dependencies using Bundler"
-        mkdir -p "#{shared_path}/bundle"
-        mkdir -p "#{File.dirname bundle_path}"
-        ln -s "#{shared_path}/bundle" "#{bundle_path}"
-        bundle install #{bundle_options}
+        #{echo_cmd %[mkdir -p "#{shared_path}/bundle"]}
+        #{echo_cmd %[mkdir -p "#{File.dirname bundle_path}"]}
+        #{echo_cmd %[ln -s "#{shared_path}/bundle" "#{bundle_path}"]}
+        #{echo_cmd %[bundle install #{bundle_options}]}
       }
     end
   end
