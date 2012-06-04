@@ -1,3 +1,6 @@
+require 'spec_helper'
+require 'command_helper'
+
 describe "Invoking the 'vh' command in a project" do
   before :each do
     Dir.chdir root('test_env')
