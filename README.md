@@ -276,12 +276,12 @@ There are a few deploy-related tasks and settings that are on by default.
 
 ### Base settings
 
-* `verbose` - True if the `--verbose` flag is on, false otherwise. Used to
+* `verbose_mode` - True if the `--verbose` flag is on, false otherwise. Used to
   signal if commands are to be shown.
 
-* `simulate` - True if `--simulate` flag is on, false otherwise. Used to signal
-  if no SSH connections are to be made, and the scripts will just be printed
-  locally.
+* `simulate_mode` - True if `--simulate` flag is on, false otherwise. Used to
+  signal if no SSH connections are to be made, and the scripts will just be
+  printed locally.
 
 ### SSH settings
 

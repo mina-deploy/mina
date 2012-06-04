@@ -45,7 +45,7 @@ module VanHelsing
       ].join("\n")
 
       result = 0
-      if ENV['simulate']
+      if simulate_mode
         puts code
       elsif options[:pretty]
         result = pretty_system("#{code} 2>&1")
@@ -206,7 +206,7 @@ module VanHelsing
     end
 
     def echo_cmd(str)
-      if verbose
+      if verbose_mode
         "echo #{("$ " + str).inspect} &&\n#{str}"
       else
         str
