@@ -33,7 +33,7 @@ module VanHelsing
     def ssh(cmd, options={})
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
 
-      args = host!
+      args = domain!
       args = "#{user}@#{args}" if user?
       args << " -i #{identity_file}" if identity_file?
 
@@ -184,7 +184,7 @@ module VanHelsing
 
     # Sets settings.
     #
-    #     set :host, 'kickflip.me'
+    #     set :domain, 'kickflip.me'
     #
     def set(key, value)
       settings.send :"#{key}=", value
@@ -192,9 +192,9 @@ module VanHelsing
 
     # Accesses the settings hash.
     #
-    #     set :host, 'kickflip.me'
-    #     settings.host  #=> 'kickflip.me'
-    #     host           #=> 'kickflip.me'
+    #     set :domain, 'kickflip.me'
+    #     settings.domain  #=> 'kickflip.me'
+    #     domain           #=> 'kickflip.me'
     #
     def settings
       @settings ||= Settings.new

@@ -83,7 +83,7 @@ example, it provides the `vh restart` command.
 
 ``` ruby
 # Sample config/deploy.rb
-set :host, 'your.server.com'
+set :domain, 'your.server.com'
 
 task :restart do
   queue 'sudo service restart apache'
@@ -109,7 +109,7 @@ Take a look at this minimal *deploy.rb* configuration:
 
 ``` ruby
 set :user, 'john'
-set :host, 'flipstack.com'
+set :domain, 'flipstack.com'
 
 task :logs do
   queue 'echo "Contents of the log file are as follows:"'
@@ -152,7 +152,7 @@ Van Helsing provides the `deploy` command which *queue*s up a deploy script for
 you.
 
 ``` ruby
-set :host, 'flipstack.com'
+set :domain, 'flipstack.com'
 set :user, 'flipstack'
 set :deploy_to, '/var/www/flipstack.com'
 
@@ -294,7 +294,7 @@ There are a few deploy-related tasks and settings that are on by default.
 
 ### SSH settings
 
-* `host` - Hostname to SSH to. *Required.*
+* `domain` - Hostname to SSH to. *Required.*
 
 * `user` - Username to connect to SSH with. Optional.
 

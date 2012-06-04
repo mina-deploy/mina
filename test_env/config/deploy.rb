@@ -19,7 +19,7 @@ require 'van_helsing/rails'
 require 'van_helsing/bundler'
 require 'van_helsing/git'
 
-set :host, 'localhost'
+set :domain, 'localhost'
 set :deploy_to, "#{ROOT}/test_env/deploy"
 set :repository, "#{ROOT}"
 
