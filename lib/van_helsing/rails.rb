@@ -7,7 +7,7 @@ namespace :rails do
   task :db_migrate do
     queue %{
       echo "-----> Migrating database"
-      #{rake} db:migrate
+      #{echo_cmd %[#{rake} db:migrate]}
     }
   end
 
@@ -15,7 +15,7 @@ namespace :rails do
   task :'assets_precompile:force' do
     queue %{
       echo "-----> Precompiling asset files"
-      #{rake} assets:precompile
+      #{echo_cmd %[#{rake} assets:precompile]}
     }
   end
 
@@ -36,12 +36,13 @@ namespace :rails do
 
         if [ "$((count))" = "0" ]; then
           echo "-----> Skipping asset precompilation"
-          cp -R "#{current_path}/public/assets" "./public/assets" && exit
+          #{echo_cmd %[cp -R "#{current_path}/public/assets" "./public/assets"]} &&
+          exit
         fi
       fi
 
       echo "-----> Precompiling asset files"
-      #{rake} assets:precompile
+      #{echo_cmd %[#{rake} assets:precompile]}
     }
   end
 
