@@ -300,21 +300,44 @@ There are a few deploy-related tasks and settings that are on by default.
 
 * `identity_file` - Local path to the SSH key to use. Optional.
 
+``` ruby
+# Example:
+set :domain, 'flipstack.me'
+set :user, 'flipstack_www'
+set :identity_file, 'flipstack.pem'
+```
+
 ### Deploy settings
 
 * `deploy_to` - Path to deploy to. *Required.*
 
 * `releases_path` - The path to where releases are kept. Defaults to
-  `#{deploy_to}/releases`.
+  `releases`.
 
 * `shared_path` - Where shared files are kept. Defaults to
-  `#{deploy_to}/shared`.
+  `shared`.
 
 * `current_path` - The path to the symlink to the current release. Defaults to
-  `#{deploy_to}/current`.
+  `current`.
 
 * `lock_file` - The deploy lock file. A deploy does not start if this file is
-  found. Defaults to `#{deploy_to}/deploy.lock`.
+  found. Defaults to `deploy.lock`.
+
+
+``` ruby
+# Example:
+set :deploy_to, '/var/www/flipstack.me'
+set :releases_path, 'releases'
+set :shared_path, 'shared'
+set :current_path, 'current'
+set :lock_file, 'deploy.lock'
+
+# This means the following paths will be
+# created on `vh setup`:
+#    /var/www/flipstack.me/
+#    /var/www/flipstack.me/releases/
+#    /var/www/flipstack.me/shared/
+```
 
 ### Task - setup
 
