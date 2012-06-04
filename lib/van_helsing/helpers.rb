@@ -21,7 +21,7 @@ module VanHelsing
     #     run!
     #
     def run!
-      ssh commands(:default), pretty: true
+      ssh commands(:default), :pretty => true
     end
 
     # Executes a command via SSH.

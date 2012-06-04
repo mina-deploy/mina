@@ -30,7 +30,7 @@ describe 'Settings in rake tasks' do
 
   it '#settings with a bang should work' do
     begin
-      rake  {
+      rake {
         set :path, lambda { "/var/www/#{version!}" }
       }
       rake.path

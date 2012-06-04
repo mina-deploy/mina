@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../../lib', __FILE__)
 
+require 'rubygems' unless Object.const_defined?(:Gem)
 require 'van_helsing'
 require 'rake'
 

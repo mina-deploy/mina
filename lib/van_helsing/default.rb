@@ -91,5 +91,5 @@ end
 
 desc "Show all tasks."
 task :tasks do
-  show_task_help full: true
+  show_task_help :full => true
 end

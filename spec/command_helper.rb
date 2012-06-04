@@ -9,7 +9,12 @@ def run_command(*args)
   Open3.popen3(root('bin/vh'), *args) do |i, o, e, t|
     out = o.read
     err = e.read
-    status = t.value.exitstatus
+
+    # Well, Ruby 1.8.x doesn't have the 't' argument so we'll stub it and assume it all went 0
+    if t
+      @got_status = true
+      status = t.value.exitstatus
+    end
   end
 
   @out = out
@@ -27,7 +32,7 @@ def vh(*args)
     puts stderr
   end
 
-  exitstatus.should == 0
+  exitstatus.should == 0  if @got_status
 end
 
 def stdout

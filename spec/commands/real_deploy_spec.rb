@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'command_helper'
 require 'fileutils'
 
-describe "Invoking the 'vh' command in a project", ssh: true do
+describe "Invoking the 'vh' command in a project", :ssh => true do
   before :each do
     Dir.chdir root('test_env')
     FileUtils.rm_rf './deploy'
