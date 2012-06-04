@@ -65,6 +65,16 @@ task :help do
   name = Rake.application.name
 
   puts "#{name} - Really fast server deployment and automation tool\n\n"
+  puts "Options:"
+
+  opts = [
+    [ "-h, --help", "Show help" ],
+    [ "-V, --version", "Show program version" ],
+    [ "--simulate", "Run in simulation mode" ]
+  ]
+  opts.each { |args| puts "  %-15s %s" % args }
+  puts ""
+
   show_task_help
 
   unless Rake.application.have_rakefile
