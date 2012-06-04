@@ -5,9 +5,9 @@ namespace :git do
 
     queue %{
       echo "-----> Cloning the Git repository"
-      #{echo_cmd %[git clone "%s" . -n --recursive] % [settings.repository!]} &&
+      #{echo_cmd %[git clone "#{repository!}" . -n --recursive]} &&
       echo "-----> Using revision #{revision}" &&
-      #{echo_cmd %[git checkout "%s" -b current_release 1>/dev/null] % [revision]} &&
+      #{echo_cmd %[git checkout "#{revision}" -b current_release 1>/dev/null]} &&
       #{echo_cmd %[rm -rf .git]}
     }
   end
