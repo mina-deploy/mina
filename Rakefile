@@ -23,10 +23,8 @@ namespace :doc do
 end
 
 task :spec do
-  ENV['rake'] = '0.8'; system "rspec"
-  raise "Rspec failed" if $?.to_i != 0
-  ENV['rake'] = '0.9'; system "rspec"
-  raise "Rspec failed" if $?.to_i != 0
+  system "rm Gemfile.lock; sh -c 'rake=0.8 bundle exec rspec'"
+  system "rm Gemfile.lock; sh -c 'rake=0.9 bundle exec rspec'"
 end
 
 task :default => :spec
