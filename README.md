@@ -54,7 +54,7 @@ This is just a Rake file with tasks!
     $ vh init
     Created config/deploy.rb.
 
-See [About deploy.rb](#about-deployrb) for more info on what *deploy.rb* is.
+See [About deploy.rb](#about_deployrb) for more info on what *deploy.rb* is.
 
 ### Step 2: Set up your server
 
@@ -69,13 +69,13 @@ change it's ownership to the correct user.
 
 ### Step 3: Run 'vh setup'
 
-Now do `vh setup` to set up the [folder structure](#directory-structure) in this
+Now do `vh setup` to set up the [folder structure](#directory_structure) in this
 path. This will connect to your server via SSH and create the right directories.
 
     $ vh setup
     -----> Creating folders... done.
 
-See [directory structure](#directory-structure) for more info.
+See [directory structure](#directory_structure) for more info.
 
 ### Step 4: Deploy!
 
@@ -121,7 +121,7 @@ The `queue` command queues up Bash commands to be ran on the remote server.
 If you invoke `vh restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
-See [the command queue](#the-command-queue) for more information on the *queue*
+See [the command queue](#the_command_queue) for more information on the *queue*
 command.
 
 The command queue
