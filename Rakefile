@@ -23,10 +23,12 @@ namespace :doc do
 end
 
 task :spec do
-  system "rspec"
+  ENV['rake'] = '0.8'; system "rspec"
+  ENV['rake'] = '0.9'; system "rspec"
 end
 
 task :'spec:verbose' do
+  system "rspec --format documentation"
   system "rspec --format documentation"
 end
 
