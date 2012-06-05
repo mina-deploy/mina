@@ -51,9 +51,9 @@ fi
 (
   echo "-----> Build finished"
   echo "-----> Moving build to $release_path"
-  <%= echo_cmd %[mv "$build_path" "$release_path"] %>
+  <%= echo_cmd %[mv "$build_path" "$release_path"] %> &&
 
-  echo "-----> Updating the <%= current_path %> symlink"
+  echo "-----> Updating the <%= current_path %> symlink" &&
   <%= echo_cmd %[ln -nfs "$release_path" "#{current_path}"] %>
 ) &&
 
