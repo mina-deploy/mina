@@ -1,3 +1,6 @@
+require 'bundler'
+require 'bundler/gem_tasks'
+
 # Do these:
 #
 #     *do `gem install reacco`
