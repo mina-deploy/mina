@@ -74,6 +74,9 @@ module VanHelsing
         last = nil
         clear_on_nl = false
         while c = o.getc
+          # Because Ruby 1.8.x returns a number on #getc
+          c = "%c" % [c]  if c.is_a?(Fixnum)
+
           break if o.closed?
           if last == "\n"
             if clear_on_nl
