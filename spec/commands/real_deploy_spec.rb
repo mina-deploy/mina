@@ -14,9 +14,9 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
     FileUtils.mkdir_p './deploy'
   end
 
-  after :each do
-    FileUtils.rm_rf @path
-  end
+  # after :each do
+  #   FileUtils.rm_rf @path
+  # end
 
   it 'should set up and deploy fine' do
     print "[setup]" if ENV['verbose']
@@ -29,6 +29,9 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
 
     print "[deploy 1]" if ENV['verbose']
     vh 'deploy', '--verbose'
+    stdout.should include "-----> Creating a temporary build path"
+    stdout.should include "rm -rf .git"
+    stdout.should include "mkdir -p"
     File.exists?('deploy/last_version').should be_true
     File.exists?('deploy/deploy.lock').should be_false
     File.directory?('deploy/releases').should be_true
@@ -39,9 +42,11 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
     File.read('deploy/last_version').strip.should == '1'
     File.exists?('deploy/current/tmp/restart.txt').should be_true
 
-    # And again
+    # And again, to test out sequential versions and stuff
     print "[deploy 2]" if ENV['verbose']
-    vh 'deploy', '--verbose'
+    vh 'deploy'
+    stdout.should_not include "rm -rf .git"
+    stdout.should_not include "mkdir -p"
     File.directory?('deploy/releases/2').should be_true
     File.read('deploy/last_version').strip.should == '2'
   end
