@@ -29,9 +29,4 @@ task :spec do
   raise "Rspec failed" if $?.to_i != 0
 end
 
-task :'spec:verbose' do
-  system "rspec --format documentation"
-  system "rspec --format documentation"
-end
-
 task :default => :spec
