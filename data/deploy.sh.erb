@@ -15,7 +15,7 @@ cd "<%= deploy_to %>" || (
 
 # Check lockfile
 if [ -e "<%= lock_file %>" ]; then
-  echo "-----> ERROR: another deployment is ongoing."
+  echo "=====> ERROR: another deployment is ongoing."
   echo "The file '<%= lock_file %>' was found."
   echo "If no other deployment is ongoing, delete the file to continue."
   exit 17
@@ -29,7 +29,7 @@ release_path="<%= releases_path %>/$version"
 
 # Sanity check
 if [ -e "$build_path" ]; then
-  echo "-----> ERROR: Path already exists"
+  echo "=====> ERROR: Path already exists"
   exit 18
 fi
 
@@ -74,7 +74,7 @@ fi
 # ============================
 # === Failed deployment
 (
-  echo "-----> ERROR: Deploy failed."
+  echo "=====> ERROR: Deploy failed."
 
 <%= indent 2, clean %>
 
@@ -90,9 +90,9 @@ fi
     echo "Unlinking current"
     [ -n "$previous_path" ] && <%= echo_cmd %[ln -nfs "$previous_path" "#{current_path}"] %>
   )
-  echo "OK"
 
   # Unlock
   <%= echo_cmd %[rm -f "#{lock_file}"] %>
+  echo "OK"
   exit 8
 )

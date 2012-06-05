@@ -63,7 +63,7 @@ module VanHelsing
       result
     end
 
-    # Works like 'system', but indents
+    # Works like 'system', but indents and puts color.
     # Returns the exit code in integer form.
     def pretty_system(code)
       require 'open3'
@@ -84,11 +84,19 @@ module VanHelsing
               print "\033[0m"
             end
 
+            # Color the verbose echo commands
             if c == "$" && ((c += o.read(1)) == "$ ")
               clear_on_nl = true
               print " "*7 + "\033[32m#{c}\033[34m"
+
+            # (Don't) color the status messages
             elsif c == "-" && ((c += o.read(5)) == "----->")
               print c
+
+            # Color errors
+            elsif c == "=" && ((c += o.read(5)) == "=====>")
+              print "\033[31m=====>\033[0m"
+
             else
               print " "*7 + c
             end
