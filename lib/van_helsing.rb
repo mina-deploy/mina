@@ -7,6 +7,7 @@ module VanHelsing
   autoload :DeployHelpers, 'van_helsing/deploy_helpers'
   autoload :Helpers, 'van_helsing/helpers'
   autoload :Settings, 'van_helsing/settings'
+  autoload :Tools, 'van_helsing/tools'
 
   Error = Class.new(Exception)
   class Failed < Error

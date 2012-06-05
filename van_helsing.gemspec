@@ -12,5 +12,6 @@ Gem::Specification.new do |s|
   s.executables = Dir["bin/*"].map { |f| File.basename(f) }
 
   s.add_dependency "rake"
+  s.add_dependency "open4"
   s.add_development_dependency "rspec"
 end

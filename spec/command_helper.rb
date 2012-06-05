@@ -1,10 +1,8 @@
 # Invokes the main 'vh' command.
 def run_command(*args)
-  require 'open3'
-
   out = ''
   err = ''
-  status = nil
+  @result = nil
 
   if ENV['rake']
     rake_version = "~> #{ENV['rake'] || '0.9'}.0"
@@ -16,22 +14,18 @@ def run_command(*args)
     cmd = [root('bin/vh'), *args]
   end
 
-  Open3.popen3(*cmd) do |i, o, e, t|
-    out = o.read
-    err = e.read
-
-    # Well, Ruby 1.8.x doesn't have the 't' argument so we'll stub it and assume it all went 0
-    if t
-      @got_status = true
-      status = t.value.exitstatus
+  status =
+    VanHelsing::Tools.popen4(*cmd) do |pid, i, o, e|
+      out = o.read
+      err = e.read
     end
-  end
+
+  @result = status.exitstatus
 
   @out = out
   @err = err
-  @result = status
 
-  status
+  @result
 end
 
 # Invokes the main 'vh' command and ensures the exit status is success.
@@ -42,7 +36,7 @@ def vh(*args)
     puts stderr
   end
 
-  exitstatus.should == 0  if @got_status
+  exitstatus.should == 0
 end
 
 def stdout
