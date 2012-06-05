@@ -23,8 +23,10 @@ namespace :doc do
 end
 
 task :spec do
-  ENV['rake'] = '0.8'; system "rspec"
+  ENV['rake'] = '0.8'; system "rspecx"
+  raise "Rspec failed" if $?.to_i != 0
   ENV['rake'] = '0.9'; system "rspec"
+  raise "Rspec failed" if $?.to_i != 0
 end
 
 task :'spec:verbose' do
