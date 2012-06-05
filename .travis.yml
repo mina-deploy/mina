@@ -9,4 +9,5 @@ env:
  - "rake=0.8"
  - "rake=0.9"
 script: "bundle exec rspec"
-
+notifications:
+  email: false
