@@ -1,5 +1,4 @@
-Van Helsing
-===========
+# Van Helsing [![status](https://secure.travis-ci.org/nadarei/van_helsing.png?branch=master)](http://travis-ci.org/nadarei/van_helsing)
 
 Really fast deployer and server automation tool.
 
