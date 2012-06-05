@@ -33,14 +33,12 @@ if [ -e "$build_path" ]; then
   exit 18
 fi
 
-# Lock and load
-<%= echo_cmd %[touch "#{lock_file}"] %>
-
 # Bootstrap script (in deployer)
 (
   echo "-----> Creating a temporary build path"
-  mkdir -p "$build_path" &&
-  cd "$build_path" &&
+  <%= echo_cmd %[touch "#{lock_file}"] %> &&
+  <%= echo_cmd %[mkdir -p "$build_path"] %> &&
+  <%= echo_cmd %[cd "$build_path"] %> &&
   (
 <%= indent 4, (prepare.empty? ? "true" : prepare) %>
   )
