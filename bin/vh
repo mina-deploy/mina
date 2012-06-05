@@ -37,13 +37,10 @@ Rake.application.instance_eval do
     # Load the Van Helsing Rake DSL.
     require 'van_helsing/rake'
 
-    # Load the DSL that's relevant to deployment if you have a deploy.rb file.
-    if have_rakefile
-      require 'van_helsing/deploy'
-      load_rakefile
-    end
+    # Allow running without a Rakefile
+    load_rakefile  if have_rakefile
 
-    # Run.
+    # Run tasks
     top_level
 
     scope.vh_cleanup! if top_level_tasks.any?
