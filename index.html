@@ -2,30 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Van Helsing</title>
+    <title>Mina 
+</title>
     <link href="style.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:700,700italic' rel='stylesheet' type='text/css'>
     
 </head>
 <body class='literate toc github'>
   
-    <a href="https://github.com/nadarei/van_helsing"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/nadarei/mina"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
   
   <div id='all'>
 
-<hgroup class="header"><h1 id="van_helsing">Van Helsing</h1></hgroup><p class=" brief">Really fast deployer and server automation tool.</p>
+<hgroup class="header"><h1 id="mina">Mina <a href="http://travis-ci.org/nadarei/mina"><img src="https://secure.travis-ci.org/nadarei/mina.png?branch=master" alt="status"></a>
+</h1></hgroup><p class=" brief">Really fast deployer and server automation tool.</p>
 
-<p>Van Helsing works really fast because it's a deploy Bash script generator. It
+<p>Mina works really fast because it's a deploy Bash script generator. It
 generates an entire procedure as a Bash script and runs it remotely in the
 server.</p>
 
 <p>Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Van Helsing only creates <em>one</em> SSH
+is ran separately on their own SSH sessions. Mina only creates <em>one</em> SSH
 session per deploy, minimizing the SSH connection overhead.</p>
 
 <pre class=" lang- prettyprint"><code># Install the gem yourself
-$ git clone https://github.com/nadarei/van_helsing.git
-$ cd van_helsing
+$ git clone https://github.com/nadarei/mina.git
+$ cd mina
 $ gem build *.gemspec
 $ gem install *.gem
 </code></pre>
@@ -33,7 +35,7 @@ $ gem install *.gem
 <section class=" h2 features"><h2 id="features">Features</h2>
 
 <ul>
-<li><p><strong>Really fast.</strong> Van Helsing only makes one SSH connection per deploy. It
+<li><p><strong>Really fast.</strong> Mina only makes one SSH connection per deploy. It
 builds a Bash script and executes it remotely, reducing the overhead of
 creating SSH connections to do processing locally (like Vlad or Capistrano
 does).</p></li>
@@ -42,7 +44,7 @@ script fails at any point, the build is deleted and it'd be as if nothing
 happened.</p></li>
 <li><p><strong>Locks.</strong> Deploy scripts rely on a lockfile ensuring only one deploy can
 happen at a time.</p></li>
-<li><p><strong>Works with anything.</strong> While Van Helsing is built with Rails projects it
+<li><p><strong>Works with anything.</strong> While Mina is built with Rails projects it
 mind, it can be used on just about any type of project deployable via SSH,
 Ruby or not.</p></li>
 <li><p><strong>Built with Rake.</strong> Setting up tasks will be very familiar! No YAML files
@@ -50,20 +52,20 @@ here. Everything is written in Ruby, giving you the power to be as flexible in
 your configuration as needed.</p></li>
 </ul></section><section class=" h2 setting_up_a_project"><h2 id="setting_up_a_project">Setting up a project</h2>
 
-<p>Let's deploy a project using Van Helsing.</p>
+<p>Let's deploy a project using Mina.</p>
 
 <section class=" h3 step_1_create_a_config_deploy_rb"><h3 id="step_1_create_a_config_deploy_rb">Step 1: Create a config/deploy.rb</h3>
-<pre class=" lang- prettyprint right"><code>$ vh init
+<pre class=" lang- prettyprint right"><code>$ mina init
 Created config/deploy.rb.
 </code></pre>
 
-<p>In your project, type <code>vh init</code> to create a sample of this file.</p>
+<p>In your project, type <code>mina init</code> to create a sample of this file.</p>
 
 <p>This is just a Rake file with tasks!</p>
 
 <br class="post-pre">
 
-<p class=" after-pre">See <a href="#about-deployrb">About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
+<p class=" after-pre">See <a href="#about_deployrb">About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
 
 </section><section class=" h3 step_2_set_up_your_server"><h3 id="step_2_set_up_your_server">Step 2: Set up your server</h3>
 <pre class=" lang- prettyprint right"><code># SSH into your server, then:
@@ -78,20 +80,20 @@ change it's ownership to the correct user.</p>
 
 <br class="post-pre">
 
-</section><section class=" after-pre h3 step_3_run_vh_setup"><h3 id="step_3_run_vh_setup" class=" after-pre">Step 3: Run 'vh setup'</h3>
-<pre class=" lang- prettyprint right"><code>$ vh setup
+</section><section class=" after-pre h3 step_3_run_mina_setup"><h3 id="step_3_run_mina_setup" class=" after-pre">Step 3: Run 'mina setup'</h3>
+<pre class=" lang- prettyprint right"><code>$ mina setup
 -----&gt; Creating folders... done.
 </code></pre>
 
-<p>Now do <code>vh setup</code> to set up the <a href="#directory-structure">folder structure</a> in this
+<p>Now do <code>mina setup</code> to set up the <a href="#directory_structure">folder structure</a> in this
 path. This will connect to your server via SSH and create the right directories.</p>
 
 <br class="post-pre">
 
-<p class=" after-pre">See <a href="#directory-structure">directory structure</a> for more info.</p>
+<p class=" after-pre">See <a href="#directory_structure">directory structure</a> for more info.</p>
 
 </section><section class=" h3 step_4_deploy"><h3 id="step_4_deploy">Step 4: Deploy!</h3>
-<pre class=" lang- prettyprint right"><code>$ vh deploy
+<pre class=" lang- prettyprint right"><code>$ mina deploy
 -----&gt; Deploying to 2012-06-12-040248
        ...
        Lots of things happening...
@@ -99,7 +101,7 @@ path. This will connect to your server via SSH and create the right directories.
 -----&gt; Done.
 </code></pre>
 
-<p>Use <code>vh deploy</code> to run the <code>deploy</code> task defined in <em>config/deploy.rb</em>.</p>
+<p>Use <code>mina deploy</code> to run the <code>deploy</code> task defined in <em>config/deploy.rb</em>.</p>
 
 <br class="post-pre">
 
@@ -119,21 +121,21 @@ task :restart do
 end
 </code></pre>
 
-<p>The file <code>deploy.rb</code> is simply a Rakefile invoked by Rake. In fact, <code>vh</code> is
+<p>The file <code>deploy.rb</code> is simply a Rakefile invoked by Rake. In fact, <code>mina</code> is
 mostly an alias that invokes Rake to load <code>deploy.rb</code>.</p>
 
-<p>As it's all Rake, you can define tasks that you can invoke using <code>vh</code>. In this
-example, it provides the <code>vh restart</code> command.</p>
+<p>As it's all Rake, you can define tasks that you can invoke using <code>mina</code>. In this
+example, it provides the <code>mina restart</code> command.</p>
 
 <br class="post-pre">
 
-<p class=" after-pre">The magic of Van Helsing is in the new commands it gives you.</p>
+<p class=" after-pre">The magic of Mina is in the new commands it gives you.</p>
 
 <p>The <code>queue</code> command queues up Bash commands to be ran on the remote server.
-If you invoke <code>vh restart</code>, it will invoke the task above and run the queued
+If you invoke <code>mina restart</code>, it will invoke the task above and run the queued
 commands on the remote server <code>your.server.com</code> via SSH.</p>
 
-<p>See <a href="#the-command-queue">the command queue</a> for more information on the <em>queue</em>
+<p>See <a href="#the_command_queue">the command queue</a> for more information on the <em>queue</em>
 command.</p>
 
 </section><section class=" h2 the_command_queue"><h2 id="the_command_queue">The command queue</h2>
@@ -146,7 +148,7 @@ task :logs do
 end
 </code></pre>
 
-<p>At the heart of it, Van Helsing is merely sugar on top of Rake to queue commands
+<p>At the heart of it, Mina is merely sugar on top of Rake to queue commands
 and execute them remotely at the end.</p>
 
 <p>Take a look at this minimal <em>deploy.rb</em> configuration:</p>
@@ -154,13 +156,13 @@ and execute them remotely at the end.</p>
 <br class="post-pre">
 
 <pre class=" lang- prettyprint right"><code># Run it in simulation mode so we see the command it will invoke:
-$ vh logs --simulate
+$ mina logs --simulate
 (
   echo "Contents of the log file are as follows:"
   tail -f /var/log/apache.log
 ) | ssh john@flipstack.com -- bash -
 </code></pre>
-<p class=" after-pre">Once you type <code>vh logs</code> in your terminal, it invokes the <em>queue</em>d commands
+<p class=" after-pre">Once you type <code>mina logs</code> in your terminal, it invokes the <em>queue</em>d commands
 remotely on the server using the command <code>ssh john@flipstack.com</code>.</p>
 
 <br class="post-pre">
@@ -180,12 +182,12 @@ task :restart
 end
 </code></pre>
 
-<p>Van Helsing provides the helper <code>invoke</code> to invoke other tasks from a
+<p>Mina provides the helper <code>invoke</code> to invoke other tasks from a
 task.</p>
 
 <br class="post-pre">
 
-<p class=" after-pre">In this example above, if you type <code>vh down</code>, it simply invokes the other
+<p class=" after-pre">In this example above, if you type <code>mina down</code>, it simply invokes the other
 subtasks which queues up their commands. The commands will be ran after
 everything.</p>
 
@@ -215,7 +217,7 @@ task :deploy do
 end
 </code></pre>
 
-<p>Van Helsing provides the <code>deploy</code> command which <em>queue</em>s up a deploy script for
+<p>Mina provides the <code>deploy</code> command which <em>queue</em>s up a deploy script for
 you.</p>
 
 <br class="post-pre">
@@ -229,7 +231,7 @@ in a deploy script, then <em>queue</em>ing them back in.</p>
 to illustrate the point better.)</p>
 
 <section class=" h3 step_1_build_it"><h3 id="step_1_build_it">Step 1: Build it</h3>
-<pre class=" lang- prettyprint right"><code>$ vh deploy --verbose
+<pre class=" lang- prettyprint right"><code>$ mina deploy --verbose
 -----&gt; Creating the build path
        $ mkdir tmp/build-128293482394
 -----&gt; Cloning the Git repository
@@ -363,7 +365,7 @@ end
   queue "#{settings.nginx_path!}/sbin/nginx restart"
 end
 
-# $ vh restart
+# $ mina restart
 # Error: You must set the :nginx_path setting
 </code></pre>
 
@@ -384,6 +386,8 @@ signal if commands are to be shown.</p></li>
 <li><p><code>simulate_mode</code> - True if <code>--simulate</code> flag is on, false otherwise. Used to
 signal if no SSH connections are to be made, and the scripts will just be
 printed locally.</p></li>
+<li><p><code>term_mode</code> - If set to <code>:pretty</code>, prettifies the output with indentations.
+(Default with deploys.)</p></li>
 </ul></section><section class=" h3 ssh_settings"><h3 id="ssh_settings">SSH settings</h3>
 <pre class=" lang- prettyprint right"><code class="ruby"># Example:
 set :domain, 'flipstack.me'
@@ -407,7 +411,7 @@ set :current_path, 'current'
 set :lock_file, 'deploy.lock'
 
 # This means the following paths will be
-# created on `vh setup`:
+# created on `mina setup`:
 #    /var/www/flipstack.me/
 #    /var/www/flipstack.me/releases/
 #    /var/www/flipstack.me/shared/
@@ -427,7 +431,7 @@ found. Defaults to <code>deploy.lock</code>.</p></li>
 <br class="post-pre">
 
 </section><section class=" after-pre h3 task_-_setup"><h3 id="task_-_setup" class=" after-pre">Task - setup</h3>
-<pre class=" lang- prettyprint right"><code>$ vh setup
+<pre class=" lang- prettyprint right"><code>$ mina setup
 -----&gt; Setting up
        $ mkdir -p /var/www/kickstack.me
        $ chmod g+r,a+rwx /var/www/kickstack.me
@@ -442,15 +446,15 @@ sets permissions in the path.</p>
 <br class="post-pre">
 
 </section><section class=" after-pre h3 task_-_deploy_force_unlock"><h3 id="task_-_deploy_force_unlock" class=" after-pre">Task - deploy:force_unlock</h3>
-<pre class=" lang- prettyprint right"><code>$ vh deploy
+<pre class=" lang- prettyprint right"><code>$ mina deploy
 -----&gt; ERROR: another deployment is ongoing.
        Delete the lock file to continue.
 
-$ vh deploy:force_unlock
+$ mina deploy:force_unlock
 -----&gt; Unlocking
        $ rm /var/www/kickstack.me/deploy.lock
 
-$ vh deploy
+$ mina deploy
 # The deploy should proceed now
 </code></pre>
 
@@ -461,7 +465,7 @@ that lock file.</p>
 <br class="post-pre">
 
 </section></section><section class=" after-pre h2 addons_git"><h2 id="addons_git" class=" after-pre">Addons: Git</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/git'
+<pre class=" lang- prettyprint right"><code class="ruby">require 'mina/git'
 
 set :repository, 'https://github.com/you/your-app.git'
 </code></pre>
@@ -483,7 +487,7 @@ the current HEAD in your local copy.</p></li>
 <p>Clones from the repo into the current folder.</p>
 
 </section></section><section class=" h2 addons_bundler"><h2 id="addons_bundler">Addons: Bundler</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/bundler'
+<pre class=" lang- prettyprint right"><code class="ruby">require 'mina/bundler'
 </code></pre>
 
 <p>To manage Bundler installations, add this to your <code>deploy.rb</code>:</p>
@@ -510,7 +514,7 @@ path (specified in <code>bundle_path</code>), and invoking <code>bundle install<
 by default).</p>
 
 </section></section><section class=" h2 addons_rails"><h2 id="addons_rails">Addons: Rails</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">require 'van_helsing/rails'
+<pre class=" lang- prettyprint right"><code class="ruby">require 'mina/rails'
 </code></pre>
 
 <p>To manage Rails project installations, add this to your <code>deploy.rb</code>:</p>
@@ -522,8 +526,10 @@ by default).</p>
 <p>This introduces the following settings. All of them are optional.</p>
 
 <ul>
-<li><p><code>rake</code> - The <code>rake</code> command. Defaults to <code>RAILS_ENV="#{rails_env}" bundle 
-exec rake</code>.</p></li>
+<li><p><code>bundle_prefix</code> - Prefix to run commands via Bundler. Defaults to
+<code>RAILS_ENV="#{rails_env}" bundle exec</code>.</p></li>
+<li><p><code>rake</code> - The <code>rake</code> command. Defaults to <code>#{bundle_prefix} rake</code>.</p></li>
+<li><p><code>rails</code> - The <code>rails</code> command. Defaults to <code>#{bundle_prefix} rails</code>.</p></li>
 <li><p><code>rails_env</code> - The environment to run rake commands in. Defaults to
 <code>production</code>.</p></li>
 </ul></section><section class=" h3 task_-_rails_db_migrate"><h3 id="task_-_rails_db_migrate">Task - rails:db_migrate</h3>
@@ -536,7 +542,7 @@ exec rake</code>.</p></li>
 
 <p>It also checks the current version to see if it has assets compiled. If it does,
 it reuses them, skipping the compilation step. To stop this behavior, invoke
-the <code>vh</code> command with <code>force_assets=1</code>.</p>
+the <code>mina</code> command with <code>force_assets=1</code>.</p>
 
 </section><section class=" h3 task_-_rails_assets_precompile_force"><h3 id="task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</h3>
 
@@ -549,26 +555,48 @@ $ rspec -t ssh     # Run SSH tests (read test_env/config/deploy.rb first)
 $ rake=0.9 rspec
 $ rake=0.8 rspec
 
-# Alias your 'vh' to use it everywhere
-$ alias vh="`pwd -LP`/bin/vh"
-
-# Try out the test environment!
-$ cd test_env
-$ vh deploy --simulate
-$ vh deploy
+# Alias your 'mina' to use it everywhere
+$ alias mina="`pwd -LP`/bin/mina"
 </code></pre>
 
 <p>To test out stuff in development:</p>
 
 <br class="post-pre">
 
-</section><section class=" after-pre h2 acknowledgements"><h2 id="acknowledgements" class=" after-pre">Acknowledgements</h2>
+<section class=" after-pre h3 doing_test_deploys"><h3 id="doing_test_deploys" class=" after-pre">Doing test deploys</h3>
+<pre class=" lang- prettyprint right"><code>$ cd test_env
+$ mina deploy --simulate
+$ mina deploy
+
+# There's an rspec task for it too
+$ rspec -t ssh
+</code></pre>
+
+<p>Try out the test environment:</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 gem_management"><h3 id="gem_management" class=" after-pre">Gem management</h3>
+<pre class=" lang- prettyprint right"><code># To release the gem:
+# Install the Git changelog helper: https://gist.github.com/2880525
+$ vim lib/mina/version.rb
+$ git clog -w
+$ vim HISTORY.md
+$ rake release
+
+$ rake build      # Builds the gem file
+$ rake install    # Installs the gem locally
+</code></pre>
+
+<br class="post-pre">
+
+</section></section><section class=" after-pre h2 acknowledgements"><h2 id="acknowledgements" class=" after-pre">Acknowledgements</h2>
 
 <p>© 2012, Nadarei. Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT 
 License</a>.</p>
 
-<p>Van Helsing is authored and maintained by <a href="http://ricostacruz.com">Rico Sta. Cruz</a> and <a href="http://devblog.michaelgalero.com/">Michael 
-Galero</a> with help from its <a href="http://github.com/nadarei/van_helsing/contributors">contributors</a>. It is sponsored by our 
+<p>Mina is authored and maintained by <a href="http://ricostacruz.com">Rico Sta. Cruz</a> and <a href="http://devblog.michaelgalero.com/">Michael 
+Galero</a> with help from its <a href="http://github.com/nadarei/mina/contributors">contributors</a>. It is sponsored by our 
 startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 
 <ul>
@@ -594,13 +622,14 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <a href="http://devblog.michaelgalero.com/">My website</a> (michaelgalero.com)</li>
 <li>
 <a href="http://github.com/mikong">Github</a> (@mikong)</li>
-</ul></section><aside id="toc"><h1>Van Helsing</h1>
+</ul></section><aside id="toc"><h1>Mina 
+</h1>
 <nav class="level-2"><h3><a href="#features">Features</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#setting_up_a_project">Setting up a project</a></h3>
 <ul>
 <li><a href="#step_1_create_a_config_deploy_rb">Step 1: Create a config/deploy.rb</a></li>
 <li><a href="#step_2_set_up_your_server">Step 2: Set up your server</a></li>
-<li><a href="#step_3_run_vh_setup">Step 3: Run 'vh setup'</a></li>
+<li><a href="#step_3_run_mina_setup">Step 3: Run 'mina setup'</a></li>
 <li><a href="#step_4_deploy">Step 4: Deploy!</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#command_line_options">Command line options</a></h3>
 <ul></ul></nav><nav class="level-2"><h3><a href="#about_deploy_rb">About deploy.rb</a></h3>
@@ -641,7 +670,10 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li><a href="#task_-_rails_assets_precompile">Task - rails:assets_precompile</a></li>
 <li><a href="#task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#development_testing">Development &amp; testing</a></h3>
-<ul></ul></nav><nav class="level-2"><h3><a href="#acknowledgements">Acknowledgements</a></h3>
+<ul>
+<li><a href="#doing_test_deploys">Doing test deploys</a></li>
+<li><a href="#gem_management">Gem management</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#acknowledgements">Acknowledgements</a></h3>
 <ul></ul></nav></aside></div>
   <script type='text/javascript' src='http://cachedcommons.org/cache/prettify/1.0.0/javascripts/prettify-min.js'></script>
   <script>prettyPrint();</script>
