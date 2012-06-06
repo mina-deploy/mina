@@ -556,10 +556,28 @@ To test out stuff in development:
     # Alias your 'vh' to use it everywhere
     $ alias vh="`pwd -LP`/bin/vh"
 
-    # Try out the test environment!
+### Doing test deploys
+
+Try out the test environment:
+
     $ cd test_env
     $ vh deploy --simulate
     $ vh deploy
+
+    # There's an rspec task for it too
+    $ rspec -t ssh
+
+### Gem management
+
+    # To release the gem:
+    # Install the Git changelog helper: https://gist.github.com/2880525
+    $ vim lib/van_helsing/version.rb
+    $ git clog -w
+    $ vim HISTORY.md
+    $ rake release
+
+    $ rake build      # Builds the gem file
+    $ rake install    # Installs the gem locally
 
 Acknowledgements
 ----------------
