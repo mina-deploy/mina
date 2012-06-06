@@ -1,3 +1,17 @@
+v0.0.1.pre7 - Jun 06, 2012
+--------------------------
+
+### Added:
+  * __`vh rails[command]` and `vh rake[command]` tasks.__
+  * __Add `vh run`.__
+  * `-S` as an alias for `--simulate`.
+  * the `#set_default` helper.
+  * the `bundle_prefix` setting.
+  * New `term_mode` setting.
+
+### Changed:
+  * `--simulate` show things without the `ssh` command or shellescaping.
+
 v0.0.1.pre6 - Jun 06, 2012
 --------------------------
 
