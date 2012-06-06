@@ -33,14 +33,8 @@ module VanHelsing
     def ssh(cmd, options={})
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
 
-      args = domain!
-      args = "#{user}@#{args}" if user?
-      args << " -i #{identity_file}" if identity_file?
-
       require 'shellwords'
-      code =
-        "ssh #{args} -- bash -c %s" %
-        [ Shellwords.escape(indent(2, unindent(cmd))) ]
+      code = "#{ssh_command} -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
 
       result = 0
       if simulate_mode
@@ -50,7 +44,7 @@ module VanHelsing
       elsif settings.term_mode == :exec
         exec code
       else
-        system(code)
+        system code
         result = $?
       end
 
@@ -61,6 +55,20 @@ module VanHelsing
       end
 
       result
+    end
+
+    # Returns the SSH command to be executed.
+    #
+    #     set :domain, 'foo.com'
+    #     set :user, 'diggity'
+    #     puts ssh_command
+    #     #=> 'ssh diggity@foo.com'
+    #
+    def ssh_command
+      args = domain!
+      args = "#{user}@#{args}" if user?
+      args << " -i #{identity_file}" if identity_file?
+      "ssh #{args}"
     end
 
     # Works like 'system', but indents and puts color.
@@ -210,7 +218,6 @@ module VanHelsing
     #     settings.term_mode.should == :system
     #
     def set_default(key, value)
-      p key, settings.send(:"#{key}?")
       settings.send :"#{key}=", value  unless settings.send(:"#{key}?")
     end
 
