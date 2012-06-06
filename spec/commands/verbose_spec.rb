@@ -9,12 +9,12 @@ describe "Invoking the 'vh' command in a project" do
   it 'should echo commands in verbose mode' do
     vh 'deploy', '--verbose', '--simulate'
 
-    stdout.should include "echo \"\\$ git"
+    stdout.should include %[echo "$ git]
   end
 
   it 'should not echo commands when not in verbose mode' do
     vh 'deploy', '--simulate'
 
-    stdout.should_not include "echo \"\\$ git"
+    stdout.should_not include %[echo "$ git]
   end
 end

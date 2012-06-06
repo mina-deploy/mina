@@ -44,7 +44,7 @@ module VanHelsing
 
       result = 0
       if simulate_mode
-        puts code
+        puts cmd
       elsif settings.term_mode == :pretty
         result = pretty_system("#{code} 2>&1")
       elsif settings.term_mode == :exec
