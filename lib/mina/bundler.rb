@@ -1,5 +1,4 @@
-
-settings.bundle_path ||= './vendor/bundle'
+settings.bundle_path    ||= lambda { "#{shared_path}/bundle" }
 settings.bundle_options ||= lambda { %{--without development:test --path "#{bundle_path}" --binstubs bin/ --deployment} }
 
 namespace :bundle do
