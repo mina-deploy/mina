@@ -3,12 +3,12 @@ require 'mina/rails'
 require 'mina/git'
 
 # Basic settings:
-# host       - The hostname to SSH to
+# domain     - The hostname to SSH to
 # deploy_to  - Path to deploy into
 # repository - Git repo to clone from (needed by mina/git)
 # user       - Username in the  server to SSH to (optional)
 
-set :host, 'foobar.com'
+set :domain, 'foobar.com'
 set :deploy_to, '/var/www/foobar.com'
 set :repository, 'git://...'
 # set :user, 'foobar.com'

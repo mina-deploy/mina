@@ -7,8 +7,8 @@ describe 'Settings' do
     end
 
     it 'setting/getting should work' do
-      @settings.host = '192.168.1.1'
-      @settings.host.should == '192.168.1.1'
+      @settings.domain = '192.168.1.1'
+      @settings.domain.should == '192.168.1.1'
     end
 
     it 'question mark should work' do

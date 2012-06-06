@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe 'Settings in rake tasks' do
   it '#set should work' do
-    rake { set :host, 'localhost' }
+    rake { set :domain, 'localhost' }
 
-    rake.host.should == 'localhost'
-    rake.settings.host.should == 'localhost'
+    rake.domain.should == 'localhost'
+    rake.settings.domain.should == 'localhost'
   end
 
   it '#settings ||= should work' do
