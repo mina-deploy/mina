@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name = "mina"
   s.version = Mina.version
   s.summary = %{Really fast deployer and server automation tool.}
-  s.description = %Q{Builds scripts."}
+  s.description = %Q{Really fast deployer and server automation tool.}
   s.authors = ["Rico Sta. Cruz", "Michael Galero"]
   s.email = ["rico@nadarei.co", "mikong@nadarei.co"]
   s.homepage = "http://github.com/nadarei/mina"
