@@ -10,11 +10,7 @@ Compare this to the likes of Vlad or Capistrano, where each command
 is ran separately on their own SSH sessions. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
-    # Install the gem yourself
-    $ git clone https://github.com/nadarei/mina.git
-    $ cd mina
-    $ gem build *.gemspec
-    $ gem install *.gem
+    $ gem install mina
 
 Features
 --------
@@ -586,6 +582,12 @@ Try out the test environment:
     $ rake build      # Builds the gem file
     $ rake install    # Installs the gem locally
 
+Issues
+------
+
+File issues at the [issue tracker][issues] (github.com). You may also look at
+the [Trello board][trello] (trello.com) we use for development.
+
 Acknowledgements
 ----------------
 
@@ -614,3 +616,5 @@ Michael:
 [mg]:  http://devblog.michaelgalero.com/
 [c]:   http://github.com/nadarei/mina/contributors
 [nd]:  http://nadarei.co
+[issues]: https://github.com/nadarei/mina/issues
+[trello]: https://trello.com/board/mina/4fc8b3023d9c9a4d72e573e6
