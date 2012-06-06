@@ -523,8 +523,12 @@ require 'van_helsing/rails'
 
 This introduces the following settings. All of them are optional.
 
- * `rake` - The `rake` command. Defaults to `RAILS_ENV="#{rails_env}" bundle 
- exec rake`.
+ * `bundle_prefix` - Prefix to run commands via Bundler. Defaults to
+ `RAILS_ENV="#{rails_env}" bundle exec`.
+
+ * `rake` - The `rake` command. Defaults to `#{bundle_prefix} rake`.
+
+ * `rails` - The `rails` command. Defaults to `#{bundle_prefix} rails`.
 
  * `rails_env` - The environment to run rake commands in. Defaults to
  `production`.

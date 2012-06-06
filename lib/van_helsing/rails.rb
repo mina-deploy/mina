@@ -1,6 +1,8 @@
 settings.rails_env ||= 'production'
 # TODO: This should be lambda
-settings.rake ||= lambda { %{RAILS_ENV="#{rails_env}" bundle exec rake} }
+settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" bundle exec} }
+settings.rake ||= lambda { %{#{bundle_prefix} rake} }
+settings.rails ||= lambda { %{#{bundle_prefix} rails} }
 
 namespace :rails do
   desc "Migrates the Rails database."
