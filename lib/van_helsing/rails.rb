@@ -4,6 +4,24 @@ settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" bundle exec} }
 settings.rake ||= lambda { %{#{bundle_prefix} rake} }
 settings.rails ||= lambda { %{#{bundle_prefix} rails} }
 
+# Macro used later by :rails, :rake, etc
+make_run_task = lambda { |name, sample_args|
+  task name, :arguments do |t, args|
+    command = args[:arguments]
+    unless command
+      puts %{You need to provide arguments. Try: vh "#{name}[#{sample_args}]"}
+      exit 1
+    end
+    queue %[cd "#{deploy_to!}/#{current_path!}" && #{rails} #{command}]
+  end
+}
+
+desc "Execute a Rails command in the current deploy."
+make_run_task[:rails, 'console']
+
+desc "Execute a Rake command in the current deploy."
+make_run_task[:rake, 'db:migrate']
+
 namespace :rails do
   desc "Migrates the Rails database."
   task :db_migrate do
