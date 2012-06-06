@@ -377,6 +377,9 @@ There are a few deploy-related tasks and settings that are on by default.
   signal if no SSH connections are to be made, and the scripts will just be
   printed locally.
 
+* `term_mode` - If set to `:pretty`, prettifies the output with indentations.
+  (Default with deploys.)
+
 ### SSH settings
 
 * `domain` - Hostname to SSH to. *Required.*
@@ -520,8 +523,12 @@ require 'van_helsing/rails'
 
 This introduces the following settings. All of them are optional.
 
- * `rake` - The `rake` command. Defaults to `RAILS_ENV="#{rails_env}" bundle 
- exec rake`.
+ * `bundle_prefix` - Prefix to run commands via Bundler. Defaults to
+ `RAILS_ENV="#{rails_env}" bundle exec`.
+
+ * `rake` - The `rake` command. Defaults to `#{bundle_prefix} rake`.
+
+ * `rails` - The `rails` command. Defaults to `#{bundle_prefix} rails`.
 
  * `rails_env` - The environment to run rake commands in. Defaults to
  `production`.
