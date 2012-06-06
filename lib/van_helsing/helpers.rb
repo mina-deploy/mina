@@ -37,12 +37,10 @@ module VanHelsing
       args = "#{user}@#{args}" if user?
       args << " -i #{identity_file}" if identity_file?
 
-      code = [
-        '( cat <<VH_EOF',
-        indent(2, unindent(cmd.gsub(/\$/,'\$').gsub(/`/, '\\\\'+'`'))),
-        "VH_EOF",
-        ") | ssh #{args} -- bash -"
-      ].join("\n")
+      require 'shellwords'
+      code =
+        "ssh #{args} -- bash -c %s" %
+        [ Shellwords.escape(indent(2, unindent(cmd))) ]
 
       result = 0
       if simulate_mode
