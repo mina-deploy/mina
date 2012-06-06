@@ -1,3 +1,27 @@
+v0.0.1.pre6 - Jun 06, 2012
+--------------------------
+
+Thanks to @sosedoff for his contributions that made it to this release.
+
+### Added:
+  * __Rubinius support.__
+  * __Ruby 1.8 support.__
+  * Prelimenary JRuby support.
+  * MIT license.
+  * Highlight errors as red in deploy.
+  * Use popen4 instead of popen3. Support JRuby via IO.popen4.
+
+### Changed:
+  * __Rename 'to :restart' to 'to :launch'.__
+  * __Make deploys fail if renaming the build (eg, not setup properly) fails.__
+
+### Tests:
+  * Added 'rake spec' (aliased as just 'rake') task. It tests with Rake 0.8 and 0.9 both.
+  * Added provisions for testing with Rake 0.8 and 0.9.
+  * Integrate with travis-ci.org.
+  * Make the SSH test more portable.
+  * Removed 'rake spec:verbose'.
+
 v0.0.1.pre5 - Jun 05, 2012
 --------------------------
 
