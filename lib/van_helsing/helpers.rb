@@ -21,7 +21,7 @@ module VanHelsing
     #     run!
     #
     def run!
-      ssh commands(:default), :pretty => true
+      ssh commands(:default)
     end
 
     # Executes a command via SSH.
@@ -45,8 +45,10 @@ module VanHelsing
       result = 0
       if simulate_mode
         puts code
-      elsif options[:pretty]
+      elsif settings.term_mode == :pretty
         result = pretty_system("#{code} 2>&1")
+      elsif settings.term_mode == :exec
+        exec code
       else
         system(code)
         result = $?
@@ -210,7 +212,7 @@ module VanHelsing
     # Hook to get settings.
     # See #settings for an explanation.
     def method_missing(meth, *args, &blk)
-      @settings.send meth, *args
+      settings.send meth, *args
     end
 
     def indent(count, str)

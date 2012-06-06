@@ -377,6 +377,9 @@ There are a few deploy-related tasks and settings that are on by default.
   signal if no SSH connections are to be made, and the scripts will just be
   printed locally.
 
+* `term_mode` - If set to `:pretty`, prettifies the output with indentations.
+  (Default with deploys.)
+
 ### SSH settings
 
 * `domain` - Hostname to SSH to. *Required.*
