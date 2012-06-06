@@ -12,21 +12,20 @@ Thanks to @sosedoff for his contributions that made it to this release.
   * Use popen4 instead of popen3. Support JRuby via IO.popen4.
 
 ### Changed:
-  * __Rename 'to :restart' to 'to :launch'.__
+  * __Rename `to :restart` to `to :launch`.__
   * __Make deploys fail if renaming the build (eg, not setup properly) fails.__
 
 ### Tests:
-  * Added 'rake spec' (aliased as just 'rake') task. It tests with Rake 0.8 and 0.9 both.
-  * Added provisions for testing with Rake 0.8 and 0.9.
-  * Integrate with travis-ci.org.
+  * Added `rake spec` (aliased as just `rake`) task. It tests with Rake 0.8 and 0.9 both.
+  * Integrate with [Travis CI](http://travis-ci.org).
   * Make the SSH test more portable.
-  * Removed 'rake spec:verbose'.
+  * Removed `rake spec:verbose`.
 
 v0.0.1.pre5 - Jun 05, 2012
 --------------------------
 
 ### Added:
-  * Add '--trace' to the 'vh help' screen.
+  * Add `--trace` to the `vh help` screen.
   * Rake 0.8 compatibility.
   * Ruby 1.8.7 compatibility.
 
@@ -69,27 +68,28 @@ v0.0.1.pre3 - Jun 04, 2012
   * `release_path` has been deprecated.
 
 ### Fixed:
-  * Stupid critical bug fix: fix 'vh:setup' giving the world access to deploy_to.
+  * Stupid critical bug fix: fix `vh:setup` giving the world access to deploy_to.
   * Ensure that SSH stderr output is shown properly.
-  * Make #invoke work with tasks with arguments (eg, :'site:scrape[ensogo]')
+  * Make `#invoke` work with tasks with arguments (eg, :'site:scrape[ensogo]')
 
 ### Changed:
   * Edit the default deploy.rb to have a description for the deploy task.
-  * Make 'vh -T' show 'vh' instead of 'rake'.
-  * Make 'vh setup' ensure ownership of the deploy_to path.
+  * Make `vh -T` show `vh` instead of `rake`.
+  * Make `vh setup` ensure ownership of the `deploy_to` path.
   * Make deploy steps more explicit by echoing more statuses.
   * When deploys fail, you now don't see the default Ruby backtrace. It now
-    behaves like Rake where you need to add --trace to see the trace.
+    behaves like Rake where you need to add `--trace` to see the trace.
 
 ### Misc:
-  * Fixed the error that sometimes happens when invoking 'vh' without a deploy.rb.
+  * Fixed the error that sometimes happens when invoking `vh` without a deploy.rb.
   * Update the sample deploy.rb file to be more readable.
-  * The test_env/ project can now be deployed without problems, so you can try things out.
+  * The *test_env/* project can now be deployed without problems, so you can try
+    things out.
   * Lots of new tests.
   * rspec test order is now randomized.
   * rspec output is colored (thanks to .rspec).
   * Better script indentation when running in simulation mode.
-  * In symlinking ./current/, use ln -nfs instead of rm -f && ln -s.
+  * In symlinking `./current/`, use `ln -nfs` instead of `rm -f && ln -s`.
 
 v0.0.1.pre2 - Jun 03, 2012
 --------------------------
@@ -120,7 +120,7 @@ v0.0.1.pre2 - Jun 03, 2012
 
 ### Other things:
   * Move deploy settings to deploy.rb.
-  * Rename the 'default' addon to 'deploy'.
+  * Rename the `default` addon to `deploy`.
 
 v0.0.1.pre1 - Jun 02, 2012
 --------------------------
