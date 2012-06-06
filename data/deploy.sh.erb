@@ -11,7 +11,15 @@ cd "<%= deploy_to %>" || (
   echo "The path '<%= deploy_to %>' is not accessible on the server."
   echo "You may need to run 'mina setup' first."
   false
-) || exit 16
+) || exit 15
+
+# Check releases path
+if [ ! -d "<%= releases_path %>" ]; then
+  echo "=====> ERROR: not set up."
+  echo "The directory '<%= releases_path %>' does not exist on the server."
+  echo "You may need to run 'mina setup' first."
+  exit 16
+fi
 
 # Check lockfile
 if [ -e "<%= lock_file %>" ]; then
@@ -94,5 +102,5 @@ fi
   # Unlock
   <%= echo_cmd %[rm -f "#{lock_file}"] %>
   echo "OK"
-  exit 8
+  exit 19
 )
