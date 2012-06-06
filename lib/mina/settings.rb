@@ -1,4 +1,4 @@
-module VanHelsing
+module Mina
   class Settings < Hash
     def method_missing(meth, *args, &blk)
       name = meth.to_s

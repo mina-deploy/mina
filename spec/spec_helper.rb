@@ -1,9 +1,9 @@
-require 'van_helsing'
+require 'mina'
 require 'rake'
 
 class RakeScope
   include Rake::DSL  if Rake.const_defined?(:DSL)
-  include VanHelsing::Helpers
+  include Mina::Helpers
 end
 
 def rake(&blk)

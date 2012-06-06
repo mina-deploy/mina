@@ -1,14 +1,14 @@
 require 'spec_helper'
 require 'command_helper'
 
-describe "Invoking the 'vh' command in a project" do
+describe "Invoking the 'mina' command in a project" do
   before :each do
     Dir.chdir root('test_env')
   end
 
   describe "to do a simulated deploy" do
     before :each do
-      vh 'deploy', 'simulate=1'
+      mina 'deploy', 'simulate=1'
     end
 
     it "should take care of the lockfile" do

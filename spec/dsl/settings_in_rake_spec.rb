@@ -35,7 +35,7 @@ describe 'Settings in rake tasks' do
       }
       rake.path
       1.should == 2
-    rescue VanHelsing::Error => e
+    rescue Mina::Error => e
       e.message.should include "version"
     end
   end

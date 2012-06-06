@@ -1,4 +1,4 @@
-# Invokes the main 'vh' command.
+# Invokes the main 'mina' command.
 def run_command(*args)
   out = ''
   err = ''
@@ -8,14 +8,14 @@ def run_command(*args)
     rake_version = "~> #{ENV['rake'] || '0.9'}.0"
     script  = %[require 'rubygems' unless Object.const_defined?(:Gem);]
     script += %[gem 'rake', '#{rake_version}';]
-    script += %[load '#{root('bin/vh')}']
+    script += %[load '#{root('bin/mina')}']
     cmd = ['ruby', '-e', "#{script}", "--", *args]
   else
-    cmd = [root('bin/vh'), *args]
+    cmd = [root('bin/mina'), *args]
   end
 
   status =
-    VanHelsing::Tools.popen4(*cmd) do |pid, i, o, e|
+    Mina::Tools.popen4(*cmd) do |pid, i, o, e|
       out = o.read
       err = e.read
     end
@@ -28,8 +28,8 @@ def run_command(*args)
   @result
 end
 
-# Invokes the main 'vh' command and ensures the exit status is success.
-def vh(*args)
+# Invokes the main 'mina' command and ensures the exit status is success.
+def mina(*args)
   run_command *args
   if exitstatus != 0 && ENV['verbose']
     puts stdout

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Van Helsing' do
+describe 'Mina' do
   it '#invoke should work' do
     rake {
       task :hello do

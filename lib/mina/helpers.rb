@@ -1,4 +1,4 @@
-module VanHelsing
+module Mina
   module Helpers
     # Invokes another Rake task.
     def invoke(task)
@@ -256,7 +256,7 @@ module VanHelsing
     end
 
     # Invoked when Rake exits.
-    def vh_cleanup!
+    def mina_cleanup!
       run! if commands.any?
     end
 

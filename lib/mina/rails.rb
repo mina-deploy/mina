@@ -9,7 +9,7 @@ make_run_task = lambda { |name, sample_args|
   task name, :arguments do |t, args|
     command = args[:arguments]
     unless command
-      puts %{You need to provide arguments. Try: vh "#{name}[#{sample_args}]"}
+      puts %{You need to provide arguments. Try: mina "#{name}[#{sample_args}]"}
       exit 1
     end
     queue %[cd "#{deploy_to!}/#{current_path!}" && #{rails} #{command}]

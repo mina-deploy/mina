@@ -1,4 +1,4 @@
-module VanHelsing
+module Mina
   module DeployHelpers
     # Wraps the things inside it in a deploy script, and queues it.
     # This generates a script using deploy_script and queues it.
@@ -18,7 +18,7 @@ module VanHelsing
       set_default :term_mode, :pretty
       code = isolate do
         yield
-        erb VanHelsing.root_path('data/deploy.sh.erb')
+        erb Mina.root_path('data/deploy.sh.erb')
       end
     end
   end

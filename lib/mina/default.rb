@@ -13,7 +13,7 @@ task :init do
 
   require 'fileutils'
   FileUtils.mkdir_p './config'
-  FileUtils.cp VanHelsing.root_path('data/deploy.rb'), './config/deploy.rb'
+  FileUtils.cp Mina.root_path('data/deploy.rb'), './config/deploy.rb'
 
   puts 'Created deploy.rb.'
   puts 'Edit it, then run `#{name} setup` after.'

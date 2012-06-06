@@ -3,7 +3,7 @@ require 'command_helper'
 require 'fileutils'
 require 'tmpdir'
 
-describe "Invoking the 'vh' command in a project", :ssh => true do
+describe "Invoking the 'mina' command in a project", :ssh => true do
   before :each do
     @path = Dir.mktmpdir
     Dir.chdir @path
@@ -20,7 +20,7 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
 
   it 'should set up and deploy fine' do
     print "[setup]" if ENV['verbose']
-    vh 'setup', '--verbose'
+    mina 'setup', '--verbose'
     File.directory?('deploy').should be_true
     File.directory?('deploy/releases').should be_true
     File.directory?('deploy/shared').should be_true
@@ -28,7 +28,7 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
     File.exists?('deploy/deploy.lock').should be_false
 
     print "[deploy 1]" if ENV['verbose']
-    vh 'deploy', '--verbose'
+    mina 'deploy', '--verbose'
     stdout.should include "-----> Creating a temporary build path"
     stdout.should include "rm -rf .git"
     stdout.should include "mkdir -p"
@@ -44,7 +44,7 @@ describe "Invoking the 'vh' command in a project", :ssh => true do
 
     # And again, to test out sequential versions and stuff
     print "[deploy 2]" if ENV['verbose']
-    vh 'deploy'
+    mina 'deploy'
     stdout.should_not include "rm -rf .git"
     stdout.should_not include "mkdir -p"
     File.directory?('deploy/releases/2').should be_true

@@ -1,11 +1,11 @@
-require 'van_helsing/bundler'
-require 'van_helsing/rails'
-require 'van_helsing/git'
+require 'mina/bundler'
+require 'mina/rails'
+require 'mina/git'
 
 # Basic settings:
 # host       - The hostname to SSH to
 # deploy_to  - Path to deploy into
-# repository - Git repo to clone from (needed by van_helsing/git)
+# repository - Git repo to clone from (needed by mina/git)
 # user       - Username in the  server to SSH to (optional)
 
 set :host, 'foobar.com'

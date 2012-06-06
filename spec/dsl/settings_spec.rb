@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Settings' do
   describe 'instances' do
     before :each do
-      @settings = VanHelsing::Settings.new
+      @settings = Mina::Settings.new
     end
 
     it 'setting/getting should work' do
@@ -46,7 +46,7 @@ describe 'Settings' do
       begin
         @settings.non_existent_setting!
         1.should == 2
-      rescue VanHelsing::Error => e
+      rescue Mina::Error => e
         e.message.should include "non_existent_setting"
       end
     end

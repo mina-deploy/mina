@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Van Helsing' do
+describe 'Mina' do
   it '#to should work' do
     rake {
       task :deploy do

@@ -1,4 +1,4 @@
-module VanHelsing
+module Mina
   module Tools
     if IO.respond_to?(:popen4)
       def self.popen4(*cmd, &blk)

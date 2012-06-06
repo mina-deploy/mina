@@ -6,7 +6,7 @@ require 'bundler/gem_tasks'
 #     *do `gem install reacco`
 #     * install http://github.com/rstacruz/git-update-ghpages
 
-ENV['github'] ||= 'nadarei/van_helsing'
+ENV['github'] ||= 'nadarei/mina'
 
 namespace :doc do
 

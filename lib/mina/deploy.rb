@@ -49,7 +49,7 @@ desc "Runs a command in the server."
 task :run, :command do |t, args|
   command = args[:command]
   unless command
-    puts %[You need to provide a command. Try: vh "run[ls -la]"]
+    puts %[You need to provide a command. Try: mina "run[ls -la]"]
     exit 1
   end
 

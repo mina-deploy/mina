@@ -1,25 +1,25 @@
-# Van Helsing [![status](https://secure.travis-ci.org/nadarei/van_helsing.png?branch=master)](http://travis-ci.org/nadarei/van_helsing)
+# Mina [![status](https://secure.travis-ci.org/nadarei/mina.png?branch=master)](http://travis-ci.org/nadarei/mina)
 
 Really fast deployer and server automation tool.
 
-Van Helsing works really fast because it's a deploy Bash script generator. It
+Mina works really fast because it's a deploy Bash script generator. It
 generates an entire procedure as a Bash script and runs it remotely in the
 server.
 
 Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Van Helsing only creates *one* SSH
+is ran separately on their own SSH sessions. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
     # Install the gem yourself
-    $ git clone https://github.com/nadarei/van_helsing.git
-    $ cd van_helsing
+    $ git clone https://github.com/nadarei/mina.git
+    $ cd mina
     $ gem build *.gemspec
     $ gem install *.gem
 
 Features
 --------
 
-* __Really fast.__ Van Helsing only makes one SSH connection per deploy. It
+* __Really fast.__ Mina only makes one SSH connection per deploy. It
   builds a Bash script and executes it remotely, reducing the overhead of
   creating SSH connections to do processing locally (like Vlad or Capistrano
   does).
@@ -31,7 +31,7 @@ Features
 * __Locks.__ Deploy scripts rely on a lockfile ensuring only one deploy can
   happen at a time.
 
-* __Works with anything.__ While Van Helsing is built with Rails projects it
+* __Works with anything.__ While Mina is built with Rails projects it
   mind, it can be used on just about any type of project deployable via SSH,
   Ruby or not.
 
@@ -42,15 +42,15 @@ Features
 Setting up a project
 --------------------
 
-Let's deploy a project using Van Helsing.
+Let's deploy a project using Mina.
 
 ### Step 1: Create a config/deploy.rb
 
-In your project, type `vh init` to create a sample of this file.
+In your project, type `mina init` to create a sample of this file.
 
 This is just a Rake file with tasks!
 
-    $ vh init
+    $ mina init
     Created config/deploy.rb.
 
 See [About deploy.rb](#about_deployrb) for more info on what *deploy.rb* is.
@@ -66,21 +66,21 @@ change it's ownership to the correct user.
 
     # Make sure 'username' is the same as what's on deploy.rb
 
-### Step 3: Run 'vh setup'
+### Step 3: Run 'mina setup'
 
-Now do `vh setup` to set up the [folder structure](#directory_structure) in this
+Now do `mina setup` to set up the [folder structure](#directory_structure) in this
 path. This will connect to your server via SSH and create the right directories.
 
-    $ vh setup
+    $ mina setup
     -----> Creating folders... done.
 
 See [directory structure](#directory_structure) for more info.
 
 ### Step 4: Deploy!
 
-Use `vh deploy` to run the `deploy` task defined in *config/deploy.rb*.
+Use `mina deploy` to run the `deploy` task defined in *config/deploy.rb*.
 
-    $ vh deploy
+    $ mina deploy
     -----> Deploying to 2012-06-12-040248
            ...
            Lots of things happening...
@@ -99,11 +99,11 @@ Command line options
 About deploy.rb
 ---------------
 
-The file `deploy.rb` is simply a Rakefile invoked by Rake. In fact, `vh` is
+The file `deploy.rb` is simply a Rakefile invoked by Rake. In fact, `mina` is
 mostly an alias that invokes Rake to load `deploy.rb`.
 
-As it's all Rake, you can define tasks that you can invoke using `vh`. In this
-example, it provides the `vh restart` command.
+As it's all Rake, you can define tasks that you can invoke using `mina`. In this
+example, it provides the `mina restart` command.
 
 ``` ruby
 # Sample config/deploy.rb
@@ -114,10 +114,10 @@ task :restart do
 end
 ```
 
-The magic of Van Helsing is in the new commands it gives you.
+The magic of Mina is in the new commands it gives you.
 
 The `queue` command queues up Bash commands to be ran on the remote server.
-If you invoke `vh restart`, it will invoke the task above and run the queued
+If you invoke `mina restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
 See [the command queue](#the_command_queue) for more information on the *queue*
@@ -126,7 +126,7 @@ command.
 The command queue
 -----------------
 
-At the heart of it, Van Helsing is merely sugar on top of Rake to queue commands
+At the heart of it, Mina is merely sugar on top of Rake to queue commands
 and execute them remotely at the end.
 
 Take a look at this minimal *deploy.rb* configuration:
@@ -141,12 +141,12 @@ task :logs do
 end
 ```
 
-Once you type `vh logs` in your terminal, it invokes the *queue*d commands
+Once you type `mina logs` in your terminal, it invokes the *queue*d commands
 remotely on the server using the command `ssh john@flipstack.com`.
 
 ```
 # Run it in simulation mode so we see the command it will invoke:
-$ vh logs --simulate
+$ mina logs --simulate
 (
   echo "Contents of the log file are as follows:"
   tail -f /var/log/apache.log
@@ -156,7 +156,7 @@ $ vh logs --simulate
 Subtasks
 --------
 
-Van Helsing provides the helper `invoke` to invoke other tasks from a
+Mina provides the helper `invoke` to invoke other tasks from a
 task.
 
 ```ruby
@@ -174,14 +174,14 @@ task :restart
 end
 ```
 
-In this example above, if you type `vh down`, it simply invokes the other
+In this example above, if you type `mina down`, it simply invokes the other
 subtasks which queues up their commands. The commands will be ran after
 everything.
 
 Deploying
 ---------
 
-Van Helsing provides the `deploy` command which *queue*s up a deploy script for
+Mina provides the `deploy` command which *queue*s up a deploy script for
 you.
 
 ``` ruby
@@ -225,7 +225,7 @@ The deploy process builds a new temp folder with instructions you provide.
 In this example, it will do `git:clone` and `bundle:install`.
 
 ```
-$ vh deploy --verbose
+$ mina deploy --verbose
 -----> Creating the build path
        $ mkdir tmp/build-128293482394
 -----> Cloning the Git repository
@@ -359,7 +359,7 @@ task :restart do
   queue "#{settings.nginx_path!}/sbin/nginx restart"
 end
 
-# $ vh restart
+# $ mina restart
 # Error: You must set the :nginx_path setting
 ```
 
@@ -421,7 +421,7 @@ set :current_path, 'current'
 set :lock_file, 'deploy.lock'
 
 # This means the following paths will be
-# created on `vh setup`:
+# created on `mina setup`:
 #    /var/www/flipstack.me/
 #    /var/www/flipstack.me/releases/
 #    /var/www/flipstack.me/shared/
@@ -432,7 +432,7 @@ set :lock_file, 'deploy.lock'
 Prepares the `deploy_to` directory for deployments. Sets up subdirectories and
 sets permissions in the path.
 
-    $ vh setup
+    $ mina setup
     -----> Setting up
            $ mkdir -p /var/www/kickstack.me
            $ chmod g+r,a+rwx /var/www/kickstack.me
@@ -446,15 +446,15 @@ Removes the deploy lock file. If a deploy is terminated midway, it may leave a
 lock file to signal that deploys shouldn't be made. This forces the removal of
 that lock file.
 
-    $ vh deploy
+    $ mina deploy
     -----> ERROR: another deployment is ongoing.
            Delete the lock file to continue.
 
-    $ vh deploy:force_unlock
+    $ mina deploy:force_unlock
     -----> Unlocking
            $ rm /var/www/kickstack.me/deploy.lock
 
-    $ vh deploy
+    $ mina deploy
     # The deploy should proceed now
 
 Addons: Git
@@ -463,7 +463,7 @@ Addons: Git
 To deploy projects using git, add this to your `deploy.rb`:
 
 ``` ruby
-require 'van_helsing/git'
+require 'mina/git'
 
 set :repository, 'https://github.com/you/your-app.git'
 ```
@@ -487,7 +487,7 @@ Addons: Bundler
 To manage Bundler installations, add this to your `deploy.rb`:
 
 ``` ruby
-require 'van_helsing/bundler'
+require 'mina/bundler'
 ```
 
 ### Settings
@@ -516,7 +516,7 @@ Addons: Rails
 To manage Rails project installations, add this to your `deploy.rb`:
 
 ``` ruby
-require 'van_helsing/rails'
+require 'mina/rails'
 ```
 
 ### Settings
@@ -543,7 +543,7 @@ Precompiles assets. This invokes `rake assets:precomplie`.
 
 It also checks the current version to see if it has assets compiled. If it does,
 it reuses them, skipping the compilation step. To stop this behavior, invoke
-the `vh` command with `force_assets=1`.
+the `mina` command with `force_assets=1`.
 
 ### Task - rails:assets_precompile:force
 
@@ -560,16 +560,16 @@ To test out stuff in development:
     $ rake=0.9 rspec
     $ rake=0.8 rspec
 
-    # Alias your 'vh' to use it everywhere
-    $ alias vh="`pwd -LP`/bin/vh"
+    # Alias your 'mina' to use it everywhere
+    $ alias mina="`pwd -LP`/bin/mina"
 
 ### Doing test deploys
 
 Try out the test environment:
 
     $ cd test_env
-    $ vh deploy --simulate
-    $ vh deploy
+    $ mina deploy --simulate
+    $ mina deploy
 
     # There's an rspec task for it too
     $ rspec -t ssh
@@ -578,7 +578,7 @@ Try out the test environment:
 
     # To release the gem:
     # Install the Git changelog helper: https://gist.github.com/2880525
-    $ vim lib/van_helsing/version.rb
+    $ vim lib/mina/version.rb
     $ git clog -w
     $ vim HISTORY.md
     $ rake release
@@ -592,7 +592,7 @@ Acknowledgements
 © 2012, Nadarei. Released under the [MIT 
 License](http://www.opensource.org/licenses/mit-license.php).
 
-Van Helsing is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
+Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
 Galero][mg] with help from its [contributors][c]. It is sponsored by our 
 startup, [Nadarei][nd].
 
@@ -612,5 +612,5 @@ Michael:
 
 [rsc]: http://ricostacruz.com
 [mg]:  http://devblog.michaelgalero.com/
-[c]:   http://github.com/nadarei/van_helsing/contributors
+[c]:   http://github.com/nadarei/mina/contributors
 [nd]:  http://nadarei.co
