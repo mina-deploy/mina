@@ -1,7 +1,7 @@
-settings.releases_path ||= "releases"
-settings.shared_path   ||= "shared"
-settings.current_path  ||= "current"
-settings.lock_file     ||= "deploy.lock"
+set_default :releases_path, "releases"
+set_default :shared_path, "shared"
+set_default :current_path, "current"
+set_default :lock_file, "deploy.lock"
 
 namespace :deploy do
   desc "Forces a deploy unlock."

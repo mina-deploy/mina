@@ -1,3 +1,5 @@
+set_default :term_mode, nil
+
 # Default tasks here
 desc "Creates a sample config file."
 task :init do

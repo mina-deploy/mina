@@ -15,7 +15,7 @@ module VanHelsing
     #     queue script
     #
     def deploy_script(&blk)
-      set :term_mode, :pretty  unless settings.term_mode?
+      set_default :term_mode, :pretty
       code = isolate do
         yield
         erb VanHelsing.root_path('data/deploy.sh.erb')

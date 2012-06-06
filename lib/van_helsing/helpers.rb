@@ -199,6 +199,21 @@ module VanHelsing
       settings.send :"#{key}=", value
     end
 
+    # Sets default settings.
+    #
+    #     set_default :term_mode, :pretty
+    #     set :term_mode, :system
+    #     settings.term_mode.should == :system
+    #
+    #     set :term_mode, :system
+    #     set_default :term_mode, :pretty
+    #     settings.term_mode.should == :system
+    #
+    def set_default(key, value)
+      p key, settings.send(:"#{key}?")
+      settings.send :"#{key}=", value  unless settings.send(:"#{key}?")
+    end
+
     # Accesses the settings hash.
     #
     #     set :domain, 'kickflip.me'
