@@ -53,5 +53,5 @@ task :run, :command do |t, args|
     exit 1
   end
 
-  queue %[cd #{deploy_to} && #{command}]
+  queue %[cd #{deploy_to!} && #{command}]
 end
