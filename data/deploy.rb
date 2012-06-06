@@ -11,14 +11,14 @@ require 'mina/git'
 set :domain, 'foobar.com'
 set :deploy_to, '/var/www/foobar.com'
 set :repository, 'git://...'
-# set :user, 'foobar.com'
+# set :user, 'foobar'
 
 desc "Deploys the current version to the server."
 task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
-    invoke :'git:checkout'
+    invoke :'git:clone'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
