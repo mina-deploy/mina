@@ -73,7 +73,7 @@ task :help do
     [ "-h, --help", "Show help" ],
     [ "-V, --version", "Show program version" ],
     [ "-v, --verbose", "Show commands as they happen" ],
-    [ "    --simulate", "Run in simulation mode" ],
+    [ "-S, --simulate", "Run in simulation mode" ],
     [ "-t, --trace", "Show backtraces when errors occur" ]
   ]
   opts.each { |args| puts "  %-17s %s" % args }

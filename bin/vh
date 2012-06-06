@@ -16,7 +16,7 @@ if ARGV.delete('--version') || ARGV.delete('-V')
   exit
 end
 
-if ARGV.delete('--simulate')
+if ARGV.delete('--simulate') || ARGV.delete('-S')
   ENV['simulate'] = '1'
 end
 
