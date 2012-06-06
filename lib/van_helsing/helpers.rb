@@ -34,16 +34,18 @@ module VanHelsing
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
 
       require 'shellwords'
-      code = "#{ssh_command} -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
 
       result = 0
       if simulate_mode
         puts cmd
       elsif settings.term_mode == :pretty
+        code = "#{ssh_command} -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
         result = pretty_system("#{code} 2>&1")
       elsif settings.term_mode == :exec
+        code = "#{ssh_command} -t -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
         exec code
       else
+        code = "#{ssh_command} -t -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
         system code
         result = $?
       end
