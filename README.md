@@ -11,6 +11,7 @@ is ran separately on their own SSH sessions. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
     $ gem install mina
+    $ mina
 
 Features
 --------
