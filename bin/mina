@@ -24,9 +24,17 @@ scope = self
 
 Rake.application.instance_eval do
   standard_exception_handling do
+    custom_rakefile = true
+
     # Initialize Rake and make it think it's Mina.
     init 'mina'
-    @rakefiles = ['Minafile', 'config/deploy.rb']
+
+    # Assume different default Rakefiles.
+    # (The only way a @rakefiles can have multiple values is if -f isn't specified.)
+    if @rakefiles.size > 1
+      custom_rakefile = false
+      @rakefiles = ['Minafile', 'config/deploy.rb']
+    end
 
     # Workaround: Rake 0.9+ doesn't record task descriptions unless it's needed.
     # Need it for 'mina help'
@@ -38,7 +46,7 @@ Rake.application.instance_eval do
     require 'mina/rake'
 
     # Allow running without a Rakefile
-    load_rakefile  if have_rakefile
+    load_rakefile  if have_rakefile || custom_rakefile
 
     # Run tasks
     top_level

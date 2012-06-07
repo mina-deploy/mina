@@ -55,6 +55,12 @@ describe "Invoking the 'mina' command in a project" do
     end
   end
 
+  it "with 'mina -f' on a non-existing file should fail" do
+    run_command '-f', 'foobar'
+    stderr.should include 'mina aborted'
+    stderr.should include 'No Rakefile found'
+  end
+
   it "with 'mina tasks' should print tasks" do
     mina 'tasks'
 

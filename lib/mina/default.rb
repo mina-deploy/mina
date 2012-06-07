@@ -74,7 +74,8 @@ task :help do
     [ "-V, --version", "Show program version" ],
     [ "-v, --verbose", "Show commands as they happen" ],
     [ "-S, --simulate", "Run in simulation mode" ],
-    [ "-t, --trace", "Show backtraces when errors occur" ]
+    [ "-t, --trace", "Show backtraces when errors occur" ],
+    [ "-f FILE", "Use FILE as the deploy configuration" ]
   ]
   opts.each { |args| puts "  %-17s %s" % args }
   puts ""
