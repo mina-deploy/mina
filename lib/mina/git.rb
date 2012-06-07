@@ -3,6 +3,11 @@ namespace :git do
   task :clone do
     settings.revision ||= `git rev-parse HEAD`.strip
 
+    if settings.revision.empty?
+      error "Git revision is empty. Check if you are in git tree."
+      exit 1
+    end
+
     queue %{
       echo "-----> Cloning the Git repository"
       #{echo_cmd %[git clone "#{repository!}" . -n --recursive]} &&
