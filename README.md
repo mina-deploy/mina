@@ -359,54 +359,47 @@ end
 # Error: You must set the :nginx_path setting
 ```
 
-Defaults
+Settings
 --------
 
 There are a few deploy-related tasks and settings that are on by default.
 
-### Base settings
+### term_mode
+If set to `:pretty`, prettifies the output with indentations. Otherwise, simply
+invokes the commands.
 
-* `verbose_mode` - True if the `--verbose` flag is on, false otherwise. Used to
-  signal if commands are to be shown.
+Invoking `deploy` or `deploy_script` defaults this to `:pretty`.
+(Default with deploys.)
 
-* `simulate_mode` - True if `--simulate` flag is on, false otherwise. Used to
-  signal if no SSH connections are to be made, and the scripts will just be
-  printed locally.
+``` ruby
+# Example:
+set :term_mode, :pretty
+set :term_mode, nil
+```
 
-* `term_mode` - If set to `:pretty`, prettifies the output with indentations.
-  (Default with deploys.)
-
-### SSH settings
-
-* `domain` - Hostname to SSH to. *Required.*
-
-* `user` - Username to connect to SSH with. Optional.
-
-* `identity_file` - Local path to the SSH key to use. Optional.
+### domain
+Hostname to SSH to. *Required.*
 
 ``` ruby
 # Example:
 set :domain, 'flipstack.me'
-set :user, 'flipstack_www'
-set :identity_file, 'flipstack.pem'
+set :user, 'flipstack_www'                # Optional
+set :identity_file, 'keys/deploy.pem'     # Optional
+
+# This will invoke SSH sessions with:
+# $ ssh flipstack_www@flipstack.me -i keys/deploypem
 ```
 
-### Deploy settings
+### user
+Username to connect to SSH with. Optional.
+See [domain](#domain) for an example.
 
-* `deploy_to` - Path to deploy to. *Required.*
+### identity_file
+Local path to the SSH key to use. Optional.
+See [domain](#domain) for an example.
 
-* `releases_path` - The path to where releases are kept. Defaults to
-  `releases`.
-
-* `shared_path` - Where shared files are kept. Defaults to
-  `shared`.
-
-* `current_path` - The path to the symlink to the current release. Defaults to
-  `current`.
-
-* `lock_file` - The deploy lock file. A deploy does not start if this file is
-  found. Defaults to `deploy.lock`.
-
+### deploy_to
+Path to deploy to. *Required.*
 
 ``` ruby
 # Example:
@@ -423,7 +416,93 @@ set :lock_file, 'deploy.lock'
 #    /var/www/flipstack.me/shared/
 ```
 
-### Task - setup
+### releases_path
+The path to where releases are kept. Defaults to `releases`.
+See [deploy_to](#deploy_to) for an example.
+
+### shared_path
+Where shared files are kept. Defaults to `shared`.
+See [deploy_to](#deploy_to) for an example.
+
+### current_path
+The path to the symlink to the current release. Defaults to `current`.
+See [deploy_to](#deploy_to) for an example.
+
+### lock_file
+The deploy lock file. A deploy does not start if this file is
+found. Defaults to `deploy.lock`.
+See [deploy_to](#deploy_to) for an example.
+
+### repository
+The URL for the repository.
+**Required** when you use `require 'mina/git'`.
+
+``` ruby
+# config/deploy.rb
+require 'mina/git'
+
+set :repository, 'https://github.com/you/your-app.git'
+set :revision, 'master'  # Optional
+```
+
+### revision
+The SHA1 of the commit to be deployed. Defaults to whatever is
+the current HEAD in your local copy.
+See [repository](#repository) for an example.
+
+### bundle_path
+The path where bundles are going to be installed. Optional. Defaults to
+`./vendor/bundler`.
+
+This is only relevant if you require the bundler addon with `require 
+'mina/bundler'`.
+
+### bundle_options
+Options that will be passed onto `bundle install`.  Defaults to
+`--without development:test --path "#{bundle_path}" --binstubs bin/
+--deployment"`.
+
+This is only relevant if you require the bundler addon with `require 
+'mina/bundler'`.
+
+### bundle_prefix
+Prefix to run commands via Bundler. Defaults to
+`RAILS_ENV="#{rails_env}" bundle exec`.
+
+This is only relevant if you require the bundler addon with `require 
+'mina/rails'`.
+
+### rake
+The `rake` command. Defaults to `#{bundle_prefix} rake`.
+
+This is only relevant if you require the bundler addon with `require 
+'mina/rails'`.
+
+### rails
+The `rails` command. Defaults to `#{bundle_prefix} rails`.
+
+This is only relevant if you require the bundler addon with `require 
+'mina/rails'`.
+
+### rails_env
+The environment to run rake commands in. Defaults to `production`.
+
+This is only relevant if you require the bundler addon with `require 
+'mina/rails'`.
+
+Tasks
+-----
+
+You may define your own tasks just as you would in Rake, but these tasks come 
+default to all Mina deploy scripts.
+
+Some of them are meant to be invoking in the command line (like `mina setup`),
+ and some of them are meant to be invoked in scripts (like `invoke
+:'git:clone'`).
+
+You can type `mina tasks` in the command line to see all tasks available.
+
+### setup
 
 Prepares the `deploy_to` directory for deployments. Sets up subdirectories and
 sets permissions in the path.
@@ -436,7 +515,13 @@ sets permissions in the path.
            $ mkdir -p /var/www/kickstack.me/shared
            ...
 
-### Task - deploy:force_unlock
+### run
+
+Runs a command in the `deploy_to` path.
+
+    $ mina run["tail -f shared/logs/error.log"]
+
+### deploy:force_unlock
 
 Removes the deploy lock file. If a deploy is terminated midway, it may leave a
 lock file to signal that deploys shouldn't be made. This forces the removal of
@@ -453,97 +538,97 @@ that lock file.
     $ mina deploy
     # The deploy should proceed now
 
-Addons: Git
------------
 
-To deploy projects using git, add this to your `deploy.rb`:
+### git:clone
+Clones the git repository defined in [repository](#repository).
+Usually used in deploy scripts.
+
+To use this, you must add `require 'mina/git'` to your *deploy.rb*.
 
 ``` ruby
+# config/deploy.rb
 require 'mina/git'
 
 set :repository, 'https://github.com/you/your-app.git'
+set :revision, 'master'  # Optional
+
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+  end
+end
 ```
 
-### Settings
-
-This introduces the following settings:
-
-* `repository` - The repository path to clone from. *Required.*
-
-* `revision` - The SHA1 of the commit to be deployed. Defaults to whatever is
-the current HEAD in your local copy.
-
-### Task - git:clone
-
-Clones from the repo into the current folder.
-
-Addons: Bundler
----------------
-
-To manage Bundler installations, add this to your `deploy.rb`:
-
-``` ruby
-require 'mina/bundler'
-```
-
-### Settings
-
-This introduces the following settings:
-
-* `bundle_path` - The path where bundles are going to be installed. Defaults to
-`./vendor/bundler`.
-
-* `bundle_options` - Options that will be passed onto `bundle install`.  
-  Defaults to
-`--without development:test --path "#{bundle_path}" --binstubs bin/
---deployment"`.
-
-### Task - bundle:install
-
+### bundle:install
 Invokes `bundle:install` on the current directory, creating the bundle
 path (specified in `bundle_path`), and invoking `bundle install`.
+Usually used in deploy scripts.
 
 The `bundle_path` is only created if `bundle_path` is set (which is on
 by default).
 
-Addons: Rails
--------------
-
-To manage Rails project installations, add this to your `deploy.rb`:
+This is only relevant if you require the bundler addon with `require
+'mina/bundler'`.
 
 ``` ruby
-require 'mina/rails'
+# config/deploy.rb
+require 'mina/git'
+require 'mina/bundler'   # <- don't forget
+
+# ... settings here
+
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+    invoke :'bundle:install'
+  end
+end
+
+# $ mina deploy --verbose
+# ...
+# ------> Installing gem dependencies using Bundler
+#         $ bundle install --without test:development --deployment
 ```
 
-### Settings
-
-This introduces the following settings. All of them are optional.
-
- * `bundle_prefix` - Prefix to run commands via Bundler. Defaults to
- `RAILS_ENV="#{rails_env}" bundle exec`.
-
- * `rake` - The `rake` command. Defaults to `#{bundle_prefix} rake`.
-
- * `rails` - The `rails` command. Defaults to `#{bundle_prefix} rails`.
-
- * `rails_env` - The environment to run rake commands in. Defaults to
- `production`.
-
-### Task - rails:db_migrate
+### rails:db_migrate
 
 Invokes rake to migrate the database using `rake db:migrate`.
 
-### Task - rails:assets_precompile
+To use this, you must add `require 'mina/rails'` to your *deploy.rb*.
 
-Precompiles assets. This invokes `rake assets:precomplie`.
+``` ruby
+# config/deploy.rb
+require 'mina/git'
+require 'mina/bundler'   # <- don't forget
+
+# ... settings here
+
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+    invoke :'bundle:install'
+    invoke :'rails:db_migrate'
+    invoke :'rails:assets_precompile'
+  end
+end
+```
+
+### rails:assets_precompile
+
+Precompiles assets. This invokes `rake assets:precompile`. This is relevant to
+Rails 3.1+ projects.
 
 It also checks the current version to see if it has assets compiled. If it does,
 it reuses them, skipping the compilation step. To stop this behavior, invoke
 the `mina` command with `force_assets=1`.
 
-### Task - rails:assets_precompile:force
+To use this, you must add `require 'mina/rails'` to your *deploy.rb*.
+
+### rails:assets_precompile:force
 
 Precompiles assets. This always skips the "reuse old assets if possible" step.
+
+To use this, you must add `require 'mina/rails'` to your *deploy.rb*.
 
 Development & testing
 ---------------------
