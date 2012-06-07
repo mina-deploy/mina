@@ -370,35 +370,49 @@ at the end.</p>
 
 <br class="post-pre">
 
-</section></section><section class=" after-pre h2 defaults"><h2 id="defaults" class=" after-pre">Defaults</h2>
+</section></section><section class=" after-pre h2 settings"><h2 id="settings" class=" after-pre">Settings</h2>
 
 <p>There are a few deploy-related tasks and settings that are on by default.</p>
 
-<section class=" h3 base_settings"><h3 id="base_settings">Base settings</h3>
-
-<ul>
-<li><p><code>verbose_mode</code> - True if the <code>--verbose</code> flag is on, false otherwise. Used to
-signal if commands are to be shown.</p></li>
-<li><p><code>simulate_mode</code> - True if <code>--simulate</code> flag is on, false otherwise. Used to
-signal if no SSH connections are to be made, and the scripts will just be
-printed locally.</p></li>
-<li><p><code>term_mode</code> - If set to <code>:pretty</code>, prettifies the output with indentations.
-(Default with deploys.)</p></li>
-</ul></section><section class=" h3 ssh_settings"><h3 id="ssh_settings">SSH settings</h3>
+<section class=" h3 term_mode"><h3 id="term_mode">term_mode</h3>
 <pre class=" lang- prettyprint right"><code class="ruby"># Example:
-set :domain, 'flipstack.me'
-set :user, 'flipstack_www'
-set :identity_file, 'flipstack.pem'
+set :term_mode, :pretty
+set :term_mode, nil
 </code></pre>
 
-<ul>
-<li><p><code>domain</code> - Hostname to SSH to. <em>Required.</em></p></li>
-<li><p><code>user</code> - Username to connect to SSH with. Optional.</p></li>
-<li><p><code>identity_file</code> - Local path to the SSH key to use. Optional.</p></li>
-</ul>
+<p>If set to <code>:pretty</code>, prettifies the output with indentations. Otherwise, simply
+invokes the commands.</p>
+
+<p>Invoking <code>deploy</code> or <code>deploy_script</code> defaults this to <code>:pretty</code>.
+(Default with deploys.)</p>
+
 <br class="post-pre">
 
-</section><section class=" after-pre h3 deploy_settings"><h3 id="deploy_settings" class=" after-pre">Deploy settings</h3>
+</section><section class=" after-pre h3 domain"><h3 id="domain" class=" after-pre">domain</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># Example:
+set :domain, 'flipstack.me'
+set :user, 'flipstack_www'                # Optional
+set :identity_file, 'keys/deploy.pem'     # Optional
+
+# This will invoke SSH sessions with:
+# $ ssh flipstack_www@flipstack.me -i keys/deploypem
+</code></pre>
+
+<p>Hostname to SSH to. <em>Required.</em></p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 user"><h3 id="user" class=" after-pre">user</h3>
+
+<p>Username to connect to SSH with. Optional.
+See <a href="#domain">domain</a> for an example.</p>
+
+</section><section class=" h3 identity_file"><h3 id="identity_file">identity_file</h3>
+
+<p>Local path to the SSH key to use. Optional.
+See <a href="#domain">domain</a> for an example.</p>
+
+</section><section class=" h3 deploy_to"><h3 id="deploy_to">deploy_to</h3>
 <pre class=" lang- prettyprint right"><code class="ruby"># Example:
 set :deploy_to, '/var/www/flipstack.me'
 set :releases_path, 'releases'
@@ -413,20 +427,108 @@ set :lock_file, 'deploy.lock'
 #    /var/www/flipstack.me/shared/
 </code></pre>
 
-<ul>
-<li><p><code>deploy_to</code> - Path to deploy to. <em>Required.</em></p></li>
-<li><p><code>releases_path</code> - The path to where releases are kept. Defaults to
-<code>releases</code>.</p></li>
-<li><p><code>shared_path</code> - Where shared files are kept. Defaults to
-<code>shared</code>.</p></li>
-<li><p><code>current_path</code> - The path to the symlink to the current release. Defaults to
-<code>current</code>.</p></li>
-<li><p><code>lock_file</code> - The deploy lock file. A deploy does not start if this file is
-found. Defaults to <code>deploy.lock</code>.</p></li>
-</ul>
+<p>Path to deploy to. <em>Required.</em></p>
+
 <br class="post-pre">
 
-</section><section class=" after-pre h3 task_-_setup"><h3 id="task_-_setup" class=" after-pre">Task - setup</h3>
+</section><section class=" after-pre h3 releases_path"><h3 id="releases_path" class=" after-pre">releases_path</h3>
+
+<p>The path to where releases are kept. Defaults to <code>releases</code>.
+See <a href="#deploy_to">deploy_to</a> for an example.</p>
+
+</section><section class=" h3 shared_path"><h3 id="shared_path">shared_path</h3>
+
+<p>Where shared files are kept. Defaults to <code>shared</code>.
+See <a href="#deploy_to">deploy_to</a> for an example.</p>
+
+</section><section class=" h3 current_path"><h3 id="current_path">current_path</h3>
+
+<p>The path to the symlink to the current release. Defaults to <code>current</code>.
+See <a href="#deploy_to">deploy_to</a> for an example.</p>
+
+</section><section class=" h3 lock_file"><h3 id="lock_file">lock_file</h3>
+
+<p>The deploy lock file. A deploy does not start if this file is
+found. Defaults to <code>deploy.lock</code>.
+See <a href="#deploy_to">deploy_to</a> for an example.</p>
+
+</section><section class=" h3 repository"><h3 id="repository">repository</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># config/deploy.rb
+require 'mina/git'
+
+set :repository, 'https://github.com/you/your-app.git'
+set :revision, 'master'  # Optional
+</code></pre>
+
+<p>The URL for the repository.
+<strong>Required</strong> when you use <code>require 'mina/git'</code>.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 revision"><h3 id="revision" class=" after-pre">revision</h3>
+
+<p>The SHA1 of the commit to be deployed. Defaults to whatever is
+the current HEAD in your local copy.
+See <a href="#repository">repository</a> for an example.</p>
+
+</section><section class=" h3 bundle_path"><h3 id="bundle_path">bundle_path</h3>
+
+<p>The path where bundles are going to be installed. Optional. Defaults to
+<code>./vendor/bundler</code>.</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require 
+'mina/bundler'</code>.</p>
+
+</section><section class=" h3 bundle_options"><h3 id="bundle_options">bundle_options</h3>
+
+<p>Options that will be passed onto <code>bundle install</code>.  Defaults to
+<code>--without development:test --path "#{bundle_path}" --binstubs bin/
+--deployment"</code>.</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require 
+'mina/bundler'</code>.</p>
+
+</section><section class=" h3 bundle_prefix"><h3 id="bundle_prefix">bundle_prefix</h3>
+
+<p>Prefix to run commands via Bundler. Defaults to
+<code>RAILS_ENV="#{rails_env}" bundle exec</code>.</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require 
+'mina/rails'</code>.</p>
+
+</section><section class=" h3 rake"><h3 id="rake">rake</h3>
+
+<p>The <code>rake</code> command. Defaults to <code>#{bundle_prefix} rake</code>.</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require 
+'mina/rails'</code>.</p>
+
+</section><section class=" h3 rails"><h3 id="rails">rails</h3>
+
+<p>The <code>rails</code> command. Defaults to <code>#{bundle_prefix} rails</code>.</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require 
+'mina/rails'</code>.</p>
+
+</section><section class=" h3 rails_env"><h3 id="rails_env">rails_env</h3>
+
+<p>The environment to run rake commands in. Defaults to <code>production</code>.</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require 
+'mina/rails'</code>.</p>
+
+</section></section><section class=" h2 tasks"><h2 id="tasks">Tasks</h2>
+
+<p>You may define your own tasks just as you would in Rake, but these tasks come 
+default to all Mina deploy scripts.</p>
+
+<p>Some of them are meant to be invoking in the command line (like <code>mina setup</code>),
+ and some of them are meant to be invoked in scripts (like <code>invoke
+:'git:clone'</code>).</p>
+
+<p>You can type <code>mina tasks</code> in the command line to see all tasks available.</p>
+
+<section class=" h3 setup"><h3 id="setup">setup</h3>
 <pre class=" lang- prettyprint right"><code>$ mina setup
 -----&gt; Setting up
        $ mkdir -p /var/www/kickstack.me
@@ -441,7 +543,15 @@ sets permissions in the path.</p>
 
 <br class="post-pre">
 
-</section><section class=" after-pre h3 task_-_deploy_force_unlock"><h3 id="task_-_deploy_force_unlock" class=" after-pre">Task - deploy:force_unlock</h3>
+</section><section class=" after-pre h3 run"><h3 id="run" class=" after-pre">run</h3>
+<pre class=" lang- prettyprint right"><code>$ mina run["tail -f shared/logs/error.log"]
+</code></pre>
+
+<p>Runs a command in the <code>deploy_to</code> path.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h3 deploy_force_unlock"><h3 id="deploy_force_unlock" class=" after-pre">deploy:force_unlock</h3>
 <pre class=" lang- prettyprint right"><code>$ mina deploy
 -----&gt; ERROR: another deployment is ongoing.
        Delete the lock file to continue.
@@ -460,89 +570,98 @@ that lock file.</p>
 
 <br class="post-pre">
 
-</section></section><section class=" after-pre h2 addons_git"><h2 id="addons_git" class=" after-pre">Addons: Git</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">require 'mina/git'
+</section><section class=" after-pre h3 git_clone"><h3 id="git_clone" class=" after-pre">git:clone</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># config/deploy.rb
+require 'mina/git'
 
 set :repository, 'https://github.com/you/your-app.git'
+set :revision, 'master'  # Optional
+
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+  end
+end
 </code></pre>
 
-<p>To deploy projects using git, add this to your <code>deploy.rb</code>:</p>
+<p>Clones the git repository defined in <a href="#repository">repository</a>.
+Usually used in deploy scripts.</p>
+
+<p>To use this, you must add <code>require 'mina/git'</code> to your <em>deploy.rb</em>.</p>
 
 <br class="post-pre">
 
-<section class=" after-pre h3 settings"><h3 id="settings" class=" after-pre">Settings</h3>
+</section><section class=" after-pre h3 bundle_install"><h3 id="bundle_install" class=" after-pre">bundle:install</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># config/deploy.rb
+require 'mina/git'
+require 'mina/bundler'   # &lt;- don't forget
 
-<p>This introduces the following settings:</p>
+# ... settings here
 
-<ul>
-<li><p><code>repository</code> - The repository path to clone from. <em>Required.</em></p></li>
-<li><p><code>revision</code> - The SHA1 of the commit to be deployed. Defaults to whatever is
-the current HEAD in your local copy.</p></li>
-</ul></section><section class=" h3 task_-_git_clone"><h3 id="task_-_git_clone">Task - git:clone</h3>
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+    invoke :'bundle:install'
+  end
+end
 
-<p>Clones from the repo into the current folder.</p>
-
-</section></section><section class=" h2 addons_bundler"><h2 id="addons_bundler">Addons: Bundler</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">require 'mina/bundler'
+# $ mina deploy --verbose
+# ...
+# ------&gt; Installing gem dependencies using Bundler
+#         $ bundle install --without test:development --deployment
 </code></pre>
-
-<p>To manage Bundler installations, add this to your <code>deploy.rb</code>:</p>
-
-<br class="post-pre">
-
-<section class=" after-pre h3 settings"><h3 id="settings" class=" after-pre">Settings</h3>
-
-<p>This introduces the following settings:</p>
-
-<ul>
-<li><p><code>bundle_path</code> - The path where bundles are going to be installed. Defaults to
-<code>./vendor/bundler</code>.</p></li>
-<li><p><code>bundle_options</code> - Options that will be passed onto <code>bundle install</code>.<br>
-Defaults to
-<code>--without development:test --path "#{bundle_path}" --binstubs bin/
---deployment"</code>.</p></li>
-</ul></section><section class=" h3 task_-_bundle_install"><h3 id="task_-_bundle_install">Task - bundle:install</h3>
 
 <p>Invokes <code>bundle:install</code> on the current directory, creating the bundle
-path (specified in <code>bundle_path</code>), and invoking <code>bundle install</code>.</p>
+path (specified in <code>bundle_path</code>), and invoking <code>bundle install</code>.
+Usually used in deploy scripts.</p>
 
 <p>The <code>bundle_path</code> is only created if <code>bundle_path</code> is set (which is on
 by default).</p>
 
-</section></section><section class=" h2 addons_rails"><h2 id="addons_rails">Addons: Rails</h2>
-<pre class=" lang- prettyprint right"><code class="ruby">require 'mina/rails'
-</code></pre>
-
-<p>To manage Rails project installations, add this to your <code>deploy.rb</code>:</p>
+<p>This is only relevant if you require the bundler addon with <code>require
+'mina/bundler'</code>.</p>
 
 <br class="post-pre">
 
-<section class=" after-pre h3 settings"><h3 id="settings" class=" after-pre">Settings</h3>
+</section><section class=" after-pre h3 rails_db_migrate"><h3 id="rails_db_migrate" class=" after-pre">rails:db_migrate</h3>
+<pre class=" lang- prettyprint right"><code class="ruby"># config/deploy.rb
+require 'mina/git'
+require 'mina/bundler'   # &lt;- don't forget
 
-<p>This introduces the following settings. All of them are optional.</p>
+# ... settings here
 
-<ul>
-<li><p><code>bundle_prefix</code> - Prefix to run commands via Bundler. Defaults to
-<code>RAILS_ENV="#{rails_env}" bundle exec</code>.</p></li>
-<li><p><code>rake</code> - The <code>rake</code> command. Defaults to <code>#{bundle_prefix} rake</code>.</p></li>
-<li><p><code>rails</code> - The <code>rails</code> command. Defaults to <code>#{bundle_prefix} rails</code>.</p></li>
-<li><p><code>rails_env</code> - The environment to run rake commands in. Defaults to
-<code>production</code>.</p></li>
-</ul></section><section class=" h3 task_-_rails_db_migrate"><h3 id="task_-_rails_db_migrate">Task - rails:db_migrate</h3>
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+    invoke :'bundle:install'
+    invoke :'rails:db_migrate'
+    invoke :'rails:assets_precompile'
+  end
+end
+</code></pre>
 
 <p>Invokes rake to migrate the database using <code>rake db:migrate</code>.</p>
 
-</section><section class=" h3 task_-_rails_assets_precompile"><h3 id="task_-_rails_assets_precompile">Task - rails:assets_precompile</h3>
+<p>To use this, you must add <code>require 'mina/rails'</code> to your <em>deploy.rb</em>.</p>
 
-<p>Precompiles assets. This invokes <code>rake assets:precomplie</code>.</p>
+<br class="post-pre">
+
+</section><section class=" after-pre h3 rails_assets_precompile"><h3 id="rails_assets_precompile" class=" after-pre">rails:assets_precompile</h3>
+
+<p>Precompiles assets. This invokes <code>rake assets:precompile</code>. This is relevant to
+Rails 3.1+ projects.</p>
 
 <p>It also checks the current version to see if it has assets compiled. If it does,
 it reuses them, skipping the compilation step. To stop this behavior, invoke
 the <code>mina</code> command with <code>force_assets=1</code>.</p>
 
-</section><section class=" h3 task_-_rails_assets_precompile_force"><h3 id="task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</h3>
+<p>To use this, you must add <code>require 'mina/rails'</code> to your <em>deploy.rb</em>.</p>
+
+</section><section class=" h3 rails_assets_precompile_force"><h3 id="rails_assets_precompile_force">rails:assets_precompile:force</h3>
 
 <p>Precompiles assets. This always skips the "reuse old assets if possible" step.</p>
+
+<p>To use this, you must add <code>require 'mina/rails'</code> to your <em>deploy.rb</em>.</p>
 
 </section></section><section class=" h2 development_testing"><h2 id="development_testing">Development &amp; testing</h2>
 <pre class=" lang- prettyprint right"><code># Run specs
@@ -649,27 +768,35 @@ startup, <a href="http://nadarei.co">Nadarei</a>.</p>
 <li><a href="#dynamic_values">Dynamic values</a></li>
 <li><a href="#inside_and_outside_tasks">Inside and outside tasks</a></li>
 <li><a href="#validations">Validations</a></li>
-</ul></nav><nav class="level-2"><h3><a href="#defaults">Defaults</a></h3>
+</ul></nav><nav class="level-2"><h3><a href="#settings">Settings</a></h3>
 <ul>
-<li><a href="#base_settings">Base settings</a></li>
-<li><a href="#ssh_settings">SSH settings</a></li>
-<li><a href="#deploy_settings">Deploy settings</a></li>
-<li><a href="#task_-_setup">Task - setup</a></li>
-<li><a href="#task_-_deploy_force_unlock">Task - deploy:force_unlock</a></li>
-</ul></nav><nav class="level-2"><h3><a href="#addons_git">Addons: Git</a></h3>
+<li><a href="#term_mode">term_mode</a></li>
+<li><a href="#domain">domain</a></li>
+<li><a href="#user">user</a></li>
+<li><a href="#identity_file">identity_file</a></li>
+<li><a href="#deploy_to">deploy_to</a></li>
+<li><a href="#releases_path">releases_path</a></li>
+<li><a href="#shared_path">shared_path</a></li>
+<li><a href="#current_path">current_path</a></li>
+<li><a href="#lock_file">lock_file</a></li>
+<li><a href="#repository">repository</a></li>
+<li><a href="#revision">revision</a></li>
+<li><a href="#bundle_path">bundle_path</a></li>
+<li><a href="#bundle_options">bundle_options</a></li>
+<li><a href="#bundle_prefix">bundle_prefix</a></li>
+<li><a href="#rake">rake</a></li>
+<li><a href="#rails">rails</a></li>
+<li><a href="#rails_env">rails_env</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#tasks">Tasks</a></h3>
 <ul>
-<li><a href="#settings">Settings</a></li>
-<li><a href="#task_-_git_clone">Task - git:clone</a></li>
-</ul></nav><nav class="level-2"><h3><a href="#addons_bundler">Addons: Bundler</a></h3>
-<ul>
-<li><a href="#settings">Settings</a></li>
-<li><a href="#task_-_bundle_install">Task - bundle:install</a></li>
-</ul></nav><nav class="level-2"><h3><a href="#addons_rails">Addons: Rails</a></h3>
-<ul>
-<li><a href="#settings">Settings</a></li>
-<li><a href="#task_-_rails_db_migrate">Task - rails:db_migrate</a></li>
-<li><a href="#task_-_rails_assets_precompile">Task - rails:assets_precompile</a></li>
-<li><a href="#task_-_rails_assets_precompile_force">Task - rails:assets_precompile:force</a></li>
+<li><a href="#setup">setup</a></li>
+<li><a href="#run">run</a></li>
+<li><a href="#deploy_force_unlock">deploy:force_unlock</a></li>
+<li><a href="#git_clone">git:clone</a></li>
+<li><a href="#bundle_install">bundle:install</a></li>
+<li><a href="#rails_db_migrate">rails:db_migrate</a></li>
+<li><a href="#rails_assets_precompile">rails:assets_precompile</a></li>
+<li><a href="#rails_assets_precompile_force">rails:assets_precompile:force</a></li>
 </ul></nav><nav class="level-2"><h3><a href="#development_testing">Development &amp; testing</a></h3>
 <ul>
 <li><a href="#doing_test_deploys">Doing test deploys</a></li>
