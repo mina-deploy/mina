@@ -1,3 +1,19 @@
+v0.1.1 - Jun 07, 2012
+---------------------
+
+### Added:
+  * Check for releases_path directory in deploy script.
+  * mina deploy:cleanup
+  * Support for -f option.
+
+### Changed:
+  * Gem description.
+
+### Fixed:
+  * deploy.rb template (domain, user, git:clone).
+  * Handle empty Git repository.
+  * Add pkg to gitignore.
+
 v0.1.0 - Jun 06, 2012
 ---------------------
 
