@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>deploy_to</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link href="../stylesheets/site.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.2/jquery.min.js' type='text/javascript'></script>
+    <script src="../javascripts/proscribe.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id='top'>
+      <a href='../' id='logo'>
+        Site
+      </a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <div id='crumbs'>
+            <a href='../index.html'>Mina documentation</a>
+            <span class='gt'>&rarr;</span>
+            <a href='../settings/index.html'>Settings</a>
+            <span class='gt'>&rarr;</span>
+            <strong>deploy_to</strong>
+          </div>
+          <hgroup>
+            <h1>deploy_to</h1>
+            <h5>Path to deploy to. Required.</h5>
+          </hgroup>
+          <div class='content'>
+            <p>Path to deploy to. <em>Required.</em></p>
+
+<pre><code># config/deploy.rb
+set :deploy_to, &#39;/var/www/flipstack.me&#39;
+set :releases_path, &#39;releases&#39;
+set :shared_path, &#39;shared&#39;
+set :current_path, &#39;current&#39;
+set :lock_file, &#39;deploy.lock&#39;
+
+# This means the following paths will be
+# created on `mina setup`:
+#    /var/www/flipstack.me/
+#    /var/www/flipstack.me/releases/
+#    /var/www/flipstack.me/shared/</code></pre>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  <a href='../index.html'>
+                    Mina documentation
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  <a href='../settings/index.html'>
+                    Settings
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  deploy_to
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a href='../index.html'>
+                  <span class='back'>&lsaquo;</span>
+                  <em></em>
+                  Mina documentation
+                </a>
+              </li>
+              <li>
+                <a href='../settings/index.html'>
+                  <span class='back'>&lsaquo;</span>
+                  <em></em>
+                  Settings
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>deploy</h4>
+            <ul>
+              <li>
+                <a class='active' href='../settings/deploy_to.html'>
+                  deploy_to
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>SSH</h4>
+            <ul>
+              <li>
+                <a class='' href='../settings/domain.html'>
+                  domain
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/identity_file.html'>
+                  identity_file
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/user.html'>
+                  user
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+  <script src="../javascripts/search_index.js" id="proscribe-js" type="text/javascript"></script>
+</html>

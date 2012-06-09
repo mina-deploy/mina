@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>Mina documentation</title>
+    <title>Command queue</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -25,47 +25,41 @@
         </section>
         <div class='c'>
           <div id='crumbs'>
-            <strong>Mina documentation</strong>
+            <a href='index.html'>Mina documentation</a>
+            <span class='gt'>&rarr;</span>
+            <strong>Command queue</strong>
           </div>
           <hgroup>
-            <h1>Mina documentation</h1>
-            <h5>Really fast deployer and server automation tool.</h5>
+            <h1>Command queue</h1>
           </hgroup>
           <div class='content'>
-            <p>Mina works really fast because it&#8217;s a deploy Bash script generator. It generates an entire procedure as a Bash script and runs it remotely in the server.</p>
+            <p>At the heart of it, Mina is merely sugar on top of Rake to queue commands and execute them remotely at the end. Take a look at this minimal <em>deploy.rb</em> configuration:</p>
 
-<pre><code>$ gem install mina
-$ mina</code></pre>
+<pre><code># config/deploy.rb
+set :user, &#39;john&#39;
+set :domain, &#39;flipstack.com&#39;
 
-<p>Compare this to the likes of Vlad or Capistrano, where each command is ran separately on their own SSH sessions. Mina only creates <em>one</em> SSH session per deploy, minimizing the SSH connection overhead.</p>
+task :logs do
+  queue &#39;echo &quot;Contents of the log file are as follows:&quot;&#39;
+  queue &quot;tail -f /var/log/apache.log&quot;
+end</code></pre>
+<br clear='both' />
+<p>Once you type <code>mina logs</code> in your terminal, it invokes the <em>queue</em>d commands remotely on the server using the command <code>ssh john@flipstack.com</code>.</p>
 
-<h2 id='features'>Features</h2>
-
-<ul>
-<li>
-<p><strong>Really fast.</strong> Mina only makes one SSH connection per deploy. It builds a Bash script and executes it remotely, reducing the overhead of creating SSH connections to do processing locally (like Vlad or Capistrano does).</p>
-</li>
-
-<li>
-<p><strong>Safe deploys.</strong> New releases are built on a temp folder. If the deploy script fails at any point, the build is deleted and it&#8217;d be as if nothing happened.</p>
-</li>
-
-<li>
-<p><strong>Locks.</strong> Deploy scripts rely on a lockfile ensuring only one deploy can happen at a time.</p>
-</li>
-
-<li>
-<p><strong>Works with anything.</strong> While Mina is built with Rails projects it mind, it can be used on just about any type of project deployable via SSH, Ruby or not.</p>
-</li>
-
-<li>
-<p><strong>Built with Rake.</strong> Setting up tasks will be very familiar! No YAML files here. Everything is written in Ruby, giving you the power to be as flexible in your configuration as needed.</p>
-</li>
-</ul>
+<pre><code>$ mina logs --simulate
+# Execute the following commands via
+# ssh john@flipstack.com:
+#
+echo &quot;Contents of the log file are as follows:&quot;
+tail -f /var/log/apache.log</code></pre>
             <section class='footer'>
               <div class='left'>
                 <strong>
-                  Mina documentation
+                  <a href='index.html'>
+                    Mina documentation
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  Command queue
                 </strong>
               </div>
             </section>
@@ -75,7 +69,8 @@ $ mina</code></pre>
           <nav class='parents'>
             <ul>
               <li>
-                <a class='active' href='index.html'>
+                <a href='index.html'>
+                  <span class='back'>&lsaquo;</span>
                   <em></em>
                   Mina documentation
                 </a>
@@ -96,7 +91,7 @@ $ mina</code></pre>
                 </a>
               </li>
               <li>
-                <a class='' href='command_queue.html'>
+                <a class='active' href='command_queue.html'>
                   Command queue
                 </a>
               </li>

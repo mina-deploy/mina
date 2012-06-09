@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>Mina documentation</title>
+    <title>Setting up a project</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -25,47 +25,62 @@
         </section>
         <div class='c'>
           <div id='crumbs'>
-            <strong>Mina documentation</strong>
+            <a href='index.html'>Mina documentation</a>
+            <span class='gt'>&rarr;</span>
+            <strong>Setting up a project</strong>
           </div>
           <hgroup>
-            <h1>Mina documentation</h1>
-            <h5>Really fast deployer and server automation tool.</h5>
+            <h1>Setting up a project</h1>
           </hgroup>
           <div class='content'>
-            <p>Mina works really fast because it&#8217;s a deploy Bash script generator. It generates an entire procedure as a Bash script and runs it remotely in the server.</p>
+            <p>Let&#8217;s deploy a project using Mina.</p>
 
-<pre><code>$ gem install mina
-$ mina</code></pre>
+<h3 id='step_1_create_a_configdeployrb'>Step 1: Create a config/deploy.rb</h3>
 
-<p>Compare this to the likes of Vlad or Capistrano, where each command is ran separately on their own SSH sessions. Mina only creates <em>one</em> SSH session per deploy, minimizing the SSH connection overhead.</p>
+<p>In your project, type <code>mina init</code> to create a sample of this file.</p>
 
-<h2 id='features'>Features</h2>
+<pre><code>$ mina init
+Created config/deploy.rb.</code></pre>
 
-<ul>
-<li>
-<p><strong>Really fast.</strong> Mina only makes one SSH connection per deploy. It builds a Bash script and executes it remotely, reducing the overhead of creating SSH connections to do processing locally (like Vlad or Capistrano does).</p>
-</li>
+<p>This is just a Rake file with tasks! See <a href='#about_deployrb'>About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
 
-<li>
-<p><strong>Safe deploys.</strong> New releases are built on a temp folder. If the deploy script fails at any point, the build is deleted and it&#8217;d be as if nothing happened.</p>
-</li>
+<h3 id='step_2_set_up_your_server'>Step 2: Set up your server</h3>
 
-<li>
-<p><strong>Locks.</strong> Deploy scripts rely on a lockfile ensuring only one deploy can happen at a time.</p>
-</li>
+<p>Make a directory in your server called <code>/var/www/flipstack.com</code> (in <em>deploy_to</em>) change it&#8217;s ownership to the correct user.</p>
 
-<li>
-<p><strong>Works with anything.</strong> While Mina is built with Rails projects it mind, it can be used on just about any type of project deployable via SSH, Ruby or not.</p>
-</li>
+<pre><code># SSH into your server, then:
+$ mkdir /var/www/flipstack.com
+$ chown -R username /var/www/flipstack.com
 
-<li>
-<p><strong>Built with Rake.</strong> Setting up tasks will be very familiar! No YAML files here. Everything is written in Ruby, giving you the power to be as flexible in your configuration as needed.</p>
-</li>
-</ul>
+# Make sure &#39;username&#39; is the same as what&#39;s on deploy.rb</code></pre>
+
+<h3 id='step_3_run_mina_setup'>Step 3: Run &#8216;mina setup&#8217;</h3>
+
+<p>Now do <code>mina setup</code> to set up the <a href='#directory_structure'>folder structure</a> in this path. This will connect to your server via SSH and create the right directories.</p>
+
+<pre><code>$ mina setup
+-----&gt; Creating folders... done.</code></pre>
+
+<p>See <a href='#directory_structure'>directory structure</a> for more info.</p>
+
+<h3 id='step_4_deploy'>Step 4: Deploy!</h3>
+
+<p>Use <code>mina deploy</code> to run the <code>deploy</code> task defined in <em>config/deploy.rb</em>.</p>
+
+<pre><code>$ mina deploy
+-----&gt; Deploying to 2012-06-12-040248
+       ...
+       Lots of things happening...
+       ...
+-----&gt; Done.</code></pre>
             <section class='footer'>
               <div class='left'>
                 <strong>
-                  Mina documentation
+                  <a href='index.html'>
+                    Mina documentation
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  Setting up a project
                 </strong>
               </div>
             </section>
@@ -75,7 +90,8 @@ $ mina</code></pre>
           <nav class='parents'>
             <ul>
               <li>
-                <a class='active' href='index.html'>
+                <a href='index.html'>
+                  <span class='back'>&lsaquo;</span>
                   <em></em>
                   Mina documentation
                 </a>
@@ -86,7 +102,7 @@ $ mina</code></pre>
             <h4>Getting started</h4>
             <ul>
               <li>
-                <a class='' href='setting_up_a_project.html'>
+                <a class='active' href='setting_up_a_project.html'>
                   Setting up a project
                 </a>
               </li>
