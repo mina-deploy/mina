@@ -37,6 +37,12 @@ module Mina
 
       result = 0
       if simulate_mode
+        str = "Executing the following via '#{ssh_command}':"
+        puts "#!/usr/bin/env bash"
+        puts "# #{str}"
+        puts "# " + ("-" * str.size)
+        puts "#"
+
         puts cmd
       elsif settings.term_mode == :pretty
         code = "#{ssh_command} -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
