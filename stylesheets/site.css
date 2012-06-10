@@ -70,7 +70,8 @@ a:hover { color: #485b6d; }
 #content hgroup h5 { color: #abc; font-size: 1.5em; }
 #content hgroup p.type { line-height: 40pt; padding: 0 30px; margin: 0 20px 0 -10px; background: rgba(0, 0, 0, 0.1); -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; float: left; }
 
-#content a.github { position: absolute; right: 0; top: 0; z-index: 0; }
+#content a.github { position: absolute; right: 0; top: 0; z-index: 0; opacity: 0.3; -webkit-transition: opacity 200ms linear; -moz-transition: opacity 200ms linear; -ms-transition: opacity 200ms linear; -o-transition: opacity 200ms linear; transition: opacity 200ms linear; }
+#content a.github:hover { opacity: 1.0; }
 #content a.github img { border: 0; }
 
 #content > div { float: left; width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; margin-right: -200px; min-height: 500px; }
