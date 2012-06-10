@@ -52,10 +52,15 @@ Try out the test environment:
 
     # To release the gem:
     # Install the Git changelog helper: https://gist.github.com/2880525
+    # Then:
+
     $ vim lib/mina/version.rb
     $ git clog -w
     $ vim HISTORY.md
     $ rake release
+
+    # Please don't forget to tag the release in github.com/nadarei/mina-docs
+    too!
 
     $ rake build      # Builds the gem file
     $ rake install    # Installs the gem locally
