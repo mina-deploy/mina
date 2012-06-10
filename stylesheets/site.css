@@ -121,7 +121,8 @@ pre.terminal { background: #444; -webkit-box-shadow: inset 2px 2px 8px rgba(0, 0
 pre.terminal, pre.terminal code { color: #ccc; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3); }
 pre.terminal code { background: transparent; }
 pre.terminal strong { font-size: 1.1em; color: #8d8; font-weight: normal; }
-pre.terminal strong em { font-style: normal; color: #446e44; }
+pre.terminal em { font-style: normal; color: #777; }
+pre.terminal strong em { color: #446e44; }
 
 section.literate { overflow: hidden; padding: 20px 40px; border-top: solid 1px #eee; margin: 0 -40px; font-size: 9pt; }
 section.literate pre + * { margin-top: 0; }
