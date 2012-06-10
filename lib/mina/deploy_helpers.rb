@@ -1,18 +1,24 @@
 module Mina
+  # Helpers for deployment
   module DeployHelpers
-    # Wraps the things inside it in a deploy script, and queues it.
+    #  Wraps the things inside it in a deploy script and queues it.
     # This generates a script using deploy_script and queues it.
+    #
+    # Returns nothing.
+    #
     def deploy(&blk)
       queue deploy_script(&blk)
     end
 
     # Wraps the things inside it in a deploy script.
     #
-    #     script = deploy_script do
-    #       invoke :'git:checkout'
-    #     end
+    #   script = deploy_script do
+    #     invoke :'git:checkout'
+    #   end
     #
-    #     queue script
+    #   queue script
+    #
+    # Returns the deploy script as a string, ready for `queue`ing.
     #
     def deploy_script(&blk)
       set_default :term_mode, :pretty

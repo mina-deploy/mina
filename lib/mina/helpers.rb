@@ -1,26 +1,29 @@
 module Mina
-  # Public: Helpers
+  # Helpers
   module Helpers
 
-    # Public: Invokes another Rake task.
-    # Invokes the task given in `task`.
+    # Invokes another Rake task.
     #
-    #   invoke :'git:clone'
-    #   invoke :restart
+    # Invokes the task given in `task`. Returns nothing.
+    #
+    #     invoke :'git:clone'
+    #     invoke :restart
     #
     def invoke(task)
       Rake.application.invoke_task task
     end
 
-    # Public: Evaluates an ERB block in the current scope and returns a string.
+    # Evaluates an ERB block in the current scope and returns a string.
     #
-    #   a = 1
-    #   b = 2
+    #     a = 1
+    #     b = 2
     #
-    #   # Assuming foo.erb is <%= a %> and <%= b %>
-    #   puts erb('foo.erb')
+    #     # Assuming foo.erb is <%= a %> and <%= b %>
+    #     puts erb('foo.erb')
     #
-    #   #=> "1 and 2"
+    #     #=> "1 and 2"
+    #
+    # Returns the output string of the ERB template.
     #
     def erb(file, b=binding)
       require 'erb'
@@ -28,7 +31,7 @@ module Mina
       erb.result b
     end
 
-    # Public: SSHs into the host and runs the code that has been queued.
+    # SSHs into the host and runs the code that has been queued.
     #
     # This is already automatically invoked before Rake exits to run all
     # commands that have been queued up.
@@ -36,11 +39,16 @@ module Mina
     #     queue "sudo restart"
     #     run!
     #
+    # Returns nothing.
+    #
     def run!
       ssh commands(:default)
     end
 
-    # Public: Executes a command via SSH.
+    # Executes a command via SSH.
+    #
+    # Returns nothing usually, but if `{ return: true }` is given, returns the
+    # STDOUT output of the SSH session.
     #
     # options  - Hash of options.
     #            :pretty  - Prettify the output.
@@ -93,13 +101,13 @@ module Mina
       result
     end
 
-    # Public: Returns the SSH command to be executed.
+    # Returns the SSH command to be executed.
     #
-    #   set :domain, 'foo.com'
-    #   set :user, 'diggity'
+    #     set :domain, 'foo.com'
+    #     set :user, 'diggity'
     #
-    #   puts ssh_command
-    #   #=> 'ssh diggity@foo.com'
+    #     puts ssh_command
+    #     #=> 'ssh diggity@foo.com'
     #
     def ssh_command
       args = domain!
@@ -109,7 +117,9 @@ module Mina
     end
 
     # Internal: Works like 'system', but indents and puts color.
+    #
     # Returns the exit code in integer form.
+    #
     def pretty_system(code)
       status =
         Tools.popen4('bash', '-') do |pid, i, o, e|
@@ -155,9 +165,12 @@ module Mina
       status.exitstatus
     end
 
-    # Public: Queues code to be ran.
+    # Queues code to be ran.
+    #
     # This queues code to be ran to the current code bucket (defaults to `:default`).
     # To get the things that have been queued, use commands[:default]
+    #
+    # Returns nothing.
     #
     #     queue "sudo restart"
     #     queue "true"
@@ -171,13 +184,15 @@ module Mina
 
     # Internal: Normalizes indentation on a given string.
     #
-    #    puts unindent %{
-    #      Hello
-    #        There
-    #    }
-    #    # Output:
-    #    # Hello
-    #    #   There
+    # Returns the normalized string without extraneous indentation.
+    #
+    #     puts unindent %{
+    #       Hello
+    #         There
+    #     }
+    #     # Output:
+    #     # Hello
+    #     #   There
     #
     def unindent(code)
       if code =~ /^\n([ \t]+)/
@@ -187,19 +202,21 @@ module Mina
       code.strip
     end
 
-    # Public: Returns a hash of the code blocks where commands have been queued.
+    # Returns an array of queued code strings.
     #
     # You may give an optional `aspect`.
     #
-    #   queue "sudo restart"
-    #   queue "true"
+    # Returns an array of strings.
     #
-    #   to :clean do
-    #     queue "rm"
-    #   end
+    #     queue "sudo restart"
+    #     queue "true"
     #
-    #   commands == ["sudo restart", "true"]
-    #   commands(:clean) == ["rm"]
+    #     to :clean do
+    #       queue "rm"
+    #     end
+    #
+    #     commands == ["sudo restart", "true"]
+    #     commands(:clean) == ["rm"]
     #
     def commands(aspect=:default)
       (@commands ||= begin
@@ -208,7 +225,9 @@ module Mina
       end)[aspect]
     end
 
-    # Public: Starts a new block where new #commands are collected.
+    # Starts a new block where new #commands are collected.
+    #
+    # Returns nothing.
     #
     #   queue "sudo restart"
     #   queue "true"
@@ -228,18 +247,20 @@ module Mina
       result
     end
 
-    # Public: Defines instructions on how to do a certain thing.
+    # Defines instructions on how to do a certain thing.
     # This makes the commands that are `queue`d go into a different bucket in commands.
     #
-    #   to :prepare do
-    #     run "bundle install"
-    #   end
-    #   to :launch do
-    #     run "nginx -s restart"
-    #   end
+    # Returns nothing.
     #
-    #   commands(:prepare) == ["bundle install"]
-    #   commands(:restart) == ["nginx -s restart"]
+    #     to :prepare do
+    #       run "bundle install"
+    #     end
+    #     to :launch do
+    #       run "nginx -s restart"
+    #     end
+    #
+    #     commands(:prepare) == ["bundle install"]
+    #     commands(:restart) == ["nginx -s restart"]
     #
     def to(name, &blk)
       old, @to = @to, name
@@ -248,42 +269,49 @@ module Mina
       result
     end
 
-    # Public: Sets settings.
+    # Sets settings.
     # Sets given symbol `key` to value in `value`.
     #
-    #   set :domain, 'kickflip.me'
+    # Returns the value.
+    #
+    #     set :domain, 'kickflip.me'
     #
     def set(key, value)
       settings.send :"#{key}=", value
     end
 
-    # Public: Sets default settings.
+    # Sets default settings.
     # Sets given symbol `key` to value in `value` only if the key isn't set yet.
     #
-    #   set_default :term_mode, :pretty
-    #   set :term_mode, :system
-    #   settings.term_mode.should == :system
+    # Returns the value.
     #
-    #   set :term_mode, :system
-    #   set_default :term_mode, :pretty
-    #   settings.term_mode.should == :system
+    #     set_default :term_mode, :pretty
+    #     set :term_mode, :system
+    #     settings.term_mode.should == :system
+    #
+    #     set :term_mode, :system
+    #     set_default :term_mode, :pretty
+    #     settings.term_mode.should == :system
     #
     def set_default(key, value)
       settings.send :"#{key}=", value  unless settings.send(:"#{key}?")
     end
 
-    # Public: Accesses the settings hash.
+    # Accesses the settings hash.
     #
-    #   set :domain, 'kickflip.me'
-    #   settings.domain  #=> 'kickflip.me'
-    #   domain           #=> 'kickflip.me'
+    #     set :domain, 'kickflip.me'
+    #     settings.domain  #=> 'kickflip.me'
+    #     domain           #=> 'kickflip.me'
     #
     def settings
       @settings ||= Settings.new
     end
 
-    # Public: Hook to get settings.
+    # Hook to get settings.
     # See #settings for an explanation.
+    #
+    # Returns things.
+    #
     def method_missing(meth, *args, &blk)
       settings.send meth, *args
     end
@@ -296,11 +324,15 @@ module Mina
       $stderr.write "#{str}\n"
     end
 
-    # Public: Converts a bash command to a command that echoes before execution.
+    # Converts a bash command to a command that echoes before execution.
     # Used to show commands in verbose mode. This does nothing unless verbose mode is on.
     #
-    #   echo_cmd("ln -nfs releases/2 current")
-    #   #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
+    # Returns a string of the compound bash command, typically in the format of
+    # `echo xx && xx`. However, if `verbose_mode` is false, it returns the
+    # input string unharmed.
+    #
+    #     echo_cmd("ln -nfs releases/2 current")
+    #     #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
     #
     def echo_cmd(str)
       if verbose_mode
@@ -311,12 +343,17 @@ module Mina
     end
 
     # Internal: Invoked when Rake exits.
+    #
+    # Returns nothing.
+    #
     def mina_cleanup!
       run! if commands.any?
     end
 
-    # Public: Checks if Rake was invoked with --verbose.
+    # Checks if Rake was invoked with --verbose.
+    #
     # Returns true or false.
+    #
     def verbose_mode
       if Rake.respond_to?(:verbose)
         # Rake 0.9.x
@@ -327,8 +364,10 @@ module Mina
       end
     end
 
-    # Public: Checks if Rake was invoked with --simulate.
+    # Checks if Rake was invoked with --simulate.
+    #
     # Returns true or false.
+    #
     def simulate_mode
       !! ENV['simulate']
     end
