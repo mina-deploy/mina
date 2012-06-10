@@ -38,10 +38,13 @@ $(function () {
     return _.map(ids, function(id) { return Indices.pages[id] });      // Resolve to pages
   }
 
+  // Navigates to a given link href.
   function navigateTo(href) {
     var base = window.location.pathname;
     base = base.replace(/[^\/]*$/, '');
-    window.location = base + href;
+    var url = base + href;
+    url = url.replace(/\/{2,}/, '/');
+    window.location = url;
   }
 
   window.search = search;
