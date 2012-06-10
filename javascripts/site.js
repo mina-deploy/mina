@@ -38,13 +38,19 @@ $(function () {
     return _.map(ids, function(id) { return Indices.pages[id] });      // Resolve to pages
   }
 
+  function navigateTo(href) {
+    var base = window.location.pathname;
+    base = base.replace(/[^\/]*$/, '');
+    window.location = base + href;
+  }
+
   window.search = search;
 
   $("#search input").live('keyup', function(e) {
     if (e.keyCode == 13) {
       var $a = $("#search .results > .active a");
       if ($a.length) {
-        window.location = $a.attr('href');
+        navigateTo($a.attr('href'));
         return false;
       };
     }
