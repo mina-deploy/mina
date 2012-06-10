@@ -1,6 +1,5 @@
 $(function () {
-  // Get the relative prefix for pages based on the JavaScript's path. Hax!
-  // "../javascripts/proscribe.js" means the prefix is "..".
+  // Get the relative prefix for pages.
   var urlPrefix = $("#logo").attr('href');
   urlPrefix = urlPrefix.substr(0, urlPrefix.length - 1);
 
@@ -49,40 +48,19 @@ $(function () {
 
   window.search = search;
 
-  $("#search input").live('keyup', function(e) {
-    if (e.keyCode == 13) {
-      var $a = $("#search .results > .active a");
-      if ($a.length) {
-        navigateTo($a.attr('href'));
-        return false;
-      };
-    }
-    if ((e.keyCode == 40) || (e.keyCode == 38)) { // DOWN and UP
-      var dir = e.keyCode == 40 ? 'next' : 'prev';
+  var template = _.template(
+    "<li>" + 
+      "<a href='<%= url %>'>" +
+        "<strong>" + 
+          "<%= title %> " +
+          "<% if (type) { %><span><%= type %></span><% } %>" +
+        "</strong>" +
+      "</a>" +
+    "</li>");
 
-      var links  = $("#search .results li");
-      var active = $("#search .results .active");
-      var next   = active[dir]();
-
-      if (active.length && next.length) {
-        active.removeClass('active');
-        next.addClass('active');
-      }
-
-      return false;
-    }
-
-    var template = _.template(
-      "<li>" + 
-        "<a href='<%= url %>'>" +
-          "<strong>" + 
-            "<%= title %> " +
-            "<% if (type) { %><span><%= type %></span><% } %>" +
-          "</strong>" +
-        "</a>" +
-      "</li>");
-    var keyword = $(this).val();
-    results = search(keyword); // Array of {title: __, url: __}
+  // Perform a search and open the dropdown
+  function doSearch(keyword) {
+    var results = search(keyword); // Array of {title: __, url: __}
 
     var $el = $("#search .results");
     $el.show();
@@ -109,6 +87,39 @@ $(function () {
     });
 
     $el.find(':first-child').addClass('active');
+  }
+
+  $("#search input").live('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    doSearch($(this).val());
+  });
+
+  $("#search input").live('keyup', function(e) {
+    if (e.keyCode == 13) {
+      var $a = $("#search .results > .active a");
+      if ($a.length) {
+        navigateTo($a.attr('href'));
+        return false;
+      };
+    }
+    if ((e.keyCode == 40) || (e.keyCode == 38)) { // DOWN and UP
+      var dir = e.keyCode == 40 ? 'next' : 'prev';
+
+      var links  = $("#search .results li");
+      var active = $("#search .results .active");
+      var next   = active[dir]();
+
+      if (active.length && next.length) {
+        active.removeClass('active');
+        next.addClass('active');
+      }
+
+      return false;
+    }
+
+    var keyword = $(this).val();
+    doSearch(keyword);
   });
 
   $("#search .results li").live('hover', function() {
