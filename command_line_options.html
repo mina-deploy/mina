@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>About deploy.md</title>
+    <title>Command line options</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -29,28 +29,51 @@
           </a>
           <div id='crumbs'>
             <a href='index.html'>Mina</a>
-            <strong>About deploy.md</strong>
+            <strong>Command line options</strong>
           </div>
           <hgroup>
-            <h1>About deploy.md</h1>
+            <h1>Command line options</h1>
           </hgroup>
           <div class='content'>
-            <p>The file <code>deploy.rb</code> is simply a Rakefile invoked by Rake. In fact, <code>mina</code> is mostly an alias that invokes Rake to load <code>deploy.rb</code>.</p>
+            <p>Basic usage:</p>
 
-<pre><code># Sample config/deploy.rb
-set :domain, &#39;your.server.com&#39;
+<pre><code>$ mina [OPTIONS] [TASKS] [VAR1=val VAR2=val ...]</code></pre>
 
-task :restart do
-  queue &#39;sudo service restart apache&#39;
-end</code></pre>
+<h3 id='options'>Options</h3>
 
-<p>As it&#8217;s all Rake, you can define tasks that you can invoke using <code>mina</code>. In this example, it provides the <code>mina restart</code> command.</p>
+<ul>
+<li>
+<p><code>-v</code> / <code>--verbose</code> - This will show commands being done on the server. Off by default.</p>
+</li>
 
-<p>The magic of Mina is in the new commands it gives you.</p>
+<li>
+<p><code>-S</code> / <code>--simulate</code> - This will not invoke any SSH connections; instead, it will simply output the script it builds.</p>
+</li>
 
-<p>The <code>queue</code> command queues up Bash commands to be ran on the remote server. If you invoke <code>mina restart</code>, it will invoke the task above and run the queued commands on the remote server <code>your.server.com</code> via SSH.</p>
+<li>
+<p><code>-t</code> / <code>--trace</code> - Show backtraces when errors occur.</p>
+</li>
 
-<p>See <a href='#the_command_queue'>the command queue</a> for more information on the <em>queue</em> command.</p>
+<li>
+<p><code>-f FILE</code> - Use a custom deploy.rb configuration.</p>
+</li>
+
+<li>
+<p><code>-V</code> / <code>--version</code> - Shows the current version.</p>
+</li>
+</ul>
+
+<h3 id='tasks'>Tasks</h3>
+
+<p>There are many tasks available. See the <a href='tasks/index.html'>tasks reference</a>, or type <code>mina tasks</code>.</p>
+
+<h3 id='variables'>Variables</h3>
+
+<p>You may specify additional variables in the <code>KEY=value</code> style, just like Rake. You can add as many variables as needed.</p>
+
+<pre><code>$ mina restart on=staging
+
+# This sets the ENV[&#39;on&#39;] variable to &#39;staging&#39;.</code></pre>
             <section class='footer'>
               <div class='left'>
                 <strong>
@@ -58,7 +81,7 @@ end</code></pre>
                     Mina
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  About deploy.md
+                  Command line options
                 </strong>
               </div>
             </section>
@@ -84,7 +107,7 @@ end</code></pre>
                 </a>
               </li>
               <li>
-                <a class='active' href='about_deploy_rb.html'>
+                <a class='' href='about_deploy_rb.html'>
                   About deploy.md
                 </a>
               </li>
@@ -119,7 +142,7 @@ end</code></pre>
                 </a>
               </li>
               <li>
-                <a class='' href='command_line_options.html'>
+                <a class='active' href='command_line_options.html'>
                   Command line options
                 </a>
               </li>

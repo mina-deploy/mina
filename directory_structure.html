@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>About deploy.md</title>
+    <title>Directory structure</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -29,28 +29,25 @@
           </a>
           <div id='crumbs'>
             <a href='index.html'>Mina</a>
-            <strong>About deploy.md</strong>
+            <strong>Directory structure</strong>
           </div>
           <hgroup>
-            <h1>About deploy.md</h1>
+            <h1>Directory structure</h1>
           </hgroup>
           <div class='content'>
-            <p>The file <code>deploy.rb</code> is simply a Rakefile invoked by Rake. In fact, <code>mina</code> is mostly an alias that invokes Rake to load <code>deploy.rb</code>.</p>
+            <p>The deploy procedures make the assumption that you have a folder like so:</p>
 
-<pre><code># Sample config/deploy.rb
-set :domain, &#39;your.server.com&#39;
+<pre><code>/var/www/flipstack.com/     # The deploy_to path
+ |-  releases/              # Holds releases, one subdir per release
+ |   |- 2012-06-12-838948
+ |   |- 2012-06-23-034828
+ |   &#39;- ...
+ |-  shared/                # Holds files shared between releases
+ |   |- logs/               # Log files are usually stored here
+ |   &#39;- ...
+ &#39;-  current/               # A symlink to the current release in releases/</code></pre>
 
-task :restart do
-  queue &#39;sudo service restart apache&#39;
-end</code></pre>
-
-<p>As it&#8217;s all Rake, you can define tasks that you can invoke using <code>mina</code>. In this example, it provides the <code>mina restart</code> command.</p>
-
-<p>The magic of Mina is in the new commands it gives you.</p>
-
-<p>The <code>queue</code> command queues up Bash commands to be ran on the remote server. If you invoke <code>mina restart</code>, it will invoke the task above and run the queued commands on the remote server <code>your.server.com</code> via SSH.</p>
-
-<p>See <a href='#the_command_queue'>the command queue</a> for more information on the <em>queue</em> command.</p>
+<p>It also assumes that the <code>deploy_to</code> path is fully writeable/readable for the user we&#8217;re going to SSH with.</p>
             <section class='footer'>
               <div class='left'>
                 <strong>
@@ -58,7 +55,7 @@ end</code></pre>
                     Mina
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  About deploy.md
+                  Directory structure
                 </strong>
               </div>
             </section>
@@ -84,7 +81,7 @@ end</code></pre>
                 </a>
               </li>
               <li>
-                <a class='active' href='about_deploy_rb.html'>
+                <a class='' href='about_deploy_rb.html'>
                   About deploy.md
                 </a>
               </li>
@@ -104,7 +101,7 @@ end</code></pre>
                 </a>
               </li>
               <li>
-                <a class='' href='directory_structure.html'>
+                <a class='active' href='directory_structure.html'>
                   Directory structure
                 </a>
               </li>

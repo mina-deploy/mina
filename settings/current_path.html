@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>git:clone</title>
+    <title>current_path</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -29,45 +29,17 @@
           </a>
           <div id='crumbs'>
             <a href='../index.html'>Mina</a>
-            <a href='../tasks/index.html'>Tasks</a>
-            <strong>git:clone</strong>
+            <a href='../settings/index.html'>Settings</a>
+            <strong>current_path</strong>
           </div>
           <hgroup>
-            <h1>git:clone</h1>
+            <h1>current_path</h1>
+            <h5>The path to the symlink of the current release</h5>
           </hgroup>
           <div class='content'>
-            <p>Clones the git repository defined in <a href='../settings/repository.html'>:repository</a>. Usually used in deploy scripts.</p>
+            <p>The path to the symlink to the current release. Defaults to <code>current</code>. This path is relative to the <a href='deploy_to.html'>deploy_to</a> path.</p>
 
-<pre><code># config/deploy.rb
-require &#39;mina/git&#39;
-
-set :repository, &#39;https://github.com/you/your-app.git&#39;
-
-task :deploy do
-  deploy do
-    invoke :&#39;git:clone&#39;
-  end
-end</code></pre>
-
-<p>To use this, you must add <code>require &#39;mina/git&#39;</code> to your <em>deploy.rb</em>.</p>
-
-<h3 id='specifying_revisions'>Specifying revisions</h3>
-
-<p>By default, it checks your local Git directory for the SHA1 and deploys that. If you would like to specify your own, use the <a href='/settings/revision.html'>:revision</a> setting.</p>
-
-<pre><code># config/deploy.rb
-require &#39;mina/git&#39;
-
-set :repository, &#39;https://github.com/you/your-app.git&#39;
-
-# Allow calling as `mina deploy at=master`
-set :revision, ENV[&#39;at&#39;]  if ENV[&#39;at&#39;]
-
-task :deploy do
-  deploy do
-    invoke :&#39;git:clone&#39;
-  end
-end</code></pre>
+<p>See <a href='deploy_to.html'>deploy_to</a> for an example.</p>
             <section class='footer'>
               <div class='left'>
                 <strong>
@@ -75,11 +47,11 @@ end</code></pre>
                     Mina
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  <a href='../tasks/index.html'>
-                    Tasks
+                  <a href='../settings/index.html'>
+                    Settings
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  git:clone
+                  current_path
                 </strong>
               </div>
             </section>
@@ -95,64 +67,84 @@ end</code></pre>
                 </a>
               </li>
               <li>
-                <a class='more' href='../tasks/index.html'>
+                <a class='more' href='../settings/index.html'>
                   <span class='back'>&lsaquo;</span>
-                  Tasks
+                  Settings
                 </a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Bundler tasks</h4>
+            <h4>Deploy settings</h4>
             <ul>
               <li>
-                <a class='' href='../tasks/bundle_install.html'>
-                  bundle:install
+                <a class='active' href='../settings/current_path.html'>
+                  current_path
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/deploy_to.html'>
+                  deploy_to
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/lock_file.html'>
+                  releases_path
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/releases_path.html'>
+                  releases_path
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/shared_path.html'>
+                  shared_path
                 </a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Deploy tasks</h4>
+            <h4>SSH</h4>
             <ul>
               <li>
-                <a class='' href='../tasks/deploy_force_unlock.html'>
-                  deploy:force_unlock
+                <a class='' href='../settings/domain.html'>
+                  domain
                 </a>
               </li>
               <li>
-                <a class='' href='../tasks/run.html'>
-                  run
+                <a class='' href='../settings/identity_file.html'>
+                  identity_file
                 </a>
               </li>
               <li>
-                <a class='' href='../tasks/setup.html'>
-                  setup
+                <a class='' href='../settings/user.html'>
+                  user
                 </a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Git tasks</h4>
+            <h4>Git settings</h4>
             <ul>
               <li>
-                <a class='active' href='../tasks/git_clone.html'>
-                  git:clone
+                <a class='' href='../settings/repository.html'>
+                  repository
+                </a>
+              </li>
+              <li>
+                <a class='' href='../settings/revision.html'>
+                  revision
                 </a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Rails tasks</h4>
+            <h4>General settings</h4>
             <ul>
               <li>
-                <a class='' href='../tasks/rails_assets_precompile.html'>
-                  rails:assets_precompile
-                </a>
-              </li>
-              <li>
-                <a class='' href='../tasks/rails_db_migrate.html'>
-                  rails:db_migrate
+                <a class='' href='../settings/term_mode.html'>
+                  term_mode
                 </a>
               </li>
             </ul>
