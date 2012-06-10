@@ -24,11 +24,15 @@ module Mina
       ssh commands(:default)
     end
 
-    # Executes a command via SSH.
+    # Public: Executes a command via SSH.
     #
-    # Options:
+    # options  - Hash of options.
+    #            :pretty  - Prettify the output.
+    #            :return  - If set to true, returns the output.
     #
-    #     pretty:    Prettify the output.
+    # Example
+    #
+    #     ssh("ls", return: true)
     #
     def ssh(cmd, options={})
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
@@ -36,7 +40,12 @@ module Mina
       require 'shellwords'
 
       result = 0
-      if simulate_mode
+      script = Shellwords.escape("true;"+cmd)
+
+      if options[:return] == true
+        result = `#{ssh_command} -- bash -c #{script}`
+
+      elsif simulate_mode
         str = "Executing the following via '#{ssh_command}':"
         puts "#!/usr/bin/env bash"
         puts "# #{str}"
@@ -44,14 +53,17 @@ module Mina
         puts "#"
 
         puts cmd
+
       elsif settings.term_mode == :pretty
-        code = "#{ssh_command} -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
+        code = "#{ssh_command} -- bash -c #{script}"
         result = pretty_system("#{code} 2>&1")
+
       elsif settings.term_mode == :exec
-        code = "#{ssh_command} -t -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
+        code = "#{ssh_command} -t -- bash -c #{script}"
         exec code
+
       else
-        code = "#{ssh_command} -t -- bash -c %s" % [ Shellwords.escape("true;"+cmd) ]
+        code = "#{ssh_command} -t -- bash -c #{script}"
         system code
         result = $?
       end
