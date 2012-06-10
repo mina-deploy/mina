@@ -42,8 +42,11 @@ $(function () {
 
   // Navigates to a given link href.
   function navigateTo(href) {
+    // Strip trailing slash("/tasks/" => "/tasks")
     var base = window.location.pathname;
     base = base.replace(/[^\/]*$/, '');
+
+    // Append URL and squeeze
     var url = base + href;
     url = url.replace(/\/{2,}/, '/');
     window.location = url;
