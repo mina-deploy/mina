@@ -69,7 +69,7 @@ module Mina
       if options[:return] == true
         result = `#{ssh_command} -- bash -c #{script}`
 
-      elsif simulate_mode
+      elsif simulate_mode?
         str = "Executing the following via '#{ssh_command}':"
         puts "#!/usr/bin/env bash"
         puts "# #{str}"
@@ -328,14 +328,14 @@ module Mina
     # Used to show commands in verbose mode. This does nothing unless verbose mode is on.
     #
     # Returns a string of the compound bash command, typically in the format of
-    # `echo xx && xx`. However, if `verbose_mode` is false, it returns the
+    # `echo xx && xx`. However, if `verbose_mode?` is false, it returns the
     # input string unharmed.
     #
     #     echo_cmd("ln -nfs releases/2 current")
     #     #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
     #
     def echo_cmd(str)
-      if verbose_mode
+      if verbose_mode?
         "echo #{("$ " + str).inspect} &&\n#{str}"
       else
         str
@@ -354,7 +354,7 @@ module Mina
     #
     # Returns true or false.
     #
-    def verbose_mode
+    def verbose_mode?
       if Rake.respond_to?(:verbose)
         # Rake 0.9.x
         Rake.verbose == true
@@ -368,7 +368,7 @@ module Mina
     #
     # Returns true or false.
     #
-    def simulate_mode
+    def simulate_mode?
       !! ENV['simulate']
     end
   end
