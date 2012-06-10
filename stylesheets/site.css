@@ -56,7 +56,6 @@ a:hover { color: #485b6d; }
 #crumbs a { text-decoration: none; color: #ddd; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2); background: rgba(0, 0, 0, 0.2); }
 #crumbs a:hover { color: #ddd; background: rgba(0, 0, 0, 0.3); }
 #crumbs strong { font-weight: bold; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2); background: white; color: #666; }
-#crumbs span.gt { display: none; }
 
 #area { padding-left: 200px; width: 90%; max-width: 1100px; min-width: 800px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; margin: 0 auto; }
 
@@ -100,6 +99,7 @@ a:hover { color: #485b6d; }
 #nav nav.parents a { margin-bottom: 1px; background: rgba(255, 255, 255, 0.3); }
 #nav nav.parents span.back { display: inline-block; text-align: center; font-size: 1.3em; width: 20px; }
 #nav nav.parents a.active { padding-left: 32px; }
+#nav nav.parents a.active span.back { display: none; }
 
 ul.section { margin-top: 30px !important; font-size: 0.9em; }
 ul.section, ul.section li { margin: 0; padding: 0; display: block; list-style-type: none; }
