@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>current_path</title>
+    <title>echo_cmd</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -29,17 +29,22 @@
           </a>
           <div id='crumbs'>
             <a href='../index.html'>Mina</a>
-            <a href='../settings/index.html'>Settings</a>
-            <strong>current_path</strong>
+            <a href='../helpers/index.html'>Helpers</a>
+            <strong>echo_cmd</strong>
           </div>
           <hgroup>
-            <h1>current_path</h1>
-            <h5>The path to the symlink of the current release</h5>
+            <h1>echo_cmd</h1>
           </hgroup>
           <div class='content'>
-            <p>The path to the symlink to the current release. Defaults to <code>current</code>. This path is relative to the <a href='deploy_to.html'>deploy_to</a> path.</p>
+            <p>Converts a bash command to a command that echoes before execution. Used to show commands in verbose mode. This does nothing unless verbose mode is on.</p>
 
-<p>See <a href='deploy_to.html'>deploy_to</a> for an example.</p>
+<pre><code># .rb
+queue echo_cmd(&quot;ln -nfs releases/2 current&quot;)
+
+# Queues the following command string:
+#
+#   echo &quot;$ ln -nfs releases/2 current&quot; &amp;&amp;
+#   ln -nfs releases/2 current</code></pre>
             <section class='footer'>
               <div class='left'>
                 <strong>
@@ -47,11 +52,11 @@
                     Mina
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  <a href='../settings/index.html'>
-                    Settings
+                  <a href='../helpers/index.html'>
+                    Helpers
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  current_path
+                  echo_cmd
                 </strong>
               </div>
             </section>
@@ -72,84 +77,39 @@
                 </a>
               </li>
               <li>
-                <a class='more' href='../settings/index.html'>
+                <a class='more' href='../helpers/index.html'>
                   <span class='back'>&lsaquo;</span>
-                  Settings
+                  Helpers
                 </a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Deploy settings</h4>
+            <h4>Helpers</h4>
             <ul>
               <li>
-                <a class='active' href='../settings/current_path.html'>
-                  current_path
+                <a class='active' href='../helpers/echo_cmd.html'>
+                  echo_cmd
                 </a>
               </li>
               <li>
-                <a class='' href='../settings/deploy_to.html'>
-                  deploy_to
+                <a class='' href='../helpers/invoke.html'>
+                  invoke
                 </a>
               </li>
               <li>
-                <a class='' href='../settings/lock_file.html'>
-                  lock_file
+                <a class='' href='../helpers/queue.html'>
+                  queue
                 </a>
               </li>
               <li>
-                <a class='' href='../settings/releases_path.html'>
-                  releases_path
+                <a class='' href='../helpers/simulate_mode.html'>
+                  simulate_mode
                 </a>
               </li>
               <li>
-                <a class='' href='../settings/shared_path.html'>
-                  shared_path
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <nav>
-            <h4>SSH settings</h4>
-            <ul>
-              <li>
-                <a class='' href='../settings/domain.html'>
-                  domain
-                </a>
-              </li>
-              <li>
-                <a class='' href='../settings/identity_file.html'>
-                  identity_file
-                </a>
-              </li>
-              <li>
-                <a class='' href='../settings/user.html'>
-                  user
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <nav>
-            <h4>Git settings</h4>
-            <ul>
-              <li>
-                <a class='' href='../settings/repository.html'>
-                  repository
-                </a>
-              </li>
-              <li>
-                <a class='' href='../settings/revision.html'>
-                  revision
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <nav>
-            <h4>General settings</h4>
-            <ul>
-              <li>
-                <a class='' href='../settings/term_mode.html'>
-                  term_mode
+                <a class='' href='../helpers/verbose_mode.html'>
+                  verbose_mode
                 </a>
               </li>
             </ul>
