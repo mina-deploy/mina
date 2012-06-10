@@ -5,11 +5,11 @@
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
-    <link href="stylesheets/site.css?1339326059" media="screen" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/site.css?1339326642" media="screen" rel="stylesheet" type="text/css" />
     <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.2/jquery.min.js' type='text/javascript'></script>
-    <script src="javascripts/site.js?1339326059" id="proscribe-js" type="text/javascript"></script>
+    <script src="javascripts/site.js?1339326642" id="proscribe-js" type="text/javascript"></script>
   </head>
   <body>
     <div id='top'>
@@ -43,22 +43,28 @@
 
 <pre><code>$ mina init
 Created config/deploy.rb.</code></pre>
+<br clear='all' />
+<p>This is just a Rake file with tasks! See <a href='#about_deployrb'>About deploy.rb</a> for more info on what <em>deploy.rb</em> is. You will want to at least configure your server:</p>
 
-<p>This is just a Rake file with tasks! See <a href='#about_deployrb'>About deploy.rb</a> for more info on what <em>deploy.rb</em> is.</p>
+<pre><code># config/deploy.rb
+set :user, &#39;username&#39;
+set :domain, &#39;your.server.com&#39;
+set :deploy_to, &#39;/var/www/flipstack.com&#39;
+...</code></pre>
 
 <h3 id='step_2_set_up_your_server'>Step 2: Set up your server</h3>
 
 <p>Make a directory in your server called <code>/var/www/flipstack.com</code> (in <em>deploy_to</em>) change it&#8217;s ownership to the correct user.</p>
 
-<pre><code># SSH into your server, then:
-$ mkdir /var/www/flipstack.com
-$ chown -R username /var/www/flipstack.com
+<pre><code>$ ssh username@your.server.com
 
-# Make sure &#39;username&#39; is the same as what&#39;s on deploy.rb</code></pre>
+# Once in your server, create the deploy folder:
+~@your.server.com$ mkdir /var/www/flipstack.com
+~@your.server.com$ chown -R username /var/www/flipstack.com</code></pre>
 
 <h3 id='step_3_run_mina_setup'>Step 3: Run &#8216;mina setup&#8217;</h3>
 
-<p>Now do <code>mina setup</code> to set up the <a href='#directory_structure'>folder structure</a> in this path. This will connect to your server via SSH and create the right directories.</p>
+<p>Back at your computer, do <code>mina setup</code> to set up the <a href='#directory_structure'>folder structure</a> in this path. This will connect to your server via SSH and create the right directories.</p>
 
 <pre><code>$ mina setup
 -----&gt; Creating folders... done.</code></pre>
@@ -91,7 +97,7 @@ $ chown -R username /var/www/flipstack.com
         <nav id='nav'>
           <div class='logo'>
             <a href=''>
-              <img width="150" src="images/logo.png?1339326048" />
+              <img width="150" src="images/logo.png?1339326632" />
             </a>
           </div>
           <nav class='parents'>
