@@ -113,6 +113,7 @@ module Mina
       args = domain!
       args = "#{user}@#{args}" if user?
       args << " -i #{identity_file}" if identity_file?
+      args << " -t"
       "ssh #{args}"
     end
 
@@ -121,9 +122,12 @@ module Mina
     # Returns the exit code in integer form.
     #
     def pretty_system(code)
+      require 'shellwords'
+      cmds = Shellwords.shellsplit(code)
+      cmds << "2>&1"
+
       status =
-        Tools.popen4('bash', '-') do |pid, i, o, e|
-          i.write "( #{code} ) 2>&1\n"
+        Tools.popen4(*cmds) do |pid, i, o, e|
           i.close
 
           last = nil
