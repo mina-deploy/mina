@@ -1,3 +1,19 @@
+v0.1.2.pre1 - Jun 12, 2012
+--------------------------
+
+### Fixed:
+  * Fixed JRuby support.
+  * Respect .bashrc. (#5)
+
+### Changed:
+  * Implement `ssh("..", return: true)`.
+  * Rename simulate_mode to simulate_mode?. Same with verbose_mode?.
+  * Show the SSH command in the simulation output.
+
+### Misc:
+  * Prepare for Tomdoc.
+  * Stop invoking bash needlessly to prettify things.
+
 v0.1.1 - Jun 07, 2012
 ---------------------
 

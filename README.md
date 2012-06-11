@@ -57,6 +57,7 @@ Try out the test environment:
     $ vim lib/mina/version.rb
     $ git clog -w
     $ vim HISTORY.md
+    $ git commit -m "Release v0.8.4."
     $ rake release
 
     # Please don't forget to tag the release in github.com/nadarei/mina-docs
