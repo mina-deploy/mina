@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Mina</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <data content='Really fast deployer and server automation tool' name='description'></data>
+    <link href="stylesheets/site.css?1339434694" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="javascripts/site.js?1339434694" type="text/javascript"></script>
+    <script>var _gaq = _gaq || [];_gaq.push(['_setAccount', "UA-32476157-1"]);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+  </head>
+  <body>
+    <div id='top'>
+      <a id="logo" href="./">Mina</a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <a class='github' href='https://github.com/nadarei/mina'>
+            <img alt='Fork me on GitHub' src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png' />
+          </a>
+          <div id='crumbs'>
+            <strong>Mina</strong>
+          </div>
+          <hgroup>
+            <h1>Mina</h1>
+            <h5>Really fast deployer and server automation tool</h5>
+          </hgroup>
+          <div class='content'>
+            <p>Mina lets you build and run scripts to manage your app deployments on servers via SSH.</p>
+
+<pre><code>$ gem install mina
+$ mina</code></pre>
+
+<h2 id='really_bloody_fast'>Really bloody fast</h2>
+
+<p>Mina works really fast because it&#8217;s a deploy Bash script generator. It generates an entire procedure as a Bash script and runs it remotely in the server.</p>
+
+<pre><code>$ mina deploy --verbose
+
+-----&gt; Creating the build path
+       $ mkdir tmp/build-128293482394
+-----&gt; Cloning the Git repository
+       $ git clone https://github.com/nadarei/flipstack.git . -n --recursive
+       Cloning... done.
+-----&gt; Installing gem dependencies using Bundler
+       $ bundle install --without development:test
+       Using i18n (0.6.0)
+       Using multi_json (1.0.4)
+       ...
+       Your bundle is complete! It was installed to ./vendor/bundle
+-----&gt; Moving to releases/4
+       $ mv &quot;./tmp/build-128293482394&quot; &quot;releases/4&quot;
+-----&gt; Symlinking to current
+       $ ln -nfs releases/4 current
+-----&gt; Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+-----&gt; Done. Deployed v4</code></pre>
+
+<p>Compare this to the likes of Vlad or Capistrano, where each command is ran separately on their own SSH sessions. Mina only creates <em>one</em> SSH session per deploy, minimizing the SSH connection overhead.</p>
+
+<p>See <a href='deploying.html'>the deploying guide</a> for more information.</p>
+
+<h2 id='incredibly_customizable'>Incredibly customizable</h2>
+
+<p>All your settings are stored in a Ruby file <a href='about_deploy_rb.html'>config/deploy.rb</a>.</p>
+
+<pre><code># config/deploy.rb
+require &#39;mina/git&#39;
+
+set :domain, &#39;your.server.com&#39;
+set :user, &#39;flipstack&#39;
+set :repository, &#39;flipstack&#39;
+
+task :deploy do
+  deploy do
+    # Preparations here
+    invoke :&#39;git:clone&#39;
+    invoke :&#39;bundle:install&#39;
+  end
+end
+
+task :restart do
+  queue &#39;sudo service restart apache&#39;
+end</code></pre>
+
+<p>In this file, you will define tasks that <em>queue</em> up commands to be ran remotely via SSH.</p>
+
+<p>Mina is built on <a href='http://http://rake.rubyforge.org/'>Rake</a>. Mina configuration files are simply Rake files.</p>
+
+<p>See <a href='about_deploy_rb.html'>About deploy.rb</a> for more information on configuration.</p>
+
+<h2 id='more_features'>More features</h2>
+
+<ul>
+<li>
+<p><strong>Safe deploys.</strong> New releases are built on a temp folder. If the deploy script fails at any point, the build is deleted and it&#8217;d be as if nothing happened.</p>
+</li>
+
+<li>
+<p><strong>Locks.</strong> Deploy scripts rely on a lockfile ensuring only one deploy can happen at a time.</p>
+</li>
+
+<li>
+<p><strong>Works with anything.</strong> While Mina is built with Rails projects it mind, it can be used on just about any type of project deployable via SSH, Ruby or not.</p>
+</li>
+
+<li>
+<p><strong>Built with Rake.</strong> Setting up tasks will be very familiar! No YAML files here. Everything is written in Ruby, giving you the power to be as flexible in your configuration as needed.</p>
+</li>
+</ul>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  Mina
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <div class='logo'>
+            <a href="./"><img width="150" src="images/logo.png?1339434694" /></a>
+          </div>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a class="active more" href="./">Mina</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Getting started</h4>
+            <ul>
+              <li>
+                <a class="" href="setting_up_a_project.html">Setting up a project</a>
+              </li>
+              <li>
+                <a class="" href="about_deploy_rb.html">About deploy.rb</a>
+              </li>
+              <li>
+                <a class="" href="command_queue.html">Command queue</a>
+              </li>
+              <li>
+                <a class="" href="subtasks.html">Subtasks</a>
+              </li>
+              <li>
+                <a class="" href="deploying.html">Deploying</a>
+              </li>
+              <li>
+                <a class="" href="directory_structure.html">Directory structure</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>API</h4>
+            <ul>
+              <li>
+                <a class="" href="command_line_options.html">Command line options</a>
+              </li>
+              <li>
+                <a class="more" href="settings/">Settings</a>
+              </li>
+              <li>
+                <a class="more" href="tasks/">Tasks</a>
+              </li>
+              <li>
+                <a class="more" href="helpers/">Helpers</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>bundle:install</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link href="../stylesheets/site.css?1339434694" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="../javascripts/site.js?1339434694" type="text/javascript"></script>
+    <script>var _gaq = _gaq || [];_gaq.push(['_setAccount', "UA-32476157-1"]);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+  </head>
+  <body>
+    <div id='top'>
+      <a id="logo" href="../">Mina</a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <a class='github' href='https://github.com/nadarei/mina'>
+            <img alt='Fork me on GitHub' src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png' />
+          </a>
+          <div id='crumbs'>
+            <a href="../">Mina</a>
+            <a href="./">Tasks</a>
+            <strong>bundle:install</strong>
+          </div>
+          <hgroup>
+            <h1>bundle:install</h1>
+          </hgroup>
+          <div class='content'>
+            <p>Invokes <code>bundle:install</code> on the current directory, creating the bundle path (specified in <code>bundle_path</code>), and invoking <code>bundle install</code>. Usually used in deploy scripts.</p>
+
+<pre><code># config/deploy.rb
+require &#39;mina/git&#39;
+require &#39;mina/bundler&#39;   # &lt;- don&#39;t forget
+
+# ... settings here
+
+task :deploy do
+  deploy do
+    invoke :&#39;git:clone&#39;
+    invoke :&#39;bundle:install&#39;
+  end
+end</code></pre>
+<br clear='all' />
+<p>This example looks like this:</p>
+
+<pre><code>$ mina deploy --verbose
+...
+------&gt; Installing gem dependencies using Bundler
+        $ bundle install --without test:development --deployment</code></pre>
+<br clear='all' />
+<p>The <code>bundle_path</code> is only created if <code>bundle_path</code> is set (which is on by default).</p>
+
+<p>This is only relevant if you require the bundler addon with <code>require
+&#39;mina/bundler&#39;</code>.</p>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  <a href="../">Mina
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  <a href="./">Tasks
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  bundle:install
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <div class='logo'>
+            <a href="../"><img width="150" src="../images/logo.png?1339434694" /></a>
+          </div>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a class="more" href="../">Mina</a>
+              </li>
+              <li>
+                <a class="more" href="./">Tasks</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Bundler tasks</h4>
+            <ul>
+              <li>
+                <a class="active" href="bundle_install.html">bundle:install</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Deploy tasks</h4>
+            <ul>
+              <li>
+                <a class="" href="deploy_force_unlock.html">deploy:force_unlock</a>
+              </li>
+              <li>
+                <a class="" href="run.html">run</a>
+              </li>
+              <li>
+                <a class="" href="setup.html">setup</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Git tasks</h4>
+            <ul>
+              <li>
+                <a class="" href="git_clone.html">git:clone</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Rails tasks</h4>
+            <ul>
+              <li>
+                <a class="" href="rails_assets_precompile.html">rails:assets_precompile</a>
+              </li>
+              <li>
+                <a class="" href="rails_db_migrate.html">rails:db_migrate</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Command line options</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link href="stylesheets/site.css?1339434694" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="javascripts/site.js?1339434694" type="text/javascript"></script>
+    <script>var _gaq = _gaq || [];_gaq.push(['_setAccount', "UA-32476157-1"]);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+  </head>
+  <body>
+    <div id='top'>
+      <a id="logo" href="./">Mina</a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <a class='github' href='https://github.com/nadarei/mina'>
+            <img alt='Fork me on GitHub' src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png' />
+          </a>
+          <div id='crumbs'>
+            <a href="./">Mina</a>
+            <strong>Command line options</strong>
+          </div>
+          <hgroup>
+            <h1>Command line options</h1>
+          </hgroup>
+          <div class='content'>
+            <p>Basic usage:</p>
+
+<pre><code>$ mina [OPTIONS] [TASKS] [VAR1=val VAR2=val ...]</code></pre>
+
+<h3 id='options'>Options</h3>
+
+<ul>
+<li>
+<p><code>-v</code> / <code>--verbose</code> - This will show commands being done on the server. Off by default.</p>
+</li>
+
+<li>
+<p><code>-S</code> / <code>--simulate</code> - This will not invoke any SSH connections; instead, it will simply output the script it builds.</p>
+</li>
+
+<li>
+<p><code>-t</code> / <code>--trace</code> - Show backtraces when errors occur.</p>
+</li>
+
+<li>
+<p><code>-f FILE</code> - Use a custom deploy.rb configuration.</p>
+</li>
+
+<li>
+<p><code>-V</code> / <code>--version</code> - Shows the current version.</p>
+</li>
+</ul>
+
+<h3 id='tasks'>Tasks</h3>
+
+<p>There are many tasks available. See the <a href='tasks/index.html'>tasks reference</a>, or type <code>mina tasks</code>.</p>
+
+<h3 id='variables'>Variables</h3>
+
+<p>You may specify additional variables in the <code>KEY=value</code> style, just like Rake. You can add as many variables as needed.</p>
+
+<pre><code>$ mina restart on=staging
+
+# This sets the ENV[&#39;on&#39;] variable to &#39;staging&#39;.</code></pre>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  <a href="./">Mina
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  Command line options
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <div class='logo'>
+            <a href="./"><img width="150" src="images/logo.png?1339434694" /></a>
+          </div>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a class="more" href="./">Mina</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Getting started</h4>
+            <ul>
+              <li>
+                <a class="" href="setting_up_a_project.html">Setting up a project</a>
+              </li>
+              <li>
+                <a class="" href="about_deploy_rb.html">About deploy.rb</a>
+              </li>
+              <li>
+                <a class="" href="command_queue.html">Command queue</a>
+              </li>
+              <li>
+                <a class="" href="subtasks.html">Subtasks</a>
+              </li>
+              <li>
+                <a class="" href="deploying.html">Deploying</a>
+              </li>
+              <li>
+                <a class="" href="directory_structure.html">Directory structure</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>API</h4>
+            <ul>
+              <li>
+                <a class="active" href="command_line_options.html">Command line options</a>
+              </li>
+              <li>
+                <a class="more" href="settings/">Settings</a>
+              </li>
+              <li>
+                <a class="more" href="tasks/">Tasks</a>
+              </li>
+              <li>
+                <a class="more" href="helpers/">Helpers</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

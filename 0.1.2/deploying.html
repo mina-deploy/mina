@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Deploying</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link href="stylesheets/site.css?1339434694" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="javascripts/site.js?1339434694" type="text/javascript"></script>
+    <script>var _gaq = _gaq || [];_gaq.push(['_setAccount', "UA-32476157-1"]);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+  </head>
+  <body>
+    <div id='top'>
+      <a id="logo" href="./">Mina</a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <a class='github' href='https://github.com/nadarei/mina'>
+            <img alt='Fork me on GitHub' src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png' />
+          </a>
+          <div id='crumbs'>
+            <a href="./">Mina</a>
+            <strong>Deploying</strong>
+          </div>
+          <hgroup>
+            <h1>Deploying</h1>
+          </hgroup>
+          <div class='content'>
+            <p>Mina provides the <code>deploy</code> command which <em>queue</em>s up a deploy script for you.</p>
+
+<pre><code># config/deploy.rb
+set :domain, &#39;flipstack.com&#39;
+set :user, &#39;flipstack&#39;
+set :deploy_to, &#39;/var/www/flipstack.com&#39;
+set :repository, &#39;http://github.com/flipstack/flipstack.git&#39;
+
+task :deploy do
+  deploy do
+    # Put things that prepare the empty release folder here.
+    # Commands queued here will be ran on a new release directory.
+    invoke :&#39;git:clone&#39;
+    invoke :&#39;bundle:install&#39;
+
+    # These are instructions to start the app after it&#39;s been prepared.
+    to :launch do
+      queue &#39;touch tmp/restart.txt&#39;
+    end
+
+    # This optional block defines how a broken release should be cleaned up.
+    to :clean do
+      queue &#39;log &quot;failed deployment&quot;&#39;
+    end
+  end
+end</code></pre>
+
+<p>It works by capturing the <em>queue</em>d commands inside the block, wrapping them in a deploy script, then <em>queue</em>ing them back in.</p>
+
+<h2 id='how_deploying_works'>How deploying works</h2>
+
+<p>Here is an example of a deploy! (Note that some commands have been simplified to illustrate the point better.)</p>
+
+<h3 id='step_1_build_it'>Step 1: Build it</h3>
+
+<p>The deploy process builds a new temp folder with instructions you provide. In this example, it will do <code>git:clone</code> and <code>bundle:install</code>.</p>
+
+<pre><code>$ mina deploy --verbose
+-----&gt; Creating the build path
+       $ mkdir tmp/build-128293482394
+-----&gt; Cloning the Git repository
+       $ git clone https://github.com/flipstack/flipstack.git . -n --recursive
+       Cloning... done.
+-----&gt; Installing gem dependencies using Bundler
+       $ bundle install --without development:test
+       Using i18n (0.6.0)
+       Using multi_json (1.0.4)
+       ...
+       Your bundle is complete! It was installed to ./vendor/bundle</code></pre>
+
+<h3 id='step_2_move_it_to_releases'>Step 2: Move it to releases</h3>
+
+<p>Once the project has been built, it will be moved to <code>releases/</code>. A symlink called <code>current/</code> will be created to point to the active release.</p>
+
+<pre><code>$
+-----&gt; Moving to releases/4
+       $ mv &quot;./tmp/build-128293482394&quot; &quot;releases/4&quot;
+-----&gt; Symlinking to current
+       $ ln -nfs releases/4 current</code></pre>
+
+<h3 id='step_3_launch_it'>Step 3: Launch it</h3>
+
+<p>Invoke the commands queued up in the <code>to :launch</code> block. These often commands to restart the webserver process. Once this in complete, you&#8217;re done!</p>
+
+<pre><code>$
+-----&gt; Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+-----&gt; Done. Deployed v4</code></pre>
+
+<h3 id='what_about_failure'>What about failure?</h3>
+
+<p>If it fails at any point, the release path will be deleted. If any commands are queued using the <code>to :clean</code> block, they will be ran. It will be as if nothing happened. Lets see what happens if a build fails:</p>
+
+<pre><code>$
+-----&gt; Launching
+       $ cd releases/4
+       $ sudo service nginx restart
+       Starting nginx... error: can&#39;t start service
+-----&gt; ERROR: Deploy failed.
+-----&gt; Cleaning up build
+       $ rm -rf tmp/build-128293482394
+-----&gt; Unlinking current
+       $ ln -nfs releases/3 current
+       OK</code></pre>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  <a href="./">Mina
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  Deploying
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <div class='logo'>
+            <a href="./"><img width="150" src="images/logo.png?1339434694" /></a>
+          </div>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a class="more" href="./">Mina</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Getting started</h4>
+            <ul>
+              <li>
+                <a class="" href="setting_up_a_project.html">Setting up a project</a>
+              </li>
+              <li>
+                <a class="" href="about_deploy_rb.html">About deploy.rb</a>
+              </li>
+              <li>
+                <a class="" href="command_queue.html">Command queue</a>
+              </li>
+              <li>
+                <a class="" href="subtasks.html">Subtasks</a>
+              </li>
+              <li>
+                <a class="active" href="deploying.html">Deploying</a>
+              </li>
+              <li>
+                <a class="" href="directory_structure.html">Directory structure</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>API</h4>
+            <ul>
+              <li>
+                <a class="" href="command_line_options.html">Command line options</a>
+              </li>
+              <li>
+                <a class="more" href="settings/">Settings</a>
+              </li>
+              <li>
+                <a class="more" href="tasks/">Tasks</a>
+              </li>
+              <li>
+                <a class="more" href="helpers/">Helpers</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

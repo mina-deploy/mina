@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Setting up a project</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link href="stylesheets/site.css?1339434694" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="javascripts/site.js?1339434694" type="text/javascript"></script>
+    <script>var _gaq = _gaq || [];_gaq.push(['_setAccount', "UA-32476157-1"]);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+  </head>
+  <body>
+    <div id='top'>
+      <a id="logo" href="./">Mina</a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <a class='github' href='https://github.com/nadarei/mina'>
+            <img alt='Fork me on GitHub' src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png' />
+          </a>
+          <div id='crumbs'>
+            <a href="./">Mina</a>
+            <strong>Setting up a project</strong>
+          </div>
+          <hgroup>
+            <h1>Setting up a project</h1>
+          </hgroup>
+          <div class='content'>
+            <p>Let&#8217;s deploy a project using Mina.</p>
+
+<h3 id='step_1_create_a_configdeployrb'>Step 1: Create a config/deploy.rb</h3>
+
+<p>In your project, type <code>mina init</code> to create a sample of this file.</p>
+
+<pre><code>$ mina init
+Created config/deploy.rb.</code></pre>
+<br clear='all' />
+<p>This is just a Rake file with tasks! See <a href='#about_deployrb'>About deploy.rb</a> for more info on what <em>deploy.rb</em> is. You will want to at least configure your server:</p>
+
+<pre><code># config/deploy.rb
+set :user, &#39;username&#39;
+set :domain, &#39;your.server.com&#39;
+set :deploy_to, &#39;/var/www/flipstack.com&#39;
+...</code></pre>
+
+<h3 id='step_2_set_up_your_server'>Step 2: Set up your server</h3>
+
+<p>Make a directory in your server called <code>/var/www/flipstack.com</code> (in <em>deploy_to</em>) change it&#8217;s ownership to the correct user.</p>
+
+<pre><code>$ ssh username@your.server.com
+
+# Once in your server, create the deploy folder:
+~@your.server.com$ mkdir /var/www/flipstack.com
+~@your.server.com$ chown -R username /var/www/flipstack.com</code></pre>
+
+<h3 id='step_3_run_mina_setup'>Step 3: Run &#8216;mina setup&#8217;</h3>
+
+<p>Back at your computer, do <code>mina setup</code> to set up the <a href='#directory_structure'>folder structure</a> in this path. This will connect to your server via SSH and create the right directories.</p>
+
+<pre><code>$ mina setup
+-----&gt; Creating folders... done.</code></pre>
+
+<p>See <a href='#directory_structure'>directory structure</a> for more info.</p>
+
+<h3 id='step_4_deploy'>Step 4: Deploy!</h3>
+
+<p>Use <code>mina deploy</code> to run the <code>deploy</code> task defined in <em>config/deploy.rb</em>.</p>
+
+<pre><code>$ mina deploy
+-----&gt; Deploying to 2012-06-12-040248
+       ...
+       Lots of things happening...
+       ...
+-----&gt; Done.</code></pre>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  <a href="./">Mina
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  Setting up a project
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <div class='logo'>
+            <a href="./"><img width="150" src="images/logo.png?1339434694" /></a>
+          </div>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a class="more" href="./">Mina</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Getting started</h4>
+            <ul>
+              <li>
+                <a class="active" href="setting_up_a_project.html">Setting up a project</a>
+              </li>
+              <li>
+                <a class="" href="about_deploy_rb.html">About deploy.rb</a>
+              </li>
+              <li>
+                <a class="" href="command_queue.html">Command queue</a>
+              </li>
+              <li>
+                <a class="" href="subtasks.html">Subtasks</a>
+              </li>
+              <li>
+                <a class="" href="deploying.html">Deploying</a>
+              </li>
+              <li>
+                <a class="" href="directory_structure.html">Directory structure</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>API</h4>
+            <ul>
+              <li>
+                <a class="" href="command_line_options.html">Command line options</a>
+              </li>
+              <li>
+                <a class="more" href="settings/">Settings</a>
+              </li>
+              <li>
+                <a class="more" href="tasks/">Tasks</a>
+              </li>
+              <li>
+                <a class="more" href="helpers/">Helpers</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Command queue</title>
+    <meta charset='UTF-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link href="stylesheets/site.css?1339434694" media="screen" rel="stylesheet" type="text/css" />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="javascripts/site.js?1339434694" type="text/javascript"></script>
+    <script>var _gaq = _gaq || [];_gaq.push(['_setAccount', "UA-32476157-1"]);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script>
+  </head>
+  <body>
+    <div id='top'>
+      <a id="logo" href="./">Mina</a>
+    </div>
+    <div id='area'>
+      <div id='content'>
+        <section id='search'>
+          <input placeholder='Search...' type='text' />
+          <ul class='results'></ul>
+        </section>
+        <div class='c'>
+          <a class='github' href='https://github.com/nadarei/mina'>
+            <img alt='Fork me on GitHub' src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png' />
+          </a>
+          <div id='crumbs'>
+            <a href="./">Mina</a>
+            <strong>Command queue</strong>
+          </div>
+          <hgroup>
+            <h1>Command queue</h1>
+          </hgroup>
+          <div class='content'>
+            <p>At the heart of it, Mina is merely sugar on top of Rake to queue commands and execute them remotely at the end. Take a look at this minimal <em>deploy.rb</em> configuration:</p>
+
+<pre><code># config/deploy.rb
+set :user, &#39;john&#39;
+set :domain, &#39;flipstack.com&#39;
+
+task :logs do
+  queue &#39;echo &quot;Contents of the log file are as follows:&quot;&#39;
+  queue &quot;tail -f /var/log/apache.log&quot;
+end</code></pre>
+<br clear='both' />
+<p>Once you type <code>mina logs</code> in your terminal, it invokes the <em>queue</em>d commands remotely on the server using the command <code>ssh john@flipstack.com</code>.</p>
+
+<pre><code>$ mina logs --simulate
+# Execute the following commands via
+# ssh john@flipstack.com:
+#
+echo &quot;Contents of the log file are as follows:&quot;
+tail -f /var/log/apache.log</code></pre>
+            <section class='footer'>
+              <div class='left'>
+                <strong>
+                  <a href="./">Mina
+                  </a>
+                  <span class='arrow'>&rsaquo;</span>
+                  Command queue
+                </strong>
+              </div>
+            </section>
+          </div>
+        </div>
+        <nav id='nav'>
+          <div class='logo'>
+            <a href="./"><img width="150" src="images/logo.png?1339434694" /></a>
+          </div>
+          <nav class='parents'>
+            <ul>
+              <li>
+                <a class="more" href="./">Mina</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Getting started</h4>
+            <ul>
+              <li>
+                <a class="" href="setting_up_a_project.html">Setting up a project</a>
+              </li>
+              <li>
+                <a class="" href="about_deploy_rb.html">About deploy.rb</a>
+              </li>
+              <li>
+                <a class="active" href="command_queue.html">Command queue</a>
+              </li>
+              <li>
+                <a class="" href="subtasks.html">Subtasks</a>
+              </li>
+              <li>
+                <a class="" href="deploying.html">Deploying</a>
+              </li>
+              <li>
+                <a class="" href="directory_structure.html">Directory structure</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>API</h4>
+            <ul>
+              <li>
+                <a class="" href="command_line_options.html">Command line options</a>
+              </li>
+              <li>
+                <a class="more" href="settings/">Settings</a>
+              </li>
+              <li>
+                <a class="more" href="tasks/">Tasks</a>
+              </li>
+              <li>
+                <a class="more" href="helpers/">Helpers</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>
