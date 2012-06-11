@@ -1,4 +1,5 @@
 set_default :term_mode, nil
+set_default :bash_options, '-i'
 
 # Default tasks here
 desc "Creates a sample config file."

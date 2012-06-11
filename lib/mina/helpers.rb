@@ -79,15 +79,15 @@ module Mina
         puts cmd
 
       elsif settings.term_mode == :pretty
-        code = "#{ssh_command} -- bash -c #{script}"
+        code = "#{ssh_command} -- bash #{bash_options} -c #{script}"
         result = pretty_system("#{code} 2>&1")
 
       elsif settings.term_mode == :exec
-        code = "#{ssh_command} -t -- bash -c #{script}"
+        code = "#{ssh_command} -t -- bash #{bash_options} -c #{script}"
         exec code
 
       else
-        code = "#{ssh_command} -t -- bash -c #{script}"
+        code = "#{ssh_command} -t -- bash #{bash_options} -c #{script}"
         system code
         result = $?
       end
