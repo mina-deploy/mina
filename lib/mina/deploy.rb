@@ -20,7 +20,7 @@ namespace :deploy do
     end
 
     cmds += shared_paths.map do |file|
-      echo_cmd %{ln -s "#{shared_path}/#{file}" "./#{file}"}
+      echo_cmd %{ln -s "#{deploy_to}/#{shared_path}/#{file}" "./#{file}"}
     end
 
     queue %{
