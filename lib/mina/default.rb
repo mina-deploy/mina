@@ -16,7 +16,7 @@ task :init do
   FileUtils.cp Mina.root_path('data/deploy.rb'), './config/deploy.rb'
 
   puts 'Created deploy.rb.'
-  puts 'Edit it, then run `#{name} setup` after.'
+  puts "Edit it, then run `#{name} setup` after."
 end
 
 task :default => :help
