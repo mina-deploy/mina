@@ -113,7 +113,7 @@ module Mina
       args = domain!
       args = "#{user}@#{args}" if user?
       args << " -i #{identity_file}" if identity_file?
-      args << " -p #{ssh_port}" if ssh_port?
+      args << " -p #{port}" if port?
       args << " -t"
       "ssh #{args}"
     end

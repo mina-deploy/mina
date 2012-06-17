@@ -12,7 +12,7 @@ set :domain, 'foobar.com'
 set :deploy_to, '/var/www/foobar.com'
 set :repository, 'git://...'
 # set :user, 'foobar'
-# set :ssh_port, '30000'
+# set :port, '30000'
 
 desc "Deploys the current version to the server."
 task :deploy do
