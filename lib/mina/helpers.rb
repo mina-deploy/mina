@@ -8,9 +8,10 @@ module Mina
     #
     #     invoke :'git:clone'
     #     invoke :restart
+    #     invoke 'db:backup'
     #
     def invoke(task)
-      Rake.application.invoke_task task
+      Rake.application.invoke_task task.to_sym
     end
 
     # Evaluates an ERB block in the current scope and returns a string.
