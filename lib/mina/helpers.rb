@@ -8,6 +8,7 @@ module Mina
     #
     #     invoke :'git:clone'
     #     invoke :restart
+    #     invoke 'db:backup'
     #
     def invoke(task)
       Rake.application.invoke_task task.to_sym
