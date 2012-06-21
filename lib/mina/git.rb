@@ -12,7 +12,7 @@ namespace :git do
       echo "-----> Cloning the Git repository"
       #{echo_cmd %[git clone "#{repository!}" . -n --recursive]} &&
       echo "-----> Using revision #{revision}" &&
-      #{echo_cmd %[git checkout "#{revision}" -b current_release 1>/dev/null]} &&
+      #{echo_cmd %[git checkout "origin/#{revision}" -b current_release 1>/dev/null]} &&
       #{echo_cmd %[rm -rf .git]}
     }
   end
