@@ -43,12 +43,7 @@ describe 'Settings' do
     end
 
     it 'bangs should check for settings' do
-      begin
-        @settings.non_existent_setting!
-        1.should == 2
-      rescue Mina::Error => e
-        e.message.should include "non_existent_setting"
-      end
+      lambda { @settings.non_existent_setting! }.should raise_error(Mina::Error, /non_existent_setting/)
     end
 
     it 'bangs should return settings' do
