@@ -1,10 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>invoke</title>
+    <title>deploy:cleanup</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <data content='Clean up old releases.' name='description'></data>
     <link href="../stylesheets/site.css?1340881531" media="screen" rel="stylesheet" type="text/css" />
     <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
@@ -28,28 +29,30 @@
           </a>
           <div id='crumbs'>
             <a href="../">Mina</a>
-            <a href="./">Helpers</a>
-            <strong>invoke</strong>
+            <a href="./">Tasks</a>
+            <strong>deploy:cleanup</strong>
           </div>
           <hgroup>
-            <h1>invoke</h1>
+            <h1>deploy:cleanup</h1>
+            <h5>Clean up old releases.</h5>
           </hgroup>
           <div class='content'>
-            <p>Invokes a Rake task.</p>
+            <p>Clean up old releases. By default, the last 5 releases are kept on each server (though you can change this with the <a href='../settings/keep_releases.html'>keep_releases</a> setting). All other deployed revisions are removed from the servers.</p>
 
-<pre><code># .rb
-invoke :&#39;git:checkout&#39;
-invoke :restart</code></pre>
+<pre><code>$ mina deploy:cleanup
+-----&gt; Cleaning up old releases (keeping 5)</code></pre>
+
+<p>This may be invoked in the command line or as a subtask.</p>
             <section class='footer'>
               <div class='left'>
                 <strong>
                   <a href="../">Mina
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  <a href="./">Helpers
+                  <a href="./">Tasks
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  invoke
+                  deploy:cleanup
                 </strong>
               </div>
             </section>
@@ -65,27 +68,51 @@ invoke :restart</code></pre>
                 <a class="more" href="../">Mina</a>
               </li>
               <li>
-                <a class="more" href="./">Helpers</a>
+                <a class="more" href="./">Tasks</a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Helpers</h4>
+            <h4>Bundler tasks</h4>
             <ul>
               <li>
-                <a class="" href="echo_cmd.html">echo_cmd</a>
+                <a class="" href="bundle_install.html">bundle:install</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Deploy tasks</h4>
+            <ul>
+              <li>
+                <a class="active" href="deploy_cleanup.html">deploy:cleanup</a>
               </li>
               <li>
-                <a class="active" href="invoke.html">invoke</a>
+                <a class="" href="deploy_force_unlock.html">deploy:force_unlock</a>
               </li>
               <li>
-                <a class="" href="queue.html">queue</a>
+                <a class="" href="run.html">run</a>
               </li>
               <li>
-                <a class="" href="simulate_mode.html">simulate_mode?</a>
+                <a class="" href="setup.html">setup</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Git tasks</h4>
+            <ul>
+              <li>
+                <a class="" href="git_clone.html">git:clone</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Rails tasks</h4>
+            <ul>
+              <li>
+                <a class="" href="rails_assets_precompile.html">rails:assets_precompile</a>
               </li>
               <li>
-                <a class="" href="verbose_mode.html">verbose_mode?</a>
+                <a class="" href="rails_db_migrate.html">rails:db_migrate</a>
               </li>
             </ul>
           </nav>

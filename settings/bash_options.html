@@ -1,10 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>invoke</title>
+    <title>bash_options</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <data content='Settings to be passed onto Bash. Optional.' name='description'></data>
     <link href="../stylesheets/site.css?1340881531" media="screen" rel="stylesheet" type="text/css" />
     <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
@@ -28,28 +29,25 @@
           </a>
           <div id='crumbs'>
             <a href="../">Mina</a>
-            <a href="./">Helpers</a>
-            <strong>invoke</strong>
+            <a href="./">Settings</a>
+            <strong>bash_options</strong>
           </div>
           <hgroup>
-            <h1>invoke</h1>
+            <h1>bash_options</h1>
+            <h5>Settings to be passed onto Bash. Optional.</h5>
           </hgroup>
           <div class='content'>
-            <p>Invokes a Rake task.</p>
-
-<pre><code># .rb
-invoke :&#39;git:checkout&#39;
-invoke :restart</code></pre>
+            <p>The switches to be passed onto Bash. Optional, defaults to <code>-i</code>.</p>
             <section class='footer'>
               <div class='left'>
                 <strong>
                   <a href="../">Mina
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  <a href="./">Helpers
+                  <a href="./">Settings
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  invoke
+                  bash_options
                 </strong>
               </div>
             </section>
@@ -65,27 +63,69 @@ invoke :restart</code></pre>
                 <a class="more" href="../">Mina</a>
               </li>
               <li>
-                <a class="more" href="./">Helpers</a>
+                <a class="more" href="./">Settings</a>
               </li>
             </ul>
           </nav>
           <nav>
-            <h4>Helpers</h4>
+            <h4>General settings</h4>
             <ul>
               <li>
-                <a class="" href="echo_cmd.html">echo_cmd</a>
+                <a class="active" href="bash_options.html">bash_options</a>
               </li>
               <li>
-                <a class="active" href="invoke.html">invoke</a>
+                <a class="" href="term_mode.html">term_mode</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Deploy settings</h4>
+            <ul>
+              <li>
+                <a class="" href="current_path.html">current_path</a>
               </li>
               <li>
-                <a class="" href="queue.html">queue</a>
+                <a class="" href="deploy_to.html">deploy_to</a>
               </li>
               <li>
-                <a class="" href="simulate_mode.html">simulate_mode?</a>
+                <a class="" href="keep_releases.html">keep_releases</a>
               </li>
               <li>
-                <a class="" href="verbose_mode.html">verbose_mode?</a>
+                <a class="" href="lock_file.html">lock_file</a>
+              </li>
+              <li>
+                <a class="" href="releases_path.html">releases_path</a>
+              </li>
+              <li>
+                <a class="" href="shared_path.html">shared_path</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>SSH settings</h4>
+            <ul>
+              <li>
+                <a class="" href="domain.html">domain</a>
+              </li>
+              <li>
+                <a class="" href="identity_file.html">identity_file</a>
+              </li>
+              <li>
+                <a class="" href="port.html">port</a>
+              </li>
+              <li>
+                <a class="" href="user.html">user</a>
+              </li>
+            </ul>
+          </nav>
+          <nav>
+            <h4>Git settings</h4>
+            <ul>
+              <li>
+                <a class="" href="repository.html">repository</a>
+              </li>
+              <li>
+                <a class="" href="revision.html">revision</a>
               </li>
             </ul>
           </nav>
