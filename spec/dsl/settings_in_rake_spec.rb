@@ -29,14 +29,11 @@ describe 'Settings in rake tasks' do
   end
 
   it '#settings with a bang should work' do
-    begin
+    expect {
       rake {
         set :path, lambda { "/var/www/#{version!}" }
       }
       rake.path
-      1.should == 2
-    rescue Mina::Error => e
-      e.message.should include "version"
-    end
+    }.to raise_error(Mina::Error, /version/)
   end
 end
