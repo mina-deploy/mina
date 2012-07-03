@@ -7,7 +7,7 @@
 
 # Go to the deploy path
 cd "<%= deploy_to %>" || (
-  echo "=====> ERROR: not set up."
+  echo "! ERROR: not set up."
   echo "The path '<%= deploy_to %>' is not accessible on the server."
   echo "You may need to run 'mina setup' first."
   false
@@ -15,7 +15,7 @@ cd "<%= deploy_to %>" || (
 
 # Check releases path
 if [ ! -d "<%= releases_path %>" ]; then
-  echo "=====> ERROR: not set up."
+  echo "! ERROR: not set up."
   echo "The directory '<%= releases_path %>' does not exist on the server."
   echo "You may need to run 'mina setup' first."
   exit 16
@@ -23,7 +23,7 @@ fi
 
 # Check lockfile
 if [ -e "<%= lock_file %>" ]; then
-  echo "=====> ERROR: another deployment is ongoing."
+  echo "! ERROR: another deployment is ongoing."
   echo "The file '<%= lock_file %>' was found."
   echo "If no other deployment is ongoing, delete the file to continue."
   exit 17
@@ -37,7 +37,7 @@ release_path="<%= releases_path %>/$version"
 
 # Sanity check
 if [ -e "$build_path" ]; then
-  echo "=====> ERROR: Path already exists"
+  echo "! ERROR: Path already exists."
   exit 18
 fi
 
@@ -82,7 +82,7 @@ fi
 # ============================
 # === Failed deployment
 (
-  echo "=====> ERROR: Deploy failed."
+  echo "! ERROR: Deploy failed."
 
 <%= indent 2, clean %>
 
