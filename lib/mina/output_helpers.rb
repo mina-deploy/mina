@@ -65,11 +65,14 @@ module Mina
 
       status =
         Tools.popen4(*cmds) do |pid, i, o, e|
-          # Close stdin so that we can move on.
-          i.close
+          trap "INT" do
+            puts ""
+            print_status "Mina: SIGINT received."
+          end
 
           # Read stderr in the background.
           p1 = fork do
+            trap("INT") {}
             while str = e.gets
               # Supress expected errors.
               next if str.include? "bash: no job control in this shell"
@@ -83,8 +86,9 @@ module Mina
             print_str str
           end
 
-          Process.waitpid(p1)
+          Process.waitpid p1
         end
+
       status.exitstatus
     end
   end

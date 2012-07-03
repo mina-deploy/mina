@@ -24,29 +24,37 @@ scope = self
 
 Rake.application.instance_eval do
   standard_exception_handling do
-    # Initialize Rake and make it think it's Mina.
-    init 'mina'
+    begin
+      # Initialize Rake and make it think it's Mina.
+      init 'mina'
 
-    # (The only way @rakefiles has only 1 value is if -f is specified.)
-    custom_rakefile = (@rakefiles.size == 1)
-    @rakefiles = ['Minafile', 'config/deploy.rb']  unless custom_rakefile
+      # (The only way @rakefiles has only 1 value is if -f is specified.)
+      custom_rakefile = (@rakefiles.size == 1)
+      @rakefiles = ['Minafile', 'config/deploy.rb']  unless custom_rakefile
 
-    # Workaround: Rake 0.9+ doesn't record task descriptions unless it's needed.
-    # Need it for 'mina help'
-    if Rake::TaskManager.respond_to?(:record_task_metadata)
-      Rake::TaskManager.record_task_metadata = true
+      # Workaround: Rake 0.9+ doesn't record task descriptions unless it's needed.
+      # Need it for 'mina help'
+      if Rake::TaskManager.respond_to?(:record_task_metadata)
+        Rake::TaskManager.record_task_metadata = true
+      end
+
+      # Load the Mina Rake DSL.
+      require 'mina/rake'
+
+      # Allow running without a Rakefile
+      load_rakefile  if have_rakefile || custom_rakefile
+
+      # Run tasks
+      top_level
+
+      scope.mina_cleanup! if top_level_tasks.any?
+
+    rescue Mina::Failed => e
+      puts ""
+      scope.print_error "Command failed."
+      scope.print_stderr "#{e.message}"
+      exit e.exitstatus
     end
-
-    # Load the Mina Rake DSL.
-    require 'mina/rake'
-
-    # Allow running without a Rakefile
-    load_rakefile  if have_rakefile || custom_rakefile
-
-    # Run tasks
-    top_level
-
-    scope.mina_cleanup! if top_level_tasks.any?
   end
 end
 

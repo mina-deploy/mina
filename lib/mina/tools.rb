@@ -11,5 +11,10 @@ module Mina
         Open4.popen4 *cmd, &blk
       end
     end
+
+    def self.pfork4(*cmd, &blk)
+      require 'open4'
+      Open4.pfork4 *cmd, &blk
+    end
   end
 end
