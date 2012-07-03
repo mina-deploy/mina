@@ -62,7 +62,7 @@ module Mina
               print_status $1
             elsif str =~ /^=====> (.*?)$/
               print_error $1
-            elsif str =~ /^ *\! +(.*?)$/
+            elsif str =~ /^! (.*?)$/
               print_error $1
             elsif str =~ /^\$ (.*?)$/
               print_command $1
