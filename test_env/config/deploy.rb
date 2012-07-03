@@ -28,6 +28,7 @@ task :deploy do
   queue "bundle() { true; }" # Stub the bundle command.
 
   deploy do
+    queue %[ruby -e "\\$stderr.write \\\"This is stdout output\n\\\""]
     invoke :'git:clone'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'

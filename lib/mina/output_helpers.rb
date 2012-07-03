@@ -10,11 +10,15 @@ module Mina
       puts " #{color("!", 33)}     #{color(msg, 31)}"
     end
 
+    def print_stderr(msg)
+      puts "       #{color(msg, 31)}"
+    end
+
     def print_command(msg)
       puts "       #{color("$", 32)} #{color(msg, 34)}"
     end
 
-    def print_message(msg)
+    def print_stdout(msg)
       puts "       #{msg}"
     end
 
@@ -36,11 +40,23 @@ module Mina
     def pretty_system(code)
       require 'shellwords'
       cmds = Shellwords.shellsplit(code)
-      cmds << "2>&1"
 
       status =
         Tools.popen4(*cmds) do |pid, i, o, e|
+          # Close stdin so that we can move on.
           i.close
+
+          # Read stderr in the background.
+          p1 = fork do
+            while str = e.gets
+              # Supress expected errors.
+              next if str.include? "bash: no job control in this shell"
+              next if str.include? "stdin is not a terminal"
+              print_stderr str.strip
+            end
+          end
+
+          # Read stdout.
           while str = o.gets
             if str =~ /^-----> (.*?)$/
               print_status $1
@@ -51,9 +67,11 @@ module Mina
             elsif str =~ /^\$ (.*?)$/
               print_command $1
             else
-              print_message str
+              print_stdout str
             end
           end
+
+          Process.waitpid(p1)
         end
       status.exitstatus
     end

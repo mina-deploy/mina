@@ -80,7 +80,7 @@ module Mina
 
       elsif settings.term_mode == :pretty
         code = "#{ssh_command} -- bash #{bash_options} -c #{script}"
-        result = pretty_system("#{code} 2>&1")
+        result = pretty_system(code)
 
       elsif settings.term_mode == :exec
         code = "#{ssh_command} -t -- bash #{bash_options} -c #{script}"
