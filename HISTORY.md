@@ -1,3 +1,14 @@
+v0.1.2.pre2 - Jul 3, 2012
+-------------------------
+
+### Added:
+  * Add bundle_bin option
+  * Add ssh port option
+
+### Fixed:
+  * Fix deploy:link_shared_paths to use absolute paths
+  * Fix console logs for task init
+
 v0.1.2.pre1 - Jun 12, 2012
 --------------------------
 
