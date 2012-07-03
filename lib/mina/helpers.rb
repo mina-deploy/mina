@@ -118,58 +118,6 @@ module Mina
       "ssh #{args}"
     end
 
-    # Internal: Works like 'system', but indents and puts color.
-    #
-    # Returns the exit code in integer form.
-    #
-    def pretty_system(code)
-      require 'shellwords'
-      cmds = Shellwords.shellsplit(code)
-      cmds << "2>&1"
-
-      status =
-        Tools.popen4(*cmds) do |pid, i, o, e|
-          i.close
-
-          last = nil
-          clear_on_nl = false
-          while c = o.getc
-            # Because Ruby 1.8.x returns a number on #getc
-            c = "%c" % [c]  if c.is_a?(Fixnum)
-
-            break if o.closed?
-            if last == "\n"
-              if clear_on_nl
-                clear_on_nl = false
-                print "\033[0m"
-              end
-
-              # Color the verbose echo commands
-              if c == "$" && ((c += o.read(1)) == "$ ")
-                clear_on_nl = true
-                print " "*7 + "\033[32m#{c}\033[34m"
-
-              # (Don't) color the status messages
-              elsif c == "-" && ((c += o.read(5)) == "----->")
-                print c
-
-              # Color errors
-              elsif c == "=" && ((c += o.read(5)) == "=====>")
-                print "\033[31m=====>\033[0m"
-
-              else
-                print " "*7 + c
-              end
-            else
-              print c
-            end
-
-            last = c
-          end
-        end
-      status.exitstatus
-    end
-
     # Queues code to be ran.
     #
     # This queues code to be ran to the current code bucket (defaults to `:default`).

@@ -5,6 +5,7 @@ module Mina
   require 'mina/version'
 
   autoload :DeployHelpers, 'mina/deploy_helpers'
+  autoload :OutputHelpers, 'mina/output_helpers'
   autoload :Helpers, 'mina/helpers'
   autoload :Settings, 'mina/settings'
   autoload :Tools, 'mina/tools'
