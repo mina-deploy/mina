@@ -3,7 +3,8 @@ module Mina
     # Protip! make a module that overrides these settings, then use `extend YourModule`
     # to make your own pretty printing thing.
     def print_status(msg)
-      puts "-----> #{msg}"
+      puts ""  if verbose_mode?
+      puts "#{color('----->', 32)} #{msg}"
     end
 
     def print_error(msg)
@@ -15,7 +16,7 @@ module Mina
     end
 
     def print_command(msg)
-      puts "       #{color("$", 32)} #{color(msg, 34)}"
+      puts "       #{color("$", 32)} #{color(msg, 32)}"
     end
 
     def print_stdout(msg)
@@ -23,13 +24,34 @@ module Mina
     end
 
     # Internal: Colorizes a string.
-    #
     # Returns the string `str` with the color `c`.
     def color(str, c)
-      if ENV['NO_COLOR']
-        str
+      ENV['NO_COLOR'] ? str : "\033[#{c}m#{str}\033[0m"
+    end
+
+    # Internal: Prints a string by delegating it to the proper output helper.
+    #
+    # It takes an input with text and prints them nicely. The text block can
+    # have statuses (prefixed with `-----> `), errors (prefixed with `! `),
+    # commands (prefixed with `$ `) or anything else. Depending on the type of
+    # the message, they will be delegated to the proper print_* helper.
+    #
+    #     -----> Unlocking
+    #     $ unlock foo
+    #     Unlocked.
+    #     ! ERROR: Failed
+    #
+    # Returns nothing.
+    #
+    def print_str(str)
+      if str =~ /^\-+> (.*?)$/
+        print_status $1
+      elsif str =~ /^! (.*?)$/
+        print_error $1
+      elsif str =~ /^\$ (.*?)$/
+        print_command $1
       else
-        "\033[#{c}m#{str}\033[0m"
+        print_stdout str
       end
     end
 
@@ -58,17 +80,7 @@ module Mina
 
           # Read stdout.
           while str = o.gets
-            if str =~ /^-----> (.*?)$/
-              print_status $1
-            elsif str =~ /^=====> (.*?)$/
-              print_error $1
-            elsif str =~ /^! (.*?)$/
-              print_error $1
-            elsif str =~ /^\$ (.*?)$/
-              print_command $1
-            else
-              print_stdout str
-            end
+            print_str str
           end
 
           Process.waitpid(p1)
