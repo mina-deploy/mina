@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>deploy:force_unlock</title>
+    <title>deploy:link_shared_paths</title>
     <meta charset='UTF-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
-    <data content='Removes the deploy lock file.' name='description'></data>
+    <data content='Creates symlinks for the shared files.' name='description'></data>
     <link href="../stylesheets/site.css?1341352595" media="screen" rel="stylesheet" type="text/css" />
     <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js'></script>
@@ -30,27 +30,34 @@
           <div id='crumbs'>
             <a href="../">Mina</a>
             <a href="./">Tasks</a>
-            <strong>deploy:force_unlock</strong>
+            <strong>deploy:link_shared_paths</strong>
           </div>
           <hgroup>
-            <h1>deploy:force_unlock</h1>
-            <h5>Removes the deploy lock file.</h5>
+            <h1>deploy:link_shared_paths</h1>
+            <h5>Creates symlinks for the shared files.</h5>
           </hgroup>
           <div class='content'>
-            <p>Removes the deploy lock file. If a deploy is terminated midway, it may leave a lock file to signal that deploys shouldn&#8217;t be made. This forces the removal of that lock file.</p>
+            <p>Creates symbolic links to paths in <a href='../settings/shared_paths.html'>shared_paths</a> setting. This setting is not to be confused with <a href='../settings/shared_path.html'>shared_path</a> that specifies the directory path where files are shared between releases.</p>
 
-<pre><code>$ mina deploy
------&gt; ERROR: another deployment is ongoing.
-       Delete the lock file to continue.
+<p>Invoke this as a subtask in your <a href='../about_deploy_rb.html'>config/deploy.rb</a>.</p>
 
-$ mina deploy:force_unlock
------&gt; Unlocking
-       $ rm /var/www/kickstack.me/deploy.lock
+<pre><code>require &#39;mina/git&#39;
 
-$ mina deploy
-# ...The deploy should proceed now</code></pre>
+# ... settings here
+set :shared_paths, [&#39;config/database.yml&#39;, &#39;config/s3.yml&#39;]
 
-<p>This may be invoked in the command line or as a subtask.</p>
+task :deploy do
+  deploy do
+    invoke &#39;git:clone&#39;
+    invoke &#39;deploy:link_shared_paths&#39;
+    # In this case, symlinks config/database.yml and
+    # config/s3.yml are created in the release path
+    # that points to their corresponding files in the
+    # shared_path directory.
+    # ...
+  end
+  # ...
+end</code></pre>
             <section class='footer'>
               <div class='left'>
                 <strong>
@@ -60,7 +67,7 @@ $ mina deploy
                   <a href="./">Tasks
                   </a>
                   <span class='arrow'>&rsaquo;</span>
-                  deploy:force_unlock
+                  deploy:link_shared_paths
                 </strong>
               </div>
             </section>
@@ -95,10 +102,10 @@ $ mina deploy
                 <a class="" href="deploy_cleanup.html">deploy:cleanup</a>
               </li>
               <li>
-                <a class="active" href="deploy_force_unlock.html">deploy:force_unlock</a>
+                <a class="" href="deploy_force_unlock.html">deploy:force_unlock</a>
               </li>
               <li>
-                <a class="" href="deploy_link_shared_paths.html">deploy:link_shared_paths</a>
+                <a class="active" href="deploy_link_shared_paths.html">deploy:link_shared_paths</a>
               </li>
               <li>
                 <a class="" href="run.html">run</a>
