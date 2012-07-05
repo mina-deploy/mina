@@ -7,12 +7,13 @@ settings.rails ||= lambda { %{#{bundle_prefix} rails} }
 # Macro used later by :rails, :rake, etc
 make_run_task = lambda { |name, sample_args|
   task name, :arguments do |t, args|
-    command = args[:arguments]
+    arguments = args[:arguments]
+    command = send name
     unless command
       puts %{You need to provide arguments. Try: mina "#{name}[#{sample_args}]"}
       exit 1
     end
-    queue %[cd "#{deploy_to!}/#{current_path!}" && #{rails} #{command}]
+    queue echo_cmd %[cd "#{deploy_to!}/#{current_path!}" && #{command} #{arguments}]
   end
 }
 
