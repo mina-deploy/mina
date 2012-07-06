@@ -1,37 +1,27 @@
 v0.1.2 - Jul 06, 2012
 ---------------------
 
+This release had two prereleases: v0.1.2.pre1 and v0.1.2.pre2.
+
 ### Fixed:
   * __Show stdout output properly on deploy.__
   * 'mina rake' now works.
+  * [.pre2] __Fix `deploy:link_shared_paths` to use absolute paths.__
+  * [.pre2] Fix console logs for task init.
+  * [.pre1] __Fixed JRuby support.__
+  * [.pre1] __Respect .bashrc.__ (#5)
 
-### Changed:
+### Added:
+  * [.pre2] Add `:bundle_bin` option.
+  * [.pre2] Add `:ssh` port option.
+
+### Changed: (v0.1.2)
   * Refactor pretty printing to be simpler, cleaner, and extensible.
   * Show prettier abort messages when ^C'd.
   * Use the new error message format. (See lib/mina/output_helpers.rb)
-
-v0.1.2.pre2 - Jul 03, 2012
---------------------------
-
-### Added:
-  * Add `:bundle_bin` option.
-  * Add `:ssh` port option.
-
-### Fixed:
-  * __Fix `deploy:link_shared_paths` to use absolute paths.__
-  * Fix console logs for task init.
-
-v0.1.2.pre1 - Jun 12, 2012
---------------------------
-
-### Fixed:
-  * __Fixed JRuby support.__
-  * __Respect .bashrc.__ (#5)
-
-### Changed:
-  * Implement `ssh("..", return: true)`.
-  * Rename `simulate_mode` to `simulate_mode?`. Same with `verbose_mode?`.
-  * Show the SSH command in the simulation output.
+  * [.pre1] Implement `ssh("..", return: true)`.
+  * [.pre1] Rename `simulate_mode` to `simulate_mode?`. Same with `verbose_mode?`.
+  * [.pre1] Show the SSH command in the simulation output.
 
 v0.1.1 - Jun 07, 2012
 ---------------------
