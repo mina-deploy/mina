@@ -54,21 +54,25 @@ namespace :rails do
 
     queue %{
       # Check if the last deploy has assets built, and if it can be re-used.
-      if [ -d "#{current_path}/public/assets" ]; then
+      if [ -d "#{deploy_to}/#{current_path}/public/assets" ]; then
         count=`(
-          diff -r "#{current_path}/vendor/assets/" "./vendor/assets/" 2>/dev/null;
-          diff -r "#{current_path}/app/assets/" "./app/assets/" 2>/dev/null
+          diff -r "#{deploy_to}/#{current_path}/vendor/assets/" "./vendor/assets/" 2>/dev/null;
+          diff -r "#{deploy_to}/#{current_path}/app/assets/" "./app/assets/" 2>/dev/null
         ) | wc -l`
 
         if [ "$((count))" = "0" ]; then
           echo "-----> Skipping asset precompilation"
-          #{echo_cmd %[cp -R "#{current_path}/public/assets" "./public/assets"]} &&
+          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]} &&
           exit
+        else
+          echo "-----> $((count)) asset files changed; precompiling asset files"
+          #{echo_cmd %[#{rake} assets:precompile]}
         fi
+      else
+        echo "-----> Precompiling asset files"
+        #{echo_cmd %[#{rake} assets:precompile]}
       fi
 
-      echo "-----> Precompiling asset files"
-      #{echo_cmd %[#{rake} assets:precompile]}
     }
   end
 
