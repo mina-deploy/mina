@@ -23,6 +23,11 @@ make_run_task[:rails, 'console']
 desc "Execute a Rake command in the current deploy."
 make_run_task[:rake, 'db:migrate']
 
+desc "Starts an interactive console."
+task :console do
+  queue echo_cmd %[cd "#{deploy_to!}/#{current_path!}" && #{rails} console]
+end
+
 namespace :rails do
   desc "Migrates the Rails database."
   task :db_migrate do
