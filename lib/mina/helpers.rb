@@ -155,6 +155,10 @@ module Mina
       code.strip
     end
 
+    def reindent(n, code)
+      indent n, unindent(code)
+    end
+
     # Returns an array of queued code strings.
     #
     # You may give an optional `aspect`.

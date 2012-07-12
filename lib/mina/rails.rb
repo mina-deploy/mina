@@ -17,6 +17,29 @@ make_run_task = lambda { |name, sample_args|
   end
 }
 
+def check_for_changes_script(options={})
+  diffs = options[:at].map { |path|
+    %[diff -r "#{deploy_to}/#{current_path}/#{path}" "./#{path}" 2>/dev/null]
+  }.join("\n")
+
+  unindent %[
+    if [ -d "#{deploy_to}/#{current_path}/#{options[:check]}" ]; then
+      count=`(
+        #{reindent 4, diffs}
+      ) | wc -l`
+
+      if [ "$((count))" = "0" ]; then
+        #{reindent 4, options[:skip]} &&
+        exit
+      else
+        #{reindent 4, options[:changed]}
+      fi
+    else
+      #{reindent 2, options[:default]}
+    fi
+  ]
+end
+
 desc "Execute a Rails command in the current deploy."
 make_run_task[:rails, 'console']
 
@@ -29,8 +52,31 @@ task :console do
 end
 
 namespace :rails do
-  desc "Migrates the Rails database."
+  desc "Migrates the Rails database (skips if nothing has changed since the last release)."
   task :db_migrate do
+    if ENV['force_migrate']
+      invoke :'rails:db_migrate:force'
+      return
+    end
+
+    queue check_for_changes_script \
+      check: 'db/schema.rb',
+      at: ['db/schema.rb'],
+      skip: %[
+        echo "-----> DB schema unchanged; skipping DB migration"
+      ],
+      changed: %[
+        echo "-----> DB schema changed, migrating database"
+        #{echo_cmd %[#{rake} db:migrate]}
+      ],
+      default: %[
+        echo "-----> Migrating database"
+        #{echo_cmd %[#{rake} db:migrate]}
+      ]
+  end
+
+  desc "Migrates the Rails database."
+  task :'db_migrate:force' do
     queue %{
       echo "-----> Migrating database"
       #{echo_cmd %[#{rake} db:migrate]}
@@ -52,28 +98,21 @@ namespace :rails do
       return
     end
 
-    queue %{
-      # Check if the last deploy has assets built, and if it can be re-used.
-      if [ -d "#{deploy_to}/#{current_path}/public/assets" ]; then
-        count=`(
-          diff -r "#{deploy_to}/#{current_path}/vendor/assets/" "./vendor/assets/" 2>/dev/null;
-          diff -r "#{deploy_to}/#{current_path}/app/assets/" "./app/assets/" 2>/dev/null
-        ) | wc -l`
-
-        if [ "$((count))" = "0" ]; then
-          echo "-----> Skipping asset precompilation"
-          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]} &&
-          exit
-        else
-          echo "-----> $((count)) asset files changed; precompiling asset files"
-          #{echo_cmd %[#{rake} assets:precompile]}
-        fi
-      else
+    queue check_for_changes_script \
+      check: 'public/assets/',
+      at: ['vendor/assets/', 'app/assets/'],
+      skip: %[
+        echo "-----> Skipping asset precompilation"
+        #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
+      ],
+      changed: %[
+        echo "-----> $((count)) asset files changed; precompiling asset files"
+        #{echo_cmd %[#{rake} assets:precompile]}
+      ],
+      default: %[
         echo "-----> Precompiling asset files"
         #{echo_cmd %[#{rake} assets:precompile]}
-      fi
-
-    }
+      ]
   end
 
 end
