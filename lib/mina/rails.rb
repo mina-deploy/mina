@@ -3,6 +3,7 @@ settings.rails_env ||= 'production'
 settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" bundle exec} }
 settings.rake ||= lambda { %{#{bundle_prefix} rake} }
 settings.rails ||= lambda { %{#{bundle_prefix} rails} }
+settings.asset_paths ||= ['vendor/assets/', 'app/assets/']
 
 # Macro used later by :rails, :rake, etc
 make_run_task = lambda { |name, sample_args|
@@ -100,7 +101,7 @@ namespace :rails do
 
     queue check_for_changes_script \
       check: 'public/assets/',
-      at: ['vendor/assets/', 'app/assets/'],
+      at: [*asset_paths],
       skip: %[
         echo "-----> Skipping asset precompilation"
         #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
