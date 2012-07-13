@@ -59,27 +59,26 @@ namespace :rails do
   task :db_migrate do
     if ENV['force_migrate']
       invoke :'rails:db_migrate:force'
-      return
+    else
+      message = verbose_mode? ?
+        '$((count)) changes found, migrating database' :
+        'Migrating database'
+
+      queue check_for_changes_script \
+        check: 'db/schema.rb',
+        at: ['db/schema.rb'],
+        skip: %[
+          echo "-----> DB schema unchanged; skipping DB migration"
+        ],
+        changed: %[
+          echo "-----> #{message}"
+          #{echo_cmd %[#{rake} db:migrate]}
+        ],
+        default: %[
+          echo "-----> Migrating database"
+          #{echo_cmd %[#{rake} db:migrate]}
+        ]
     end
-
-    message = verbose_mode? ?
-      '$((count)) changes found, migrating database' :
-      'Migrating database'
-
-    queue check_for_changes_script \
-      check: 'db/schema.rb',
-      at: ['db/schema.rb'],
-      skip: %[
-        echo "-----> DB schema unchanged; skipping DB migration"
-      ],
-      changed: %[
-        echo "-----> #{message}"
-        #{echo_cmd %[#{rake} db:migrate]}
-      ],
-      default: %[
-        echo "-----> Migrating database"
-        #{echo_cmd %[#{rake} db:migrate]}
-      ]
   end
 
   desc "Migrates the Rails database."
@@ -102,28 +101,27 @@ namespace :rails do
   task :'assets_precompile' do
     if ENV['force_assets']
       invoke :'rails:assets_precompile:force'
-      return
+    else
+      message = verbose_mode? ?
+        '$((count)) changes found, precompiling asset files' :
+        'Precompiling asset files'
+
+      queue check_for_changes_script \
+        check: 'public/assets/',
+        at: [*asset_paths],
+        skip: %[
+          echo "-----> Skipping asset precompilation"
+          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
+        ],
+        changed: %[
+          echo "-----> #{message}"
+          #{echo_cmd %[#{rake} assets:precompile]}
+        ],
+        default: %[
+          echo "-----> Precompiling asset files"
+          #{echo_cmd %[#{rake} assets:precompile]}
+        ]
     end
-
-    message = verbose_mode? ?
-      '$((count)) changes found, precompiling asset files' :
-      'Precompiling asset files'
-
-    queue check_for_changes_script \
-      check: 'public/assets/',
-      at: [*asset_paths],
-      skip: %[
-        echo "-----> Skipping asset precompilation"
-        #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
-      ],
-      changed: %[
-        echo "-----> #{message}"
-        #{echo_cmd %[#{rake} assets:precompile]}
-      ],
-      default: %[
-        echo "-----> Precompiling asset files"
-        #{echo_cmd %[#{rake} assets:precompile]}
-      ]
   end
 
 end
