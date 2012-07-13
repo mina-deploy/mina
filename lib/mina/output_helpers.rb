@@ -68,6 +68,7 @@ module Mina
           trap "INT" do
             puts ""
             print_status "Mina: SIGINT received."
+            Process.kill "TERM", pid
           end
 
           # Read stderr in the background.
