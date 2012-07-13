@@ -24,7 +24,7 @@ def check_for_changes_script(options={})
   }.join("\n")
 
   unindent %[
-    if [ -d "#{deploy_to}/#{current_path}/#{options[:check]}" ]; then
+    if [ -e "#{deploy_to}/#{current_path}/#{options[:check]}" ]; then
       count=`(
         #{reindent 4, diffs}
       ) | wc -l`
@@ -60,6 +60,10 @@ namespace :rails do
       return
     end
 
+    message = verbose_mode? ?
+      '$((count)) changes found, migrating database' :
+      'Migrating database'
+
     queue check_for_changes_script \
       check: 'db/schema.rb',
       at: ['db/schema.rb'],
@@ -67,7 +71,7 @@ namespace :rails do
         echo "-----> DB schema unchanged; skipping DB migration"
       ],
       changed: %[
-        echo "-----> DB schema changed, migrating database"
+        echo "-----> #{message}"
         #{echo_cmd %[#{rake} db:migrate]}
       ],
       default: %[
@@ -99,6 +103,10 @@ namespace :rails do
       return
     end
 
+    message = verbose_mode? ?
+      '$((count)) changes found, precompiling asset files' :
+      'Precompiling asset files'
+
     queue check_for_changes_script \
       check: 'public/assets/',
       at: [*asset_paths],
@@ -107,7 +115,7 @@ namespace :rails do
         #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
       ],
       changed: %[
-        echo "-----> $((count)) asset files changed; precompiling asset files"
+        echo "-----> #{message}"
         #{echo_cmd %[#{rake} assets:precompile]}
       ],
       default: %[
