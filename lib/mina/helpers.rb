@@ -42,7 +42,20 @@ module Mina
     # Returns nothing.
     #
     def run!
-      ssh commands(:default)
+      time, output = measure do
+        ssh commands(:default)
+      end
+
+      print_str "Elapsed time: %.2f seconds" % [time]
+      output
+    end
+
+    # Measures the time (in ms) a block takes.
+    # Returns a [time, output] tuple.
+    def measure(&blk)
+      t = Time.now
+      output = yield
+      [(Time.now - t).to_i, output]
     end
 
     # Executes a command via SSH.
