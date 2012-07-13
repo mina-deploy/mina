@@ -1,3 +1,19 @@
+v0.1.3 - Jul 13, 2012 (Unreleased)
+----------------------------------
+
+### Fixed:
+  * [pre1] Respect the `bundle_bin` setting when doing `bundle exec` in Rails commands. (#29)
+  * [pre1] Doing `rails:assets_precompile` now properly skips asset compilation if not needed. (#25)
+
+### Added:
+  * [pre1] Doing `rails:db_migrate` now skips doing migrations if they're not needed. (#18)
+  * [pre1] Added the `mina console` command for Rails.
+  * [pre1] Make asset paths configurable using the `asset_paths` setting.
+
+### Changed:
+  * [pre1] Refactor pretty printing to be simpler, cleaner, and extensible.
+  * [pre1] Show prettier abort messages when ^C'd.
+
 v0.1.2 - Jul 06, 2012
 ---------------------
 
