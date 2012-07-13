@@ -15,7 +15,7 @@ namespace :git do
         #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch #{repository!} #{branch})]}
       else
         echo "-----> Cloning the Git repository"
-        #{echo_cmd %[git clone "#{repository!}" "#{deploy_to}/scm" --bare -o origin]}
+        #{echo_cmd %[git clone "#{repository!}" "#{deploy_to}/scm" --bare]}
       fi &&
     }
 
