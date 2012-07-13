@@ -21,7 +21,6 @@ require 'mina/git'
 set :domain, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, "#{Mina.root_path}"
-set :revision, 'HEAD'
 
 desc "Deploys."
 task :deploy do
