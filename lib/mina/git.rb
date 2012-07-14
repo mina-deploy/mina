@@ -33,9 +33,11 @@ namespace :git do
       end
 
     status = %[
-      echo "-----> Using git commit:" &&
-      #{echo_cmd %[git log --pretty=short -n 1]} &&
-      #{echo_cmd %[rm -rf .git]}
+      echo "-----> Using this git commit" &&
+      echo &&
+      #{echo_cmd %[git log --format="%aN (%h):%n> %s" -n 1]} &&
+      #{echo_cmd %[rm -rf .git]} &&
+      echo
     ]
 
     queue fetch + clone + status
