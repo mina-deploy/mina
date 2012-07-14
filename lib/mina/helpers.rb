@@ -105,13 +105,22 @@ module Mina
         result = $?
       end
 
-      unless result == 0
-        err = Failed.new("Failed with status #{result}")
-        err.exitstatus = result
-        raise err
-      end
-
+      die result if result > 0
       result
+    end
+
+    # Exits with a nice looking message.
+    # Returns nothing.
+    #
+    #     die 2
+    #     die 2, "Tests failed"
+    #
+    def die(code, msg=null)
+      str = "Failed with status #{code}"
+      str += " (#{msg})" if msg
+      err = Failed.new(str)
+      err.exitstatus = code
+      raise err
     end
 
     # Returns the SSH command to be executed.
