@@ -12,7 +12,7 @@ namespace :git do
     fetch = %{
       if [ -d "#{deploy_to}/scm/objects" ]; then
         echo "-----> Fetching new git commits"
-        #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch #{repository!} #{branch})]}
+        #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch #{repository!} #{branch}:#{branch})]}
       else
         echo "-----> Cloning the Git repository"
         #{echo_cmd %[git clone "#{repository!}" "#{deploy_to}/scm" --bare]}
