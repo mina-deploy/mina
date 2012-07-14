@@ -12,7 +12,7 @@ namespace :git do
     fetch = %{
       if [ -d "#{deploy_to}/scm/objects" ]; then
         echo "-----> Fetching new git commits"
-        #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch #{repository!} #{branch}:#{branch} --force)]}
+        #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force)]}
       else
         echo "-----> Cloning the Git repository"
         #{echo_cmd %[git clone "#{repository!}" "#{deploy_to}/scm" --bare]}
@@ -23,12 +23,12 @@ namespace :git do
       %[
         echo "-----> Using git commit '#{commit}'" &&
         #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive]} &&
-        #{echo_cmd %[git checkout -b current_release #{commit}]} &&
+        #{echo_cmd %[git checkout -b current_release "#{commit}"]} &&
       ]
       else
       %{
         echo "-----> Using git branch '#{branch}'" &&
-        #{echo_cmd %[git clone "#{deploy_to}/scm" . --depth 1 --recursive --branch #{branch}]} &&
+        #{echo_cmd %[git clone "#{deploy_to}/scm" . --depth 1 --recursive --branch "#{branch}"]} &&
       }
       end
 
