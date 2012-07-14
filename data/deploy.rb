@@ -3,20 +3,27 @@ require 'mina/rails'
 require 'mina/git'
 
 # Basic settings:
-# domain     - The hostname to SSH to
-# deploy_to  - Path to deploy into
-# repository - Git repo to clone from (needed by mina/git)
-# user       - Username in the  server to SSH to (optional)
+#   domain       - The hostname to SSH to.
+#   deploy_to    - Path to deploy into.
+#   repository   - Git repo to clone from. (needed by mina/git)
+#   branch       - Branch name to deploy. (needed by mina/git)
 
 set :domain, 'foobar.com'
 set :deploy_to, '/var/www/foobar.com'
 set :repository, 'git://...'
-# set :user, 'foobar'
-# set :port, '30000'
+set :branch, 'master'
+
+# Optional settings:
+#   set :user, 'foobar'    # Username in the server to SSH to.
+#   set :port, '30000'     # SSH port number.
 
 desc "Deploys the current version to the server."
 task :deploy do
   deploy do
+    # This makes asset compilation faster in Rails 3.2 -- remove this for other
+    # Rails versions.
+    invoke :'rails:optimize_for_3.2'
+
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
