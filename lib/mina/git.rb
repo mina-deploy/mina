@@ -23,7 +23,7 @@ namespace :git do
       %[
         echo "-----> Using git commit '#{commit}'" &&
         #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive]} &&
-        #{echo_cmd %[git checkout -b current_release "#{commit}"]} &&
+        #{echo_cmd %[git checkout -b current_release "#{commit}" --force]} &&
       ]
       else
       %{
