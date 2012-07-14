@@ -20,6 +20,10 @@ set :branch, 'master'
 desc "Deploys the current version to the server."
 task :deploy do
   deploy do
+    # This makes asset compilation faster in Rails 3.2 -- remove this for other
+    # Rails versions.
+    invoke :'rails:optimize_for_3.2'
+
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
