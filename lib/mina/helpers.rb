@@ -42,10 +42,13 @@ module Mina
     # Returns nothing.
     #
     def run!
-      time, output = measure do
-        ssh commands(:default)
-      end
+      report_time { ssh commands(:default) }
+    end
 
+    # Report time elapsed in the block.
+    # Returns the output of the block.
+    def report_time(&blk)
+      time, output = measure &blk
       print_str "Elapsed time: %.2f seconds" % [time]
       output
     end
