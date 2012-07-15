@@ -83,16 +83,16 @@ namespace :rails do
         'Migrating database'
 
       queue check_for_changes_script \
-        check: 'db/schema.rb',
-        at: ['db/schema.rb'],
-        skip: %[
+        :check => 'db/schema.rb',
+        :at => ['db/schema.rb'],
+        :skip => %[
           echo "-----> DB schema unchanged; skipping DB migration"
         ],
-        changed: %[
+        :changed => %[
           echo "-----> #{message}"
           #{echo_cmd %[#{rake} db:migrate]}
         ],
-        default: %[
+        :default => %[
           echo "-----> Migrating database"
           #{echo_cmd %[#{rake} db:migrate]}
         ]
@@ -125,17 +125,17 @@ namespace :rails do
         'Precompiling asset files'
 
       queue check_for_changes_script \
-        check: 'public/assets/',
-        at: [*asset_paths],
-        skip: %[
+        :check => 'public/assets/',
+        :at => [*asset_paths],
+        :skip => %[
           echo "-----> Skipping asset precompilation"
           #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
         ],
-        changed: %[
+        :changed => %[
           echo "-----> #{message}"
           #{echo_cmd %[#{rake_assets_precompile}]}
         ],
-        default: %[
+        :default => %[
           echo "-----> Precompiling asset files"
           #{echo_cmd %[#{rake_assets_precompile}]}
         ]
