@@ -19,7 +19,7 @@ namespace :git do
       %[
         else
           echo "-----> Fetching new git commits"
-          #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" --all)]}
+          #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}")]}
         fi &&
         echo "-----> Using git commit '#{commit}'" &&
         #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive]} &&
