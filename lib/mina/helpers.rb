@@ -227,6 +227,21 @@ module Mina
       result
     end
 
+    # Starts a new block where #commands are collected, to be executed inside `path`.
+    #
+    # Returns nothing.
+    #
+    #   in_directory './webapp' do
+    #     queue "./reload"
+    #   end
+    #
+    #   commands.should == ['cd ./webapp && (./reload && true)']
+    #
+    def in_directory(path, &blk)
+      isolated_commands = isolate { yield; commands }
+      isolated_commands.each { |cmd| queue "(cd #{path} && (#{cmd}))" }
+    end
+
     # Defines instructions on how to do a certain thing.
     # This makes the commands that are `queue`d go into a different bucket in commands.
     #
