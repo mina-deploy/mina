@@ -239,7 +239,7 @@ module Mina
     #
     def in_directory(path, &blk)
       isolated_commands = isolate { yield; commands }
-      queue "cd #{path} && (#{isolated_commands.join('&&')})"
+      isolated_commands.each { |cmd| queue "(cd #{path} && (#{cmd}))" }
     end
 
     # Defines instructions on how to do a certain thing.
