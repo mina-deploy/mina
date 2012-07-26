@@ -62,13 +62,20 @@ module Mina
     def pretty_system(code)
       require 'shellwords'
       cmds = Shellwords.shellsplit(code)
+      interrupted = false
 
       status =
         Tools.popen4(*cmds) do |pid, i, o, e|
           trap "INT" do
             puts ""
-            print_status "Mina: SIGINT received."
-            Process.kill "TERM", pid
+            unless interrupted
+              print_status "Mina: SIGINT received."
+              Process.kill "TERM", pid
+              interrupted = true
+            else
+              print_status "Mina: SIGINT received again. Force quitting..."
+              Process.kill "KILL", pid
+            end
           end
 
           # Read stderr in the background.
