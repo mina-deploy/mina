@@ -7,16 +7,17 @@ task :init do
   config_file = Rake.application.rakefile
 
   unless config_file.to_s.empty?
-    error "You already have #{config_file}."
+    print_str "! You already have #{config_file}."
     exit 8
   end
 
+  outfile = './config/deploy.rb'
   require 'fileutils'
   FileUtils.mkdir_p './config'
-  FileUtils.cp Mina.root_path('data/deploy.rb'), './config/deploy.rb'
+  FileUtils.cp Mina.root_path('data/deploy.rb'), outfile
 
-  puts 'Created deploy.rb.'
-  puts "Edit it, then run `#{name} setup` after."
+  print_str "-----> Created #{outfile}"
+  print_str "Edit this file, then run `#{name} setup` after."
 end
 
 task :default => :help
