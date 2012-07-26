@@ -89,7 +89,6 @@ module Mina
         str = "Executing the following via '#{ssh_command}':"
         puts "#!/usr/bin/env bash"
         puts "# #{str}"
-        puts "# " + ("-" * str.size)
         puts "#"
 
         puts cmd
@@ -259,9 +258,9 @@ module Mina
     #
     def to(name, &blk)
       old, @to = @to, name
-      result = yield
+      yield
+    ensure
       @to = old
-      result
     end
 
     # Sets settings.
