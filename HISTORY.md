@@ -1,16 +1,40 @@
-v0.1.3 - Jul 13, 2012 (Unreleased)
-----------------------------------
+v0.2.0 - Unreleased
+-------------------
+
+This release had two pre releases:
+
+  * v0.2.0.pre2 (Aug 2, 2012)
+  * v0.1.3.pre1 (Jul 13, 2012)
 
 ### Fixed:
+  * [pre2] Call ssh with no double use `-t` parameter.
+  * [pre2] Fix Ruby 1.8 compatibility.
+  * [pre2] Fix the "undefined method > for Process::Status" error.
+  * [pre2] Using `force_migrate=1` and `force_assets=1` to `rails:db_migrate`
+    and `rails:assets_precompile` now works well.
   * [pre1] Respect the `bundle_bin` setting when doing `bundle exec` in Rails commands. (#29)
   * [pre1] Doing `rails:assets_precompile` now properly skips asset compilation if not needed. (#25)
 
 ### Added:
+  * [pre2] __Optimize git:clone by caching the repository.__ This way, updates are
+    faster because not the entire repo is cloned everytime. (#10)
+  * [pre2] __Show elapsed time that a deploy takes.__
+  * [pre2] __Display the git commit nicely when deploying.__
+  * [pre2] __Force quit when 2 `^C`s are pressed.__
+  * [pre2] New `die` helper.
+  * [pre2] New `report_time` helper.
+  * [pre2] New `to_directory` helper. (#35)
+  * [pre2] Put optional optimizations for Rails 3.2 asset pipeline. (#32)
+  * Update sample deploy script:
+    - [pre2] Update default deploy.rb to note :branch.
+    - [pre2] Add `link_shared_paths` to the sample deploy script.
   * [pre1] Doing `rails:db_migrate` now skips doing migrations if they're not needed. (#18)
   * [pre1] Added the `mina console` command for Rails.
   * [pre1] Make asset paths configurable using the `asset_paths` setting.
 
 ### Changed:
+  * [pre2] __Improve output of `mina init`.__
+  * [pre2] Prettier output for `mina setup`. Also, show a better error message for it.
   * [pre1] Refactor pretty printing to be simpler, cleaner, and extensible.
   * [pre1] Show prettier abort messages when ^C'd.
 
