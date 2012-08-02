@@ -101,7 +101,7 @@ module Mina
           exec code
         else
           system code
-          result = $?
+          result = $?.to_i
         end
       end
 
