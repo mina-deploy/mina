@@ -11,6 +11,8 @@
 # In fact, let's make that folder right now.
 require 'fileutils'
 FileUtils.mkdir_p "#{Dir.pwd}/deploy"
+FileUtils.mkdir_p "#{Dir.pwd}/deploy/config"
+File.open("#{Dir.pwd}/deploy/config/database.yml", 'w') { |f| f.write "Hello" }
 
 # -- Stubs end, deploy script begins! --------------
 
@@ -21,6 +23,7 @@ require 'mina/git'
 set :domain, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, "#{Mina.root_path}"
+set :shared_paths, ['config/database.yml']
 
 desc "Deploys."
 task :deploy do
@@ -29,6 +32,7 @@ task :deploy do
   deploy do
     queue %[ruby -e "\\$stderr.write \\\"This is stdout output\n\\\""]
     invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
 

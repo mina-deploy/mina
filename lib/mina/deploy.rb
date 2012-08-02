@@ -20,12 +20,15 @@ namespace :deploy do
     end
 
     cmds += shared_paths.map do |file|
-      echo_cmd %{ln -s "#{deploy_to}/#{shared_path}/#{file}" "./#{file}"}
+      [
+        echo_cmd(%{rm -rf "./#{file}"}),
+        echo_cmd(%{ln -s "#{deploy_to}/#{shared_path}/#{file}" "./#{file}"})
+      ]
     end
 
     queue %{
       echo "-----> Symlinking shared paths"
-      #{cmds.join(" &&\n")}
+      #{cmds.flatten.join(" &&\n")}
     }
   end
 
