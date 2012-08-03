@@ -31,6 +31,29 @@ module Mina
       erb.result b
     end
 
+    # Creates a file on the server with the given content
+    #
+    # put("This is my file", "/tmp/file")
+    #
+    def put(content, file)
+      queue <<-CMD
+        export IFS=''
+        read -d '' MINA_PUT <<"EOF"
+        #{content}
+        EOF
+        echo $MINA_PUT > #{file}
+      CMD
+    end
+
+    # Renders a template and uploads it to the server.
+    # Defaults to an ERB template.
+    #
+    # put("templates/my_template.erb", "/tmp/file")
+    #
+    def render(template, out, renderer=method(:erb))
+      put(renderer.call(template), out)
+    end
+
     # SSHs into the host and runs the code that has been queued.
     #
     # This is already automatically invoked before Rake exits to run all
