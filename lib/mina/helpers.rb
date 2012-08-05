@@ -48,7 +48,7 @@ module Mina
     # Renders a template and uploads it to the server.
     # Defaults to an ERB template.
     #
-    # put("templates/my_template.erb", "/tmp/file")
+    # render("templates/my_template.erb", "/tmp/file")
     #
     def render(template, out, renderer=method(:erb))
       put(renderer.call(template), out)
