@@ -38,7 +38,7 @@ module Mina
     def put(content, file)
       queue <<-CMD
       export IFS=''
-      read -d '' MINA_PUT <<"EOF"
+      read -d '' MINA_PUT <<-"EOF"
       #{content}
       EOF
       echo $MINA_PUT > #{file}
@@ -334,7 +334,7 @@ module Mina
     end
 
     def indent(count, str)
-      str.gsub(/^(?!EOF$)/, " "*count)
+      str.gsub(/^(?!EOF$)/, "\t"*count)
     end
 
     def error(str)
