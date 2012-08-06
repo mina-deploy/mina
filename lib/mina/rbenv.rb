@@ -1,4 +1,3 @@
-# Makes mina work alot better with rbenv
 settings.bash_profile ||= '~/.bash_profile'
 
 namespace :rbenv do  
@@ -11,10 +10,11 @@ end
 
 module Mina
     module Helpers
-        def rbenv_loaded
-            true
-        end
-        
+        # Places the commands required to load rbenv at the start of the deploy queue
+        #
+        # There is no need to use this function anywhere in your code, 
+        # it is already in place in Mina::Helpers#ssh which is the only place
+        # it needs to be.
         def load_rbenv(cmd)
             [ "echo \"-----> Loading rbenv\"",
                 echo_cmd("source #{bash_profile}"),

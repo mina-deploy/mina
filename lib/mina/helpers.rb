@@ -76,10 +76,7 @@ module Mina
     #
     def ssh(cmd, options={})
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
-
-      if rbenv_loaded
-          cmd = load_rbenv(cmd)
-      end
+      cmd = load_rbenv(cmd) if defined? load_rbenv
 
       require 'shellwords'
 
