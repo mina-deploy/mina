@@ -6,7 +6,7 @@ settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" #{bundle_bin} exe
 settings.rake ||= lambda { %{#{bundle_prefix} rake} }
 settings.rails ||= lambda { %{#{bundle_prefix} rails} }
 settings.asset_paths ||= ['vendor/assets/', 'app/assets/']
-settings.rake_assets_precompile ||= lambda { "#{rake} assets:precompile" }
+settings.rake_assets_precompile ||= lambda { "#{rake} assets:precompile RAILS_GROUPS=assets" }
 
 desc "Makes Rails 3.2 deploys faster."
 task :'rails:optimize_for_3.2' do
