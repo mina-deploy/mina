@@ -8,23 +8,6 @@ settings.rails ||= lambda { %{#{bundle_prefix} rails} }
 settings.asset_paths ||= ['vendor/assets/', 'app/assets/']
 settings.rake_assets_precompile ||= lambda { "#{rake} assets:precompile RAILS_GROUPS=assets" }
 
-desc "Makes Rails 3.2 deploys faster."
-task :'rails:optimize_for_3.2' do
-  # This is 100% faster in Rails 3.2 because it skips re-invoking the
-  # Rake+Rails environment twice, and reuses the compilation cache for
-  # generating digest and non-digest assets. See:
-  # https://github.com/rails/rails/blob/3-2-stable/actionpack/lib/sprockets/assets.rake
-  settings.rake_assets_precompile = lambda {
-    "#{rake} assets:precompile:primary assets:precompile:nondigest RAILS_ENV=production RAILS_GROUPS=assets"
-  }
-
-  # A safer, but slower (and still faster than default) version would be the
-  # one below. This will respect your config.assets.digest setting.
-  # settings.rake_assets_precompile = lambda {
-  #   "#{rake} assets:precompile:all RAILS_ENV=production RAILS_GROUPS=assets"
-  # }
-end
-
 # Macro used later by :rails, :rake, etc
 make_run_task = lambda { |name, sample_args|
   task name, :arguments do |t, args|
