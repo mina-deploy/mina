@@ -1,8 +1,13 @@
 set_default :bash_options, '-i'
 
+# Make the :environment task exist by default. This is meant to be overridden
+# by users.
+task :environment do
+end
+
 # Default tasks here
 desc "Creates a sample config file."
-task :init do
+task :init => :environment do
   name = Rake.application.name
   config_file = Rake.application.rakefile
 
