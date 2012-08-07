@@ -2,7 +2,7 @@ require 'mina/bundler'
 
 settings.rails_env ||= 'production'
 # TODO: This should be lambda
-settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" #{bundle_bin} exec} }
+settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" #{ENV['SHELL'] =~ /zsh/ ? 'noglob ' : ''}#{bundle_bin} exec} }
 settings.rake ||= lambda { %{#{bundle_prefix} rake} }
 settings.rails ||= lambda { %{#{bundle_prefix} rails} }
 settings.asset_paths ||= ['vendor/assets/', 'app/assets/']
