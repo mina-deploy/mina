@@ -330,7 +330,7 @@ module Mina
     #
     def echo_cmd(str)
       if verbose_mode?
-        "echo #{("$ " + str).inspect} &&\n#{str}"
+        "echo #{Shellwords.escape("$ " + str)} &&\n#{str}"
       else
         str
       end
