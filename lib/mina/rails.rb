@@ -10,7 +10,7 @@ settings.rake_assets_precompile ||= lambda { "#{rake} assets:precompile RAILS_GR
 
 # Macro used later by :rails, :rake, etc
 make_run_task = lambda { |name, sample_args|
-  task name, :arguments do |t, args|
+  task name, [:arguments] => :environment do |t, args|
     arguments = args[:arguments]
     command = send name
     unless command

@@ -77,7 +77,7 @@ task :setup do
 end
 
 desc "Runs a command in the server."
-task :run, :command do |t, args|
+task :run, [:command] => [:environment] do |t, args|
   command = args[:command]
   unless command
     puts %[You need to provide a command. Try: mina "run[ls -la]"]

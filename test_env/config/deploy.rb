@@ -25,6 +25,10 @@ set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, "#{Mina.root_path}"
 set :shared_paths, ['config/database.yml']
 
+task :environment do
+  queue %[echo "-----> Loading env"]
+end
+
 desc "Deploys."
 task :deploy do
   queue "bundle() { true; }" # Stub the bundle command.
