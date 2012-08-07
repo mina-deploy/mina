@@ -115,7 +115,7 @@ module Mina
     #     die 2
     #     die 2, "Tests failed"
     #
-    def die(code, msg=null)
+    def die(code=1, msg=null)
       str = "Failed with status #{code}"
       str += " (#{msg})" if msg
       err = Failed.new(str)
