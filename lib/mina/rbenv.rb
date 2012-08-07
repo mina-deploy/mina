@@ -18,7 +18,8 @@ task :'rbenv:load' do
     # Ensure that rbenv is loaded.
     if ! which -s rbenv >/dev/null; then
       echo "! rbenv not found"
-      echo "! If rbenv is installed, check your 'rbenv_path' setting"
+      echo "! If rbenv is installed, check your 'rbenv_path' setting."
+      exit 1
     fi
 
     #{echo_cmd %{eval "$(rbenv init -)"}}
