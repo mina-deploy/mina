@@ -37,8 +37,7 @@ namespace :deploy do
     All other deployed revisions are removed from the servers."
   task :cleanup do
     queue %{echo "-----> Cleaning up old releases (keeping #{keep_releases!})"}
-    queue echo_cmd %{cd "#{deploy_to!}" || exit 15}
-    queue echo_cmd %{cd "#{releases_path!}" || exit 16}
+    queue echo_cmd %{cd "#{deploy_to!}/#{releases_path!}" || exit 15}
     queue echo_cmd %{count=`ls -1d [0-9]* | sort -rn | wc -l`}
     queue echo_cmd %{remove=$((count > 5 ? count - #{keep_releases} : 0))}
     queue echo_cmd %{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}
