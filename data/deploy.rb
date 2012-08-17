@@ -1,6 +1,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
+require 'mina/health'
 # require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
@@ -48,6 +49,8 @@ task :deploy => :environment do
     to :launch do
       queue 'touch tmp/restart.txt'
     end
+
+    invoke :health
   end
 end
 
