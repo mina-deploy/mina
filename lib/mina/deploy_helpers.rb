@@ -28,8 +28,10 @@ module Mina
       end
     end
 
-    def version
-      File.open(settings.deploy_to + '/last_version', 'r').read.to_i
+    def version which = :current
+      version = File.open(settings.deploy_to + '/last_version', 'r').read.to_i
+      version += 1 if which == :next
+      version
     end
   end
 end
