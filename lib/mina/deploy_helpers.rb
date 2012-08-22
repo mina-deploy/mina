@@ -35,9 +35,18 @@ module Mina
     # returns the requested version
     #
     def version which
+      set_default :version_scheme, :sequence
       version = File.open(settings.deploy_to + '/last_version', 'r').read.to_i
-      version += 1 if which == :next
-      version
+
+      return version if which == :current
+
+      case settings.version_scheme
+      when :sequence
+        return version.next
+      when :date
+        time = Time.now
+        return "%04d%02d%02d" % [time.year, time.month, time.day]
+      end      
     end
   end
 end
