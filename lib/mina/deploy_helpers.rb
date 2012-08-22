@@ -28,7 +28,13 @@ module Mina
       end
     end
 
-    def version which = :current
+    # Function to retrieve the version number within the deploy script
+    # which parameter specifies if the user wants the current version or the
+    # next version
+    #
+    # returns the requested version
+    #
+    def version which
       version = File.open(settings.deploy_to + '/last_version', 'r').read.to_i
       version += 1 if which == :next
       version
