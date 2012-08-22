@@ -27,5 +27,9 @@ module Mina
         erb Mina.root_path('data/deploy.sh.erb')
       end
     end
+
+    def version
+      File.open(settings.deploy_to + '/last_version', 'r').read.to_i
+    end
   end
 end

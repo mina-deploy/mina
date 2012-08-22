@@ -32,7 +32,7 @@ fi
 # Determine $previous_path and other variables
 [ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
 build_path="./tmp/build-`date +%s`$RANDOM"
-version=$((`cat "<%= deploy_to %>/last_version" 2>/dev/null`+1))
+version=$((<%= version %>+1))
 release_path="<%= releases_path %>/$version"
 
 # Sanity check
