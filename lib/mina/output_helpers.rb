@@ -1,35 +1,49 @@
+# # Helpers: Output helpers
+# Protip! make a module that overrides these settings, then use `extend YourModule`
+# to make your own pretty printing thing.
 module Mina
   module OutputHelpers
-    # Protip! make a module that overrides these settings, then use `extend YourModule`
-    # to make your own pretty printing thing.
+
+    # ### print_status
+    # Prints a status message. (`----->`)
     def print_status(msg)
       puts ""  if verbose_mode?
       puts "#{color('----->', 32)} #{msg}"
     end
 
+    # ### print_error
+    # Prints an error message (header).
     def print_error(msg)
       puts " #{color("!", 33)}     #{color(msg, 31)}"
     end
 
+    # ### print_stderr
+    # Prints an error message (body), or prints stderr output.
     def print_stderr(msg)
       puts "       #{color(msg, 31)}"
     end
 
+    # ### print_command
+    # Prints a command.
     def print_command(msg)
       puts "       #{color("$", 32)} #{color(msg, 32)}"
     end
 
+    # ### print_stdout
+    # Prints a normal message.
     def print_stdout(msg)
       puts "       #{msg}"
     end
 
-    # Internal: Colorizes a string.
+    # ### color
+    # Colorizes a string.
     # Returns the string `str` with the color `c`.
     def color(str, c)
       ENV['NO_COLOR'] ? str : "\033[#{c}m#{str}\033[0m"
     end
 
-    # Internal: Prints a string by delegating it to the proper output helper.
+    # ### print_str
+    # Prints a string by delegating it to the proper output helper.
     #
     # It takes an input with text and prints them nicely. The text block can
     # have statuses (prefixed with `-----> `), errors (prefixed with `! `),
@@ -55,7 +69,8 @@ module Mina
       end
     end
 
-    # Internal: Works like `system`, but indents and puts color.
+    # ### pretty_system
+    # __Internal:__ Works like `system`, but indents and puts color.
     #
     # Returns the exit code in integer form.
     #

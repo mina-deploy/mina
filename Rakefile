@@ -6,4 +6,9 @@ task :spec do
   system "rm Gemfile.lock; sh -c 'rake=0.9 bundle exec rspec'"
 end
 
+task :docs do
+  files = ['README.md'] + Dir['lib/**/*.rb']
+  system "lidoc #{files.join ' '} -o docs --github nadarei/mina"
+end
+
 task :default => :spec

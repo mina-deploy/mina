@@ -1,7 +1,8 @@
+# # Helpers: Default helpers
 module Mina
-  # Helpers
   module Helpers
 
+    # ### invoke
     # Invokes another Rake task.
     #
     # Invokes the task given in `task`. Returns nothing.
@@ -13,6 +14,7 @@ module Mina
       Rake.application.invoke_task task
     end
 
+    # ### erb
     # Evaluates an ERB block in the current scope and returns a string.
     #
     #     a = 1
@@ -31,6 +33,7 @@ module Mina
       erb.result b
     end
 
+    # ### run!
     # SSHs into the host and runs the code that has been queued.
     #
     # This is already automatically invoked before Rake exits to run all
@@ -45,6 +48,7 @@ module Mina
       report_time { ssh commands(:default) }
     end
 
+    # ### report_time
     # Report time elapsed in the block.
     # Returns the output of the block.
     def report_time(&blk)
@@ -53,6 +57,7 @@ module Mina
       output
     end
 
+    # ### measure
     # Measures the time (in ms) a block takes.
     # Returns a [time, output] tuple.
     def measure(&blk)
@@ -61,14 +66,19 @@ module Mina
       [(Time.now - t).to_i, output]
     end
 
+    # ## SSH helpers
+    # You don't need to invoke these helpers, they're already invoked automatically.
+
+    # ### ssh
     # Executes a command via SSH.
     #
     # Returns nothing usually, but if `{ return: true }` is given, returns the
     # STDOUT output of the SSH session.
     #
-    # options  - Hash of options.
-    #            :pretty  - Prettify the output.
-    #            :return  - If set to true, returns the output.
+    # `options` is a hash of options:
+    #
+    #  - `:pretty` - Prettify the output if true.
+    #  - `:return`  - If set to true, returns the output.
     #
     # Example
     #
@@ -80,7 +90,7 @@ module Mina
       require 'shellwords'
 
       result = 0
-      script = Shellwords.escape("true;"+cmd)
+      script = Shellwords.escape(cmd)
 
       if options[:return] == true
         result = `#{ssh_command} -- bash -c #{script}`
@@ -109,20 +119,7 @@ module Mina
       result
     end
 
-    # Exits with a nice looking message.
-    # Returns nothing.
-    #
-    #     die 2
-    #     die 2, "Tests failed"
-    #
-    def die(code=1, msg=null)
-      str = "Failed with status #{code}"
-      str += " (#{msg})" if msg
-      err = Failed.new(str)
-      err.exitstatus = code
-      raise err
-    end
-
+    # ### ssh_command
     # Returns the SSH command to be executed.
     #
     #     set :domain, 'foo.com'
@@ -140,6 +137,42 @@ module Mina
       "ssh #{args}"
     end
 
+    # ### mina_cleanup
+    # __Internal:__ Invoked when Rake exits.
+    #
+    # Returns nothing.
+    #
+    def mina_cleanup!
+      run! if commands.any?
+    end
+
+    # ## Errors
+
+    # ### die
+    # Exits with a nice looking message.
+    # Returns nothing.
+    #
+    #     die 2
+    #     die 2, "Tests failed"
+    #
+    def die(code=1, msg=null)
+      str = "Failed with status #{code}"
+      str += " (#{msg})" if msg
+      err = Failed.new(str)
+      err.exitstatus = code
+      raise err
+    end
+
+    # ### error
+    # __Internal:__ Prints to stdout.
+    # Consider using `print_error` instead.
+    def error(str)
+      $stderr.write "#{str}\n"
+    end
+
+    # ## Queueing
+
+    # ### queue
     # Queues code to be ran.
     #
     # This queues code to be ran to the current code bucket (defaults to `:default`).
@@ -157,30 +190,28 @@ module Mina
       commands(@to) << unindent(code)
     end
 
-    # Internal: Normalizes indentation on a given string.
+    # ### echo_cmd
+    # Converts a bash command to a command that echoes before execution.
+    # Used to show commands in verbose mode. This does nothing unless verbose mode is on.
     #
-    # Returns the normalized string without extraneous indentation.
+    # Returns a string of the compound bash command, typically in the format of
+    # `echo xx && xx`. However, if `verbose_mode?` is false, it returns the
+    # input string unharmed.
     #
-    #     puts unindent %{
-    #       Hello
-    #         There
-    #     }
-    #     # Output:
-    #     # Hello
-    #     #   There
+    #     echo_cmd("ln -nfs releases/2 current")
+    #     #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
     #
-    def unindent(code)
-      if code =~ /^\n([ \t]+)/
-        code = code.gsub(/^#{$1}/, '')
+    def echo_cmd(str)
+      if verbose_mode?
+        "echo #{Shellwords.escape("$ " + str)} &&\n#{str}"
+      else
+        str
       end
-
-      code.strip
     end
 
-    def reindent(n, code)
-      indent n, unindent(code)
-    end
+    # ## Commands
 
+    # ### commands
     # Returns an array of queued code strings.
     #
     # You may give an optional `aspect`.
@@ -204,20 +235,21 @@ module Mina
       end)[aspect]
     end
 
-    # Starts a new block where new #commands are collected.
+    # ### isolate
+    # Starts a new block where new `commands` are collected.
     #
     # Returns nothing.
     #
-    #   queue "sudo restart"
-    #   queue "true"
-    #   commands.should == ['sudo restart', 'true']
+    #     queue "sudo restart"
+    #     queue "true"
+    #     commands.should == ['sudo restart', 'true']
     #
-    #   isolate do
-    #     queue "reload"
-    #     commands.should == ['reload']
-    #   end
+    #     isolate do
+    #       queue "reload"
+    #       commands.should == ['reload']
+    #     end
     #
-    #   commands.should == ['sudo restart', 'true']
+    #     commands.should == ['sudo restart', 'true']
     #
     def isolate(&blk)
       old, @commands = @commands, nil
@@ -226,6 +258,7 @@ module Mina
       result
     end
 
+    # ### in_directory
     # Starts a new block where #commands are collected, to be executed inside `path`.
     #
     # Returns nothing.
@@ -263,6 +296,9 @@ module Mina
       @to = old
     end
 
+    # ## Settings helpers
+
+    # ### set
     # Sets settings.
     # Sets given symbol `key` to value in `value`.
     #
@@ -274,6 +310,7 @@ module Mina
       settings.send :"#{key}=", value
     end
 
+    # ### set_default
     # Sets default settings.
     # Sets given symbol `key` to value in `value` only if the key isn't set yet.
     #
@@ -291,9 +328,11 @@ module Mina
       settings.send :"#{key}=", value  unless settings.send(:"#{key}?")
     end
 
+    # ### settings
     # Accesses the settings hash.
     #
     #     set :domain, 'kickflip.me'
+    #
     #     settings.domain  #=> 'kickflip.me'
     #     domain           #=> 'kickflip.me'
     #
@@ -301,6 +340,7 @@ module Mina
       @settings ||= Settings.new
     end
 
+    # ### method_missing
     # Hook to get settings.
     # See #settings for an explanation.
     #
@@ -310,40 +350,9 @@ module Mina
       settings.send meth, *args
     end
 
-    def indent(count, str)
-      str.gsub(/^/, " "*count)
-    end
+    # ## Command line mode helpers
 
-    def error(str)
-      $stderr.write "#{str}\n"
-    end
-
-    # Converts a bash command to a command that echoes before execution.
-    # Used to show commands in verbose mode. This does nothing unless verbose mode is on.
-    #
-    # Returns a string of the compound bash command, typically in the format of
-    # `echo xx && xx`. However, if `verbose_mode?` is false, it returns the
-    # input string unharmed.
-    #
-    #     echo_cmd("ln -nfs releases/2 current")
-    #     #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
-    #
-    def echo_cmd(str)
-      if verbose_mode?
-        "echo #{Shellwords.escape("$ " + str)} &&\n#{str}"
-      else
-        str
-      end
-    end
-
-    # Internal: Invoked when Rake exits.
-    #
-    # Returns nothing.
-    #
-    def mina_cleanup!
-      run! if commands.any?
-    end
-
+    # ### verbose_mode?
     # Checks if Rake was invoked with --verbose.
     #
     # Returns true or false.
@@ -358,6 +367,7 @@ module Mina
       end
     end
 
+    # ### simulate_mode?
     # Checks if Rake was invoked with --simulate.
     #
     # Returns true or false.
@@ -365,5 +375,41 @@ module Mina
     def simulate_mode?
       !! ENV['simulate']
     end
+
+    # ## Internal helpers
+
+    # ### indent
+    # Indents a given code block with `count` spaces before it.
+    def indent(count, str)
+      str.gsub(/^/, " "*count)
+    end
+
+    # ### unindent
+    # __Internal:__ Normalizes indentation on a given string.
+    #
+    # Returns the normalized string without extraneous indentation.
+    #
+    #     puts unindent %{
+    #       Hello
+    #         There
+    #     }
+    #     # Output:
+    #     # Hello
+    #     #   There
+    #
+    def unindent(code)
+      if code =~ /^\n([ \t]+)/
+        code = code.gsub(/^#{$1}/, '')
+      end
+
+      code.strip
+    end
+
+    # ### reindent
+    # Resets the indentation on a given code block.
+    def reindent(n, code)
+      indent n, unindent(code)
+    end
+
   end
 end
