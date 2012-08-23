@@ -14,15 +14,26 @@
 #     task :deploy => :environment do
 #       ...
 #     end
+
+# ## Settings
+
+# ### rbenv_path
+# Sets the path where *rbenv* is installed.
 #
+# You may override this if rbenv is placed elsewhere in your setup.
+
 set_default :rbenv_path, "$HOME/.rbenv"
+
+# ## Tasks
+
+# ### rbenv:load
+# Loads the *rbenv* runtime.
 
 task :'rbenv:load' do
   queue %{
     echo "-----> Loading rbenv"
     #{echo_cmd %{export PATH="#{rbenv_path}/bin:$PATH"}}
 
-    # Ensure that rbenv is loaded.
     if ! which -s rbenv >/dev/null; then
       echo "! rbenv not found"
       echo "! If rbenv is installed, check your :rbenv_path setting."
