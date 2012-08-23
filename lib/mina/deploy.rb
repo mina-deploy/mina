@@ -2,6 +2,7 @@
 # This module is automatically loaded for all Mina projects.
 
 # ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
 
 set_default :releases_path, "releases"
 set_default :shared_path, "shared"

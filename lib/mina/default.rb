@@ -1,14 +1,23 @@
 # # Modules: Default
-# This module is loaded when invoking `mina` without a project.
+# This module is loaded when invoking `mina` with or without a project.
 
 set_default :bash_options, '-i'
 
-# Make the :environment task exist by default. This is meant to be overridden
+# ## Tasks
+# Any and all of these settings can be overriden in your `deploy.rb`.
+
+# ### environment
+# Make the `:environment` task exist by default. This is meant to be overridden
 # by users.
+
 task :environment do
 end
 
-# Default tasks here
+# ### init
+# Initializes a new Mina project.
+#
+#     $ mina init
+
 desc "Creates a sample config file."
 task :init => :environment do
   name = Rake.application.name
@@ -71,6 +80,9 @@ end
 
 extend HelpHelpers
 
+# ### help
+# Shows the help screen.
+
 desc "Show help."
 task :help do
   name = Rake.application.name
@@ -100,6 +112,11 @@ task :help do
   puts "All of Rake's options are also available as '#{name}' options. See 'rake --help'"
   puts "for more information."
 end
+
+# ### tasks
+# Display all tasks in a nice table.
+#
+#     $ mina tasks
 
 desc "Show all tasks."
 task :tasks do

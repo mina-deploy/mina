@@ -4,6 +4,7 @@
 #     require 'mina/bundler'
 
 # ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### bundle_bin
 # Sets the bundle path.
@@ -23,10 +24,12 @@ set_default :bundle_path, './vendor/bundle'
 
 set_default :bundle_options, lambda { %{--without development:test --path "#{bundle_path}" --binstubs bin/ --deployment} }
 
-# ## Tasks
+# ## Deploy tasks
+# These tasks are meant to be invoked inside deploy scripts, not invoked on
+# their own.
 
 namespace :bundle do
-  # ## bundle:install
+  # ### bundle:install
   # Installs gems.
   desc "Install gem dependencies using Bundler."
   task :install do

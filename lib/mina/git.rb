@@ -4,13 +4,17 @@
 #     require 'mina/git'
 
 # ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### branch
 # Sets the branch to be deployed.
+
 set_default :branch, "master"
 
 namespace :git do
-  # ## Tasks
+  # ## Deploy tasks
+  # These tasks are meant to be invoked inside deploy scripts, not invoked on
+  # their own.
 
   # ### git:clone
   # Clones the Git repository. Meant to be used inside a deploy script.

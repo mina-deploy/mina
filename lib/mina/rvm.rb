@@ -16,6 +16,7 @@
 #     end
 
 # ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### rvm_path
 # Sets the path to RVM.
