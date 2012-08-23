@@ -1,9 +1,33 @@
+# # Modules: Bundler
+# Adds settings and tasks for managing Ruby Bundler.
+#
+#     require 'mina/bundler'
 
-settings.bundle_bin ||= 'bundle'
-settings.bundle_path ||= './vendor/bundle'
-settings.bundle_options ||= lambda { %{--without development:test --path "#{bundle_path}" --binstubs bin/ --deployment} }
+# ## Settings
+
+# ### bundle_bin
+# Sets the bundle path.
+
+set_default :bundle_bin, 'bundle'
+
+# ### bundle_path
+# Sets the path to where the gems are expected to be.
+#
+# This path will be symlinked to `./shared/bundle` so that the gems cache will
+# be shared between all releases.
+
+set_default :bundle_path, './vendor/bundle'
+
+# ### bundle_options
+# Sets the options for installing gems via Bundler.
+
+set_default :bundle_options, lambda { %{--without development:test --path "#{bundle_path}" --binstubs bin/ --deployment} }
+
+# ## Tasks
 
 namespace :bundle do
+  # ## bundle:install
+  # Installs gems.
   desc "Install gem dependencies using Bundler."
   task :install do
     queue %{

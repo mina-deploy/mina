@@ -1,11 +1,33 @@
+# # Modules: Rails
+# Adds settings and tasks for managing Rails projects.
+#
+#     require 'mina/rails'
+
 require 'mina/bundler'
 
+# ## Settings
+
+# ### rails_env
+# Sets the Rails environment for `rake` and `rails` commands.
+#
+# Note that changing this will NOT change the environment that your application
+# is ran in.
 settings.rails_env ||= 'production'
+
+# ### bundle_prefix
+# Prefix for Bundler commands.
 # TODO: This should be lambda
+
 settings.bundle_prefix ||= lambda { %{RAILS_ENV="#{rails_env}" #{bundle_bin} exec} }
+
 settings.rake ||= lambda { %{#{bundle_prefix} rake} }
+
 settings.rails ||= lambda { %{#{bundle_prefix} rails} }
+
+# ### asset_paths
+# The paths to be checked.
 settings.asset_paths ||= ['vendor/assets/', 'app/assets/']
+
 settings.rake_assets_precompile ||= lambda { "#{rake} assets:precompile RAILS_GROUPS=assets" }
 
 # Macro used later by :rails, :rake, etc

@@ -1,3 +1,6 @@
+# # Modules: Default
+# This module is loaded when invoking `mina` without a project.
+
 set_default :bash_options, '-i'
 
 # Make the :environment task exist by default. This is meant to be overridden

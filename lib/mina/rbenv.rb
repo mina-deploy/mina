@@ -1,4 +1,11 @@
-# Common usage:
+# # Modules: rbenv
+# Adds settings and tasks for managing [rbenv] installations.
+#
+# [rbenv]: https://github.com/sstephenson/rbenv
+#
+#     require 'mina/rbenv'
+#
+# ## Common usage
 #
 #     task :environment do
 #       invoke :'rbenv:load'

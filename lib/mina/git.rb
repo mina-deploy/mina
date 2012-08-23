@@ -1,6 +1,19 @@
-settings.branch ||= "master"
+# # Modules: Git
+# Adds settings and tasks related to managing Git.
+#
+#     require 'mina/git'
+
+# ## Settings
+
+# ### branch
+# Sets the branch to be deployed.
+set_default :branch, "master"
 
 namespace :git do
+  # ## Tasks
+
+  # ### git:clone
+  # Clones the Git repository. Meant to be used inside a deploy script.
   desc "Clones the Git repository to the release path."
   task :clone do
     if revision?
