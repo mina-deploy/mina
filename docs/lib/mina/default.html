@@ -41,21 +41,19 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>This module is loaded when invoking <code>mina</code> without a project.</p>            </td>
+              <p>This module is loaded when invoking <code>mina</code> with or without a project.</p>            </td>
             <td class="code">
               <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:bash_options</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="section-2" class="">
+          <tr id="Tasks" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#Tasks">&#182;</a>
               </div>
-              <p>Make the :environment task exist by default. This is meant to be overridden
-by users.</p>            </td>
+              <h2>Tasks</h2>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">task</span> <span class="ss">:environment</span> <span class="k">do</span>
-<span class="k">end</span></pre></div>            </td>
+                          </td>
           </tr>
                                       
           <tr id="section-3" class="">
@@ -63,7 +61,52 @@ by users.</p>            </td>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Default tasks here</p>            </td>
+              <p>Any and all of these settings can be overriden in your <code>deploy.rb</code>.</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="environment" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#environment">&#182;</a>
+              </div>
+              <h3>environment</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-5" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Make the <code>:environment</code> task exist by default. This is meant to be overridden
+by users.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">task</span> <span class="ss">:environment</span> <span class="k">do</span>
+<span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="init" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#init">&#182;</a>
+              </div>
+              <h3>init</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-7" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Initializes a new Mina project.</p>
+
+<pre><code>$ mina init
+</code></pre>            </td>
             <td class="code">
               <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Creates a sample config file.&quot;</span>
 <span class="n">task</span> <span class="ss">:init</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
@@ -125,9 +168,27 @@ by users.</p>            </td>
   <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="kp">extend</span> <span class="no">HelpHelpers</span>
-
-<span class="n">desc</span> <span class="s2">&quot;Show help.&quot;</span>
+<span class="kp">extend</span> <span class="no">HelpHelpers</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="help" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#help">&#182;</a>
+              </div>
+              <h3>help</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-9" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Shows the help screen.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Show help.&quot;</span>
 <span class="n">task</span> <span class="ss">:help</span> <span class="k">do</span>
   <span class="nb">name</span> <span class="o">=</span> <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">name</span>
 
@@ -155,9 +216,30 @@ by users.</p>            </td>
   <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
   <span class="nb">puts</span> <span class="s2">&quot;All of Rake&#39;s options are also available as &#39;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&#39; options. See &#39;rake --help&#39;&quot;</span>
   <span class="nb">puts</span> <span class="s2">&quot;for more information.&quot;</span>
-<span class="k">end</span>
+<span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="tasks" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#tasks">&#182;</a>
+              </div>
+              <h3>tasks</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-11" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Display all tasks in a nice table.</p>
 
-<span class="n">desc</span> <span class="s2">&quot;Show all tasks.&quot;</span>
+<pre><code>$ mina tasks
+</code></pre>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Show all tasks.&quot;</span>
 <span class="n">task</span> <span class="ss">:tasks</span> <span class="k">do</span>
   <span class="n">show_task_help</span> <span class="ss">:full</span> <span class="o">=&gt;</span> <span class="kp">true</span>
 <span class="k">end</span>
@@ -199,6 +281,28 @@ by users.</p>            </td>
                         
             <li class='page level-0'>
               <a href='#'>Default</a>
+                              <ul>
+                                                                              <li class='heading level-2'>
+                      <a href="#Tasks">
+                        Tasks                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#environment">
+                        environment                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#init">
+                        init                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#help">
+                        help                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#tasks">
+                        tasks                      </a>
+                    </li>
+                                  </ul>
                           </li>
           </ul>
 
