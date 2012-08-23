@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RVM</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../style.css" />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+</head>
+<body>
+  <div id="area">
+    <div class='file-header'>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/rvm.rb">
+          <strong title='lib/mina/rvm.rb'>rvm.rb</strong>
+          <small>View source</small>
+        </a>
+          </div>
+
+    <table cellpadding="0" cellspacing="0" class="extension-rb">
+      <thead>
+        <tr>
+          <th class="docs">
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+                                      
+          <tr id="Modules-RVM" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Modules-RVM">&#182;</a>
+              </div>
+              <h1>Modules: RVM</h1>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-1" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Adds settings and tasks for managing <a href="http://rvm.io">RVM</a> installations.</p>
+
+<pre><code>require 'mina/rvm'
+</code></pre>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Common-usage" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Common-usage">&#182;</a>
+              </div>
+              <h2>Common usage</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-3" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <pre><code>task :environment do
+  invoke :'rvm:use[ruby-1.9.3-p125@gemset_name]'
+end
+
+task :deploy =&gt; :environment do
+  ...
+end
+</code></pre>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Settings" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Settings">&#182;</a>
+              </div>
+              <h2>Settings</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="rvm-path" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#rvm-path">&#182;</a>
+              </div>
+              <h3>rvm_path</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-6" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Sets the path to RVM.</p>
+
+<p>You can override this in your projects if RVM is installed in a different
+path, say, if you have a system-wide RVM install.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:rvm_path</span><span class="p">,</span> <span class="s2">&quot;$HOME/.rvm/scripts/rvm&quot;</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="Tasks" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Tasks">&#182;</a>
+              </div>
+              <h2>Tasks</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="rvm-use" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#rvm-use">&#182;</a>
+              </div>
+              <h3>rvm:use[]</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-9" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Uses a given RVM environment provided as an argument.</p>
+
+<p>This is usually placed in the <code>:environment</code> task.</p>
+
+<pre><code>task :environment do
+  invoke :'rvm:use[ruby-1.9.3-p125@gemset_name]'
+end
+</code></pre>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">task</span> <span class="ss">:&#39;rvm:use&#39;</span><span class="p">,</span> <span class="ss">:env</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
+  <span class="k">unless</span> <span class="n">args</span><span class="o">[</span><span class="ss">:env</span><span class="o">]</span>
+    <span class="n">print_error</span> <span class="s2">&quot;Task &#39;rvm:use&#39; needs an RVM environment name as an argument.&quot;</span>
+    <span class="n">print_error</span> <span class="s2">&quot;Example: invoke :&#39;rvm:use[ruby-1.9.2@default]&#39;&quot;</span>
+    <span class="n">die</span>
+  <span class="k">end</span>
+
+  <span class="n">queue</span> <span class="sx">%{</span>
+<span class="sx">    echo &quot;-----&gt; Using RVM environment &#39;</span><span class="si">#{</span><span class="n">args</span><span class="o">[</span><span class="ss">:env</span><span class="o">]</span><span class="si">}</span><span class="sx">&#39;&quot;</span>
+<span class="sx">    if [[ ! -s &quot;</span><span class="si">#{</span><span class="n">rvm_path</span><span class="si">}</span><span class="sx">&quot; ]]; then</span>
+<span class="sx">      echo &quot;! Ruby Version Manager not found&quot;</span>
+<span class="sx">      echo &quot;! If RVM is installed, check your :rvm_path setting.&quot;</span>
+<span class="sx">      exit 1</span>
+<span class="sx">    fi</span>
+
+<span class="sx">    source </span><span class="si">#{</span><span class="n">rvm_path</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">    </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{rvm use &quot;</span><span class="si">#{</span><span class="n">args</span><span class="o">[</span><span class="ss">:env</span><span class="o">]</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> || exit 1</span>
+<span class="sx">  }</span>
+<span class="k">end</span>
+
+</pre></div>            </td>
+          </tr>
+              </tbody>
+    </table>
+
+    
+  </div>
+
+  <div id="sidebar">
+    <div class='header search'>
+      <input type='text' name='search' id='search-box' placeholder='Search...' />
+    </div>
+
+    <div class='header tabs'>
+      <button class='active' data-tab='pages'>Pages</button>
+      <button data-tab='files'>Files</button>
+    </div>
+
+    <div class='scroll-area'>
+      <!-- .multipage here means there will be a sidebar of many pages. -->
+      <div class='list pages multipage'>
+                  
+          <!-- Breadcrumbs -->
+                                  <ul class='breadcrumbs'>
+                              
+                <li class='page back'>
+                                  <a href='../../index.html'>Welcome to Mina</a>
+                                              
+                <li class='page back'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                                          </ul>
+          
+          <!-- The page and its headings -->
+          <ul class='current-page'>
+                        
+            <li class='page level-0'>
+              <a href='#'>RVM</a>
+                              <ul>
+                                                                              <li class='heading level-2'>
+                      <a href="#Common-usage">
+                        Common usage                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#Settings">
+                        Settings                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#rvm-path">
+                        rvm_path                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#Tasks">
+                        Tasks                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#rvm-use">
+                        rvm:use[]                      </a>
+                    </li>
+                                  </ul>
+                          </li>
+          </ul>
+
+          <ul class='reference'>
+
+            <!-- The reference page -->
+                          <li class='page has-children level-0'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                              </li>
+            
+            <!-- Subpages of the ref -->
+                                                                                                                      
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/bundler.html' class=''>Bundler</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/default.html' class=''>Default</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/deploy.html' class=''>Deployment</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/git.html' class=''>Git</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rails.html' class=''>Rails</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rbenv.html' class=''>rbenv</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rvm.html' class='active'>RVM</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/whenever.html' class=''>Whenever</a>
+                  
+                                                    </li>
+                          
+          </ul>
+              </div>
+
+      <div class='list files hidden'>
+        
+        <ul>
+                  <li class='level-1'>
+                                                    <a href='../../HISTORY.html#f' class='item file '>
+                <i></i>
+                HISTORY.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <a href='../../index.html#f' class='item file '>
+                <i></i>
+                index.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                lib              </button>
+              <ul class=''>
+                          <li class='level-2'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                mina              </button>
+              <ul class=''>
+                          <li class='level-3'>
+                                                    <a href='../../lib/mina/bundler.html#f' class='item file '>
+                <i></i>
+                bundler.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/default.html#f' class='item file '>
+                <i></i>
+                default.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy.html#f' class='item file '>
+                <i></i>
+                deploy.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy_helpers.html#f' class='item file '>
+                <i></i>
+                deploy_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/git.html#f' class='item file '>
+                <i></i>
+                git.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/helpers.html#f' class='item file '>
+                <i></i>
+                helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
+                <i></i>
+                output_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rails.html#f' class='item file '>
+                <i></i>
+                rails.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rake.html#f' class='item file '>
+                <i></i>
+                rake.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rbenv.html#f' class='item file '>
+                <i></i>
+                rbenv.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rvm.html#f' class='item file active'>
+                <i></i>
+                rvm.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/settings.html#f' class='item file '>
+                <i></i>
+                settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/tools.html#f' class='item file '>
+                <i></i>
+                tools.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/version.html#f' class='item file '>
+                <i></i>
+                version.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/whenever.html#f' class='item file '>
+                <i></i>
+                whenever.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                                    <li class='level-2'>
+                                                    <a href='../../lib/mina.html#f' class='item file '>
+                <i></i>
+                mina.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                manual              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <a href='../../manual/modules.html#f' class='item file '>
+                <i></i>
+                modules.md              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                  </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src='../../script.js'></script>
+</body>
+</html>

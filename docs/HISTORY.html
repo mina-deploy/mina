@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Changelog</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="style.css" />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+</head>
+<body>
+  <div id="area">
+    <div class='file-header'>
+              <a href="https://github.com/nadarei/mina/blob/master/HISTORY.md">
+          <strong title='HISTORY.md'>HISTORY.md</strong>
+          <small>View source</small>
+        </a>
+          </div>
+
+    <table cellpadding="0" cellspacing="0" class="extension-md">
+      <thead>
+        <tr>
+          <th class="docs">
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+                                      
+          <tr id="Info-Changelog" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Info-Changelog">&#182;</a>
+              </div>
+              <h1>Info: Changelog</h1>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-2-0-Unreleased" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-2-0-Unreleased">&#182;</a>
+              </div>
+              <h2>v0.2.0 - Unreleased</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-2" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This release had two pre releases:</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-3" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <ul>
+<li>v0.2.0.pre2 (Aug 2, 2012)</li>
+<li>v0.1.3.pre1 (Jul 13, 2012)</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Fixed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Fixed">&#182;</a>
+              </div>
+              <h3>Fixed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-5" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <ul>
+<li>[pre2] Call ssh with no double use <code>-t</code> parameter.</li>
+<li>[pre2] Fix Ruby 1.8 compatibility.</li>
+<li>[pre2] Fix the "undefined method > for Process::Status" error.</li>
+<li>[pre2] Using <code>force_migrate=1</code> and <code>force_assets=1</code> to <code>rails:db_migrate</code>
+and <code>rails:assets_precompile</code> now works well.</li>
+<li>[pre1] Respect the <code>bundle_bin</code> setting when doing <code>bundle exec</code> in Rails commands. (#29)</li>
+<li>[pre1] Doing <code>rails:assets_precompile</code> now properly skips asset compilation if not needed. (#25)</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-7" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <ul>
+<li>[pre2] <strong>Optimize git:clone by caching the repository.</strong> This way, updates are
+faster because not the entire repo is cloned everytime. (#10)</li>
+<li>[pre2] <strong>Show elapsed time that a deploy takes.</strong></li>
+<li>[pre2] <strong>Display the git commit nicely when deploying.</strong></li>
+<li>[pre2] <strong>Force quit when 2 <code>^C</code>s are pressed.</strong></li>
+<li>[pre2] New <code>die</code> helper.</li>
+<li>[pre2] New <code>report_time</code> helper.</li>
+<li>[pre2] New <code>to_directory</code> helper. (#35)</li>
+<li>[pre2] Put optional optimizations for Rails 3.2 asset pipeline. (#32)</li>
+<li>Update sample deploy script:
+<ul><li>[pre2] Update default deploy.rb to note :branch.</li>
+<li>[pre2] Add <code>link_shared_paths</code> to the sample deploy script.</li></ul></li>
+<li>[pre1] Doing <code>rails:db_migrate</code> now skips doing migrations if they're not needed. (#18)</li>
+<li>[pre1] Added the <code>mina console</code> command for Rails.</li>
+<li>[pre1] Make asset paths configurable using the <code>asset_paths</code> setting.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-9" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <ul>
+<li>[pre2] <strong>Improve output of <code>mina init</code>.</strong></li>
+<li>[pre2] Prettier output for <code>mina setup</code>. Also, show a better error message for it.</li>
+<li>[pre1] Refactor pretty printing to be simpler, cleaner, and extensible.</li>
+<li>[pre1] Show prettier abort messages when ^C'd.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-1-2-Jul-06-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-1-2-Jul-06-2012">&#182;</a>
+              </div>
+              <h2>v0.1.2 - Jul 06, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-11" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>This release had two prereleases: v0.1.2.pre1 and v0.1.2.pre2.</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Fixed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Fixed">&#182;</a>
+              </div>
+              <h3>Fixed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-13" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <ul>
+<li><strong>Show stdout output properly on deploy.</strong></li>
+<li>'mina rake' now works.</li>
+<li>[.pre2] <strong>Fix <code>deploy:link_shared_paths</code> to use absolute paths.</strong></li>
+<li>[.pre2] Fix console logs for task init.</li>
+<li>[.pre1] <strong>Fixed JRuby support.</strong></li>
+<li>[.pre1] <strong>Respect .bashrc.</strong> (#5)</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-15" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <ul>
+<li>[.pre2] Add <code>:bundle_bin</code> option.</li>
+<li>[.pre2] Add <code>:ssh</code> port option.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed-v0-1-2" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed-v0-1-2">&#182;</a>
+              </div>
+              <h3>Changed: (v0.1.2)</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-17" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <ul>
+<li>Refactor pretty printing to be simpler, cleaner, and extensible.</li>
+<li>Show prettier abort messages when ^C'd.</li>
+<li>Use the new error message format. (See lib/mina/output_helpers.rb)</li>
+<li>[.pre1] Implement <code>ssh("..", return: true)</code>.</li>
+<li>[.pre1] Rename <code>simulate_mode</code> to <code>simulate_mode?</code>. Same with <code>verbose_mode?</code>.</li>
+<li>[.pre1] Show the SSH command in the simulation output.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-1-1-Jun-07-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-1-1-Jun-07-2012">&#182;</a>
+              </div>
+              <h2>v0.1.1 - Jun 07, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-20" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <ul>
+<li>Check for releases_path directory in deploy script.</li>
+<li>mina deploy:cleanup</li>
+<li>Support for -f option.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-22" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <ul>
+<li>Gem description.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Fixed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Fixed">&#182;</a>
+              </div>
+              <h3>Fixed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-24" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <ul>
+<li>deploy.rb template (domain, user, git:clone).</li>
+<li>Handle empty Git repository.</li>
+<li>Add pkg to gitignore.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-1-0-Jun-06-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-1-0-Jun-06-2012">&#182;</a>
+              </div>
+              <h2>v0.1.0 - Jun 06, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-26" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Renamed to Mina from Van Helsing.</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre7-Jun-06-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre7-Jun-06-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre7 - Jun 06, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-29" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <ul>
+<li><strong><code>vh rails[command]</code> and <code>vh rake[command]</code> tasks.</strong></li>
+<li><strong>Add <code>vh run</code>.</strong></li>
+<li><code>-S</code> as an alias for <code>--simulate</code>.</li>
+<li>the <code>#set_default</code> helper.</li>
+<li>the <code>bundle_prefix</code> setting.</li>
+<li>New <code>term_mode</code> setting.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-31" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <ul>
+<li><code>--simulate</code> show things without the <code>ssh</code> command or shellescaping.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre6-Jun-06-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre6-Jun-06-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre6 - Jun 06, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-33" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Thanks to @sosedoff for his contributions that made it to this release.</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-35" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <ul>
+<li><strong>Rubinius support.</strong></li>
+<li><strong>Ruby 1.8 support.</strong></li>
+<li>Prelimenary JRuby support.</li>
+<li>MIT license.</li>
+<li>Highlight errors as red in deploy.</li>
+<li>Use popen4 instead of popen3. Support JRuby via IO.popen4.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-37" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <ul>
+<li><strong>Rename <code>to :restart</code> to <code>to :launch</code>.</strong></li>
+<li><strong>Make deploys fail if renaming the build (eg, not setup properly) fails.</strong></li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Tests" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Tests">&#182;</a>
+              </div>
+              <h3>Tests:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-39" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <ul>
+<li>Added <code>rake spec</code> (aliased as just <code>rake</code>) task. It tests with Rake 0.8 and 0.9 both.</li>
+<li>Integrate with <a href="http://travis-ci.org">Travis CI</a>.</li>
+<li>Make the SSH test more portable.</li>
+<li>Removed <code>rake spec:verbose</code>.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre5-Jun-05-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre5-Jun-05-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre5 - Jun 05, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-42" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <ul>
+<li>Add <code>--trace</code> to the <code>vh help</code> screen.</li>
+<li>Rake 0.8 compatibility.</li>
+<li>Ruby 1.8.7 compatibility.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-44" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <ul>
+<li>Use <code>:domain</code> instead of <code>:host</code>.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Misc" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Misc">&#182;</a>
+              </div>
+              <h3>Misc:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-46" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <ul>
+<li>Allow rake 0.8 testing using <code>rake=0.8 rspec</code>.</li>
+<li>Add more README examples.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre4-Jun-05-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre4-Jun-05-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre4 - Jun 05, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-49" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <ul>
+<li><code>--simulate</code> switch.</li>
+<li><code>--verbose</code> switch.</li>
+<li>The help screen now shows command line switches (like <code>--verbose</code>).</li>
+<li>Build in <code>tmp/</code> instead of in <code>releases/</code>.</li>
+<li>Use <code>verbose_mode</code> and <code>simulate_mode</code> instead. Using 'verbose' causes
+problems.</li>
+<li>New <code>#deploy_script</code> helper, to make things more transparent.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Misc" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Misc">&#182;</a>
+              </div>
+              <h3>Misc:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-51" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <ul>
+<li>Added a test for an actual deployment.</li>
+<li>Make the <code>test_env</code> runnable even without a net connection.</li>
+<li>New tests for actual deployment. Just do <code>rspec -t ssh</code>.</li>
+<li>Cleanup <code>git:clone</code> code.</li>
+<li>A buncha code cleanups.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre3-Jun-04-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre3-Jun-04-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre3 - Jun 04, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-54" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-54">&#182;</a>
+              </div>
+              <ul>
+<li>A help screen. You can see it with <code>vh --help</code>, <code>vh -h</code> or just plain <code>vh</code>.</li>
+<li>Implemented <code>vh --version</code>.</li>
+<li>Sequential release versions. Yay!</li>
+<li>Added the <code>build_path</code> setting, which supercedes the now-removed <code>release_path</code>.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Removed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Removed">&#182;</a>
+              </div>
+              <h3>Removed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-56" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-56">&#182;</a>
+              </div>
+              <ul>
+<li><code>release_path</code> has been deprecated.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Fixed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Fixed">&#182;</a>
+              </div>
+              <h3>Fixed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-58" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-58">&#182;</a>
+              </div>
+              <ul>
+<li>Stupid critical bug fix: fix <code>vh:setup</code> giving the world access to deploy_to.</li>
+<li>Ensure that SSH stderr output is shown properly.</li>
+<li>Make <code>#invoke</code> work with tasks with arguments (eg, :'site:scrape[ensogo]')</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-60" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-60">&#182;</a>
+              </div>
+              <ul>
+<li>Edit the default deploy.rb to have a description for the deploy task.</li>
+<li>Make <code>vh -T</code> show <code>vh</code> instead of <code>rake</code>.</li>
+<li>Make <code>vh setup</code> ensure ownership of the <code>deploy_to</code> path.</li>
+<li>Make deploy steps more explicit by echoing more statuses.</li>
+<li>When deploys fail, you now don't see the default Ruby backtrace. It now
+behaves like Rake where you need to add <code>--trace</code> to see the trace.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Misc" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Misc">&#182;</a>
+              </div>
+              <h3>Misc:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-62" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-62">&#182;</a>
+              </div>
+              <ul>
+<li>Fixed the error that sometimes happens when invoking <code>vh</code> without a deploy.rb.</li>
+<li>Update the sample deploy.rb file to be more readable.</li>
+<li>The <em>test_env/</em> project can now be deployed without problems, so you can try
+things out.</li>
+<li>Lots of new tests.</li>
+<li>rspec test order is now randomized.</li>
+<li>rspec output is colored (thanks to .rspec).</li>
+<li>Better script indentation when running in simulation mode.</li>
+<li>In symlinking <code>./current/</code>, use <code>ln -nfs</code> instead of <code>rm -f &amp;&amp; ln -s</code>.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre2-Jun-03-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre2-Jun-03-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre2 - Jun 03, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Added" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Added">&#182;</a>
+              </div>
+              <h3>Added:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-65" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-65">&#182;</a>
+              </div>
+              <ul>
+<li>Implement <code>vh init</code> which creates a sample <em>deploy.rb</em>.</li>
+<li>Implement 'vh setup'.</li>
+<li>Added the configurable <code>:releases_path</code> setting, so you may change where to keep releases.</li>
+<li>Added documentation via Reacco.</li>
+<li>Allow settings to throw errors on missing settings by adding a bang (e.g.,
+<code>bundle_path!</code> or <code>settings.bundle_path!</code>)</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Changed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Changed">&#182;</a>
+              </div>
+              <h3>Changed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-67" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-67">&#182;</a>
+              </div>
+              <ul>
+<li>Allow <code>bundle:install</code> to skip having shared bundle paths if <code>:bundle_path</code> is set to nil.</li>
+<li>Rename <code>force_unlock</code> to <code>deploy:force_unlock</code>.</li>
+<li>Rename <code>vh:link_shared_paths</code> to <code>deploy:link_shared_paths</code>.</li>
+<li>Invoking <code>deploy:force_unlock</code> now shows the command it uses.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Fixed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Fixed">&#182;</a>
+              </div>
+              <h3>Fixed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-69" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-69">&#182;</a>
+              </div>
+              <ul>
+<li>The <code>bundle:install</code> task now honors the <code>bundle_path</code> setting.</li>
+<li>Fixed <code>deploy:force_unlock</code> always throwing an error.</li>
+<li>The <code>deploy:force_unlock</code> task now honors the <code>lock_file</code>
+setting, so the user may change the location of the lock file.</li>
+<li>Fixed <code>rails:assets_precompile</code> not compiling if no older assets found.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Removed" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Removed">&#182;</a>
+              </div>
+              <h3>Removed:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-71" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-71">&#182;</a>
+              </div>
+              <ul>
+<li>Deprecate <code>#validate_set</code>.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Other-things" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Other-things">&#182;</a>
+              </div>
+              <h3>Other things:</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-73" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-73">&#182;</a>
+              </div>
+              <ul>
+<li>Move deploy settings to deploy.rb.</li>
+<li>Rename the <code>default</code> addon to <code>deploy</code>.</li>
+</ul>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="v0-0-1-pre1-Jun-02-2012" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#v0-0-1-pre1-Jun-02-2012">&#182;</a>
+              </div>
+              <h2>v0.0.1.pre1 - Jun 02, 2012</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-75" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-75">&#182;</a>
+              </div>
+              <p>Initial version.</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+              </tbody>
+    </table>
+
+    
+  </div>
+
+  <div id="sidebar">
+    <div class='header search'>
+      <input type='text' name='search' id='search-box' placeholder='Search...' />
+    </div>
+
+    <div class='header tabs'>
+      <button class='active' data-tab='pages'>Pages</button>
+      <button data-tab='files'>Files</button>
+    </div>
+
+    <div class='scroll-area'>
+      <!-- .multipage here means there will be a sidebar of many pages. -->
+      <div class='list pages multipage'>
+                  
+          <!-- Breadcrumbs -->
+                                  <ul class='breadcrumbs'>
+                              
+                <li class='page back'>
+                                  <a href='index.html'>Welcome to Mina</a>
+                                              
+                <li class='page back'>
+                                  <span class='a'>Info</span>
+                                          </ul>
+          
+          <!-- The page and its headings -->
+          <ul class='current-page'>
+                        
+            <li class='page level-0'>
+              <a href='#'>Changelog</a>
+                              <ul>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-2-0-Unreleased">
+                        v0.2.0 - Unreleased                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Fixed">
+                        Fixed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-1-2-Jul-06-2012">
+                        v0.1.2 - Jul 06, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Fixed">
+                        Fixed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed-v0-1-2">
+                        Changed: (v0.1.2)                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-1-1-Jun-07-2012">
+                        v0.1.1 - Jun 07, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Fixed">
+                        Fixed:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-1-0-Jun-06-2012">
+                        v0.1.0 - Jun 06, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre7-Jun-06-2012">
+                        v0.0.1.pre7 - Jun 06, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre6-Jun-06-2012">
+                        v0.0.1.pre6 - Jun 06, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Tests">
+                        Tests:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre5-Jun-05-2012">
+                        v0.0.1.pre5 - Jun 05, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Misc">
+                        Misc:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre4-Jun-05-2012">
+                        v0.0.1.pre4 - Jun 05, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Misc">
+                        Misc:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre3-Jun-04-2012">
+                        v0.0.1.pre3 - Jun 04, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Removed">
+                        Removed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Fixed">
+                        Fixed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Misc">
+                        Misc:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre2-Jun-03-2012">
+                        v0.0.1.pre2 - Jun 03, 2012                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Added">
+                        Added:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Changed">
+                        Changed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Fixed">
+                        Fixed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Removed">
+                        Removed:                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#Other-things">
+                        Other things:                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#v0-0-1-pre1-Jun-02-2012">
+                        v0.0.1.pre1 - Jun 02, 2012                      </a>
+                    </li>
+                                  </ul>
+                          </li>
+          </ul>
+
+          <ul class='reference'>
+
+            <!-- The reference page -->
+                          <li class='page has-children level-0'>
+                                  <span class='a'>Info</span>
+                              </li>
+            
+            <!-- Subpages of the ref -->
+                                                                                                                      
+                <li class='page  level-1'>
+
+                                                        <a href='HISTORY.html' class='active'>Changelog</a>
+                  
+                                                    </li>
+                          
+          </ul>
+              </div>
+
+      <div class='list files hidden'>
+        
+        <ul>
+                  <li class='level-1'>
+                                                    <a href='HISTORY.html#f' class='item file active'>
+                <i></i>
+                HISTORY.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <a href='index.html#f' class='item file '>
+                <i></i>
+                index.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                lib              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <button class='item folder '>
+                <i></i>
+                mina              </button>
+              <ul class='hidden'>
+                          <li class='level-3'>
+                                                    <a href='lib/mina/bundler.html#f' class='item file '>
+                <i></i>
+                bundler.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/default.html#f' class='item file '>
+                <i></i>
+                default.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/deploy.html#f' class='item file '>
+                <i></i>
+                deploy.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/deploy_helpers.html#f' class='item file '>
+                <i></i>
+                deploy_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/git.html#f' class='item file '>
+                <i></i>
+                git.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/helpers.html#f' class='item file '>
+                <i></i>
+                helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/output_helpers.html#f' class='item file '>
+                <i></i>
+                output_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/rails.html#f' class='item file '>
+                <i></i>
+                rails.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/rake.html#f' class='item file '>
+                <i></i>
+                rake.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/rbenv.html#f' class='item file '>
+                <i></i>
+                rbenv.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/rvm.html#f' class='item file '>
+                <i></i>
+                rvm.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/settings.html#f' class='item file '>
+                <i></i>
+                settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/tools.html#f' class='item file '>
+                <i></i>
+                tools.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/version.html#f' class='item file '>
+                <i></i>
+                version.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='lib/mina/whenever.html#f' class='item file '>
+                <i></i>
+                whenever.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                                    <li class='level-2'>
+                                                    <a href='lib/mina.html#f' class='item file '>
+                <i></i>
+                mina.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                manual              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <a href='manual/modules.html#f' class='item file '>
+                <i></i>
+                modules.md              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                  </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src='script.js'></script>
+</body>
+</html>

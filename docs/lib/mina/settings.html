@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>settings.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../style.css" />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+</head>
+<body>
+  <div id="area">
+    <div class='file-header'>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/settings.rb">
+          <strong title='lib/mina/settings.rb'>settings.rb</strong>
+          <small>View source</small>
+        </a>
+          </div>
+
+    <table cellpadding="0" cellspacing="0" class="extension-rb">
+      <thead>
+        <tr>
+          <th class="docs">
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+                                      
+          <tr id="section-0" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-0">&#182;</a>
+              </div>
+                          </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="k">module</span> <span class="nn">Mina</span>
+  <span class="k">class</span> <span class="nc">Settings</span> <span class="o">&lt;</span> <span class="no">Hash</span>
+    <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="n">meth</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">blk</span><span class="p">)</span>
+      <span class="nb">name</span> <span class="o">=</span> <span class="n">meth</span><span class="o">.</span><span class="n">to_s</span>
+
+      <span class="k">return</span> <span class="n">evaluate</span><span class="p">(</span><span class="nb">self</span><span class="o">[</span><span class="n">meth</span><span class="o">]</span><span class="p">)</span>  <span class="k">if</span> <span class="nb">name</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-1" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Ruby 1.8.7 doesn't let you do string[-1]</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>      <span class="n">key</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="nb">name</span><span class="o">[</span><span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">2</span><span class="o">].</span><span class="n">to_sym</span><span class="p">,</span> <span class="nb">name</span><span class="o">[-</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span>
+
+      <span class="k">case</span> <span class="n">suffix</span>
+      <span class="k">when</span> <span class="s1">&#39;=&#39;</span>
+        <span class="nb">self</span><span class="o">[</span><span class="n">key</span><span class="o">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">first</span>
+      <span class="k">when</span> <span class="s1">&#39;?&#39;</span>
+        <span class="kp">include</span><span class="p">?</span> <span class="n">key</span>
+      <span class="k">when</span> <span class="s1">&#39;!&#39;</span>
+        <span class="k">raise</span> <span class="no">Error</span><span class="p">,</span> <span class="s2">&quot;Setting :</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2"> is not set&quot;</span> <span class="k">unless</span> <span class="kp">include</span><span class="p">?(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">evaluate</span> <span class="nb">self</span><span class="o">[</span><span class="n">key</span><span class="o">]</span>
+      <span class="k">else</span>
+        <span class="n">evaluate</span> <span class="nb">self</span><span class="o">[</span><span class="n">meth</span><span class="o">]</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Proc</span><span class="p">)</span>
+        <span class="n">value</span><span class="o">.</span><span class="n">call</span>
+      <span class="k">else</span>
+        <span class="n">value</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</pre></div>            </td>
+          </tr>
+              </tbody>
+    </table>
+
+    
+  </div>
+
+  <div id="sidebar">
+    <div class='header search'>
+      <input type='text' name='search' id='search-box' placeholder='Search...' />
+    </div>
+
+    <div class='header tabs'>
+      <button class='active' data-tab='pages'>Pages</button>
+      <button data-tab='files'>Files</button>
+    </div>
+
+    <div class='scroll-area'>
+      <!-- .multipage here means there will be a sidebar of many pages. -->
+      <div class='list pages multipage'>
+              </div>
+
+      <div class='list files hidden'>
+        
+        <ul>
+                  <li class='level-1'>
+                                                    <a href='../../HISTORY.html#f' class='item file '>
+                <i></i>
+                HISTORY.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <a href='../../index.html#f' class='item file '>
+                <i></i>
+                index.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                lib              </button>
+              <ul class=''>
+                          <li class='level-2'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                mina              </button>
+              <ul class=''>
+                          <li class='level-3'>
+                                                    <a href='../../lib/mina/bundler.html#f' class='item file '>
+                <i></i>
+                bundler.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/default.html#f' class='item file '>
+                <i></i>
+                default.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy.html#f' class='item file '>
+                <i></i>
+                deploy.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy_helpers.html#f' class='item file '>
+                <i></i>
+                deploy_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/git.html#f' class='item file '>
+                <i></i>
+                git.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/helpers.html#f' class='item file '>
+                <i></i>
+                helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
+                <i></i>
+                output_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rails.html#f' class='item file '>
+                <i></i>
+                rails.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rake.html#f' class='item file '>
+                <i></i>
+                rake.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rbenv.html#f' class='item file '>
+                <i></i>
+                rbenv.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rvm.html#f' class='item file '>
+                <i></i>
+                rvm.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/settings.html#f' class='item file active'>
+                <i></i>
+                settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/tools.html#f' class='item file '>
+                <i></i>
+                tools.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/version.html#f' class='item file '>
+                <i></i>
+                version.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/whenever.html#f' class='item file '>
+                <i></i>
+                whenever.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                                    <li class='level-2'>
+                                                    <a href='../../lib/mina.html#f' class='item file '>
+                <i></i>
+                mina.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                manual              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <a href='../../manual/modules.html#f' class='item file '>
+                <i></i>
+                modules.md              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                  </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src='../../script.js'></script>
+</body>
+</html>

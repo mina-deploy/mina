@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rails</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../style.css" />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+</head>
+<body>
+  <div id="area">
+    <div class='file-header'>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/rails.rb">
+          <strong title='lib/mina/rails.rb'>rails.rb</strong>
+          <small>View source</small>
+        </a>
+          </div>
+
+    <table cellpadding="0" cellspacing="0" class="extension-rb">
+      <thead>
+        <tr>
+          <th class="docs">
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+                                      
+          <tr id="Modules-Rails" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Modules-Rails">&#182;</a>
+              </div>
+              <h1>Modules: Rails</h1>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-1" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Adds settings and tasks for managing Rails projects.</p>
+
+<pre><code>require 'mina/rails'
+</code></pre>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;mina/bundler&#39;</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="Settings" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Settings">&#182;</a>
+              </div>
+              <h2>Settings</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="rails-env" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#rails-env">&#182;</a>
+              </div>
+              <h3>rails_env</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-4" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Sets the Rails environment for <code>rake</code> and <code>rails</code> commands.</p>
+
+<p>Note that changing this will NOT change the environment that your application
+is ran in.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">rails_env</span> <span class="o">||=</span> <span class="s1">&#39;production&#39;</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="bundle-prefix" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#bundle-prefix">&#182;</a>
+              </div>
+              <h3>bundle_prefix</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-6" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Prefix for Bundler commands.
+TODO: This should be lambda</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">bundle_prefix</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{RAILS_ENV=&quot;</span><span class="si">#{</span><span class="n">rails_env</span><span class="si">}</span><span class="sx">&quot; </span><span class="si">#{</span><span class="n">bundle_bin</span><span class="si">}</span><span class="sx"> exec}</span> <span class="p">}</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">rake</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{</span><span class="si">#{</span><span class="n">bundle_prefix</span><span class="si">}</span><span class="sx"> rake}</span> <span class="p">}</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">rails</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{</span><span class="si">#{</span><span class="n">bundle_prefix</span><span class="si">}</span><span class="sx"> rails}</span> <span class="p">}</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="asset-paths" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#asset-paths">&#182;</a>
+              </div>
+              <h3>asset_paths</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-8" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>The paths to be checked.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">asset_paths</span> <span class="o">||=</span> <span class="o">[</span><span class="s1">&#39;vendor/assets/&#39;</span><span class="p">,</span> <span class="s1">&#39;app/assets/&#39;</span><span class="o">]</span>
+
+<span class="n">settings</span><span class="o">.</span><span class="n">rake_assets_precompile</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">rake</span><span class="si">}</span><span class="s2"> assets:precompile RAILS_GROUPS=assets&quot;</span> <span class="p">}</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-9" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Macro used later by :rails, :rake, etc</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">make_run_task</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="n">sample_args</span><span class="o">|</span>
+  <span class="n">task</span> <span class="nb">name</span><span class="p">,</span> <span class="o">[</span><span class="ss">:arguments</span><span class="o">]</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
+    <span class="n">arguments</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="ss">:arguments</span><span class="o">]</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="nb">send</span> <span class="nb">name</span>
+    <span class="k">unless</span> <span class="n">command</span>
+      <span class="nb">puts</span> <span class="sx">%{You need to provide arguments. Try: mina &quot;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">[</span><span class="si">#{</span><span class="n">sample_args</span><span class="si">}</span><span class="sx">]&quot;}</span>
+      <span class="nb">exit</span> <span class="mi">1</span>
+    <span class="k">end</span>
+    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%[cd &quot;</span><span class="si">#{</span><span class="n">deploy_to!</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">current_path!</span><span class="si">}</span><span class="sx">&quot; &amp;&amp; </span><span class="si">#{</span><span class="n">command</span><span class="si">}</span><span class="sx"> </span><span class="si">#{</span><span class="n">arguments</span><span class="si">}</span><span class="sx">]</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">check_for_changes_script</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+  <span class="n">diffs</span> <span class="o">=</span> <span class="n">options</span><span class="o">[</span><span class="ss">:at</span><span class="o">].</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">path</span><span class="o">|</span>
+    <span class="sx">%[diff -r &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">current_path</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">path</span><span class="si">}</span><span class="sx">&quot; &quot;./</span><span class="si">#{</span><span class="n">path</span><span class="si">}</span><span class="sx">&quot; 2&gt;/dev/null]</span>
+  <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+  <span class="n">unindent</span> <span class="sx">%[</span>
+<span class="sx">    if [ -e &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">current_path</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">options</span><span class="o">[</span><span class="ss">:check</span><span class="o">]</span><span class="si">}</span><span class="sx">&quot; ]; then</span>
+<span class="sx">      count=`(</span>
+<span class="sx">        </span><span class="si">#{</span><span class="n">reindent</span> <span class="mi">4</span><span class="p">,</span> <span class="n">diffs</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">      ) | wc -l`</span>
+
+<span class="sx">      if [ &quot;$((count))&quot; = &quot;0&quot; ]; then</span>
+<span class="sx">        </span><span class="si">#{</span><span class="n">reindent</span> <span class="mi">4</span><span class="p">,</span> <span class="n">options</span><span class="o">[</span><span class="ss">:skip</span><span class="o">]</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">        exit</span>
+<span class="sx">      else</span>
+<span class="sx">        </span><span class="si">#{</span><span class="n">reindent</span> <span class="mi">4</span><span class="p">,</span> <span class="n">options</span><span class="o">[</span><span class="ss">:changed</span><span class="o">]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">      fi</span>
+<span class="sx">    else</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">reindent</span> <span class="mi">2</span><span class="p">,</span> <span class="n">options</span><span class="o">[</span><span class="ss">:default</span><span class="o">]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">    fi</span>
+<span class="sx">  ]</span>
+<span class="k">end</span>
+
+<span class="n">desc</span> <span class="s2">&quot;Execute a Rails command in the current deploy.&quot;</span>
+<span class="n">make_run_task</span><span class="o">[</span><span class="ss">:rails</span><span class="p">,</span> <span class="s1">&#39;console&#39;</span><span class="o">]</span>
+
+<span class="n">desc</span> <span class="s2">&quot;Execute a Rake command in the current deploy.&quot;</span>
+<span class="n">make_run_task</span><span class="o">[</span><span class="ss">:rake</span><span class="p">,</span> <span class="s1">&#39;db:migrate&#39;</span><span class="o">]</span>
+
+<span class="n">desc</span> <span class="s2">&quot;Starts an interactive console.&quot;</span>
+<span class="n">task</span> <span class="ss">:console</span> <span class="k">do</span>
+  <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%[cd &quot;</span><span class="si">#{</span><span class="n">deploy_to!</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">current_path!</span><span class="si">}</span><span class="sx">&quot; &amp;&amp; </span><span class="si">#{</span><span class="n">rails</span><span class="si">}</span><span class="sx"> console &amp;&amp; exit]</span>
+<span class="k">end</span>
+
+<span class="n">namespace</span> <span class="ss">:rails</span> <span class="k">do</span>
+  <span class="n">desc</span> <span class="s2">&quot;Migrates the Rails database (skips if nothing has changed since the last release).&quot;</span>
+  <span class="n">task</span> <span class="ss">:db_migrate</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;force_migrate&#39;</span><span class="o">]</span>
+      <span class="n">invoke</span> <span class="ss">:&#39;rails:db_migrate:force&#39;</span>
+    <span class="k">else</span>
+      <span class="n">message</span> <span class="o">=</span> <span class="n">verbose_mode?</span> <span class="p">?</span>
+        <span class="s1">&#39;$((count)) changes found, migrating database&#39;</span> <span class="p">:</span>
+        <span class="s1">&#39;Migrating database&#39;</span>
+
+      <span class="n">queue</span> <span class="n">check_for_changes_script</span> <span class="p">\</span>
+        <span class="ss">:check</span> <span class="o">=&gt;</span> <span class="s1">&#39;db/schema.rb&#39;</span><span class="p">,</span>
+        <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;db/schema.rb&#39;</span><span class="o">]</span><span class="p">,</span>
+        <span class="ss">:skip</span> <span class="o">=&gt;</span> <span class="sx">%[</span>
+<span class="sx">          echo &quot;-----&gt; DB schema unchanged; skipping DB migration&quot;</span>
+<span class="sx">        ]</span><span class="p">,</span>
+        <span class="ss">:changed</span> <span class="o">=&gt;</span> <span class="sx">%[</span>
+<span class="sx">          echo &quot;-----&gt; </span><span class="si">#{</span><span class="n">message</span><span class="si">}</span><span class="sx">&quot;</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[</span><span class="si">#{</span><span class="n">rake</span><span class="si">}</span><span class="sx"> db:migrate]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        ]</span><span class="p">,</span>
+        <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="sx">%[</span>
+<span class="sx">          echo &quot;-----&gt; Migrating database&quot;</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[</span><span class="si">#{</span><span class="n">rake</span><span class="si">}</span><span class="sx"> db:migrate]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        ]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">desc</span> <span class="s2">&quot;Migrates the Rails database.&quot;</span>
+  <span class="n">task</span> <span class="ss">:&#39;db_migrate:force&#39;</span> <span class="k">do</span>
+    <span class="n">queue</span> <span class="sx">%{</span>
+<span class="sx">      echo &quot;-----&gt; Migrating database&quot;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[</span><span class="si">#{</span><span class="n">rake</span><span class="si">}</span><span class="sx"> db:migrate]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">    }</span>
+  <span class="k">end</span>
+
+  <span class="n">desc</span> <span class="s2">&quot;Precompiles assets.&quot;</span>
+  <span class="n">task</span> <span class="ss">:&#39;assets_precompile:force&#39;</span> <span class="k">do</span>
+    <span class="n">queue</span> <span class="sx">%{</span>
+<span class="sx">      echo &quot;-----&gt; Precompiling asset files&quot;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[</span><span class="si">#{</span><span class="n">rake_assets_precompile</span><span class="si">}</span><span class="sx">]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">    }</span>
+  <span class="k">end</span>
+
+  <span class="n">desc</span> <span class="s2">&quot;Precompiles assets (skips if nothing has changed since the last release).&quot;</span>
+  <span class="n">task</span> <span class="ss">:&#39;assets_precompile&#39;</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;force_assets&#39;</span><span class="o">]</span>
+      <span class="n">invoke</span> <span class="ss">:&#39;rails:assets_precompile:force&#39;</span>
+    <span class="k">else</span>
+      <span class="n">message</span> <span class="o">=</span> <span class="n">verbose_mode?</span> <span class="p">?</span>
+        <span class="s1">&#39;$((count)) changes found, precompiling asset files&#39;</span> <span class="p">:</span>
+        <span class="s1">&#39;Precompiling asset files&#39;</span>
+
+      <span class="n">queue</span> <span class="n">check_for_changes_script</span> <span class="p">\</span>
+        <span class="ss">:check</span> <span class="o">=&gt;</span> <span class="s1">&#39;public/assets/&#39;</span><span class="p">,</span>
+        <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="o">[*</span><span class="n">asset_paths</span><span class="o">]</span><span class="p">,</span>
+        <span class="ss">:skip</span> <span class="o">=&gt;</span> <span class="sx">%[</span>
+<span class="sx">          echo &quot;-----&gt; Skipping asset precompilation&quot;</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[cp -R &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">current_path</span><span class="si">}</span><span class="sx">/public/assets&quot; &quot;./public/assets&quot;]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        ]</span><span class="p">,</span>
+        <span class="ss">:changed</span> <span class="o">=&gt;</span> <span class="sx">%[</span>
+<span class="sx">          echo &quot;-----&gt; </span><span class="si">#{</span><span class="n">message</span><span class="si">}</span><span class="sx">&quot;</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[</span><span class="si">#{</span><span class="n">rake_assets_precompile</span><span class="si">}</span><span class="sx">]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        ]</span><span class="p">,</span>
+        <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="sx">%[</span>
+<span class="sx">          echo &quot;-----&gt; Precompiling asset files&quot;</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[</span><span class="si">#{</span><span class="n">rake_assets_precompile</span><span class="si">}</span><span class="sx">]</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        ]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+</pre></div>            </td>
+          </tr>
+              </tbody>
+    </table>
+
+    
+  </div>
+
+  <div id="sidebar">
+    <div class='header search'>
+      <input type='text' name='search' id='search-box' placeholder='Search...' />
+    </div>
+
+    <div class='header tabs'>
+      <button class='active' data-tab='pages'>Pages</button>
+      <button data-tab='files'>Files</button>
+    </div>
+
+    <div class='scroll-area'>
+      <!-- .multipage here means there will be a sidebar of many pages. -->
+      <div class='list pages multipage'>
+                  
+          <!-- Breadcrumbs -->
+                                  <ul class='breadcrumbs'>
+                              
+                <li class='page back'>
+                                  <a href='../../index.html'>Welcome to Mina</a>
+                                              
+                <li class='page back'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                                          </ul>
+          
+          <!-- The page and its headings -->
+          <ul class='current-page'>
+                        
+            <li class='page level-0'>
+              <a href='#'>Rails</a>
+                              <ul>
+                                                                              <li class='heading level-2'>
+                      <a href="#Settings">
+                        Settings                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#rails-env">
+                        rails_env                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#bundle-prefix">
+                        bundle_prefix                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#asset-paths">
+                        asset_paths                      </a>
+                    </li>
+                                  </ul>
+                          </li>
+          </ul>
+
+          <ul class='reference'>
+
+            <!-- The reference page -->
+                          <li class='page has-children level-0'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                              </li>
+            
+            <!-- Subpages of the ref -->
+                                                                                                                      
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/bundler.html' class=''>Bundler</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/default.html' class=''>Default</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/deploy.html' class=''>Deployment</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/git.html' class=''>Git</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rails.html' class='active'>Rails</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rbenv.html' class=''>rbenv</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rvm.html' class=''>RVM</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/whenever.html' class=''>Whenever</a>
+                  
+                                                    </li>
+                          
+          </ul>
+              </div>
+
+      <div class='list files hidden'>
+        
+        <ul>
+                  <li class='level-1'>
+                                                    <a href='../../HISTORY.html#f' class='item file '>
+                <i></i>
+                HISTORY.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <a href='../../index.html#f' class='item file '>
+                <i></i>
+                index.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                lib              </button>
+              <ul class=''>
+                          <li class='level-2'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                mina              </button>
+              <ul class=''>
+                          <li class='level-3'>
+                                                    <a href='../../lib/mina/bundler.html#f' class='item file '>
+                <i></i>
+                bundler.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/default.html#f' class='item file '>
+                <i></i>
+                default.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy.html#f' class='item file '>
+                <i></i>
+                deploy.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy_helpers.html#f' class='item file '>
+                <i></i>
+                deploy_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/git.html#f' class='item file '>
+                <i></i>
+                git.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/helpers.html#f' class='item file '>
+                <i></i>
+                helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
+                <i></i>
+                output_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rails.html#f' class='item file active'>
+                <i></i>
+                rails.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rake.html#f' class='item file '>
+                <i></i>
+                rake.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rbenv.html#f' class='item file '>
+                <i></i>
+                rbenv.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rvm.html#f' class='item file '>
+                <i></i>
+                rvm.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/settings.html#f' class='item file '>
+                <i></i>
+                settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/tools.html#f' class='item file '>
+                <i></i>
+                tools.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/version.html#f' class='item file '>
+                <i></i>
+                version.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/whenever.html#f' class='item file '>
+                <i></i>
+                whenever.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                                    <li class='level-2'>
+                                                    <a href='../../lib/mina.html#f' class='item file '>
+                <i></i>
+                mina.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                manual              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <a href='../../manual/modules.html#f' class='item file '>
+                <i></i>
+                modules.md              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                  </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src='../../script.js'></script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deployment</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../style.css" />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+</head>
+<body>
+  <div id="area">
+    <div class='file-header'>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/deploy.rb">
+          <strong title='lib/mina/deploy.rb'>deploy.rb</strong>
+          <small>View source</small>
+        </a>
+          </div>
+
+    <table cellpadding="0" cellspacing="0" class="extension-rb">
+      <thead>
+        <tr>
+          <th class="docs">
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+                                      
+          <tr id="Modules-Deployment" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Modules-Deployment">&#182;</a>
+              </div>
+              <h1>Modules: Deployment</h1>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-1" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>This module is automatically loaded for all Mina projects.</p>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="Settings" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Settings">&#182;</a>
+              </div>
+              <h2>Settings</h2>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:releases_path</span><span class="p">,</span> <span class="s2">&quot;releases&quot;</span>
+<span class="n">set_default</span> <span class="ss">:shared_path</span><span class="p">,</span> <span class="s2">&quot;shared&quot;</span>
+<span class="n">set_default</span> <span class="ss">:current_path</span><span class="p">,</span> <span class="s2">&quot;current&quot;</span>
+<span class="n">set_default</span> <span class="ss">:lock_file</span><span class="p">,</span> <span class="s2">&quot;deploy.lock&quot;</span>
+<span class="n">set_default</span> <span class="ss">:keep_releases</span><span class="p">,</span> <span class="mi">5</span>
+
+<span class="n">namespace</span> <span class="ss">:deploy</span> <span class="k">do</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="Tasks" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Tasks">&#182;</a>
+              </div>
+              <h2>Tasks</h2>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="deploy-force-unlock" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#deploy-force-unlock">&#182;</a>
+              </div>
+              <h3>deploy:force_unlock</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-5" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Forces a deploy unlock by deleting the lock file.</p>
+
+<pre><code>$ mina deploy:force_unlock
+</code></pre>
+
+<p>You can also combine that task with <code>deploy</code>:</p>
+
+<pre><code>$ mina deploy:force_unlock deploy
+</code></pre>            </td>
+            <td class="code">
+              <div class="highlight"><pre>  <span class="n">desc</span> <span class="s2">&quot;Forces a deploy unlock.&quot;</span>
+  <span class="n">task</span> <span class="ss">:force_unlock</span> <span class="k">do</span>
+    <span class="n">queue</span> <span class="sx">%{echo &quot;-----&gt; Unlocking&quot;}</span>
+    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{rm -f &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">lock_file</span><span class="si">}</span><span class="sx">&quot;}</span>
+  <span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="deploy-link-em-shared-em-paths" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#deploy-link-em-shared-em-paths">&#182;</a>
+              </div>
+              <h3>deploy:link<em>shared</em>paths</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-7" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Links the shared paths in the <code>shared_paths</code> setting.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>  <span class="n">desc</span> <span class="s2">&quot;Links paths set in :shared_paths.&quot;</span>
+  <span class="n">task</span> <span class="ss">:link_shared_paths</span> <span class="k">do</span>
+    <span class="n">dirs</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">shared_paths!</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="s2">&quot;./</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">uniq</span>
+
+    <span class="n">cmds</span> <span class="o">=</span> <span class="n">dirs</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+      <span class="n">echo_cmd</span> <span class="sx">%{mkdir -p &quot;</span><span class="si">#{</span><span class="n">dir</span><span class="si">}</span><span class="sx">&quot;}</span>
+    <span class="k">end</span>
+
+    <span class="n">cmds</span> <span class="o">+=</span> <span class="n">shared_paths</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+      <span class="o">[</span>
+        <span class="n">echo_cmd</span><span class="p">(</span><span class="sx">%{rm -rf &quot;./</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="sx">&quot;}</span><span class="p">),</span>
+        <span class="n">echo_cmd</span><span class="p">(</span><span class="sx">%{ln -s &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="sx">&quot; &quot;./</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="sx">&quot;}</span><span class="p">)</span>
+      <span class="o">]</span>
+    <span class="k">end</span>
+
+    <span class="n">queue</span> <span class="sx">%{</span>
+<span class="sx">      echo &quot;-----&gt; Symlinking shared paths&quot;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">cmds</span><span class="o">.</span><span class="n">flatten</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot; &amp;&amp;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">    }</span>
+  <span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="deploy-cleanup" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#deploy-cleanup">&#182;</a>
+              </div>
+              <h3>deploy:cleanup</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-9" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Cleans up old releases.</p>
+
+<p>By default, the last 5 releases are kept on each server (though you can
+change this with the keep_releases setting).  All other deployed revisions
+are removed from the servers."</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>  <span class="n">desc</span> <span class="s2">&quot;Clean up old releases.&quot;</span>
+  <span class="n">task</span> <span class="ss">:cleanup</span> <span class="k">do</span>
+    <span class="n">queue</span> <span class="sx">%{echo &quot;-----&gt; Cleaning up old releases (keeping </span><span class="si">#{</span><span class="n">keep_releases!</span><span class="si">}</span><span class="sx">)&quot;}</span>
+    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{cd &quot;</span><span class="si">#{</span><span class="n">deploy_to!</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">releases_path!</span><span class="si">}</span><span class="sx">&quot; || exit 15}</span>
+    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{count=`ls -1d [0-9]* | sort -rn | wc -l`}</span>
+    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{remove=$((count &gt; 5 ? count - </span><span class="si">#{</span><span class="n">keep_releases</span><span class="si">}</span><span class="sx"> : 0))}</span>
+    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="setup" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#setup">&#182;</a>
+              </div>
+              <h3>setup</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-11" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Sets up a site's directory structure.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Sets up a site.&quot;</span>
+<span class="n">task</span> <span class="ss">:setup</span> <span class="k">do</span>
+  <span class="n">set</span> <span class="ss">:term_mode</span><span class="p">,</span> <span class="ss">:pretty</span>
+
+  <span class="n">settings</span><span class="o">.</span><span class="n">deploy_to!</span>
+
+  <span class="n">user</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">user?</span> <span class="p">?</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">settings</span><span class="o">.</span><span class="n">user</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">:</span> <span class="s2">&quot;username&quot;</span>
+
+  <span class="n">queue</span> <span class="sx">%{</span>
+<span class="sx">    echo &quot;-----&gt; Setting up </span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&quot; &amp;&amp; (</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{mkdir -p &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{chown -R `whoami` &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{chmod g+rx,u+rwx &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{cd &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{mkdir -p &quot;</span><span class="si">#{</span><span class="n">releases_path</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{chmod g+rx,u+rwx &quot;</span><span class="si">#{</span><span class="n">releases_path</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{mkdir -p &quot;</span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{chmod g+rx,u+rwx &quot;</span><span class="si">#{</span><span class="n">shared_path</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      echo &quot;&quot; &amp;&amp;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{ls -la &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&quot;}</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">      echo &quot;&quot; &amp;&amp;</span>
+<span class="sx">      echo &quot;-----&gt; Done.&quot;</span>
+<span class="sx">    ) || (</span>
+<span class="sx">      echo &quot;! ERROR: Setup failed.&quot;</span>
+<span class="sx">      echo &quot;! Ensure that the path &#39;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">&#39; is accessible to the SSH user.&quot;</span>
+<span class="sx">      echo &quot;! Try doing:&quot;</span>
+<span class="sx">      echo &quot;!    sudo mkdir -p \\&quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">\\&quot; &amp;&amp; sudo chown -R </span><span class="si">#{</span><span class="n">user</span><span class="si">}</span><span class="sx"> \\&quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">\\&quot;&quot;</span>
+<span class="sx">    )</span>
+<span class="sx">  }</span>
+<span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="run" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#run">&#182;</a>
+              </div>
+              <h3>run[]</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-13" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Runs a command on a server.</p>
+
+<pre><code>$ mina run[tail -f logs.txt]
+</code></pre>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Runs a command in the server.&quot;</span>
+<span class="n">task</span> <span class="ss">:run</span><span class="p">,</span> <span class="o">[</span><span class="ss">:command</span><span class="o">]</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:environment</span><span class="o">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
+  <span class="n">command</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="ss">:command</span><span class="o">]</span>
+  <span class="k">unless</span> <span class="n">command</span>
+    <span class="nb">puts</span> <span class="sx">%[You need to provide a command. Try: mina &quot;run[ls -la]&quot;]</span>
+    <span class="nb">exit</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">queue</span> <span class="sx">%[cd </span><span class="si">#{</span><span class="n">deploy_to!</span><span class="si">}</span><span class="sx"> &amp;&amp; </span><span class="si">#{</span><span class="n">command</span><span class="si">}</span><span class="sx">]</span>
+<span class="k">end</span>
+
+</pre></div>            </td>
+          </tr>
+              </tbody>
+    </table>
+
+    
+  </div>
+
+  <div id="sidebar">
+    <div class='header search'>
+      <input type='text' name='search' id='search-box' placeholder='Search...' />
+    </div>
+
+    <div class='header tabs'>
+      <button class='active' data-tab='pages'>Pages</button>
+      <button data-tab='files'>Files</button>
+    </div>
+
+    <div class='scroll-area'>
+      <!-- .multipage here means there will be a sidebar of many pages. -->
+      <div class='list pages multipage'>
+                  
+          <!-- Breadcrumbs -->
+                                  <ul class='breadcrumbs'>
+                              
+                <li class='page back'>
+                                  <a href='../../index.html'>Welcome to Mina</a>
+                                              
+                <li class='page back'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                                          </ul>
+          
+          <!-- The page and its headings -->
+          <ul class='current-page'>
+                        
+            <li class='page level-0'>
+              <a href='#'>Deployment</a>
+                              <ul>
+                                                                              <li class='heading level-2'>
+                      <a href="#Settings">
+                        Settings                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#Tasks">
+                        Tasks                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#deploy-force-unlock">
+                        deploy:force_unlock                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#deploy-link-em-shared-em-paths">
+                        deploy:link<em>shared</em>paths                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#deploy-cleanup">
+                        deploy:cleanup                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#setup">
+                        setup                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#run">
+                        run[]                      </a>
+                    </li>
+                                  </ul>
+                          </li>
+          </ul>
+
+          <ul class='reference'>
+
+            <!-- The reference page -->
+                          <li class='page has-children level-0'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                              </li>
+            
+            <!-- Subpages of the ref -->
+                                                                                                                      
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/bundler.html' class=''>Bundler</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/default.html' class=''>Default</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/deploy.html' class='active'>Deployment</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/git.html' class=''>Git</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rails.html' class=''>Rails</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rbenv.html' class=''>rbenv</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rvm.html' class=''>RVM</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/whenever.html' class=''>Whenever</a>
+                  
+                                                    </li>
+                          
+          </ul>
+              </div>
+
+      <div class='list files hidden'>
+        
+        <ul>
+                  <li class='level-1'>
+                                                    <a href='../../HISTORY.html#f' class='item file '>
+                <i></i>
+                HISTORY.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <a href='../../index.html#f' class='item file '>
+                <i></i>
+                index.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                lib              </button>
+              <ul class=''>
+                          <li class='level-2'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                mina              </button>
+              <ul class=''>
+                          <li class='level-3'>
+                                                    <a href='../../lib/mina/bundler.html#f' class='item file '>
+                <i></i>
+                bundler.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/default.html#f' class='item file '>
+                <i></i>
+                default.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy.html#f' class='item file active'>
+                <i></i>
+                deploy.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy_helpers.html#f' class='item file '>
+                <i></i>
+                deploy_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/git.html#f' class='item file '>
+                <i></i>
+                git.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/helpers.html#f' class='item file '>
+                <i></i>
+                helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
+                <i></i>
+                output_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rails.html#f' class='item file '>
+                <i></i>
+                rails.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rake.html#f' class='item file '>
+                <i></i>
+                rake.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rbenv.html#f' class='item file '>
+                <i></i>
+                rbenv.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rvm.html#f' class='item file '>
+                <i></i>
+                rvm.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/settings.html#f' class='item file '>
+                <i></i>
+                settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/tools.html#f' class='item file '>
+                <i></i>
+                tools.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/version.html#f' class='item file '>
+                <i></i>
+                version.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/whenever.html#f' class='item file '>
+                <i></i>
+                whenever.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                                    <li class='level-2'>
+                                                    <a href='../../lib/mina.html#f' class='item file '>
+                <i></i>
+                mina.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                manual              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <a href='../../manual/modules.html#f' class='item file '>
+                <i></i>
+                modules.md              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                  </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src='../../script.js'></script>
+</body>
+</html>

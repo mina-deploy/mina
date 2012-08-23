@@ -1,0 +1,874 @@
+/*--------------------- Layout and Typography ----------------------------*/
+body {
+  font-size: 15px;
+  line-height: 22px;
+  color: #252519;
+  margin: 0;
+  padding: 0;
+}
+body,
+td {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+}
+button,
+input,
+textarea {
+  font-family: sans-serif;
+}
+button {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+a {
+  color: #261a3b;
+}
+a:visited {
+  color: #261a3b;
+}
+p {
+  margin: 0 0 15px 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0px 0 15px 0;
+  border-bottom: solid 1px #ddd;
+  padding-bottom: 10px;
+}
+tr.heading td {
+  padding-top: 30px;
+}
+h1 {
+  margin-top: 40px;
+}
+hr {
+  border: 0 none;
+  border-top: 1px solid #e5e5ee;
+  height: 1px;
+  margin: 20px 0;
+}
+table td {
+  border: 0;
+  outline: 0;
+}
+td.docs,
+th.docs {
+  max-width: 450px;
+  min-width: 450px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  overflow-x: hidden;
+  vertical-align: top;
+  text-align: left;
+}
+.docs pre {
+  margin: 15px 0 15px;
+  padding-left: 15px;
+  color: #8080a7;
+}
+.docs tt,
+.docs code {
+  background: #f8f8ff;
+  border: 1px solid #dedede;
+  font-size: 12px;
+  padding: 0 0.2em;
+}
+.docs pre code {
+  background: transparent;
+  border: 0;
+  font-size: 1em;
+  padding: 0;
+}
+.pilwrap {
+  position: relative;
+}
+.pilwrap + * {
+  margin-top: 0 !important;
+}
+.pilcrow {
+  font: 10px Arial;
+  text-decoration: none;
+  position: absolute;
+  top: 3px;
+  left: -30px;
+  padding: 3px 6px;
+  background: #ccc;
+  color: #fff;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+  opacity: 0;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.2s linear;
+}
+.pilcrow,
+.pilcrow:visited {
+  color: #fff;
+}
+.pilcrow:hover {
+  background: #888;
+}
+tr:hover .pilcrow,
+td.docs:hover .pilcrow {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+td.code,
+th.code {
+  padding: 14px 15px 16px 25px;
+  width: 100%;
+  vertical-align: top;
+  background: #f5f5ff;
+  border-left: 1px solid #e5e5ee;
+}
+pre,
+tt,
+code {
+  font-size: 12px;
+  line-height: 18px;
+  font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+  margin: 0;
+  padding: 0;
+}
+/*---------------------- Syntax Highlighting -----------------------------*/
+td.linenos {
+  background-color: #f0f0f0;
+  padding-right: 10px;
+}
+span.lineno {
+  background-color: #f0f0f0;
+  padding: 0 5px 0 5px;
+}
+body .hll {
+  background-color: #ffc;
+}
+body .c {
+  color: #408080;
+  font-style: italic;
+}
+/* Comment */
+body .err {
+  color: #c33;
+}
+/* Error */
+body .k {
+  color: #954121;
+}
+/* Keyword */
+body .o {
+  color: #666;
+}
+/* Operator */
+body .cm {
+  color: #408080;
+  font-style: italic;
+}
+/* Comment.Multiline */
+body .cp {
+  color: #bc7a00;
+}
+/* Comment.Preproc */
+body .c1 {
+  color: #408080;
+  font-style: italic;
+}
+/* Comment.Single */
+body .cs {
+  color: #408080;
+  font-style: italic;
+}
+/* Comment.Special */
+body .gd {
+  color: #a00000;
+}
+/* Generic.Deleted */
+body .ge {
+  font-style: italic;
+}
+/* Generic.Emph */
+body .gr {
+  color: #f00;
+}
+/* Generic.Error */
+body .gh {
+  color: #000080;
+  font-weight: bold;
+}
+/* Generic.Heading */
+body .gi {
+  color: #00a000;
+}
+/* Generic.Inserted */
+body .go {
+  color: #808080;
+}
+/* Generic.Output */
+body .gp {
+  color: #000080;
+  font-weight: bold;
+}
+/* Generic.Prompt */
+body .gs {
+  font-weight: bold;
+}
+/* Generic.Strong */
+body .gu {
+  color: #800080;
+  font-weight: bold;
+}
+/* Generic.Subheading */
+body .gt {
+  color: #0040d0;
+}
+/* Generic.Traceback */
+body .kc {
+  color: #954121;
+}
+/* Keyword.Constant */
+body .kd {
+  color: #954121;
+  font-weight: bold;
+}
+/* Keyword.Declaration */
+body .kn {
+  color: #954121;
+  font-weight: bold;
+}
+/* Keyword.Namespace */
+body .kp {
+  color: #954121;
+}
+/* Keyword.Pseudo */
+body .kr {
+  color: #954121;
+  font-weight: bold;
+}
+/* Keyword.Reserved */
+body .kt {
+  color: #b00040;
+}
+/* Keyword.Type */
+body .m {
+  color: #666;
+}
+/* Literal.Number */
+body .s {
+  color: #219161;
+}
+/* Literal.String */
+body .na {
+  color: #7d9029;
+}
+/* Name.Attribute */
+body .nb {
+  color: #954121;
+}
+/* Name.Builtin */
+body .nc {
+  color: #00f;
+  font-weight: bold;
+}
+/* Name.Class */
+body .no {
+  color: #800;
+}
+/* Name.Constant */
+body .nd {
+  color: #a2f;
+}
+/* Name.Decorator */
+body .ni {
+  color: #999;
+  font-weight: bold;
+}
+/* Name.Entity */
+body .ne {
+  color: #d2413a;
+  font-weight: bold;
+}
+/* Name.Exception */
+body .nf {
+  color: #00f;
+}
+/* Name.Function */
+body .nl {
+  color: #a0a000;
+}
+/* Name.Label */
+body .nn {
+  color: #00f;
+  font-weight: bold;
+}
+/* Name.Namespace */
+body .nt {
+  color: #954121;
+  font-weight: bold;
+}
+/* Name.Tag */
+body .nv {
+  color: #19469d;
+}
+/* Name.Variable */
+body .ow {
+  color: #a2f;
+  font-weight: bold;
+}
+/* Operator.Word */
+body .w {
+  color: #bbb;
+}
+/* Text.Whitespace */
+body .mf {
+  color: #666;
+}
+/* Literal.Number.Float */
+body .mh {
+  color: #666;
+}
+/* Literal.Number.Hex */
+body .mi {
+  color: #666;
+}
+/* Literal.Number.Integer */
+body .mo {
+  color: #666;
+}
+/* Literal.Number.Oct */
+body .sb {
+  color: #219161;
+}
+/* Literal.String.Backtick */
+body .sc {
+  color: #219161;
+}
+/* Literal.String.Char */
+body .sd {
+  color: #219161;
+  font-style: italic;
+}
+/* Literal.String.Doc */
+body .s2 {
+  color: #219161;
+}
+/* Literal.String.Double */
+body .se {
+  color: #b62;
+  font-weight: bold;
+}
+/* Literal.String.Escape */
+body .sh {
+  color: #219161;
+}
+/* Literal.String.Heredoc */
+body .si {
+  color: #b68;
+  font-weight: bold;
+}
+/* Literal.String.Interpol */
+body .sx {
+  color: #954121;
+}
+/* Literal.String.Other */
+body .sr {
+  color: #b68;
+}
+/* Literal.String.Regex */
+body .s1 {
+  color: #219161;
+}
+/* Literal.String.Single */
+body .ss {
+  color: #19469d;
+}
+/* Literal.String.Symbol */
+body .bp {
+  color: #954121;
+}
+/* Name.Builtin.Pseudo */
+body .vc {
+  color: #19469d;
+}
+/* Name.Variable.Class */
+body .vg {
+  color: #19469d;
+}
+/* Name.Variable.Global */
+body .vi {
+  color: #19469d;
+}
+/* Name.Variable.Instance */
+body .il {
+  color: #666;
+}
+/* Literal.Number.Integer.Long */
+/* Different extensions */
+table.extension-md td.code,
+table.extension-md th.code {
+  background: transparent;
+  border-left: 0;
+}
+table.extension-md td.docs,
+table.extension-md th.docs {
+  min-width: 650px;
+  max-width: 650px;
+}
+table.extension-md td.docs pre {
+  background: #fafafa;
+  padding: 15px;
+  color: #707090;
+  border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05);
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05);
+  overflow-x: auto;
+}
+/* Misc */
+.hidden {
+  display: none;
+}
+/* Layout */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+#area {
+  min-height: 100%;
+}
+body #area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 200px;
+  overflow: auto;
+}
+body #sidebar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  bottom: 66px;
+  width: 200px;
+  z-index: 1;
+}
+/* Style: sidebar */
+#sidebar {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #ccc;
+  -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+/* Style: Header */
+#header,
+#sidebar .header {
+  background: #eee;
+  background-image: -webkit-linear-gradient(top, #eee, #ddd);
+  background-image: -moz-linear-gradient(top, #eee, #ddd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), color-stop(1, #ddd));
+  background-image: -webkit-linear-gradient(top, #eee 0%, #ddd 100%);
+  background-image: -moz-linear-gradient(top, #eee 0%, #ddd 100%);
+  background-image: -o-linear-gradient(top, #eee 0%, #ddd 100%);
+  background-image: -ms-linear-gradient(top, #eee 0%, #ddd 100%);
+  background-image: linear-gradient(top, #eee 0%, #ddd 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2);
+}
+/* Style: search box */
+.header.search {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+}
+.header.search input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 180px;
+  height: 24px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  border: 0;
+  padding: 0 14px;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3), inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+.header.search input:focus {
+  outline: 0;
+}
+/* Style: tabs */
+.header.tabs {
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+}
+.header.tabs button {
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 8pt;
+  color: #555;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 0 15px;
+}
+.header.tabs button:hover {
+  background: rgba(0,0,0,0.1);
+}
+.header.tabs button.active,
+.header.tabs button:active {
+  color: #eee;
+  background-color: #555;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 2px 2px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.6);
+  box-shadow: inset 0 2px 2px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.6);
+}
+.header.tabs button:active {
+  color: #eee;
+  background-color: #35a;
+}
+/* Style: Sidebar */
+#sidebar {
+  background: #fafafa;
+}
+#sidebar .header {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+#sidebar .header.search {
+  top: 0;
+  height: 36px;
+}
+#sidebar .header.tabs {
+  top: 36px;
+  height: 36px;
+}
+#sidebar .scroll-area {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* Sidebar lists */
+.list ul,
+.list li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.list {
+  font-size: 9pt;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+  -webkit-font-smoothing: antialiased;
+  padding-top: 10px;
+/* Clickable list items */
+/* List items */
+}
+.list a:hover,
+.list button:hover {
+  background: rgba(50,100,200,0.04);
+}
+.list a:active,
+.list button:active {
+  background: rgba(0,0,0,0.2);
+}
+.list a,
+.list span.a,
+.list button {
+  font-family: sans-serif;
+  text-decoration: none;
+  display: block;
+  padding: 2px 20px;
+  line-height: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+}
+.list a.active,
+.list span.a.active,
+.list button.active {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(50,100,200,0.04)), color-stop(1, rgba(50,100,200,0.07)));
+  background-image: -webkit-linear-gradient(top, rgba(50,100,200,0.04) 0%, rgba(50,100,200,0.07) 100%);
+  background-image: -moz-linear-gradient(top, rgba(50,100,200,0.04) 0%, rgba(50,100,200,0.07) 100%);
+  background-image: -o-linear-gradient(top, rgba(50,100,200,0.04) 0%, rgba(50,100,200,0.07) 100%);
+  background-image: -ms-linear-gradient(top, rgba(50,100,200,0.04) 0%, rgba(50,100,200,0.07) 100%);
+  background-image: linear-gradient(top, rgba(50,100,200,0.04) 0%, rgba(50,100,200,0.07) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(50,100,200,0.05), inset 0 -1px 0 rgba(50,100,200,0.05);
+  box-shadow: inset 0 1px 0 rgba(50,100,200,0.05), inset 0 -1px 0 rgba(50,100,200,0.05);
+}
+/* ========================================================================== */
+/* For files */
+.files.list button {
+  font-weight: bold;
+}
+.files.list button:before {
+  content: '';
+  display: block;
+  float: left;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  border-left-color: #999;
+  margin-right: 5px;
+  position: relative;
+  top: 5px;
+  left: 2px;
+}
+.files.list button.expanded:before {
+  top: 7px;
+  left: 0;
+  border-top-color: #999;
+  border-left-color: transparent;
+}
+.files.list a:before {
+  content: '';
+  display: block;
+  float: left;
+  width: 14px;
+  height: 1px;
+}
+.files.list li.level-2 .item {
+  padding-left: 30px;
+}
+.files.list li.level-3 .item {
+  padding-left: 40px;
+}
+.files.list li.level-4 .item {
+  padding-left: 50px;
+}
+.files.list li.level-5 .item {
+  padding-left: 60px;
+}
+/* == Page lists ============================================================ */
+/* Yay */
+.list > ul {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.list > ul:first-child {
+  margin-top: -10px;
+}
+/* Section: The current page */
+.list.multipage ul.current-page {
+  background: rgba(255,255,255,0.7);
+  border-bottom: solid 1px #ddd;
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+  padding-bottom: 10px;
+}
+.list.multipage ul.current-page ul {
+  padding-bottom: 0;
+}
+.list ul.current-page > li > a,
+.list ul.current-page > li > span.a {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #36a;
+}
+.list ul.current-page > li > ul {
+  margin-top: 5px;
+}
+.list ul.current-page a.active,
+.list ul.current-page span.a.active {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(50,100,200,0.09)), color-stop(1, rgba(50,100,200,0.2)));
+  background-image: -webkit-linear-gradient(top, rgba(50,100,200,0.09) 0%, rgba(50,100,200,0.2) 100%);
+  background-image: -moz-linear-gradient(top, rgba(50,100,200,0.09) 0%, rgba(50,100,200,0.2) 100%);
+  background-image: -o-linear-gradient(top, rgba(50,100,200,0.09) 0%, rgba(50,100,200,0.2) 100%);
+  background-image: -ms-linear-gradient(top, rgba(50,100,200,0.09) 0%, rgba(50,100,200,0.2) 100%);
+  background-image: linear-gradient(top, rgba(50,100,200,0.09) 0%, rgba(50,100,200,0.2) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(50,100,200,0.05), inset 0 -1px 0 rgba(50,100,200,0.05);
+  box-shadow: inset 0 1px 0 rgba(50,100,200,0.05), inset 0 -1px 0 rgba(50,100,200,0.05);
+  color: #36a;
+}
+/* Section: breadcrumbs */
+.list ul.breadcrumbs {
+  border-bottom: solid 1px #ddd;
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+  padding-bottom: 10px;
+}
+.list ul.breadcrumbs a,
+.list ul.breadcrumbs span.a {
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.list ul.breadcrumbs a:before,
+.list ul.breadcrumbs span.a:before {
+  content: '\25c0';
+  font-size: 0.8em;
+  margin-right: 8px;
+  color: #aaa;
+}
+.list ul.breadcrumbs a:hover {
+  color: #555;
+}
+.list li.page ul {
+  padding: 0 0 10px 0;
+}
+.list li.page a,
+.list li.page span.a {
+  color: #888;
+  font-size: 1em;
+  line-height: 1.3;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.list li.page.has-children > a,
+.list li.page.has-children > span.a {
+  font-weight: bold;
+  color: #555;
+  font-size: 1.2em;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.list li.heading > a {
+  font-size: 0.9em;
+  color: #777;
+  padding-left: 30px;
+}
+.list li.heading.level-2 > a {
+  color: #444;
+  padding-left: 20px;
+}
+/* ============================================================================
+ * File header */
+.file-header {
+  width: 200px;
+/* background: #fafafa; */
+/* border-radius: 3px; */
+/* border: solid 1px #ccc; */
+/* box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); */
+  height: 40px;
+  line-height: 20px;
+  font-family: sans-serif;
+  color: #9090a0;
+  font-size: 8pt;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
+.file-header a,
+.file-header button {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: left;
+  line-height: 1.4;
+  padding-right: 36px;
+  padding-top: 3px;
+  position: relative;
+}
+.file-header a:before,
+.file-header button:before {
+  content: '';
+  float: left;
+  width: 24px;
+  height: 24px;
+  background: #ddd;
+  position: absolute;
+  right: 0;
+  top: 3px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+}
+.file-header strong,
+.file-header small {
+  display: block;
+  overflow: hidden;
+  height: 14px;
+  line-height: 14px;
+  text-align: right;
+}
+.file-header strong {
+  color: #9090a0;
+  font-weight: normal;
+}
+.file-header small {
+  font-weight: bold;
+}
+/* Scroll */
+.scroll-area {
+  -webkit-box-shadow: inset 0 4px 4px -2px rgba(0,0,0,0.12);
+  box-shadow: inset 0 4px 4px -2px rgba(0,0,0,0.12);
+}
+.scroll-area::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+.scroll-area::-webkit-scrollbar-thumb {
+  background: #eee;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border: solid 4px #fafafa;
+  -webkit-box-shadow: inset 2px 2px 3px rgba(0,0,0,0.07);
+  box-shadow: inset 2px 2px 3px rgba(0,0,0,0.07);
+}
+.scroll-area:hover::-webkit-scrollbar-thumb {
+  background: #999;
+  -webkit-box-shadow: inset 2px 2px 3px rgba(0,0,0,0.2);
+  box-shadow: inset 2px 2px 3px rgba(0,0,0,0.2);
+}
+/* == Fork me on Github ==================================================== */
+.fork-me-on-github {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+}
+.fork-me-on-github a {
+  display: block;
+  width: 149px;
+  padding-top: 149px;
+  height: 0;
+  overflow: hidden;
+  background-image: url("https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png");
+}
+/* ========================================================================== */
+tr.active h2,
+tr.active h3,
+tr.active h4,
+tr.active h5,
+tr.active h6 {
+  position: relative;
+}
+tr.active h2:after,
+tr.active h3:after,
+tr.active h4:after,
+tr.active h5:after,
+tr.active h6:after {
+  content: '\203a';
+  display: inline-block;
+  float: right;
+  margin-left: 10px;
+  color: #ddd;
+  font-size: 18pt;
+  line-height: 1em;
+}

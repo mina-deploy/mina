@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Default</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../style.css" />
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
+</head>
+<body>
+  <div id="area">
+    <div class='file-header'>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/default.rb">
+          <strong title='lib/mina/default.rb'>default.rb</strong>
+          <small>View source</small>
+        </a>
+          </div>
+
+    <table cellpadding="0" cellspacing="0" class="extension-rb">
+      <thead>
+        <tr>
+          <th class="docs">
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+                                      
+          <tr id="Modules-Default" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#Modules-Default">&#182;</a>
+              </div>
+              <h1>Modules: Default</h1>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-1" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>This module is loaded when invoking <code>mina</code> without a project.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:bash_options</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-2" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Make the :environment task exist by default. This is meant to be overridden
+by users.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">task</span> <span class="ss">:environment</span> <span class="k">do</span>
+<span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-3" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Default tasks here</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Creates a sample config file.&quot;</span>
+<span class="n">task</span> <span class="ss">:init</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">name</span>
+  <span class="n">config_file</span> <span class="o">=</span> <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">rakefile</span>
+
+  <span class="k">unless</span> <span class="n">config_file</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">empty?</span>
+    <span class="n">print_str</span> <span class="s2">&quot;! You already have </span><span class="si">#{</span><span class="n">config_file</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="nb">exit</span> <span class="mi">8</span>
+  <span class="k">end</span>
+
+  <span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;./config/deploy.rb&#39;</span>
+  <span class="nb">require</span> <span class="s1">&#39;fileutils&#39;</span>
+  <span class="no">FileUtils</span><span class="o">.</span><span class="n">mkdir_p</span> <span class="s1">&#39;./config&#39;</span>
+  <span class="no">FileUtils</span><span class="o">.</span><span class="n">cp</span> <span class="no">Mina</span><span class="o">.</span><span class="n">root_path</span><span class="p">(</span><span class="s1">&#39;data/deploy.rb&#39;</span><span class="p">),</span> <span class="n">outfile</span>
+
+  <span class="n">print_str</span> <span class="s2">&quot;-----&gt; Created </span><span class="si">#{</span><span class="n">outfile</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="n">print_str</span> <span class="s2">&quot;Edit this file, then run `</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> setup` after.&quot;</span>
+<span class="k">end</span>
+
+<span class="n">task</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="ss">:help</span>
+
+<span class="k">module</span> <span class="nn">HelpHelpers</span>
+  <span class="k">def</span> <span class="nf">get_tasks</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blk</span><span class="p">)</span>
+    <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">select</span> <span class="o">&amp;</span><span class="n">blk</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">print_tasks</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kp">nil</span><span class="p">)</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="n">width</span> <span class="o">||=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">name_with_args</span><span class="o">.</span><span class="n">length</span> <span class="p">}</span><span class="o">.</span><span class="n">max</span> <span class="o">||</span> <span class="mi">10</span>
+    <span class="n">tasks</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">comment</span>
+        <span class="nb">puts</span> <span class="s2">&quot;  </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> %-</span><span class="si">#{</span><span class="n">width</span><span class="si">}</span><span class="s2">s   # %s&quot;</span> <span class="o">%</span> <span class="o">[</span> <span class="n">t</span><span class="o">.</span><span class="n">name_with_args</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">comment</span> <span class="o">]</span>
+      <span class="k">else</span>
+        <span class="nb">puts</span> <span class="s2">&quot;  </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> %s&quot;</span> <span class="o">%</span> <span class="o">[</span> <span class="n">t</span><span class="o">.</span><span class="n">name_with_args</span> <span class="o">]</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="no">SYSTEM_TASKS</span> <span class="o">=</span> <span class="sx">%w[help tasks init]</span>
+  <span class="k">def</span> <span class="nf">system_tasks</span><span class="p">()</span> <span class="n">get_tasks</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="no">SYSTEM_TASKS</span><span class="o">.</span><span class="n">include?</span> <span class="n">t</span><span class="o">.</span><span class="n">name</span> <span class="p">};</span> <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">top_tasks</span><span class="p">()</span>    <span class="n">get_tasks</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="o">!</span> <span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">t</span><span class="o">.</span><span class="n">comment</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">system_tasks</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="p">};</span> <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">sub_tasks</span><span class="p">()</span>    <span class="n">get_tasks</span> <span class="p">{</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span> <span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="p">};</span> <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">show_task_help</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Basic usage:&quot;</span>
+    <span class="n">print_tasks</span> <span class="n">system_tasks</span>
+
+    <span class="k">if</span> <span class="n">top_tasks</span><span class="o">.</span><span class="n">any?</span>
+      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Server tasks:&quot;</span>
+      <span class="n">print_tasks</span> <span class="n">top_tasks</span>
+    <span class="k">end</span>
+
+    <span class="k">if</span> <span class="n">sub_tasks</span><span class="o">.</span><span class="n">any?</span> <span class="o">&amp;&amp;</span> <span class="n">options</span><span class="o">[</span><span class="ss">:full</span><span class="o">]</span>
+      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">More tasks:&quot;</span>
+      <span class="n">print_tasks</span> <span class="n">sub_tasks</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="kp">extend</span> <span class="no">HelpHelpers</span>
+
+<span class="n">desc</span> <span class="s2">&quot;Show help.&quot;</span>
+<span class="n">task</span> <span class="ss">:help</span> <span class="k">do</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">name</span>
+
+  <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> - Really fast server deployment and automation tool</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Options:&quot;</span>
+
+  <span class="n">opts</span> <span class="o">=</span> <span class="o">[</span>
+    <span class="o">[</span> <span class="s2">&quot;-h, --help&quot;</span><span class="p">,</span> <span class="s2">&quot;Show help&quot;</span> <span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span> <span class="s2">&quot;-V, --version&quot;</span><span class="p">,</span> <span class="s2">&quot;Show program version&quot;</span> <span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span> <span class="s2">&quot;-v, --verbose&quot;</span><span class="p">,</span> <span class="s2">&quot;Show commands as they happen&quot;</span> <span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span> <span class="s2">&quot;-S, --simulate&quot;</span><span class="p">,</span> <span class="s2">&quot;Run in simulation mode&quot;</span> <span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span> <span class="s2">&quot;-t, --trace&quot;</span><span class="p">,</span> <span class="s2">&quot;Show backtraces when errors occur&quot;</span> <span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span> <span class="s2">&quot;-f FILE&quot;</span><span class="p">,</span> <span class="s2">&quot;Use FILE as the deploy configuration&quot;</span> <span class="o">]</span>
+  <span class="o">]</span>
+  <span class="n">opts</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">args</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;  %-17s %s&quot;</span> <span class="o">%</span> <span class="n">args</span> <span class="p">}</span>
+  <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
+
+  <span class="n">show_task_help</span>
+
+  <span class="k">unless</span> <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">have_rakefile</span>
+    <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Run this command in a project with a &#39;config/deploy.rb&#39; file to see more options.&quot;</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
+  <span class="nb">puts</span> <span class="s2">&quot;All of Rake&#39;s options are also available as &#39;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&#39; options. See &#39;rake --help&#39;&quot;</span>
+  <span class="nb">puts</span> <span class="s2">&quot;for more information.&quot;</span>
+<span class="k">end</span>
+
+<span class="n">desc</span> <span class="s2">&quot;Show all tasks.&quot;</span>
+<span class="n">task</span> <span class="ss">:tasks</span> <span class="k">do</span>
+  <span class="n">show_task_help</span> <span class="ss">:full</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="k">end</span>
+
+</pre></div>            </td>
+          </tr>
+              </tbody>
+    </table>
+
+    
+  </div>
+
+  <div id="sidebar">
+    <div class='header search'>
+      <input type='text' name='search' id='search-box' placeholder='Search...' />
+    </div>
+
+    <div class='header tabs'>
+      <button class='active' data-tab='pages'>Pages</button>
+      <button data-tab='files'>Files</button>
+    </div>
+
+    <div class='scroll-area'>
+      <!-- .multipage here means there will be a sidebar of many pages. -->
+      <div class='list pages multipage'>
+                  
+          <!-- Breadcrumbs -->
+                                  <ul class='breadcrumbs'>
+                              
+                <li class='page back'>
+                                  <a href='../../index.html'>Welcome to Mina</a>
+                                              
+                <li class='page back'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                                          </ul>
+          
+          <!-- The page and its headings -->
+          <ul class='current-page'>
+                        
+            <li class='page level-0'>
+              <a href='#'>Default</a>
+                          </li>
+          </ul>
+
+          <ul class='reference'>
+
+            <!-- The reference page -->
+                          <li class='page has-children level-0'>
+                                  <a href='../../manual/modules.html'>Modules</a>
+                              </li>
+            
+            <!-- Subpages of the ref -->
+                                                                                                                      
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/bundler.html' class=''>Bundler</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/default.html' class='active'>Default</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/deploy.html' class=''>Deployment</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/git.html' class=''>Git</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rails.html' class=''>Rails</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rbenv.html' class=''>rbenv</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/rvm.html' class=''>RVM</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/whenever.html' class=''>Whenever</a>
+                  
+                                                    </li>
+                          
+          </ul>
+              </div>
+
+      <div class='list files hidden'>
+        
+        <ul>
+                  <li class='level-1'>
+                                                    <a href='../../HISTORY.html#f' class='item file '>
+                <i></i>
+                HISTORY.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <a href='../../index.html#f' class='item file '>
+                <i></i>
+                index.md              </a>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                lib              </button>
+              <ul class=''>
+                          <li class='level-2'>
+                                                    <button class='item folder expanded'>
+                <i></i>
+                mina              </button>
+              <ul class=''>
+                          <li class='level-3'>
+                                                    <a href='../../lib/mina/bundler.html#f' class='item file '>
+                <i></i>
+                bundler.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/default.html#f' class='item file active'>
+                <i></i>
+                default.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy.html#f' class='item file '>
+                <i></i>
+                deploy.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/deploy_helpers.html#f' class='item file '>
+                <i></i>
+                deploy_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/git.html#f' class='item file '>
+                <i></i>
+                git.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/helpers.html#f' class='item file '>
+                <i></i>
+                helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
+                <i></i>
+                output_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rails.html#f' class='item file '>
+                <i></i>
+                rails.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rake.html#f' class='item file '>
+                <i></i>
+                rake.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rbenv.html#f' class='item file '>
+                <i></i>
+                rbenv.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/rvm.html#f' class='item file '>
+                <i></i>
+                rvm.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/settings.html#f' class='item file '>
+                <i></i>
+                settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/tools.html#f' class='item file '>
+                <i></i>
+                tools.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/version.html#f' class='item file '>
+                <i></i>
+                version.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/whenever.html#f' class='item file '>
+                <i></i>
+                whenever.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                                    <li class='level-2'>
+                                                    <a href='../../lib/mina.html#f' class='item file '>
+                <i></i>
+                mina.rb              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                    <li class='level-1'>
+                                                    <button class='item folder '>
+                <i></i>
+                manual              </button>
+              <ul class='hidden'>
+                          <li class='level-2'>
+                                                    <a href='../../manual/modules.html#f' class='item file '>
+                <i></i>
+                modules.md              </a>
+                      </li>
+                                                        </ul>
+            </li>
+                      </li>
+                                  </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src='../../script.js'></script>
+</body>
+</html>
