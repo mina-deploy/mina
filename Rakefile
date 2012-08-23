@@ -7,7 +7,7 @@ task :spec do
 end
 
 task :docs do
-  files = ['README.md'] + Dir['lib/**/*.rb']
+  files = ['MANUAL.md', 'HISTORY.md'] + Dir['lib/**/*.rb']
   system "lidoc #{files.join ' '} -o docs --github nadarei/mina"
 end
 
