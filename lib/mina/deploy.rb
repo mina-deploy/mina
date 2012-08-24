@@ -76,7 +76,7 @@ end
 
 desc "Sets up a site."
 task :setup do
-  set :term_mode, :pretty
+  set_default :term_mode, :pretty
 
   settings.deploy_to!
 
