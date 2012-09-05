@@ -115,7 +115,7 @@ module Mina
         end
       end
 
-      die result if result > 0
+      die result if result.is_a? Fixnum and result > 0
       result
     end
 
