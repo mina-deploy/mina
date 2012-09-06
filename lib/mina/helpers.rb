@@ -190,6 +190,13 @@ module Mina
       commands(@to) << unindent(code)
     end
 
+    # ### queue!
+    # Shortcut for `queue`ing a command that shows up in verbose mode.
+
+    def queue!(code)
+      queue echo_cmd(code)
+    end
+
     # ### echo_cmd
     # Converts a bash command to a command that echoes before execution.
     # Used to show commands in verbose mode. This does nothing unless verbose mode is on.
