@@ -93,7 +93,7 @@ module Mina
       script = Shellwords.escape(cmd)
 
       if options[:return] == true
-        result = `#{ssh_command} -- bash -c #{script}`
+        result = `#{ssh_command} -- #{script}`
 
       elsif simulate_mode?
         str = "Executing the following via '#{ssh_command}':"
@@ -104,7 +104,7 @@ module Mina
         puts cmd
 
       else
-        code = "#{ssh_command} -- bash #{bash_options} -c #{script}"
+        code = "#{ssh_command} -- #{script}"
         if settings.term_mode == :pretty
           result = pretty_system(code)
         elsif settings.term_mode == :exec
