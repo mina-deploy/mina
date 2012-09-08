@@ -409,7 +409,7 @@ body .il {
   color: #666;
 }
 /* Literal.Number.Integer.Long */
-/* Different extensions */
+/* Text only mode */
 table.extension-md td.code,
 table.extension-md th.code {
   background: transparent;
@@ -417,6 +417,7 @@ table.extension-md th.code {
 }
 table.extension-md td.docs,
 table.extension-md th.docs {
+  overflow-x: visible;
   min-width: 650px;
   max-width: 650px;
 }

@@ -176,11 +176,13 @@ are removed from the servers."</p>            </td>
             <td class="code">
               <div class="highlight"><pre>  <span class="n">desc</span> <span class="s2">&quot;Clean up old releases.&quot;</span>
   <span class="n">task</span> <span class="ss">:cleanup</span> <span class="k">do</span>
-    <span class="n">queue</span> <span class="sx">%{echo &quot;-----&gt; Cleaning up old releases (keeping </span><span class="si">#{</span><span class="n">keep_releases!</span><span class="si">}</span><span class="sx">)&quot;}</span>
-    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{cd &quot;</span><span class="si">#{</span><span class="n">deploy_to!</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">releases_path!</span><span class="si">}</span><span class="sx">&quot; || exit 15}</span>
-    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{count=`ls -1d [0-9]* | sort -rn | wc -l`}</span>
-    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{remove=$((count &gt; 5 ? count - </span><span class="si">#{</span><span class="n">keep_releases</span><span class="si">}</span><span class="sx"> : 0))}</span>
-    <span class="n">queue</span> <span class="n">echo_cmd</span> <span class="sx">%{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}</span>
+    <span class="n">queue</span> <span class="sx">%{</span>
+<span class="sx">      echo &quot;-----&gt; Cleaning up old releases (keeping </span><span class="si">#{</span><span class="n">keep_releases!</span><span class="si">}</span><span class="sx">)&quot;</span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{cd &quot;</span><span class="si">#{</span><span class="n">deploy_to!</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">releases_path!</span><span class="si">}</span><span class="sx">&quot; || exit 15}</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{count=`ls -1d [0-9]* | sort -rn | wc -l`}</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{remove=$((count &gt; 5 ? count - </span><span class="si">#{</span><span class="n">keep_releases</span><span class="si">}</span><span class="sx"> : 0))}</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">      </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">    }</span>
   <span class="k">end</span>
 <span class="k">end</span></pre></div>            </td>
           </tr>
@@ -204,7 +206,7 @@ are removed from the servers."</p>            </td>
             <td class="code">
               <div class="highlight"><pre><span class="n">desc</span> <span class="s2">&quot;Sets up a site.&quot;</span>
 <span class="n">task</span> <span class="ss">:setup</span> <span class="k">do</span>
-  <span class="n">set</span> <span class="ss">:term_mode</span><span class="p">,</span> <span class="ss">:pretty</span>
+  <span class="n">set_default</span> <span class="ss">:term_mode</span><span class="p">,</span> <span class="ss">:pretty</span>
 
   <span class="n">settings</span><span class="o">.</span><span class="n">deploy_to!</span>
 

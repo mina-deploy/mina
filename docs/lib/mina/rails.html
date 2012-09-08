@@ -89,7 +89,7 @@
 <p>Note that changing this will NOT change the environment that your application
 is ran in.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">rails_env</span> <span class="o">||=</span> <span class="s1">&#39;production&#39;</span></pre></div>            </td>
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:rails_env</span><span class="p">,</span> <span class="s1">&#39;production&#39;</span></pre></div>            </td>
           </tr>
                                       
           <tr id="bundle-prefix" class="heading">
@@ -107,10 +107,13 @@ is ran in.</p>            </td>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Prefix for Bundler commands.
-TODO: This should be lambda</p>            </td>
+              <p>Prefix for Bundler commands. Often to something like <code>RAILS_ENV=production
+bundle exec</code>.</p>
+
+<pre><code>queue! "#{bundle_prefix} annotate -r"
+</code></pre>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">bundle_prefix</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{RAILS_ENV=&quot;</span><span class="si">#{</span><span class="n">rails_env</span><span class="si">}</span><span class="sx">&quot; </span><span class="si">#{</span><span class="n">bundle_bin</span><span class="si">}</span><span class="sx"> exec}</span> <span class="p">}</span></pre></div>            </td>
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:bundle_prefix</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{RAILS_ENV=&quot;</span><span class="si">#{</span><span class="n">rails_env</span><span class="si">}</span><span class="sx">&quot; </span><span class="si">#{</span><span class="n">bundle_bin</span><span class="si">}</span><span class="sx"> exec}</span> <span class="p">}</span></pre></div>            </td>
           </tr>
                                       
           <tr id="rake" class="heading">
@@ -130,18 +133,18 @@ TODO: This should be lambda</p>            </td>
               </div>
               <p>The prefix for <code>rake</code> commands. Use like so:</p>
 
-<pre><code>queue "#{rake} db:migrate"
+<pre><code>queue! "#{rake} db:migrate"
 </code></pre>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">rake</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{</span><span class="si">#{</span><span class="n">bundle_prefix</span><span class="si">}</span><span class="sx"> rake}</span> <span class="p">}</span></pre></div>            </td>
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:rake</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{</span><span class="si">#{</span><span class="n">bundle_prefix</span><span class="si">}</span><span class="sx"> rake}</span> <span class="p">}</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="rake" class="heading">
+          <tr id="rails" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#rake">&#182;</a>
+                <a class="pilcrow" href="#rails">&#182;</a>
               </div>
-              <h3>rake</h3>            </td>
+              <h3>rails</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -153,10 +156,10 @@ TODO: This should be lambda</p>            </td>
               </div>
               <p>The prefix for <code>rails</code> commands. Use like so:</p>
 
-<pre><code>queue "#{rails} console"
+<pre><code>queue! "#{rails} console"
 </code></pre>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">rails</span> <span class="o">||=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{</span><span class="si">#{</span><span class="n">bundle_prefix</span><span class="si">}</span><span class="sx"> rails}</span> <span class="p">}</span></pre></div>            </td>
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:rails</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="sx">%{</span><span class="si">#{</span><span class="n">bundle_prefix</span><span class="si">}</span><span class="sx"> rails}</span> <span class="p">}</span></pre></div>            </td>
           </tr>
                                       
           <tr id="asset-paths" class="heading">
@@ -174,9 +177,18 @@ TODO: This should be lambda</p>            </td>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>The paths to be checked.</p>            </td>
+              <p>The paths to be checked.</p>
+
+<p>Whenever assets are compiled, the asset files are checked if they have
+changed from the previous release.</p>
+
+<p>If they're unchanged, compiled assets will simply be copied over to the new
+release.</p>
+
+<p>Override this if you have custom asset paths declared in your Rails's
+<code>config.assets.paths</code> setting.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">settings</span><span class="o">.</span><span class="n">asset_paths</span> <span class="o">||=</span> <span class="o">[</span><span class="s1">&#39;vendor/assets/&#39;</span><span class="p">,</span> <span class="s1">&#39;app/assets/&#39;</span><span class="o">]</span></pre></div>            </td>
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:asset_paths</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;vendor/assets/&#39;</span><span class="p">,</span> <span class="s1">&#39;app/assets/&#39;</span><span class="o">]</span></pre></div>            </td>
           </tr>
                                       
           <tr id="rake-em-assets-em-precompile" class="heading">
@@ -204,6 +216,16 @@ Override me if you like.</p>            </td>
             <td class="docs">
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <hr />            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-17" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>Macro used later by :rails, :rake, etc</p>            </td>
             <td class="code">
@@ -253,10 +275,10 @@ Override me if you like.</p>            </td>
                           </td>
           </tr>
                                       
-          <tr id="section-18" class="">
+          <tr id="section-19" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>These tasks can be invoked in the command line.</p>            </td>
             <td class="code">
@@ -273,10 +295,10 @@ Override me if you like.</p>            </td>
                           </td>
           </tr>
                                       
-          <tr id="section-20" class="">
+          <tr id="section-21" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>Invokes a rails command.</p>
 
@@ -297,10 +319,10 @@ Override me if you like.</p>            </td>
                           </td>
           </tr>
                                       
-          <tr id="section-22" class="">
+          <tr id="section-23" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Invokes a rake command.</p>
 
@@ -321,10 +343,10 @@ Override me if you like.</p>            </td>
                           </td>
           </tr>
                                       
-          <tr id="section-24" class="">
+          <tr id="section-25" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>Opens the Ruby console for the currently-deployed version.</p>
 
@@ -346,10 +368,10 @@ Override me if you like.</p>            </td>
                           </td>
           </tr>
                                       
-          <tr id="section-26" class="">
+          <tr id="section-27" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>These tasks are meant to be invoked inside deploy scripts, not invoked on
 their own.</p>            </td>
@@ -514,8 +536,8 @@ their own.</p>            </td>
                         rake                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#rake">
-                        rake                      </a>
+                      <a href="#rails">
+                        rails                      </a>
                     </li>
                                                                               <li class='heading level-3'>
                       <a href="#asset-paths">

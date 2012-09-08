@@ -86,7 +86,7 @@
               </div>
               <p>Sets the branch to be deployed.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:branch</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span>
+              <div class="highlight"><pre><span class="n">set_default</span> <span class="ss">:branch</span><span class="p">,</span> <span class="s1">&#39;master&#39;</span>
 
 <span class="n">namespace</span> <span class="ss">:git</span> <span class="k">do</span></pre></div>            </td>
           </tr>
@@ -153,7 +153,7 @@ their own.</p>            </td>
 <span class="sx">          </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[(cd &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/scm&quot; &amp;&amp; git fetch &quot;</span><span class="si">#{</span><span class="n">repository!</span><span class="si">}</span><span class="sx">&quot; &quot;</span><span class="si">#{</span><span class="n">branch</span><span class="si">}</span><span class="sx">:</span><span class="si">#{</span><span class="n">branch</span><span class="si">}</span><span class="sx">&quot; --force)]</span><span class="si">}</span><span class="sx"></span>
 <span class="sx">        fi &amp;&amp;</span>
 <span class="sx">        echo &quot;-----&gt; Using git branch &#39;</span><span class="si">#{</span><span class="n">branch</span><span class="si">}</span><span class="sx">&#39;&quot; &amp;&amp;</span>
-<span class="sx">        </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[git clone &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/scm&quot; . --depth 1 --recursive --branch &quot;</span><span class="si">#{</span><span class="n">branch</span><span class="si">}</span><span class="sx">&quot;]</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
+<span class="sx">        </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%[git clone &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/scm&quot; . --recursive --branch &quot;</span><span class="si">#{</span><span class="n">branch</span><span class="si">}</span><span class="sx">&quot;]</span><span class="si">}</span><span class="sx"> &amp;&amp;</span>
 <span class="sx">      }</span>
     <span class="k">end</span>
 

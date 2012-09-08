@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Changelog</title>
+  <title>HISTORY.html</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="style.css" />
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
@@ -26,22 +26,22 @@
       </thead>
       <tbody>
                                       
-          <tr id="Info-Changelog" class="heading">
+          <tr id="v0-2-0-Sep-08-2012" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#Info-Changelog">&#182;</a>
+                <a class="pilcrow" href="#v0-2-0-Sep-08-2012">&#182;</a>
               </div>
-              <h1>Info: Changelog</h1>            </td>
+              <h2>v0.2.0 - Sep 08, 2012</h2>            </td>
             <td class="code">
                           </td>
           </tr>
                                       
-          <tr id="v0-2-0-Unreleased" class="heading">
+          <tr id="section-1" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#v0-2-0-Unreleased">&#182;</a>
+                <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <h2>v0.2.0 - Unreleased</h2>            </td>
+              <p>This release had two pre releases:</p>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -50,16 +50,6 @@
             <td class="docs">
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>This release had two pre releases:</p>            </td>
-            <td class="code">
-                          </td>
-          </tr>
-                                      
-          <tr id="section-3" class="">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <ul>
 <li>v0.2.0.pre2 (Aug 2, 2012)</li>
@@ -79,12 +69,18 @@
                           </td>
           </tr>
                                       
-          <tr id="section-5" class="">
+          <tr id="section-4" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <ul>
+<li>Allow changing <code>:term_mode</code> in the setup task. (#51, @alfuken)</li>
+<li>Prevent <code>git log</code> from using a pager. (#42, @tmak)</li>
+<li><code>deploy:cleanup</code> can now be called in a deploy script. (#50, @dariocravero)</li>
+<li>Don't invoke bash anymore (!), assume that bash is the shell for the user.
+Fixes Ubuntu 12, and many other things.</li>
+<li>Fixed <code>ssh(cmd, return: true)</code> that used to exit. (#53 from @jpascal)</li>
 <li>[pre2] Call ssh with no double use <code>-t</code> parameter.</li>
 <li>[pre2] Fix Ruby 1.8 compatibility.</li>
 <li>[pre2] Fix the "undefined method > for Process::Status" error.</li>
@@ -107,12 +103,19 @@ and <code>rails:assets_precompile</code> now works well.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-7" class="">
+          <tr id="section-6" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <ul>
+<li><strong>Added the 'queue!' helper.</strong></li>
+<li>Add support for <strong>Whenever</strong>. (#47, @jpascal)</li>
+<li>Add a new <code>:environment</code> task that gets loaded on setup/deploy.</li>
+<li><strong>Add explicit support for rbenv/rvm.</strong> (#5, #39)
+<ul><li>Implement :'rvm:use[...]'. (#5, #39)</li>
+<li>Implement :'rbenv:load'. (#5, #39)</li></ul></li>
+<li>Revert <code>rails:optimize_for_3.2</code> from the pre2 release. (#32)</li>
 <li>[pre2] <strong>Optimize git:clone by caching the repository.</strong> This way, updates are
 faster because not the entire repo is cloned everytime. (#10)</li>
 <li>[pre2] <strong>Show elapsed time that a deploy takes.</strong></li>
@@ -121,7 +124,7 @@ faster because not the entire repo is cloned everytime. (#10)</li>
 <li>[pre2] New <code>die</code> helper.</li>
 <li>[pre2] New <code>report_time</code> helper.</li>
 <li>[pre2] New <code>to_directory</code> helper. (#35)</li>
-<li>[pre2] Put optional optimizations for Rails 3.2 asset pipeline. (#32)</li>
+<li>[pre2] Put optional optimizations for Rails 3.2 asset pipeline. (#32) -- reverted</li>
 <li>Update sample deploy script:
 <ul><li>[pre2] Update default deploy.rb to note :branch.</li>
 <li>[pre2] Add <code>link_shared_paths</code> to the sample deploy script.</li></ul></li>
@@ -143,12 +146,21 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-9" class="">
+          <tr id="section-8" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <ul>
+<li>Force removal of shared path destinations before linking with
+<code>deploy:link_shared_paths</code>. Fixes symlinking of <code>log/</code> in Rails projects.</li>
+<li><strong>Rails: speed up default asset compilation a bit by invoking
+<code>assets:precompile</code> with <code>RAILS_GROUPS=assets</code>.</strong></li>
+<li>Add helpful error message when there is a problem with
+deploy.rb or a custom Rakefile. (#37, @sge-jesse-adams)</li>
+<li>Update the default deploy.rb to add notes about 'mina setup' customizations.</li>
+<li>Make <code>mina run</code>, <code>mina rake</code>, <code>mina console</code> use the new <code>:environment</code> task.</li>
+<li>Allow calling <code>die</code> without arguments.</li>
 <li>[pre2] <strong>Improve output of <code>mina init</code>.</strong></li>
 <li>[pre2] Prettier output for <code>mina setup</code>. Also, show a better error message for it.</li>
 <li>[pre1] Refactor pretty printing to be simpler, cleaner, and extensible.</li>
@@ -168,10 +180,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-11" class="">
+          <tr id="section-10" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>This release had two prereleases: v0.1.2.pre1 and v0.1.2.pre2.</p>            </td>
             <td class="code">
@@ -188,10 +200,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-13" class="">
+          <tr id="section-12" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <ul>
 <li><strong>Show stdout output properly on deploy.</strong></li>
@@ -215,10 +227,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-15" class="">
+          <tr id="section-14" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <ul>
 <li>[.pre2] Add <code>:bundle_bin</code> option.</li>
@@ -238,10 +250,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-17" class="">
+          <tr id="section-16" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <ul>
 <li>Refactor pretty printing to be simpler, cleaner, and extensible.</li>
@@ -275,10 +287,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-20" class="">
+          <tr id="section-19" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <ul>
 <li>Check for releases_path directory in deploy script.</li>
@@ -299,10 +311,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-22" class="">
+          <tr id="section-21" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <ul>
 <li>Gem description.</li>
@@ -321,10 +333,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-24" class="">
+          <tr id="section-23" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <ul>
 <li>deploy.rb template (domain, user, git:clone).</li>
@@ -345,10 +357,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-26" class="">
+          <tr id="section-25" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>Renamed to Mina from Van Helsing.</p>            </td>
             <td class="code">
@@ -375,10 +387,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-29" class="">
+          <tr id="section-28" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <ul>
 <li><strong><code>vh rails[command]</code> and <code>vh rake[command]</code> tasks.</strong></li>
@@ -402,10 +414,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-31" class="">
+          <tr id="section-30" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <ul>
 <li><code>--simulate</code> show things without the <code>ssh</code> command or shellescaping.</li>
@@ -424,10 +436,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-33" class="">
+          <tr id="section-32" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Thanks to @sosedoff for his contributions that made it to this release.</p>            </td>
             <td class="code">
@@ -444,10 +456,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-35" class="">
+          <tr id="section-34" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <ul>
 <li><strong>Rubinius support.</strong></li>
@@ -471,10 +483,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-37" class="">
+          <tr id="section-36" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <ul>
 <li><strong>Rename <code>to :restart</code> to <code>to :launch</code>.</strong></li>
@@ -494,10 +506,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-39" class="">
+          <tr id="section-38" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <ul>
 <li>Added <code>rake spec</code> (aliased as just <code>rake</code>) task. It tests with Rake 0.8 and 0.9 both.</li>
@@ -529,10 +541,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-42" class="">
+          <tr id="section-41" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-42">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <ul>
 <li>Add <code>--trace</code> to the <code>vh help</code> screen.</li>
@@ -553,10 +565,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-44" class="">
+          <tr id="section-43" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-44">&#182;</a>
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <ul>
 <li>Use <code>:domain</code> instead of <code>:host</code>.</li>
@@ -575,10 +587,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-46" class="">
+          <tr id="section-45" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-46">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <ul>
 <li>Allow rake 0.8 testing using <code>rake=0.8 rspec</code>.</li>
@@ -608,10 +620,10 @@ faster because not the entire repo is cloned everytime. (#10)</li>
                           </td>
           </tr>
                                       
-          <tr id="section-49" class="">
+          <tr id="section-48" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-49">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <ul>
 <li><code>--simulate</code> switch.</li>
@@ -636,10 +648,10 @@ problems.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-51" class="">
+          <tr id="section-50" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-51">&#182;</a>
+                <a class="pilcrow" href="#section-50">&#182;</a>
               </div>
               <ul>
 <li>Added a test for an actual deployment.</li>
@@ -672,10 +684,10 @@ problems.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-54" class="">
+          <tr id="section-53" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-54">&#182;</a>
+                <a class="pilcrow" href="#section-53">&#182;</a>
               </div>
               <ul>
 <li>A help screen. You can see it with <code>vh --help</code>, <code>vh -h</code> or just plain <code>vh</code>.</li>
@@ -697,10 +709,10 @@ problems.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-56" class="">
+          <tr id="section-55" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-56">&#182;</a>
+                <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
               <ul>
 <li><code>release_path</code> has been deprecated.</li>
@@ -719,10 +731,10 @@ problems.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-58" class="">
+          <tr id="section-57" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-58">&#182;</a>
+                <a class="pilcrow" href="#section-57">&#182;</a>
               </div>
               <ul>
 <li>Stupid critical bug fix: fix <code>vh:setup</code> giving the world access to deploy_to.</li>
@@ -743,10 +755,10 @@ problems.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-60" class="">
+          <tr id="section-59" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-60">&#182;</a>
+                <a class="pilcrow" href="#section-59">&#182;</a>
               </div>
               <ul>
 <li>Edit the default deploy.rb to have a description for the deploy task.</li>
@@ -770,10 +782,10 @@ behaves like Rake where you need to add <code>--trace</code> to see the trace.</
                           </td>
           </tr>
                                       
-          <tr id="section-62" class="">
+          <tr id="section-61" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-62">&#182;</a>
+                <a class="pilcrow" href="#section-61">&#182;</a>
               </div>
               <ul>
 <li>Fixed the error that sometimes happens when invoking <code>vh</code> without a deploy.rb.</li>
@@ -810,10 +822,10 @@ things out.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-65" class="">
+          <tr id="section-64" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-65">&#182;</a>
+                <a class="pilcrow" href="#section-64">&#182;</a>
               </div>
               <ul>
 <li>Implement <code>vh init</code> which creates a sample <em>deploy.rb</em>.</li>
@@ -837,10 +849,10 @@ things out.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-67" class="">
+          <tr id="section-66" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-67">&#182;</a>
+                <a class="pilcrow" href="#section-66">&#182;</a>
               </div>
               <ul>
 <li>Allow <code>bundle:install</code> to skip having shared bundle paths if <code>:bundle_path</code> is set to nil.</li>
@@ -862,10 +874,10 @@ things out.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-69" class="">
+          <tr id="section-68" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-69">&#182;</a>
+                <a class="pilcrow" href="#section-68">&#182;</a>
               </div>
               <ul>
 <li>The <code>bundle:install</code> task now honors the <code>bundle_path</code> setting.</li>
@@ -888,10 +900,10 @@ setting, so the user may change the location of the lock file.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-71" class="">
+          <tr id="section-70" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-71">&#182;</a>
+                <a class="pilcrow" href="#section-70">&#182;</a>
               </div>
               <ul>
 <li>Deprecate <code>#validate_set</code>.</li>
@@ -910,10 +922,10 @@ setting, so the user may change the location of the lock file.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-73" class="">
+          <tr id="section-72" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-73">&#182;</a>
+                <a class="pilcrow" href="#section-72">&#182;</a>
               </div>
               <ul>
 <li>Move deploy settings to deploy.rb.</li>
@@ -933,10 +945,10 @@ setting, so the user may change the location of the lock file.</li>
                           </td>
           </tr>
                                       
-          <tr id="section-75" class="">
+          <tr id="section-74" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-75">&#182;</a>
+                <a class="pilcrow" href="#section-74">&#182;</a>
               </div>
               <p>Initial version.</p>            </td>
             <td class="code">
@@ -961,203 +973,6 @@ setting, so the user may change the location of the lock file.</li>
     <div class='scroll-area'>
       <!-- .multipage here means there will be a sidebar of many pages. -->
       <div class='list pages multipage'>
-                  
-          <!-- Breadcrumbs -->
-                                  <ul class='breadcrumbs'>
-                              
-                <li class='page back'>
-                                  <a href='index.html'>Welcome to Mina</a>
-                                              
-                <li class='page back'>
-                                  <span class='a'>Info</span>
-                                          </ul>
-          
-          <!-- The page and its headings -->
-          <ul class='current-page'>
-                        
-            <li class='page level-0'>
-              <a href='#'>Changelog</a>
-                              <ul>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-2-0-Unreleased">
-                        v0.2.0 - Unreleased                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Fixed">
-                        Fixed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-1-2-Jul-06-2012">
-                        v0.1.2 - Jul 06, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Fixed">
-                        Fixed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed-v0-1-2">
-                        Changed: (v0.1.2)                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-1-1-Jun-07-2012">
-                        v0.1.1 - Jun 07, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Fixed">
-                        Fixed:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-1-0-Jun-06-2012">
-                        v0.1.0 - Jun 06, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre7-Jun-06-2012">
-                        v0.0.1.pre7 - Jun 06, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre6-Jun-06-2012">
-                        v0.0.1.pre6 - Jun 06, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Tests">
-                        Tests:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre5-Jun-05-2012">
-                        v0.0.1.pre5 - Jun 05, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Misc">
-                        Misc:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre4-Jun-05-2012">
-                        v0.0.1.pre4 - Jun 05, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Misc">
-                        Misc:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre3-Jun-04-2012">
-                        v0.0.1.pre3 - Jun 04, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Removed">
-                        Removed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Fixed">
-                        Fixed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Misc">
-                        Misc:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre2-Jun-03-2012">
-                        v0.0.1.pre2 - Jun 03, 2012                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Added">
-                        Added:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Changed">
-                        Changed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Fixed">
-                        Fixed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Removed">
-                        Removed:                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#Other-things">
-                        Other things:                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#v0-0-1-pre1-Jun-02-2012">
-                        v0.0.1.pre1 - Jun 02, 2012                      </a>
-                    </li>
-                                  </ul>
-                          </li>
-          </ul>
-
-          <ul class='reference'>
-
-            <!-- The reference page -->
-                          <li class='page has-children level-0'>
-                                  <span class='a'>Info</span>
-                              </li>
-            
-            <!-- Subpages of the ref -->
-                                                                                                                      
-                <li class='page  level-1'>
-
-                                                        <a href='HISTORY.html' class='active'>Changelog</a>
-                  
-                                                    </li>
-                          
-          </ul>
               </div>
 
       <div class='list files hidden'>

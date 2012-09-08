@@ -150,7 +150,7 @@ end
 <span class="sx">    echo &quot;-----&gt; Loading rbenv&quot;</span>
 <span class="sx">    </span><span class="si">#{</span><span class="n">echo_cmd</span> <span class="sx">%{export PATH=&quot;</span><span class="si">#{</span><span class="n">rbenv_path</span><span class="si">}</span><span class="sx">/bin:$PATH&quot;}</span><span class="si">}</span><span class="sx"></span>
 
-<span class="sx">    if ! which -s rbenv &gt;/dev/null; then</span>
+<span class="sx">    if ! which rbenv &gt;/dev/null; then</span>
 <span class="sx">      echo &quot;! rbenv not found&quot;</span>
 <span class="sx">      echo &quot;! If rbenv is installed, check your :rbenv_path setting.&quot;</span>
 <span class="sx">      exit 1</span>
