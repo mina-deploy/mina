@@ -1,8 +1,5 @@
-Info: Changelog
-===============
-
-v0.2.0 - Unreleased
--------------------
+v0.2.0
+------
 
 This release had two pre releases:
 
@@ -10,6 +7,12 @@ This release had two pre releases:
   * v0.1.3.pre1 (Jul 13, 2012)
 
 ### Fixed:
+  * Allow changing `:term_mode` in the setup task. (#51, @alfuken)
+  * Prevent `git log` from using a pager. (#42, @tmak)
+  * `deploy:cleanup` can now be called in a deploy script. (#50, @dariocravero)
+  * Don't invoke bash anymore (!), assume that bash is the shell for the user.
+    Fixes Ubuntu 12, and many other things.
+  * Fixed `ssh(cmd, return: true)` that used to exit. (#53 from @jpascal)
   * [pre2] Call ssh with no double use `-t` parameter.
   * [pre2] Fix Ruby 1.8 compatibility.
   * [pre2] Fix the "undefined method > for Process::Status" error.
@@ -19,6 +22,13 @@ This release had two pre releases:
   * [pre1] Doing `rails:assets_precompile` now properly skips asset compilation if not needed. (#25)
 
 ### Added:
+  * __Added the 'queue!' helper.__
+  * Add support for __Whenever__. (#47, @jpascal)
+  * Add a new `:environment` task that gets loaded on setup/deploy.
+  * __Add explicit support for rbenv/rvm.__ (#5, #39)
+    * Implement :'rvm:use[...]'. (#5, #39)
+    * Implement :'rbenv:load'. (#5, #39)
+  * Revert `rails:optimize_for_3.2` from the pre2 release. (#32)
   * [pre2] __Optimize git:clone by caching the repository.__ This way, updates are
     faster because not the entire repo is cloned everytime. (#10)
   * [pre2] __Show elapsed time that a deploy takes.__
@@ -27,7 +37,7 @@ This release had two pre releases:
   * [pre2] New `die` helper.
   * [pre2] New `report_time` helper.
   * [pre2] New `to_directory` helper. (#35)
-  * [pre2] Put optional optimizations for Rails 3.2 asset pipeline. (#32)
+  * [pre2] Put optional optimizations for Rails 3.2 asset pipeline. (#32) -- reverted
   * Update sample deploy script:
     - [pre2] Update default deploy.rb to note :branch.
     - [pre2] Add `link_shared_paths` to the sample deploy script.
@@ -36,6 +46,15 @@ This release had two pre releases:
   * [pre1] Make asset paths configurable using the `asset_paths` setting.
 
 ### Changed:
+  * Force removal of shared path destinations before linking with
+    `deploy:link_shared_paths`. Fixes symlinking of `log/` in Rails projects.
+  * __Rails: speed up default asset compilation a bit by invoking
+    `assets:precompile` with `RAILS_GROUPS=assets`.__
+  * Add helpful error message when there is a problem with
+    deploy.rb or a custom Rakefile. (#37, @sge-jesse-adams)
+  * Update the default deploy.rb to add notes about 'mina setup' customizations.
+  * Make `mina run`, `mina rake`, `mina console` use the new `:environment` task.
+  * Allow calling `die` without arguments.
   * [pre2] __Improve output of `mina init`.__
   * [pre2] Prettier output for `mina setup`. Also, show a better error message for it.
   * [pre1] Refactor pretty printing to be simpler, cleaner, and extensible.
