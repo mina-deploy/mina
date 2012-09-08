@@ -20,8 +20,6 @@
 # ### identity_file
 # The local path to the SSH private key file.
 
-set_default :bash_options, '-i'
-
 # ## Tasks
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
