@@ -35,7 +35,7 @@ task :'rbenv:load' do
     echo "-----> Loading rbenv"
     #{echo_cmd %{export PATH="#{rbenv_path}/bin:$PATH"}}
 
-    if ! which -s rbenv >/dev/null; then
+    if ! which rbenv >/dev/null; then
       echo "! rbenv not found"
       echo "! If rbenv is installed, check your :rbenv_path setting."
       exit 1
