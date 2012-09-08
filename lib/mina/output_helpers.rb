@@ -4,6 +4,33 @@
 module Mina
   module OutputHelpers
 
+    # ### print_str
+    # Prints a string by delegating it to the proper output helper.
+    #
+    # It takes an input with text and prints them nicely. The text block can
+    # have statuses (prefixed with `-----> `), errors (prefixed with `! `),
+    # commands (prefixed with `$ `) or anything else. Depending on the type of
+    # the message, they will be delegated to the proper print_* helper.
+    #
+    #     -----> Unlocking
+    #     $ unlock foo
+    #     Unlocked.
+    #     ! ERROR: Failed
+    #
+    # Returns nothing.
+    #
+    def print_str(str)
+      if str =~ /^\-+> (.*?)$/
+        print_status $1
+      elsif str =~ /^! (.*?)$/
+        print_error $1
+      elsif str =~ /^\$ (.*?)$/
+        print_command $1
+      else
+        print_stdout str
+      end
+    end
+
     # ### print_status
     # Prints a status message. (`----->`)
     def print_status(msg)
@@ -40,33 +67,6 @@ module Mina
     # Returns the string `str` with the color `c`.
     def color(str, c)
       ENV['NO_COLOR'] ? str : "\033[#{c}m#{str}\033[0m"
-    end
-
-    # ### print_str
-    # Prints a string by delegating it to the proper output helper.
-    #
-    # It takes an input with text and prints them nicely. The text block can
-    # have statuses (prefixed with `-----> `), errors (prefixed with `! `),
-    # commands (prefixed with `$ `) or anything else. Depending on the type of
-    # the message, they will be delegated to the proper print_* helper.
-    #
-    #     -----> Unlocking
-    #     $ unlock foo
-    #     Unlocked.
-    #     ! ERROR: Failed
-    #
-    # Returns nothing.
-    #
-    def print_str(str)
-      if str =~ /^\-+> (.*?)$/
-        print_status $1
-      elsif str =~ /^! (.*?)$/
-        print_error $1
-      elsif str =~ /^\$ (.*?)$/
-        print_command $1
-      else
-        print_stdout str
-      end
     end
 
     # ### pretty_system
