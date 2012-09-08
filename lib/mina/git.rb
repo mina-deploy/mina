@@ -9,7 +9,7 @@
 # ### branch
 # Sets the branch to be deployed.
 
-set_default :branch, "master"
+set_default :branch, 'master'
 
 namespace :git do
   # ## Deploy tasks
@@ -18,6 +18,7 @@ namespace :git do
 
   # ### git:clone
   # Clones the Git repository. Meant to be used inside a deploy script.
+
   desc "Clones the Git repository to the release path."
   task :clone do
     if revision?

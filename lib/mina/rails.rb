@@ -13,24 +13,28 @@ require 'mina/bundler'
 #
 # Note that changing this will NOT change the environment that your application
 # is ran in.
+
 set_default :rails_env, 'production'
 
 # ### bundle_prefix
-# Prefix for Bundler commands.
+# Prefix for Bundler commands. Often to something like `RAILS_ENV=production
+# bundle exec`.
+#
+#     queue! "#{bundle_prefix} annotate -r"
 
 set_default :bundle_prefix, lambda { %{RAILS_ENV="#{rails_env}" #{bundle_bin} exec} }
 
 # ### rake
 # The prefix for `rake` commands. Use like so:
 #
-#     queue "#{rake} db:migrate"
+#     queue! "#{rake} db:migrate"
 
 set_default :rake, lambda { %{#{bundle_prefix} rake} }
 
 # ### rails
 # The prefix for `rails` commands. Use like so:
 #
-#     queue "#{rails} console"
+#     queue! "#{rails} console"
 
 set_default :rails, lambda { %{#{bundle_prefix} rails} }
 

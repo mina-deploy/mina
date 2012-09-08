@@ -1,6 +1,5 @@
 # # Modules: Whenever
-# Adds settings and tasks for managing projects with [whenever}.
-#
+# Adds settings and tasks for managing projects with [whenever].
 # [whenever]: http://rubygems.org/gems/whenever
 
 namespace :whenever do
