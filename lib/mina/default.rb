@@ -19,6 +19,9 @@
 #
 # ### identity_file
 # The local path to the SSH private key file.
+#
+# ### ssh_options
+# Switches to be passed to the `ssh` command.
 
 # ## Tasks
 # Any and all of these settings can be overriden in your `deploy.rb`.
