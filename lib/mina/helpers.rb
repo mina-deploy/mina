@@ -138,12 +138,13 @@ module Mina
     #
     #     puts ssh_command
     #     #=> 'ssh diggity@foo.com'
-    #
+
     def ssh_command
       args = domain!
       args = "#{user}@#{args}" if user?
       args << " -i #{identity_file}" if identity_file?
       args << " -p #{port}" if port?
+      args << " -A" if forward_agent?
       args << " -t"
       "ssh #{args}"
     end
