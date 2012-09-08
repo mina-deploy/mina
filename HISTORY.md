@@ -1,5 +1,5 @@
-v0.2.0
-------
+v0.2.0 - Sep 08, 2012
+---------------------
 
 This release had two pre releases:
 
