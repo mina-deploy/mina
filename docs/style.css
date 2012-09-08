@@ -731,7 +731,7 @@ body #sidebar {
 }
 .list li.page a,
 .list li.page span.a {
-  color: #888;
+  color: #555;
   font-size: 1em;
   line-height: 1.3;
   padding-top: 3px;
@@ -747,7 +747,7 @@ body #sidebar {
 }
 .list li.heading > a {
   font-size: 0.9em;
-  color: #777;
+  color: #555;
   padding-left: 30px;
 }
 .list li.heading.level-2 > a {
