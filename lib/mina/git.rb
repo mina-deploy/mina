@@ -42,7 +42,7 @@ namespace :git do
           #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force)]}
         fi &&
         echo "-----> Using git branch '#{branch}'" &&
-        #{echo_cmd %[git clone "#{deploy_to}/scm" . --depth 1 --recursive --branch "#{branch}"]} &&
+        #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive --branch "#{branch}"]} &&
       }
     end
 
