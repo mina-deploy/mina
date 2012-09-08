@@ -1,6 +1,25 @@
 # # Modules: Default
 # This module is loaded when invoking `mina` with or without a project.
 
+# ## Settings
+# Here are some of the common settings. All settings are optional unless
+# otherwise noted.
+#
+# ### deploy_to
+# (Required) Path to deploy to.
+#
+# ### domain
+# (Required) Host name to deploy to.
+#
+# ### port
+# SSH port number.
+#
+# ### forward_agent
+# If set to `true`, enables SSH agent forwarding.
+#
+# ### identity_file
+# The local path to the SSH private key file.
+
 set_default :bash_options, '-i'
 
 # ## Tasks
