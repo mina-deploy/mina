@@ -1,3 +1,23 @@
+v0.2.1 - Sep 08, 2012
+---------------------
+
+This release is to fix some issues that should've been cleaned up in the
+previous release, but wasn't.
+
+### Fixed:
+  * **Fix SSH helpers giving a 'class required' error.**
+  * **Send stdout even in term_mode = :pretty mode.**
+  * Rbenv: Fix compatibility with Debian, Arch, Fedora. (#44)
+  * Supress the "--depth is ignored in local clones" warning. (#56)
+
+### Added:
+  * Add the `:ssh_options` setting. (#23)
+  * Add the `:forward_agent` setting. (#23)
+
+### Changed:
+  * Make the `:term_mode` setting accept strings, not just symbols. (eg: `set
+    :term_mode, 'exec'`)
+
 v0.2.0 - Sep 08, 2012
 ---------------------
 
