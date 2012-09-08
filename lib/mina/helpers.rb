@@ -1,4 +1,5 @@
 # # Helpers: Default helpers
+
 module Mina
   module Helpers
 
@@ -9,7 +10,7 @@ module Mina
     #
     #     invoke :'git:clone'
     #     invoke :restart
-    #
+
     def invoke(task)
       Rake.application.invoke_task task
     end
@@ -26,7 +27,7 @@ module Mina
     #     #=> "1 and 2"
     #
     # Returns the output string of the ERB template.
-    #
+
     def erb(file, b=binding)
       require 'erb'
       erb = ERB.new(File.read(file))
@@ -43,7 +44,7 @@ module Mina
     #     run!
     #
     # Returns nothing.
-    #
+
     def run!
       report_time { ssh commands(:default) }
     end
@@ -51,6 +52,15 @@ module Mina
     # ### report_time
     # Report time elapsed in the block.
     # Returns the output of the block.
+    #
+    #     report_time do
+    #       sleep 2
+    #       # do other things
+    #     end
+    #
+    #     # Output:
+    #     # Elapsed time: 2.0 seconds
+
     def report_time(&blk)
       time, output = measure &blk
       print_str "Elapsed time: %.2f seconds" % [time]
@@ -60,6 +70,7 @@ module Mina
     # ### measure
     # Measures the time (in ms) a block takes.
     # Returns a [time, output] tuple.
+
     def measure(&blk)
       t = Time.now
       output = yield
@@ -83,7 +94,7 @@ module Mina
     # Example
     #
     #     ssh("ls", return: true)
-    #
+
     def ssh(cmd, options={})
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
 
@@ -141,7 +152,7 @@ module Mina
     # __Internal:__ Invoked when Rake exits.
     #
     # Returns nothing.
-    #
+
     def mina_cleanup!
       run! if commands.any?
     end
@@ -154,7 +165,7 @@ module Mina
     #
     #     die 2
     #     die 2, "Tests failed"
-    #
+
     def die(code=1, msg=null)
       str = "Failed with status #{code}"
       str += " (#{msg})" if msg
@@ -166,6 +177,7 @@ module Mina
     # ### error
     # __Internal:__ Prints to stdout.
     # Consider using `print_error` instead.
+
     def error(str)
       $stderr.write "#{str}\n"
     end
@@ -184,7 +196,7 @@ module Mina
     #     queue "true"
     #
     #     commands == ['sudo restart', 'true']
-    #
+
     def queue(code)
       commands
       commands(@to) << unindent(code)
@@ -207,7 +219,7 @@ module Mina
     #
     #     echo_cmd("ln -nfs releases/2 current")
     #     #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
-    #
+
     def echo_cmd(str)
       if verbose_mode?
         "echo #{Shellwords.escape("$ " + str)} &&\n#{str}"
@@ -234,7 +246,7 @@ module Mina
     #
     #     commands == ["sudo restart", "true"]
     #     commands(:clean) == ["rm"]
-    #
+
     def commands(aspect=:default)
       (@commands ||= begin
         @to = :default
@@ -257,7 +269,7 @@ module Mina
     #     end
     #
     #     commands.should == ['sudo restart', 'true']
-    #
+
     def isolate(&blk)
       old, @commands = @commands, nil
       result = yield
@@ -275,7 +287,7 @@ module Mina
     #   end
     #
     #   commands.should == ['cd ./webapp && (./reload && true)']
-    #
+
     def in_directory(path, &blk)
       isolated_commands = isolate { yield; commands }
       isolated_commands.each { |cmd| queue "(cd #{path} && (#{cmd}))" }
@@ -295,7 +307,7 @@ module Mina
     #
     #     commands(:prepare) == ["bundle install"]
     #     commands(:restart) == ["nginx -s restart"]
-    #
+
     def to(name, &blk)
       old, @to = @to, name
       yield
@@ -312,7 +324,7 @@ module Mina
     # Returns the value.
     #
     #     set :domain, 'kickflip.me'
-    #
+
     def set(key, value)
       settings.send :"#{key}=", value
     end
@@ -330,7 +342,7 @@ module Mina
     #     set :term_mode, :system
     #     set_default :term_mode, :pretty
     #     settings.term_mode.should == :system
-    #
+
     def set_default(key, value)
       settings.send :"#{key}=", value  unless settings.send(:"#{key}?")
     end
@@ -342,7 +354,7 @@ module Mina
     #
     #     settings.domain  #=> 'kickflip.me'
     #     domain           #=> 'kickflip.me'
-    #
+
     def settings
       @settings ||= Settings.new
     end
@@ -352,7 +364,7 @@ module Mina
     # See #settings for an explanation.
     #
     # Returns things.
-    #
+
     def method_missing(meth, *args, &blk)
       settings.send meth, *args
     end
@@ -363,7 +375,7 @@ module Mina
     # Checks if Rake was invoked with --verbose.
     #
     # Returns true or false.
-    #
+
     def verbose_mode?
       if Rake.respond_to?(:verbose)
         # Rake 0.9.x
@@ -378,7 +390,7 @@ module Mina
     # Checks if Rake was invoked with --simulate.
     #
     # Returns true or false.
-    #
+
     def simulate_mode?
       !! ENV['simulate']
     end
@@ -387,6 +399,7 @@ module Mina
 
     # ### indent
     # Indents a given code block with `count` spaces before it.
+
     def indent(count, str)
       str.gsub(/^/, " "*count)
     end
@@ -403,7 +416,7 @@ module Mina
     #     # Output:
     #     # Hello
     #     #   There
-    #
+
     def unindent(code)
       if code =~ /^\n([ \t]+)/
         code = code.gsub(/^#{$1}/, '')
@@ -414,6 +427,7 @@ module Mina
 
     # ### reindent
     # Resets the indentation on a given code block.
+
     def reindent(n, code)
       indent n, unindent(code)
     end
