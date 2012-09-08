@@ -104,6 +104,14 @@ module Mina
             end
           end
 
+          # Read stdin in the background and send it out.
+          p2 = fork do
+            trap("INT") {}
+            while (char = STDIN.getbyte rescue nil)
+              i.putc char if char
+            end
+          end
+
           # Read stdout.
           while str = o.gets
             print_str str
