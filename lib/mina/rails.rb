@@ -17,7 +17,6 @@ set_default :rails_env, 'production'
 
 # ### bundle_prefix
 # Prefix for Bundler commands.
-# TODO: This should be lambda
 
 set_default :bundle_prefix, lambda { %{RAILS_ENV="#{rails_env}" #{bundle_bin} exec} }
 
