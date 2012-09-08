@@ -39,9 +39,9 @@ module Mina
 
       else
         code = "#{ssh_command} -- #{script}"
-        if settings.term_mode == :pretty
+        if settings.term_mode.to_s == 'pretty'
           result = pretty_system(code)
-        elsif settings.term_mode == :exec
+        elsif settings.term_mode.to_s == 'exec'
           exec code
         else
           system code
