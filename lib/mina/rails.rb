@@ -65,7 +65,7 @@ make_run_task = lambda { |name, sample_args|
   task name, [:arguments] => :environment do |t, args|
     arguments = args[:arguments]
     command = send name
-    unless command
+    unless arguments
       puts %{You need to provide arguments. Try: mina "#{name}[#{sample_args}]"}
       exit 1
     end
