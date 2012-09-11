@@ -233,7 +233,7 @@ Override me if you like.</p>            </td>
   <span class="n">task</span> <span class="nb">name</span><span class="p">,</span> <span class="o">[</span><span class="ss">:arguments</span><span class="o">]</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
     <span class="n">arguments</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="ss">:arguments</span><span class="o">]</span>
     <span class="n">command</span> <span class="o">=</span> <span class="nb">send</span> <span class="nb">name</span>
-    <span class="k">unless</span> <span class="n">command</span>
+    <span class="k">unless</span> <span class="n">arguments</span>
       <span class="nb">puts</span> <span class="sx">%{You need to provide arguments. Try: mina &quot;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">[</span><span class="si">#{</span><span class="n">sample_args</span><span class="si">}</span><span class="sx">]&quot;}</span>
       <span class="nb">exit</span> <span class="mi">1</span>
     <span class="k">end</span>
@@ -691,6 +691,11 @@ their own.</p>            </td>
                 deploy_helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
+                                                    <a href='../../lib/mina/exec_helpers.html#f' class='item file '>
+                <i></i>
+                exec_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
                                                     <a href='../../lib/mina/git.html#f' class='item file '>
                 <i></i>
                 git.rb              </a>
@@ -729,6 +734,11 @@ their own.</p>            </td>
                                                     <a href='../../lib/mina/settings.html#f' class='item file '>
                 <i></i>
                 settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/ssh_helpers.html#f' class='item file '>
+                <i></i>
+                ssh_helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
                                                     <a href='../../lib/mina/tools.html#f' class='item file '>

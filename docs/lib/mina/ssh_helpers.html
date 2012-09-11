@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Output helpers</title>
+  <title>SSH helpers</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../style.css" />
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
@@ -9,8 +9,8 @@
 <body>
   <div id="area">
     <div class='file-header'>
-              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/output_helpers.rb">
-          <strong title='lib/mina/output_helpers.rb'>output_helpers.rb</strong>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/ssh_helpers.rb">
+          <strong title='lib/mina/ssh_helpers.rb'>ssh_helpers.rb</strong>
           <small>View source</small>
         </a>
           </div>
@@ -26,12 +26,12 @@
       </thead>
       <tbody>
                                       
-          <tr id="Helpers-Output-helpers" class="heading">
+          <tr id="Helpers-SSH-helpers" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#Helpers-Output-helpers">&#182;</a>
+                <a class="pilcrow" href="#Helpers-SSH-helpers">&#182;</a>
               </div>
-              <h1>Helpers: Output helpers</h1>            </td>
+              <h1>Helpers: SSH helpers</h1>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -41,19 +41,18 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Protip! make a module that overrides these settings, then use <code>extend YourModule</code>
-to make your own pretty printing thing.</p>            </td>
+              <p>You don't need to invoke these helpers, they're already invoked automatically.</p>            </td>
             <td class="code">
               <div class="highlight"><pre><span class="k">module</span> <span class="nn">Mina</span>
-  <span class="k">module</span> <span class="nn">OutputHelpers</span></pre></div>            </td>
+  <span class="k">module</span> <span class="nn">SshHelpers</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-str" class="heading">
+          <tr id="ssh" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-str">&#182;</a>
+                <a class="pilcrow" href="#ssh">&#182;</a>
               </div>
-              <h3>print_str</h3>            </td>
+              <h3>ssh</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -63,40 +62,48 @@ to make your own pretty printing thing.</p>            </td>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Prints a string by delegating it to the proper output helper.</p>
+              <p>Executes a command via SSH.</p>
 
-<p>It takes an input with text and prints them nicely. The text block can
-have statuses (prefixed with <code>-----&gt;</code>), errors (prefixed with <code>!</code>),
-commands (prefixed with <code>$</code>) or anything else. Depending on the type of
-the message, they will be delegated to the proper print_* helper.</p>
+<p>Returns nothing usually, but if <code>{ return: true }</code> is given, returns the
+STDOUT output of the SSH session.</p>
 
-<pre><code>-----&gt; Unlocking
-$ unlock foo
-Unlocked.
-! ERROR: Failed
-</code></pre>
+<p><code>options</code> is a hash of options:</p>
 
-<p>Returns nothing.</p>            </td>
+<ul>
+<li><code>:pretty</code> - Prettify the output if true.</li>
+<li><code>:return</code>  - If set to true, returns the output.</li>
+</ul>
+
+<p>Example</p>
+
+<pre><code>ssh("ls", return: true)
+</code></pre>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_str</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^\-+&gt; (.*?)$/</span>
-        <span class="n">print_status</span> <span class="vg">$1</span>
-      <span class="k">elsif</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^! (.*?)$/</span>
-        <span class="n">print_error</span> <span class="vg">$1</span>
-      <span class="k">elsif</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^\$ (.*?)$/</span>
-        <span class="n">print_command</span> <span class="vg">$1</span>
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+      <span class="nb">require</span> <span class="s1">&#39;shellwords&#39;</span>
+
+      <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="k">if</span> <span class="n">cmd</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">Array</span><span class="p">)</span>
+      <span class="n">script</span> <span class="o">=</span> <span class="no">Shellwords</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:return</span><span class="o">]</span> <span class="o">==</span> <span class="kp">true</span>
+        <span class="sb">`</span><span class="si">#{</span><span class="n">ssh_command</span><span class="si">}</span><span class="sb"> -- </span><span class="si">#{</span><span class="n">script</span><span class="si">}</span><span class="sb">`</span>
+
+      <span class="k">elsif</span> <span class="n">simulate_mode?</span>
+        <span class="no">Ssh</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">ssh_command</span><span class="p">)</span>
+
       <span class="k">else</span>
-        <span class="n">print_stdout</span> <span class="n">str</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="no">Ssh</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="nb">self</span><span class="p">)</span>
+        <span class="no">Ssh</span><span class="o">.</span><span class="n">ensure_successful</span> <span class="n">result</span><span class="p">,</span> <span class="nb">self</span>
       <span class="k">end</span>
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-status" class="heading">
+          <tr id="ssh-command" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-status">&#182;</a>
+                <a class="pilcrow" href="#ssh-command">&#182;</a>
               </div>
-              <h3>print_status</h3>            </td>
+              <h3>ssh_command</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -106,20 +113,33 @@ Unlocked.
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Prints a status message. (<code>-----&gt;</code>)</p>            </td>
+              <p>Returns the SSH command to be executed.</p>
+
+<pre><code>set :domain, 'foo.com'
+set :user, 'diggity'
+
+puts ssh_command
+#=&gt; 'ssh diggity@foo.com'
+</code></pre>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_status</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>  <span class="k">if</span> <span class="n">verbose_mode?</span>
-      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;-----&gt;&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span>
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">ssh_command</span>
+      <span class="n">args</span> <span class="o">=</span> <span class="n">domain!</span>
+      <span class="n">args</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">user</span><span class="si">}</span><span class="s2">@</span><span class="si">#{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">user?</span>
+      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -i </span><span class="si">#{</span><span class="n">identity_file</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">identity_file?</span>
+      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -p </span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">port?</span>
+      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -A&quot;</span> <span class="k">if</span> <span class="n">forward_agent?</span>
+      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; </span><span class="si">#{</span><span class="n">ssh_options</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="k">if</span> <span class="n">ssh_options?</span>
+      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -t&quot;</span>
+      <span class="s2">&quot;ssh </span><span class="si">#{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-error" class="heading">
+          <tr id="Private-methods" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-error">&#182;</a>
+                <a class="pilcrow" href="#Private-methods">&#182;</a>
               </div>
-              <h3>print_error</h3>            </td>
+              <h2>Private methods</h2>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -129,19 +149,19 @@ Unlocked.
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Prints an error message (header).</p>            </td>
+              <p><code>ssh</code> delegates to these.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot; </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">,</span> <span class="mi">33</span><span class="p">)</span><span class="si">}</span><span class="s2">     </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>    <span class="k">module</span> <span class="nn">Ssh</span>
+
+      <span class="kp">extend</span> <span class="nb">self</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-stderr" class="heading">
+          <tr id="Ssh-simulate" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-stderr">&#182;</a>
+                <a class="pilcrow" href="#Ssh-simulate">&#182;</a>
               </div>
-              <h3>print_stderr</h3>            </td>
+              <h3>Ssh.simulate</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -151,19 +171,26 @@ Unlocked.
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Prints an error message (body), or prints stderr output.</p>            </td>
+              <p><strong>Internal:</strong> Prints SSH command. Called by <code>ssh</code>.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_stderr</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;       </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">ssh_command</span><span class="p">)</span>
+        <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;Executing the following via &#39;</span><span class="si">#{</span><span class="n">ssh_command</span><span class="si">}</span><span class="s2">&#39;:&quot;</span>
+        <span class="nb">puts</span> <span class="s2">&quot;#!/usr/bin/env bash&quot;</span>
+        <span class="nb">puts</span> <span class="s2">&quot;# </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="nb">puts</span> <span class="s2">&quot;#&quot;</span>
+
+        <span class="nb">puts</span> <span class="n">cmd</span>
+
+        <span class="mi">0</span>
+      <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-command" class="heading">
+          <tr id="Ssh-invoke" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-command">&#182;</a>
+                <a class="pilcrow" href="#Ssh-invoke">&#182;</a>
               </div>
-              <h3>print_command</h3>            </td>
+              <h3>Ssh.invoke</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -173,19 +200,31 @@ Unlocked.
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>Prints a command.</p>            </td>
+              <p><strong>Internal:</strong> Initiates an SSH session with script <code>script</code> with given
+<code>term_mode</code>.  Called by <code>ssh</code>.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_command</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;       </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">this</span><span class="p">)</span>
+        <span class="n">term_mode</span> <span class="o">=</span> <span class="ss">:&quot;</span><span class="si">#{</span><span class="n">this</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">term_mode</span><span class="si">}</span><span class="ss">&quot;</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">this</span><span class="o">.</span><span class="n">ssh_command</span><span class="si">}</span><span class="s2"> -- </span><span class="si">#{</span><span class="n">script</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">case</span> <span class="n">term_mode</span>
+        <span class="k">when</span> <span class="ss">:pretty</span>
+          <span class="n">this</span><span class="o">.</span><span class="n">pretty_system</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">when</span> <span class="ss">:exec</span>
+          <span class="nb">exec</span> <span class="n">code</span>
+        <span class="k">else</span>
+          <span class="nb">system</span> <span class="n">code</span>
+          <span class="vg">$?</span><span class="o">.</span><span class="n">to_i</span>
+        <span class="k">end</span>
+      <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-stdout" class="heading">
+          <tr id="Ssh-ensure-successful" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-stdout">&#182;</a>
+                <a class="pilcrow" href="#Ssh-ensure-successful">&#182;</a>
               </div>
-              <h3>print_stdout</h3>            </td>
+              <h3>Ssh.ensure_successful</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -195,34 +234,16 @@ Unlocked.
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>Prints a normal message.</p>            </td>
+              <p><strong>Internal:</strong> Halts the execution if the given result code is not
+successful (non-zero).</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_stdout</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;       </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
-          </tr>
-                                      
-          <tr id="color" class="heading">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#color">&#182;</a>
-              </div>
-              <h3>color</h3>            </td>
-            <td class="code">
-                          </td>
-          </tr>
-                                      
-          <tr id="section-15" class="">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#section-15">&#182;</a>
-              </div>
-              <p>Colorizes a string.
-Returns the string <code>str</code> with the color <code>c</code>.</p>            </td>
-            <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-      <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;NO_COLOR&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="n">str</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[</span><span class="si">#{</span><span class="n">c</span><span class="si">}</span><span class="s2">m</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">ensure_successful</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">this</span><span class="p">)</span>
+        <span class="n">this</span><span class="o">.</span><span class="n">die</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Fixnum</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">result</span>
+      <span class="k">end</span>
+
     <span class="k">end</span>
+
   <span class="k">end</span>
 <span class="k">end</span>
 
@@ -262,35 +283,31 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
           <ul class='current-page'>
                         
             <li class='page level-0'>
-              <a href='#'>Output helpers</a>
+              <a href='#'>SSH helpers</a>
                               <ul>
                                                                               <li class='heading level-3'>
-                      <a href="#print-str">
-                        print_str                      </a>
+                      <a href="#ssh">
+                        ssh                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-status">
-                        print_status                      </a>
+                      <a href="#ssh-command">
+                        ssh_command                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#Private-methods">
+                        Private methods                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-error">
-                        print_error                      </a>
+                      <a href="#Ssh-simulate">
+                        Ssh.simulate                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-stderr">
-                        print_stderr                      </a>
+                      <a href="#Ssh-invoke">
+                        Ssh.invoke                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-command">
-                        print_command                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#print-stdout">
-                        print_stdout                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#color">
-                        color                      </a>
+                      <a href="#Ssh-ensure-successful">
+                        Ssh.ensure_successful                      </a>
                     </li>
                                   </ul>
                           </li>
@@ -325,13 +342,13 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                                                                                               
                 <li class='page  level-1'>
 
-                                                        <a href='../../lib/mina/output_helpers.html' class='active'>Output helpers</a>
+                                                        <a href='../../lib/mina/output_helpers.html' class=''>Output helpers</a>
                   
                                                     </li>
                                                                                               
                 <li class='page  level-1'>
 
-                                                        <a href='../../lib/mina/ssh_helpers.html' class=''>SSH helpers</a>
+                                                        <a href='../../lib/mina/ssh_helpers.html' class='active'>SSH helpers</a>
                   
                                                     </li>
                           
@@ -397,7 +414,7 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                 helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
-                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file active'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
                 <i></i>
                 output_helpers.rb              </a>
                       </li>
@@ -427,7 +444,7 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                 settings.rb              </a>
                       </li>
                                                     <li class='level-3'>
-                                                    <a href='../../lib/mina/ssh_helpers.html#f' class='item file '>
+                                                    <a href='../../lib/mina/ssh_helpers.html#f' class='item file active'>
                 <i></i>
                 ssh_helpers.rb              </a>
                       </li>

@@ -190,129 +190,6 @@ Returns a [time, output] tuple.</p>            </td>
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="SSH-helpers" class="heading">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#SSH-helpers">&#182;</a>
-              </div>
-              <h2>SSH helpers</h2>            </td>
-            <td class="code">
-                          </td>
-          </tr>
-                                      
-          <tr id="section-12" class="">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#section-12">&#182;</a>
-              </div>
-              <p>You don't need to invoke these helpers, they're already invoked automatically.</p>            </td>
-            <td class="code">
-                          </td>
-          </tr>
-                                      
-          <tr id="ssh" class="heading">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#ssh">&#182;</a>
-              </div>
-              <h3>ssh</h3>            </td>
-            <td class="code">
-                          </td>
-          </tr>
-                                      
-          <tr id="section-14" class="">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#section-14">&#182;</a>
-              </div>
-              <p>Executes a command via SSH.</p>
-
-<p>Returns nothing usually, but if <code>{ return: true }</code> is given, returns the
-STDOUT output of the SSH session.</p>
-
-<p><code>options</code> is a hash of options:</p>
-
-<ul>
-<li><code>:pretty</code> - Prettify the output if true.</li>
-<li><code>:return</code>  - If set to true, returns the output.</li>
-</ul>
-
-<p>Example</p>
-
-<pre><code>ssh("ls", return: true)
-</code></pre>            </td>
-            <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{})</span>
-      <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="k">if</span> <span class="n">cmd</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">Array</span><span class="p">)</span>
-
-      <span class="nb">require</span> <span class="s1">&#39;shellwords&#39;</span>
-
-      <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
-      <span class="n">script</span> <span class="o">=</span> <span class="no">Shellwords</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-
-      <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:return</span><span class="o">]</span> <span class="o">==</span> <span class="kp">true</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="sb">`</span><span class="si">#{</span><span class="n">ssh_command</span><span class="si">}</span><span class="sb"> -- </span><span class="si">#{</span><span class="n">script</span><span class="si">}</span><span class="sb">`</span>
-
-      <span class="k">elsif</span> <span class="n">simulate_mode?</span>
-        <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;Executing the following via &#39;</span><span class="si">#{</span><span class="n">ssh_command</span><span class="si">}</span><span class="s2">&#39;:&quot;</span>
-        <span class="nb">puts</span> <span class="s2">&quot;#!/usr/bin/env bash&quot;</span>
-        <span class="nb">puts</span> <span class="s2">&quot;# </span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="nb">puts</span> <span class="s2">&quot;#&quot;</span>
-
-        <span class="nb">puts</span> <span class="n">cmd</span>
-
-      <span class="k">else</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">ssh_command</span><span class="si">}</span><span class="s2"> -- </span><span class="si">#{</span><span class="n">script</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">term_mode</span> <span class="o">==</span> <span class="ss">:pretty</span>
-          <span class="n">result</span> <span class="o">=</span> <span class="n">pretty_system</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-        <span class="k">elsif</span> <span class="n">settings</span><span class="o">.</span><span class="n">term_mode</span> <span class="o">==</span> <span class="ss">:exec</span>
-          <span class="nb">exec</span> <span class="n">code</span>
-        <span class="k">else</span>
-          <span class="nb">system</span> <span class="n">code</span>
-          <span class="n">result</span> <span class="o">=</span> <span class="vg">$?</span><span class="o">.</span><span class="n">to_i</span>
-        <span class="k">end</span>
-      <span class="k">end</span>
-
-      <span class="n">die</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">Fixnum</span> <span class="o">&amp;&amp;</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="mi">0</span>
-      <span class="n">result</span>
-    <span class="k">end</span></pre></div>            </td>
-          </tr>
-                                      
-          <tr id="ssh-command" class="heading">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#ssh-command">&#182;</a>
-              </div>
-              <h3>ssh_command</h3>            </td>
-            <td class="code">
-                          </td>
-          </tr>
-                                      
-          <tr id="section-16" class="">
-            <td class="docs">
-              <div class="pilwrap">
-                <a class="pilcrow" href="#section-16">&#182;</a>
-              </div>
-              <p>Returns the SSH command to be executed.</p>
-
-<pre><code>set :domain, 'foo.com'
-set :user, 'diggity'
-
-puts ssh_command
-#=&gt; 'ssh diggity@foo.com'
-</code></pre>            </td>
-            <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">ssh_command</span>
-      <span class="n">args</span> <span class="o">=</span> <span class="n">domain!</span>
-      <span class="n">args</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">user</span><span class="si">}</span><span class="s2">@</span><span class="si">#{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">user?</span>
-      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -i </span><span class="si">#{</span><span class="n">identity_file</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">identity_file?</span>
-      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -p </span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">port?</span>
-      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -A&quot;</span> <span class="k">if</span> <span class="n">forward_agent?</span>
-      <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -t&quot;</span>
-      <span class="s2">&quot;ssh </span><span class="si">#{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
-          </tr>
-                                      
           <tr id="mina-cleanup" class="heading">
             <td class="docs">
               <div class="pilwrap">
@@ -323,10 +200,10 @@ puts ssh_command
                           </td>
           </tr>
                                       
-          <tr id="section-18" class="">
+          <tr id="section-12" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p><strong>Internal:</strong> Invoked when Rake exits.</p>
 
@@ -357,10 +234,10 @@ puts ssh_command
                           </td>
           </tr>
                                       
-          <tr id="section-21" class="">
+          <tr id="section-15" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>Exits with a nice looking message.
 Returns nothing.</p>
@@ -388,10 +265,10 @@ die 2, "Tests failed"
                           </td>
           </tr>
                                       
-          <tr id="section-23" class="">
+          <tr id="section-17" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p><strong>Internal:</strong> Prints to stdout.
 Consider using <code>print_error</code> instead.</p>            </td>
@@ -421,10 +298,10 @@ Consider using <code>print_error</code> instead.</p>            </td>
                           </td>
           </tr>
                                       
-          <tr id="section-26" class="">
+          <tr id="section-20" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>Queues code to be ran.</p>
 
@@ -455,10 +332,10 @@ commands == ['sudo restart', 'true']
                           </td>
           </tr>
                                       
-          <tr id="section-28" class="">
+          <tr id="section-22" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>Shortcut for <code>queue</code>ing a command that shows up in verbose mode.</p>            </td>
             <td class="code">
@@ -477,10 +354,10 @@ commands == ['sudo restart', 'true']
                           </td>
           </tr>
                                       
-          <tr id="section-30" class="">
+          <tr id="section-24" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>Converts a bash command to a command that echoes before execution.
 Used to show commands in verbose mode. This does nothing unless verbose mode is on.</p>
@@ -522,10 +399,10 @@ input string unharmed.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-33" class="">
+          <tr id="section-27" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>Returns an array of queued code strings.</p>
 
@@ -562,10 +439,10 @@ commands(:clean) == ["rm"]
                           </td>
           </tr>
                                       
-          <tr id="section-35" class="">
+          <tr id="section-29" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>Starts a new block where new <code>commands</code> are collected.</p>
 
@@ -601,10 +478,10 @@ commands.should == ['sudo restart', 'true']
                           </td>
           </tr>
                                       
-          <tr id="section-37" class="">
+          <tr id="section-31" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Starts a new block where #commands are collected, to be executed inside <code>path</code>.</p>
 
@@ -622,10 +499,10 @@ commands.should == ['sudo restart', 'true']
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="section-38" class="">
+          <tr id="section-32" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Defines instructions on how to do a certain thing.
 This makes the commands that are <code>queue</code>d go into a different bucket in commands.</p>
@@ -671,10 +548,10 @@ commands(:restart) == ["nginx -s restart"]
                           </td>
           </tr>
                                       
-          <tr id="section-41" class="">
+          <tr id="section-35" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Sets settings.
 Sets given symbol <code>key</code> to value in <code>value</code>.</p>
@@ -699,10 +576,10 @@ Sets given symbol <code>key</code> to value in <code>value</code>.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-43" class="">
+          <tr id="section-37" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-43">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>Sets default settings.
 Sets given symbol <code>key</code> to value in <code>value</code> only if the key isn't set yet.</p>
@@ -733,10 +610,10 @@ settings.term_mode.should == :system
                           </td>
           </tr>
                                       
-          <tr id="section-45" class="">
+          <tr id="section-39" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-45">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <p>Accesses the settings hash.</p>
 
@@ -761,10 +638,10 @@ domain           #=&gt; 'kickflip.me'
                           </td>
           </tr>
                                       
-          <tr id="section-47" class="">
+          <tr id="section-41" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-47">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <p>Hook to get settings.
 See #settings for an explanation.</p>
@@ -796,10 +673,10 @@ See #settings for an explanation.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-50" class="">
+          <tr id="section-44" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-50">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
               <p>Checks if Rake was invoked with --verbose.</p>
 
@@ -809,10 +686,10 @@ See #settings for an explanation.</p>
       <span class="k">if</span> <span class="no">Rake</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:verbose</span><span class="p">)</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="section-51" class="">
+          <tr id="section-45" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-51">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <p>Rake 0.9.x</p>            </td>
             <td class="code">
@@ -820,10 +697,10 @@ See #settings for an explanation.</p>
       <span class="k">else</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="section-52" class="">
+          <tr id="section-46" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-52">&#182;</a>
+                <a class="pilcrow" href="#section-46">&#182;</a>
               </div>
               <p>Rake 0.8.x</p>            </td>
             <td class="code">
@@ -842,10 +719,10 @@ See #settings for an explanation.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-54" class="">
+          <tr id="section-48" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-54">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <p>Checks if Rake was invoked with --simulate.</p>
 
@@ -876,10 +753,10 @@ See #settings for an explanation.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-57" class="">
+          <tr id="section-51" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-57">&#182;</a>
+                <a class="pilcrow" href="#section-51">&#182;</a>
               </div>
               <p>Indents a given code block with <code>count</code> spaces before it.</p>            </td>
             <td class="code">
@@ -898,10 +775,10 @@ See #settings for an explanation.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-59" class="">
+          <tr id="section-53" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-59">&#182;</a>
+                <a class="pilcrow" href="#section-53">&#182;</a>
               </div>
               <p><strong>Internal:</strong> Normalizes indentation on a given string.</p>
 
@@ -935,10 +812,10 @@ See #settings for an explanation.</p>
                           </td>
           </tr>
                                       
-          <tr id="section-61" class="">
+          <tr id="section-55" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-61">&#182;</a>
+                <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
               <p>Resets the indentation on a given code block.</p>            </td>
             <td class="code">
@@ -1006,18 +883,6 @@ See #settings for an explanation.</p>
                                                                               <li class='heading level-3'>
                       <a href="#measure">
                         measure                      </a>
-                    </li>
-                                                                              <li class='heading level-2'>
-                      <a href="#SSH-helpers">
-                        SSH helpers                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#ssh">
-                        ssh                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#ssh-command">
-                        ssh_command                      </a>
                     </li>
                                                                               <li class='heading level-3'>
                       <a href="#mina-cleanup">
@@ -1136,6 +1001,12 @@ See #settings for an explanation.</p>
                                                                                               
                 <li class='page  level-1'>
 
+                                                        <a href='../../lib/mina/exec_helpers.html' class=''>Exec helpers</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
                                                         <a href='../../lib/mina/helpers.html' class='active'>Default helpers</a>
                   
                                                     </li>
@@ -1143,6 +1014,12 @@ See #settings for an explanation.</p>
                 <li class='page  level-1'>
 
                                                         <a href='../../lib/mina/output_helpers.html' class=''>Output helpers</a>
+                  
+                                                    </li>
+                                                                                              
+                <li class='page  level-1'>
+
+                                                        <a href='../../lib/mina/ssh_helpers.html' class=''>SSH helpers</a>
                   
                                                     </li>
                           
@@ -1193,6 +1070,11 @@ See #settings for an explanation.</p>
                 deploy_helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
+                                                    <a href='../../lib/mina/exec_helpers.html#f' class='item file '>
+                <i></i>
+                exec_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
                                                     <a href='../../lib/mina/git.html#f' class='item file '>
                 <i></i>
                 git.rb              </a>
@@ -1231,6 +1113,11 @@ See #settings for an explanation.</p>
                                                     <a href='../../lib/mina/settings.html#f' class='item file '>
                 <i></i>
                 settings.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/ssh_helpers.html#f' class='item file '>
+                <i></i>
+                ssh_helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
                                                     <a href='../../lib/mina/tools.html#f' class='item file '>

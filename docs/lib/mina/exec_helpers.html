@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Output helpers</title>
+  <title>Exec helpers</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../style.css" />
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js'></script>
@@ -9,8 +9,8 @@
 <body>
   <div id="area">
     <div class='file-header'>
-              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/output_helpers.rb">
-          <strong title='lib/mina/output_helpers.rb'>output_helpers.rb</strong>
+              <a href="https://github.com/nadarei/mina/blob/master/lib/mina/exec_helpers.rb">
+          <strong title='lib/mina/exec_helpers.rb'>exec_helpers.rb</strong>
           <small>View source</small>
         </a>
           </div>
@@ -26,12 +26,12 @@
       </thead>
       <tbody>
                                       
-          <tr id="Helpers-Output-helpers" class="heading">
+          <tr id="Helpers-Exec-helpers" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#Helpers-Output-helpers">&#182;</a>
+                <a class="pilcrow" href="#Helpers-Exec-helpers">&#182;</a>
               </div>
-              <h1>Helpers: Output helpers</h1>            </td>
+              <h1>Helpers: Exec helpers</h1>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -41,19 +41,19 @@
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Protip! make a module that overrides these settings, then use <code>extend YourModule</code>
-to make your own pretty printing thing.</p>            </td>
+              <p>Provides <code>pretty_system</code> which Mina uses to parse SSH output, and delegate to
+the appropriate Output helper.</p>            </td>
             <td class="code">
               <div class="highlight"><pre><span class="k">module</span> <span class="nn">Mina</span>
-  <span class="k">module</span> <span class="nn">OutputHelpers</span></pre></div>            </td>
+  <span class="k">module</span> <span class="nn">ExecHelpers</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-str" class="heading">
+          <tr id="pretty-system" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-str">&#182;</a>
+                <a class="pilcrow" href="#pretty-system">&#182;</a>
               </div>
-              <h3>print_str</h3>            </td>
+              <h3>pretty_system</h3>            </td>
             <td class="code">
                           </td>
           </tr>
@@ -63,42 +63,28 @@ to make your own pretty printing thing.</p>            </td>
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Prints a string by delegating it to the proper output helper.</p>
+              <p><strong>Internal:</strong> A pretty version of the default <code>#system</code> commands, but
+indents and puts color.</p>
 
-<p>It takes an input with text and prints them nicely. The text block can
-have statuses (prefixed with <code>-----&gt;</code>), errors (prefixed with <code>!</code>),
-commands (prefixed with <code>$</code>) or anything else. Depending on the type of
-the message, they will be delegated to the proper print_* helper.</p>
-
-<pre><code>-----&gt; Unlocking
-$ unlock foo
-Unlocked.
-! ERROR: Failed
-</code></pre>
-
-<p>Returns nothing.</p>            </td>
+<p>Returns the exit code in integer form.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_str</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^\-+&gt; (.*?)$/</span>
-        <span class="n">print_status</span> <span class="vg">$1</span>
-      <span class="k">elsif</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^! (.*?)$/</span>
-        <span class="n">print_error</span> <span class="vg">$1</span>
-      <span class="k">elsif</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^\$ (.*?)$/</span>
-        <span class="n">print_command</span> <span class="vg">$1</span>
-      <span class="k">else</span>
-        <span class="n">print_stdout</span> <span class="n">str</span>
-      <span class="k">end</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">pretty_system</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+      <span class="nb">require</span> <span class="s1">&#39;shellwords&#39;</span>
+      <span class="n">cmds</span> <span class="o">=</span> <span class="no">Shellwords</span><span class="o">.</span><span class="n">shellsplit</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+      <span class="n">coathooks</span> <span class="o">=</span> <span class="mi">0</span>
+
+      <span class="n">status</span> <span class="o">=</span>
+        <span class="no">Tools</span><span class="o">.</span><span class="n">popen4</span><span class="p">(</span><span class="o">*</span><span class="n">cmds</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">pid</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">e</span><span class="o">|</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-status" class="heading">
+          <tr id="section-4" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-status">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <h3>print_status</h3>            </td>
+              <p>Handle <code>^C</code>.</p>            </td>
             <td class="code">
-                          </td>
+              <div class="highlight"><pre>          <span class="nb">trap</span><span class="p">(</span><span class="s2">&quot;INT&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="no">Sys</span><span class="o">.</span><span class="n">handle_sigint</span><span class="p">(</span><span class="n">coathooks</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="nb">self</span><span class="p">)</span> <span class="p">}</span></pre></div>            </td>
           </tr>
                                       
           <tr id="section-5" class="">
@@ -106,123 +92,167 @@ Unlocked.
               <div class="pilwrap">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Prints a status message. (<code>-----&gt;</code>)</p>            </td>
+              <p><strong>In the background,</strong> make stdin passthru, and stream stderr.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_status</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>  <span class="k">if</span> <span class="n">verbose_mode?</span>
-      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;-----&gt;&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span>
+              <div class="highlight"><pre>          <span class="n">pid_err</span> <span class="o">=</span> <span class="no">Sys</span><span class="o">.</span><span class="n">stream_stderr!</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">str</span><span class="o">|</span> <span class="n">print_stderr</span> <span class="n">str</span> <span class="p">}</span>
+          <span class="n">pid_in</span>  <span class="o">=</span> <span class="no">Sys</span><span class="o">.</span><span class="n">stream_stdin!</span>     <span class="p">{</span> <span class="o">|</span><span class="n">chr</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">putc</span> <span class="n">chr</span> <span class="p">}</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-6" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p><strong>In the foreground,</strong> stream stdout to the output helper.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>          <span class="no">Sys</span><span class="o">.</span><span class="n">stream_stdout</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">str</span><span class="o">|</span> <span class="n">print_str</span> <span class="n">str</span> <span class="p">}</span>
+
+          <span class="no">Process</span><span class="o">.</span><span class="n">waitpid</span> <span class="n">pid_err</span>
+        <span class="k">end</span>
+
+      <span class="n">status</span><span class="o">.</span><span class="n">exitstatus</span>
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-error" class="heading">
+          <tr id="Private-methods" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-error">&#182;</a>
+                <a class="pilcrow" href="#Private-methods">&#182;</a>
               </div>
-              <h3>print_error</h3>            </td>
+              <h2>Private methods</h2>            </td>
             <td class="code">
                           </td>
           </tr>
                                       
-          <tr id="section-7" class="">
+          <tr id="section-8" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Prints an error message (header).</p>            </td>
+              <p>Delegate functions, mostly.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot; </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">,</span> <span class="mi">33</span><span class="p">)</span><span class="si">}</span><span class="s2">     </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>    <span class="k">module</span> <span class="nn">Sys</span>
+
+      <span class="kp">extend</span> <span class="nb">self</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-stderr" class="heading">
+          <tr id="Sys-handle-sigint" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-stderr">&#182;</a>
+                <a class="pilcrow" href="#Sys-handle-sigint">&#182;</a>
               </div>
-              <h3>print_stderr</h3>            </td>
+              <h3>Sys.handle_sigint!</h3>            </td>
             <td class="code">
                           </td>
           </tr>
                                       
-          <tr id="section-9" class="">
+          <tr id="section-10" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>Prints an error message (body), or prints stderr output.</p>            </td>
+              <p>Called when a <code>^C</code> is pressed. The param <code>count</code> is how many times it's
+been pressed since. Returns nothing.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_stderr</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;       </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">handle_sigint</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">this</span><span class="p">)</span>
+        <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">1</span>
+          <span class="n">this</span><span class="o">.</span><span class="n">print_status</span> <span class="s2">&quot;Mina: SIGINT received again. Force quitting...&quot;</span>
+          <span class="no">Process</span><span class="o">.</span><span class="n">kill</span> <span class="s2">&quot;KILL&quot;</span><span class="p">,</span> <span class="n">pid</span>
+        <span class="k">else</span>
+          <span class="n">this</span><span class="o">.</span><span class="n">print_status</span> <span class="s2">&quot;Mina: SIGINT received.&quot;</span>
+          <span class="no">Process</span><span class="o">.</span><span class="n">kill</span> <span class="s2">&quot;TERM&quot;</span><span class="p">,</span> <span class="n">pid</span>
+        <span class="k">end</span>
+      <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-command" class="heading">
+          <tr id="Sys-stream-stderr" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-command">&#182;</a>
+                <a class="pilcrow" href="#Sys-stream-stderr">&#182;</a>
               </div>
-              <h3>print_command</h3>            </td>
+              <h3>Sys.stream_stderr!</h3>            </td>
             <td class="code">
                           </td>
           </tr>
                                       
-          <tr id="section-11" class="">
+          <tr id="section-12" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <p>Prints a command.</p>            </td>
+              <p><strong>Internal:</strong> Read from stderr stream <code>err</code> <em>[0]</em>, supress expected
+errors <em>[1]</em>, and yield. Returns the PID.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_command</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;       </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">color</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">stream_stderr!</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">blk</span><span class="p">)</span>
+        <span class="nb">fork</span> <span class="k">do</span>
+          <span class="nb">trap</span><span class="p">(</span><span class="s2">&quot;INT&quot;</span><span class="p">)</span> <span class="p">{}</span>
+
+          <span class="k">while</span> <span class="n">str</span> <span class="o">=</span> <span class="n">err</span><span class="o">.</span><span class="n">gets</span> <span class="c1">#[0]</span>
+            <span class="k">next</span> <span class="k">if</span> <span class="n">str</span><span class="o">.</span><span class="n">include?</span> <span class="s2">&quot;bash: no job control in this shell&quot;</span> <span class="c1">#[1]</span>
+            <span class="k">next</span> <span class="k">if</span> <span class="n">str</span><span class="o">.</span><span class="n">include?</span> <span class="s2">&quot;stdin is not a terminal&quot;</span>
+
+            <span class="k">yield</span> <span class="n">str</span><span class="o">.</span><span class="n">strip</span> <span class="c1">#[2]</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="print-stdout" class="heading">
+          <tr id="Sys-stream-stdin" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#print-stdout">&#182;</a>
+                <a class="pilcrow" href="#Sys-stream-stdin">&#182;</a>
               </div>
-              <h3>print_stdout</h3>            </td>
+              <h3>Sys.stream_stdin!</h3>            </td>
             <td class="code">
                           </td>
           </tr>
                                       
-          <tr id="section-13" class="">
+          <tr id="section-14" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>Prints a normal message.</p>            </td>
+              <p><strong>Internal:</strong> Read from the real stdin stream and pass it onto the given
+stdin stream <code>i</code>. Returns the PID.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_stdout</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-      <span class="nb">puts</span> <span class="s2">&quot;       </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">end</span></pre></div>            </td>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">stream_stdin!</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blk</span><span class="p">)</span>
+        <span class="nb">fork</span> <span class="k">do</span>
+          <span class="nb">trap</span><span class="p">(</span><span class="s2">&quot;INT&quot;</span><span class="p">)</span> <span class="p">{}</span>
+
+          <span class="k">while</span> <span class="p">(</span><span class="n">char</span> <span class="o">=</span> <span class="no">STDIN</span><span class="o">.</span><span class="n">getbyte</span> <span class="k">rescue</span> <span class="kp">nil</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">char</span> <span class="k">if</span> <span class="n">char</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
-          <tr id="color" class="heading">
+          <tr id="Sys-stream-stdout" class="heading">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#color">&#182;</a>
+                <a class="pilcrow" href="#Sys-stream-stdout">&#182;</a>
               </div>
-              <h3>color</h3>            </td>
+              <h3>Sys.stream_stdout</h3>            </td>
             <td class="code">
                           </td>
           </tr>
                                       
-          <tr id="section-15" class="">
+          <tr id="section-16" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>Colorizes a string.
-Returns the string <code>str</code> with the color <code>c</code>.</p>            </td>
+              <p><strong>Internal:</strong> Read from given stdout stream <code>o</code> and delegate it to the
+output helper.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-      <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;NO_COLOR&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="n">str</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[</span><span class="si">#{</span><span class="n">c</span><span class="si">}</span><span class="s2">m</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+              <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">stream_stdout</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">blk</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">str</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">gets</span>
+          <span class="k">yield</span> <span class="n">str</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
     <span class="k">end</span>
+
   <span class="k">end</span>
 <span class="k">end</span>
 
@@ -262,35 +292,31 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
           <ul class='current-page'>
                         
             <li class='page level-0'>
-              <a href='#'>Output helpers</a>
+              <a href='#'>Exec helpers</a>
                               <ul>
                                                                               <li class='heading level-3'>
-                      <a href="#print-str">
-                        print_str                      </a>
+                      <a href="#pretty-system">
+                        pretty_system                      </a>
+                    </li>
+                                                                              <li class='heading level-2'>
+                      <a href="#Private-methods">
+                        Private methods                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-status">
-                        print_status                      </a>
+                      <a href="#Sys-handle-sigint">
+                        Sys.handle_sigint!                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-error">
-                        print_error                      </a>
+                      <a href="#Sys-stream-stderr">
+                        Sys.stream_stderr!                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-stderr">
-                        print_stderr                      </a>
+                      <a href="#Sys-stream-stdin">
+                        Sys.stream_stdin!                      </a>
                     </li>
                                                                               <li class='heading level-3'>
-                      <a href="#print-command">
-                        print_command                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#print-stdout">
-                        print_stdout                      </a>
-                    </li>
-                                                                              <li class='heading level-3'>
-                      <a href="#color">
-                        color                      </a>
+                      <a href="#Sys-stream-stdout">
+                        Sys.stream_stdout                      </a>
                     </li>
                                   </ul>
                           </li>
@@ -313,7 +339,7 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                                                                                               
                 <li class='page  level-1'>
 
-                                                        <a href='../../lib/mina/exec_helpers.html' class=''>Exec helpers</a>
+                                                        <a href='../../lib/mina/exec_helpers.html' class='active'>Exec helpers</a>
                   
                                                     </li>
                                                                                               
@@ -325,7 +351,7 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                                                                                               
                 <li class='page  level-1'>
 
-                                                        <a href='../../lib/mina/output_helpers.html' class='active'>Output helpers</a>
+                                                        <a href='../../lib/mina/output_helpers.html' class=''>Output helpers</a>
                   
                                                     </li>
                                                                                               
@@ -382,7 +408,7 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                 deploy_helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
-                                                    <a href='../../lib/mina/exec_helpers.html#f' class='item file '>
+                                                    <a href='../../lib/mina/exec_helpers.html#f' class='item file active'>
                 <i></i>
                 exec_helpers.rb              </a>
                       </li>
@@ -397,7 +423,7 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                 helpers.rb              </a>
                       </li>
                                                     <li class='level-3'>
-                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file active'>
+                                                    <a href='../../lib/mina/output_helpers.html#f' class='item file '>
                 <i></i>
                 output_helpers.rb              </a>
                       </li>
