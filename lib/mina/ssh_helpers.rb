@@ -33,7 +33,7 @@ module Mina
 
       else
         result = Ssh.invoke(script, self)
-        Ssh.ensure_successful result
+        Ssh.ensure_successful result, self
       end
     end
 
@@ -101,8 +101,8 @@ module Mina
       # __Internal:__ Halts the execution if the given result code is not
       # successful (non-zero).
 
-      def ensure_successful(result)
-        die result if result.is_a?(Fixnum) && result > 0
+      def ensure_successful(result, this)
+        this.die result if result.is_a?(Fixnum) && result > 0
         result
       end
 

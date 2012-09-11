@@ -19,7 +19,7 @@ module Mina
       status =
         Tools.popen4(*cmds) do |pid, i, o, e|
           # Handle `^C`.
-          trap("INT") { Sys.handle_sigint(coathooks += 1, self) }
+          trap("INT") { Sys.handle_sigint(coathooks += 1, pid, self) }
 
           # __In the background,__ make stdin passthru, and stream stderr.
           pid_err = Sys.stream_stderr!(e) { |str| print_stderr str }
@@ -45,7 +45,7 @@ module Mina
       # Called when a `^C` is pressed. The param `count` is how many times it's
       # been pressed since. Returns nothing.
 
-      def handle_sigint(count, this)
+      def handle_sigint(count, pid, this)
         puts ""
         if count > 1
           this.print_status "Mina: SIGINT received again. Force quitting..."
