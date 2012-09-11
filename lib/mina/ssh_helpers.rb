@@ -19,38 +19,20 @@ module Mina
     #     ssh("ls", return: true)
 
     def ssh(cmd, options={})
-      cmd = cmd.join("\n")  if cmd.is_a?(Array)
-
       require 'shellwords'
 
-      result = 0
+      cmd = cmd.join("\n")  if cmd.is_a?(Array)
       script = Shellwords.escape(cmd)
 
       if options[:return] == true
-        result = `#{ssh_command} -- #{script}`
+        `#{ssh_command} -- #{script}`
 
       elsif simulate_mode?
-        str = "Executing the following via '#{ssh_command}':"
-        puts "#!/usr/bin/env bash"
-        puts "# #{str}"
-        puts "#"
-
-        puts cmd
+        ssh_simulate cmd
 
       else
-        code = "#{ssh_command} -- #{script}"
-        if settings.term_mode.to_s == 'pretty'
-          result = pretty_system(code)
-        elsif settings.term_mode.to_s == 'exec'
-          exec code
-        else
-          system code
-          result = $?.to_i
-        end
+        ensure_successful ssh_invoke(script, settings.term_mode)
       end
-
-      die result if result.is_a?(Fixnum) && result > 0
-      result
     end
 
     # ### ssh_command
@@ -72,5 +54,53 @@ module Mina
       args << " -t"
       "ssh #{args}"
     end
+
+  private
+
+    # ## Private methods
+    # `ssh` delegates to these.
+
+    # ### ssh_simulate
+    # __Internal:__ Prints SSH command. Called by `ssh`.
+
+    def ssh_simulate(cmd)
+      str = "Executing the following via '#{ssh_command}':"
+      puts "#!/usr/bin/env bash"
+      puts "# #{str}"
+      puts "#"
+
+      puts cmd
+
+      0
+    end
+
+    # ### ssh_invoke
+    # __Internal:__ Initiates an SSH session with script `script` with given
+    # `term_mode`.  Called by `ssh`.
+
+    def ssh_invoke(script, term_mode)
+      term_mode = :"#{term_mode}"
+      code = "#{ssh_command} -- #{script}"
+
+      case term_mode
+      when :pretty
+        pretty_system(code)
+      when :exec
+        exec code
+      else
+        system code
+        $?.to_i
+      end
+    end
+
+    # ### ensure_successful
+    # __Internal:__ Halts the execution if the given result code is not
+    # successful (non-zero).
+
+    def ensure_successful(result)
+      die result if result.is_a?(Fixnum) && result > 0
+      result
+    end
+
   end
 end

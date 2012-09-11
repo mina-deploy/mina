@@ -35,6 +35,9 @@ module Mina
 
   private
 
+    # ## Private methods
+    # `pretty_system` delegates to these.
+
     # ### handle_sigint!(count)
     # Called when a `^C` is pressed. The param `count` is how many times it's
     # been pressed since. Returns nothing.
