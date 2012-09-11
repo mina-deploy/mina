@@ -1,8 +1,9 @@
 # # Helpers: SSH helpers
 # You don't need to invoke these helpers, they're already invoked automatically.
-#
+
 module Mina
   module SshHelpers
+
     # ### ssh
     # Executes a command via SSH.
     #
@@ -28,10 +29,11 @@ module Mina
         `#{ssh_command} -- #{script}`
 
       elsif simulate_mode?
-        ssh_simulate cmd
+        Ssh.simulate cmd
 
       else
-        ensure_successful ssh_invoke(script, settings.term_mode)
+        result = Ssh.invoke(script, self)
+        Ssh.ensure_successful result
       end
     end
 
@@ -55,51 +57,55 @@ module Mina
       "ssh #{args}"
     end
 
-  private
-
     # ## Private methods
     # `ssh` delegates to these.
 
-    # ### ssh_simulate
-    # __Internal:__ Prints SSH command. Called by `ssh`.
+    module Ssh
 
-    def ssh_simulate(cmd)
-      str = "Executing the following via '#{ssh_command}':"
-      puts "#!/usr/bin/env bash"
-      puts "# #{str}"
-      puts "#"
+      extend self
 
-      puts cmd
+      # ### Ssh.simulate
+      # __Internal:__ Prints SSH command. Called by `ssh`.
 
-      0
-    end
+      def simulate(cmd)
+        str = "Executing the following via '#{ssh_command}':"
+        puts "#!/usr/bin/env bash"
+        puts "# #{str}"
+        puts "#"
 
-    # ### ssh_invoke
-    # __Internal:__ Initiates an SSH session with script `script` with given
-    # `term_mode`.  Called by `ssh`.
+        puts cmd
 
-    def ssh_invoke(script, term_mode)
-      term_mode = :"#{term_mode}"
-      code = "#{ssh_command} -- #{script}"
-
-      case term_mode
-      when :pretty
-        pretty_system(code)
-      when :exec
-        exec code
-      else
-        system code
-        $?.to_i
+        0
       end
-    end
 
-    # ### ensure_successful
-    # __Internal:__ Halts the execution if the given result code is not
-    # successful (non-zero).
+      # ### Ssh.invoke
+      # __Internal:__ Initiates an SSH session with script `script` with given
+      # `term_mode`.  Called by `ssh`.
 
-    def ensure_successful(result)
-      die result if result.is_a?(Fixnum) && result > 0
-      result
+      def invoke(script, this)
+        term_mode = :"#{this.settings.term_mode}"
+        code = "#{this.ssh_command} -- #{script}"
+
+        case term_mode
+        when :pretty
+          this.pretty_system(code)
+        when :exec
+          exec code
+        else
+          system code
+          $?.to_i
+        end
+      end
+
+      # ### Ssh.ensure_successful
+      # __Internal:__ Halts the execution if the given result code is not
+      # successful (non-zero).
+
+      def ensure_successful(result)
+        die result if result.is_a?(Fixnum) && result > 0
+        result
+      end
+
     end
 
   end
