@@ -29,7 +29,7 @@ module Mina
         `#{ssh_command} -- #{script}`
 
       elsif simulate_mode?
-        Ssh.simulate cmd
+        Ssh.simulate(cmd, ssh_command)
 
       else
         result = Ssh.invoke(script, self)
@@ -67,7 +67,7 @@ module Mina
       # ### Ssh.simulate
       # __Internal:__ Prints SSH command. Called by `ssh`.
 
-      def simulate(cmd)
+      def simulate(cmd, ssh_command)
         str = "Executing the following via '#{ssh_command}':"
         puts "#!/usr/bin/env bash"
         puts "# #{str}"
