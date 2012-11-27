@@ -11,18 +11,18 @@
 #
 #    set :application, "app-name"
 #
-#      task :deploy => :environment do
-#        deploy do
-#          # ...
-#          invoke 'foreman:export'
-#          # ...
-#        end
+#    task :deploy => :environment do
+#      deploy do
+#        # ...
+#        invoke 'foreman:export'
+#        # ...
+#      end
 #
-#        to :launch do
-#          invoke 'foreman:restart'
-#        end
+#      to :launch do
+#        invoke 'foreman:restart'
 #      end
 #    end
+#
 
 # ## Settings
 # Any and all of these settings can be overriden in your `deploy.rb`.
