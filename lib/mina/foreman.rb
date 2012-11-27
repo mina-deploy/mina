@@ -1,7 +1,41 @@
 # # Modules: Foreman
 # Adds settings and tasks for managing projects with [foreman].
+#
 # NOTE: Requires sudo privileges
+#
 # [foreman]: http://rubygems.org/ddolar/foreman
+#
+#    require 'mina/foreman'
+#
+# ## Common usage
+#
+#    set :application, "app-name"
+#
+#      task :deploy => :environment do
+#        deploy do
+#          # ...
+#          invoke 'foreman:export'
+#          # ...
+#        end
+#
+#        to :launch do
+#          invoke 'foreman:restart'
+#        end
+#      end
+#    end
+
+# ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
+
+# ### foreman_app
+# Sets the service name that foreman will export to upstart. Uses *application*
+# variable as a default. It should be set, otherwise export command will fail.
+
+# ### foreman_user
+# Sets the user under which foreman will execute the service. Defaults to *user*
+
+# ### foreman_log
+# Sets the foreman log path. Defaults to *shared/log*
 
 set_default :foreman_app,  lambda { application }
 set_default :foreman_user, lambda { user }
