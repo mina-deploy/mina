@@ -154,6 +154,21 @@ namespace :rails do
           echo "-----> Migrating database"
           #{echo_cmd %[#{rake} db:migrate]}
         ]
+
+      queue check_for_changes_script \
+        :check => 'db/structure.sql',
+        :at => ['db/structure.sql'],
+        :skip => %[
+          echo "-----> DB structure unchanged; skipping DB migration"
+        ],
+        :changed => %[
+          echo "-----> #{message}"
+          #{echo_cmd %[#{rake} db:migrate]}
+        ],
+        :default => %[
+          echo "-----> Migrating database"
+          #{echo_cmd %[#{rake} db:migrate]}
+        ]
     end
   end
 
