@@ -10,9 +10,14 @@ module Mina
     #
     #     invoke :'git:clone'
     #     invoke :restart
+    #
+    # Options:
+    #   reenable (bool) - Execute the task even next time.
+    #
 
-    def invoke(task)
+    def invoke(task, options = {})
       Rake.application.invoke_task task
+      Rake::Task[task].reenable if options[:reenable]
     end
 
     # ### erb
