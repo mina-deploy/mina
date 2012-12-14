@@ -47,6 +47,12 @@ namespace :git do
       }
     end
 
+    dump_revision = if commit?
+      %[#{echo_cmd %[echo '#{commit}' > REVISION]} &&]
+    else
+      %[#{echo_cmd %[git log --format='%H' -n 1 > REVISION]} &&]
+    end
+
     status = %[
       echo "-----> Using this git commit" &&
       echo &&
@@ -55,6 +61,6 @@ namespace :git do
       echo
     ]
 
-    queue clone + status
+    queue clone + dump_revision + status
   end
 end
