@@ -29,6 +29,7 @@ module Mina
           Sys.stream_stdout(o) { |str| print_str str }
 
           Process.waitpid pid_err
+          Process.kill 'TERM', pid_in
         end
 
       status.exitstatus
