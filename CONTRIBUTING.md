@@ -1,4 +1,4 @@
-# Contributing to Transit
+# Contributing to Mina
 
 Want to get involved? Thanks! There are plenty of ways to help!
 
