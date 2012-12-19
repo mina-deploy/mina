@@ -39,6 +39,7 @@ To test out stuff in development:
 # Run specs
 $ rspec
 $ rspec -t ssh     # Run SSH tests (read test_env/config/deploy.rb first)
+$ rake=10 rspec
 $ rake=0.9 rspec
 $ rake=0.8 rspec
 
