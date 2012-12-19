@@ -29,7 +29,7 @@ bugs.
 
 > Short and descriptive title
 >
-> A summary of the issue and the browser/OS environment in which it occurs. If
+> A summary of the issue and the OS environment in which it occurs. If
 > suitable, include the steps required to reproduce the bug.
 >
 > 1. This is the first step
