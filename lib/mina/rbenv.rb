@@ -41,6 +41,7 @@ task :'rbenv:load' do
       exit 1
     fi
 
-    #{echo_cmd %{eval "$(rbenv init -)"}}
+    #{echo_cmd %{export PATH="#{rbenv_path}/shims:$PATH"}}
+    #{echo_cmd %{export RBENV_ROOT="#{rbenv_path}"}}
   }
 end
