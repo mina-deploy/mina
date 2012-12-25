@@ -37,10 +37,12 @@ module Mina
     #
     def put(content, file)
       queue <<-CMD
+      OLDIFS=$IFS
       IFS='' read -r -d '' MINA_PUT <<"EOF"
 #{content}
 EOF
       echo "$MINA_PUT" > #{file}
+      IFS=$OLDIFS
       CMD
     end
 
