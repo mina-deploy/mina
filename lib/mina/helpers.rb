@@ -37,11 +37,10 @@ module Mina
     #
     def put(content, file)
       queue <<-CMD
-      export IFS=''
-      read -d '' MINA_PUT <<-"EOF"
-      #{content}
-      EOF
-      echo $MINA_PUT > #{file}
+      IFS='' read -r -d '' MINA_PUT <<"EOF"
+#{content}
+EOF
+      echo "$MINA_PUT" > #{file}
       CMD
     end
 
