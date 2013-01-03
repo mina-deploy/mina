@@ -86,6 +86,9 @@ module Mina
         term_mode = :"#{this.settings.term_mode}"
         code = "#{this.ssh_command} -- #{script}"
 
+        # Certain environments can't do :pretty mode.
+        term_mode = :exec  if term_mode == :pretty && !pretty_supported?
+
         case term_mode
         when :pretty
           this.pretty_system(code)
@@ -95,6 +98,13 @@ module Mina
           system code
           $?.to_i
         end
+      end
+
+      def pretty_supported?
+        # open4 is not supported under Windows.
+        # https://github.com/nadarei/mina/issues/58
+        require 'rbconfig'
+        ! RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
       end
 
       # ### Ssh.ensure_successful
