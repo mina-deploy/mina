@@ -39,18 +39,20 @@ module Mina
     #
     def version which
       set_default :version_scheme, :sequence
-      version = File.open(settings.deploy_to + '/last_version', 'r').read.to_i
 
-      return version if which == :current
+      version = File.open(settings.deploy_to + '/last_version', 'r').read if File.exists?(settings.deploy_to + '/last_version')
+            
+      return version if version and which == :current
 
       case settings.version_scheme
       when :sequence
-        return version.next
+        return version.to_i.next if version
+        1
       when :date
         @date_time = Time.now.utc unless @date_time
-        return "%04d%02d%02d-%02d%02d%02d" % [@date_time.year, @date_time.month, @date_time.day,
-                                              @date_time.hour, @date_time.min, @date_time.sec]
-      end      
+        "%04d%02d%02d-%02d%02d%02d" % [@date_time.year, @date_time.month, @date_time.day,
+                                       @date_time.hour, @date_time.min, @date_time.sec]
+      end
     end
   end
 end
