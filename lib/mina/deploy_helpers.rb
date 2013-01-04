@@ -50,8 +50,8 @@ module Mina
         1
       when :date
         @@date_time ||= Time.now.utc
-        "%04d%02d%02d-%02d%02d%02d" % [@date_time.year, @date_time.month, @date_time.day,
-                                       @date_time.hour, @date_time.min, @date_time.sec]
+        "%04d%02d%02d-%02d%02d%02d" % [@@date_time.year, @@date_time.month, @@date_time.day,
+                                       @@date_time.hour, @@date_time.min, @@date_time.sec]
       end
     end
   end
