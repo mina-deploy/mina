@@ -39,6 +39,7 @@ To test out stuff in development:
 # Run specs
 $ rspec
 $ rspec -t ssh     # Run SSH tests (read test_env/config/deploy.rb first)
+$ rake=10 rspec
 $ rake=0.9 rspec
 $ rake=0.8 rspec
 
@@ -108,3 +109,4 @@ Michael:
 [nd]:  http://nadarei.co
 [issues]: https://github.com/nadarei/mina/issues
 [trello]: https://trello.com/board/mina/4fc8b3023d9c9a4d72e573e6
+

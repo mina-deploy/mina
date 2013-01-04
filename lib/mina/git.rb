@@ -1,6 +1,24 @@
-settings.branch ||= "master"
+# # Modules: Git
+# Adds settings and tasks related to managing Git.
+#
+#     require 'mina/git'
+
+# ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
+
+# ### branch
+# Sets the branch to be deployed.
+
+set_default :branch, 'master'
 
 namespace :git do
+  # ## Deploy tasks
+  # These tasks are meant to be invoked inside deploy scripts, not invoked on
+  # their own.
+
+  # ### git:clone
+  # Clones the Git repository. Meant to be used inside a deploy script.
+
   desc "Clones the Git repository to the release path."
   task :clone do
     if revision?
@@ -25,7 +43,7 @@ namespace :git do
           #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force)]}
         fi &&
         echo "-----> Using git branch '#{branch}'" &&
-        #{echo_cmd %[git clone "#{deploy_to}/scm" . --depth 1 --recursive --branch "#{branch}"]} &&
+        #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive --branch "#{branch}"]} &&
       }
     end
 

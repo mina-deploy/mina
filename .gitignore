@@ -3,3 +3,4 @@ test_env/deploy
 .rvmrc
 Gemfile.lock
 pkg/
+docs

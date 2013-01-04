@@ -60,3 +60,8 @@ namespace :passenger do
     }
   end
 end
+
+task :rofl do
+  set :term_mode, :pretty
+  queue %[echo "Password:"; read x; echo out: $x;]
+end

@@ -1,3 +1,9 @@
+# # Modules: Deployment
+# This module is automatically loaded for all Mina projects.
+
+# ## Settings
+# Any and all of these settings can be overriden in your `deploy.rb`.
+
 set_default :releases_path, "releases"
 set_default :shared_path, "shared"
 set_default :current_path, "current"
@@ -5,11 +11,25 @@ set_default :lock_file, "deploy.lock"
 set_default :keep_releases, 5
 
 namespace :deploy do
+  # ## Tasks
+
+  # ### deploy:force_unlock
+  # Forces a deploy unlock by deleting the lock file.
+  #
+  #     $ mina deploy:force_unlock
+  #
+  # You can also combine that task with `deploy`:
+  #
+  #     $ mina deploy:force_unlock deploy
+
   desc "Forces a deploy unlock."
   task :force_unlock do
     queue %{echo "-----> Unlocking"}
     queue echo_cmd %{rm -f "#{deploy_to}/#{lock_file}"}
   end
+
+  # ### deploy:link_shared_paths
+  # Links the shared paths in the `shared_paths` setting.
 
   desc "Links paths set in :shared_paths."
   task :link_shared_paths do
@@ -32,21 +52,31 @@ namespace :deploy do
     }
   end
 
-  desc "Clean up old releases. By default, the last 5 releases are kept on
-    each server (though you can change this with the keep_releases setting).
-    All other deployed revisions are removed from the servers."
+  # ### deploy:cleanup
+  # Cleans up old releases.
+  #
+  # By default, the last 5 releases are kept on each server (though you can
+  # change this with the keep_releases setting).  All other deployed revisions
+  # are removed from the servers."
+
+  desc "Clean up old releases."
   task :cleanup do
-    queue %{echo "-----> Cleaning up old releases (keeping #{keep_releases!})"}
-    queue echo_cmd %{cd "#{deploy_to!}/#{releases_path!}" || exit 15}
-    queue echo_cmd %{count=`ls -1t | wc -l`}
-    queue echo_cmd %{remove=$((count > 5 ? count - #{keep_releases} : 0))}
-    queue echo_cmd %{ls -1t | tail -n $remove | xargs rm -rf {}}
+    queue %{
+      echo "-----> Cleaning up old releases (keeping #{keep_releases!})"
+      #{echo_cmd %{cd "#{deploy_to!}/#{releases_path!}" || exit 15}}
+      #{echo_cmd %{count=`ls -1t | wc -l`}}
+      #{echo_cmd %{remove=$((count > 5 ? count - #{keep_releases} : 0))}}
+      #{echo_cmd %{ls -1t | tail -n $remove | xargs rm -rf {}}}
+    }
   end
 end
 
+# ### setup
+# Sets up a site's directory structure.
+
 desc "Sets up a site."
 task :setup do
-  set :term_mode, :pretty
+  set_default :term_mode, :pretty
 
   settings.deploy_to!
 
@@ -74,6 +104,11 @@ task :setup do
     )
   }
 end
+
+# ### run[]
+# Runs a command on a server.
+#
+#     $ mina run[tail -f logs.txt]
 
 desc "Runs a command in the server."
 task :run, [:command] => [:environment] do |t, args|

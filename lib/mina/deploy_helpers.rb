@@ -1,7 +1,9 @@
+# # Helpers: Deploy helpers
+# Helpers for deployment.
 module Mina
-  # Helpers for deployment
   module DeployHelpers
-    #  Wraps the things inside it in a deploy script and queues it.
+    # ### deploy
+    # Wraps the things inside it in a deploy script and queues it.
     # This generates a script using deploy_script and queues it.
     #
     # Returns nothing.
@@ -10,6 +12,7 @@ module Mina
       queue deploy_script(&blk)
     end
 
+    # ### deploy_script
     # Wraps the things inside it in a deploy script.
     #
     #   script = deploy_script do
