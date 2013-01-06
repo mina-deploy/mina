@@ -53,6 +53,6 @@ task :'rvm:use', :env do |t, args|
     fi
 
     source #{rvm_path}
-    #{echo_cmd %{rvm use "#{args[:env]}"}} || exit 1
+    #{echo_cmd %{rvm use "#{args[:env]}" --create}} || exit 1
   }
 end
