@@ -58,7 +58,7 @@ task :'rvm:use', :env do |t, args|
 end
 
 
-# ### rvm:use[]
+# ### rvm:wrapper[]
 # Creates a rvm wrapper for a given executable
 #
 # This is usually placed in the `:setup` task.
