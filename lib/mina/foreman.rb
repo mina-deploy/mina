@@ -63,8 +63,8 @@ namespace :foreman do
   desc "Stop the application services"
   task :stop do
     queue %{
-      echo "-----> Starting #{foreman_app} services"
-      #{echo_cmd %[sudo "start #{foreman_app}"]}
+      echo "-----> Stopping #{foreman_app} services"
+      #{echo_cmd %[sudo "stop #{foreman_app}"]}
     }
   end
 
