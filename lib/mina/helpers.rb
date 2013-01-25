@@ -311,13 +311,7 @@ module Mina
     # Returns true or false.
 
     def verbose_mode?
-      if Rake.respond_to?(:verbose)
-        # Rake 0.9.x
-        Rake.verbose == true
-      else
-        # Rake 0.8.x
-        RakeFileUtils.verbose_flag != :default
-      end
+      RakeFileUtils.verbose_flag != :default
     end
 
     # ### simulate_mode?
