@@ -65,7 +65,7 @@ namespace :deploy do
       echo "-----> Cleaning up old releases (keeping #{keep_releases!})"
       #{echo_cmd %{cd "#{deploy_to!}/#{releases_path!}" || exit 15}}
       #{echo_cmd %{count=`ls -1d [0-9]* | sort -rn | wc -l`}}
-      #{echo_cmd %{remove=$((count > 5 ? count - #{keep_releases} : 0))}}
+      #{echo_cmd %{remove=$(($count > #{keep_releases} ? count - #{keep_releases} : 0))}}
       #{echo_cmd %{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}}
     }
   end
