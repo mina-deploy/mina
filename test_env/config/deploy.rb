@@ -23,7 +23,9 @@ require 'mina/git'
 set :domain, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, "#{Mina.root_path}"
-set :shared_paths, ['config/database.yml']
+set :shared_dirs,  ['log', 'tmp/pids']
+set :shared_files, ['config/database.yml']
+set :shared_paths, shared_dirs + shared_files
 
 set :keep_releases, 2
 

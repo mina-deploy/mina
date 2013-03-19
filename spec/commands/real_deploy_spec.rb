@@ -27,6 +27,12 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
     File.exists?('deploy/last_version').should be_false
     File.exists?('deploy/deploy.lock').should be_false
 
+    # Shared paths
+    File.directory?('deploy/shared/config').should be_true
+    File.exists?('deploy/shared/config/database.yml').should be_true
+    File.directory?('deploy/shared/log').should be_true
+    File.directory?('deploy/shared/tmp/pids').should be_true
+
     print "[deploy 1]" if ENV['verbose']
     mina 'deploy', '--verbose'
     stdout.should include "-----> Creating a temporary build path"
