@@ -4,7 +4,7 @@
 # development dependencies of our dependencies, and those are not conflict free.
 # So, here we are, `bundle install`.
 
-source :rubygems
+source "https://rubygems.org"
 gemspec
 
 gem 'rake', "~> #{ENV['rake'] || "0.9"}.0"
