@@ -98,6 +98,7 @@ task :"rbenv:install:#{rbenv_ruby_version}" do
     echo "-----> Installing ruby-#{rbenv_ruby_version}..."
     #{echo_cmd %{rbenv install #{rbenv_ruby_version}} }
     #{echo_cmd %{rbenv local #{rbenv_ruby_version}} }
+    #{echo_cmd %{rbenv rehash} }
     #{echo_cmd %{gem install bundler} }
     #{echo_cmd %{rbenv rehash} }
   }
