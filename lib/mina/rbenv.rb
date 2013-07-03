@@ -93,7 +93,7 @@ end
 # ### rbenv:install
 # Installs the ruby version.
 
-task :"rbenv:install:#{rbenv_ruby_version}" do
+task :"rbenv:install:#{rbenv_ruby_version}" => :'rbenv:load' do
   queue %{
     echo "-----> Installing ruby-#{rbenv_ruby_version}..."
     #{echo_cmd %{rbenv install #{rbenv_ruby_version}} }
