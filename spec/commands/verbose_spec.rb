@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'command_helper'
+require 'shellwords'
 
 describe "Invoking the 'mina' command in a project" do
   before :each do

@@ -156,6 +156,7 @@ module Mina
 
     def echo_cmd(str)
       if verbose_mode?
+        require 'shellwords'
         "echo #{Shellwords.escape("$ " + str)} &&\n#{str}"
       else
         str
