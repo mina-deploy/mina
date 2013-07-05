@@ -370,7 +370,7 @@ module Mina
     # ### capture
     # Returns the output of command via SSH.
     def capture(cmd, options={})
-      ssh cmd, options.merge(return: true)
+      ssh cmd, options.merge(:return => true)
     end
 
   end

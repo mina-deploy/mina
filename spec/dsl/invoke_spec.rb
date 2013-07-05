@@ -25,7 +25,7 @@ describe 'Mina' do
     }
 
     2.times {
-      rake { invoke :pull, reenable: true }
+      rake { invoke :pull, :reenable => true }
     }
 
     rake.commands.should == ['git pull', 'git pull']
