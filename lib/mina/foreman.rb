@@ -56,7 +56,7 @@ namespace :foreman do
   task :start do
     queue %{
       echo "-----> Starting #{foreman_app} services"
-      #{echo_cmd %[sudo "start #{foreman_app}"]}
+      #{echo_cmd %[sudo start #{foreman_app}]}
     }
   end
 
@@ -64,7 +64,7 @@ namespace :foreman do
   task :stop do
     queue %{
       echo "-----> Stopping #{foreman_app} services"
-      #{echo_cmd %[sudo "stop #{foreman_app}"]}
+      #{echo_cmd %[sudo stop #{foreman_app}]}
     }
   end
 
