@@ -30,5 +30,29 @@ module Mina
         erb Mina.root_path('data/deploy.sh.erb')
       end
     end
+
+    # Function to retrieve the version number within the deploy script
+    # which parameter specifies if the user wants the current version or the
+    # next version
+    #
+    # returns the requested version
+    #
+    def version which
+      set_default :version_scheme, :sequence
+
+      version = File.open(settings.deploy_to + '/last_version', 'r').read if File.exists?(settings.deploy_to + '/last_version')
+            
+      return version if version and which == :current
+
+      case settings.version_scheme
+      when :sequence
+        return version.to_i.next if version
+        1
+      when :date
+        @@date_time ||= Time.now.utc
+        "%04d%02d%02d%02d%02d%02d" % [@@date_time.year, @@date_time.month, @@date_time.day,
+                                      @@date_time.hour, @@date_time.min, @@date_time.sec]
+      end
+    end
   end
 end
