@@ -47,7 +47,7 @@ module Mina
     #     #=> 'ssh diggity@foo.com'
 
     def ssh_command
-      args = domain!
+      args = domain!.dup
       args = "#{user}@#{args}" if user?
       args << " -i #{identity_file}" if identity_file?
       args << " -p #{port}" if port?
