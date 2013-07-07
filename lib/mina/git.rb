@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # # Modules: Git
 # Adds settings and tasks related to managing Git.
 #
