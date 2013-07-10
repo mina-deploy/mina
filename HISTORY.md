@@ -1,3 +1,36 @@
+v0.3.0 - July 10, 2013
+----------------------
+
+ * **Stdin is now being passed, thereby making git prompts work.**
+ * Foreman: Add foreman support. (#71) [Dan Sosedoff]
+ * Foreman: Fix 'command not found' error. (#89, #101)
+ * Foreman: Fix forman stop. [Andrew Rosa]
+ * Fix `mina setup` showing an error. (#64) [Anthony Hristov]
+ * Fix "broken pipe" error after deploying. (#64) [Tomas Varneckas]
+ * Fix error regarding "open4" in Windows environments. (#58)
+ * Fix the default script's "touch tmp/restart.txt" to work for reliably. (#77) 
+ [Eugene Diachkin]
+ * Fix errors that happen when the host string is frozen. [sonots]
+ * RVM: use 'rvm use --create'. (#81) [Marcos Beirigo]
+ * RVM: Add 'rvm:wrapper' task to create wrappers. (#81) [Marcos Beirigo]
+ * New helper method called 'capture' to capture SSH output. (#113) [Naoki 
+  Ainoya]
+ * Fix encoding errors. (#68) [Faud Saud]
+
+Special thanks to all the contributors who made this release happen.
+
+https://github.com/nadarei/mina/compare/v0.2.1...v0.3.0
+
+[sonots]: https://github.com/sonots
+[Tomas Varneckas]: https://github.com/tomasv
+[Anthony Hristov]: https://github.com/muxcmux
+[Dan Sosedoff]: https://github.com/sosedoff
+[Eugene Diachkin]: https://github.com/ineu
+[Marcos Beirigo]: https://github.com/marcosbeirigo
+[Andrew Rosa]: https://github.com/andrewhr
+[Naoki Ainoya]: https://github.com/saketoba
+[Faud Saud]: https://github.com/faudsaud
+
 v0.2.1 - Sep 08, 2012
 ---------------------
 
