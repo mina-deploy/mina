@@ -10,4 +10,5 @@ env:
  - "rake=10"
 script: "bundle exec rspec"
 notifications:
-  email: false
+  email:
+   - dropbox+travis@ricostacruz.com
