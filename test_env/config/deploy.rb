@@ -30,7 +30,7 @@ task :environment do
 end
 
 desc "Deploys."
-task :deploy do
+task :deploy => :environment do
   queue "bundle() { true; }" # Stub the bundle command.
 
   deploy do
@@ -61,7 +61,7 @@ namespace :passenger do
   end
 end
 
-task :rofl do
+task :get_password do
   set :term_mode, :pretty
-  queue %[echo "Password:"; read x; echo out: $x;]
+  queue %[echo "Password: "; read x; echo out: $x;]
 end
