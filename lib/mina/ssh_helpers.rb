@@ -104,7 +104,7 @@ module Mina
         # open4 is not supported under Windows.
         # https://github.com/nadarei/mina/issues/58
         require 'rbconfig'
-        ! RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
+        ! (RbConfig::CONFIG['host_os'] =~ /mswin|mingw/)
       end
 
       # ### Ssh.ensure_successful
