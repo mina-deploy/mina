@@ -78,16 +78,52 @@ Unlocked.
 
 <p>Returns nothing.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_str</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^\-+&gt; (.*?)$/</span>
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_str</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">line</span> <span class="o">=~</span> <span class="sr">/^\-+&gt; (.*?)$/</span>
         <span class="n">print_status</span> <span class="vg">$1</span>
-      <span class="k">elsif</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^! (.*?)$/</span>
+      <span class="k">elsif</span> <span class="n">line</span> <span class="o">=~</span> <span class="sr">/^! (.*?)$/</span>
         <span class="n">print_error</span> <span class="vg">$1</span>
-      <span class="k">elsif</span> <span class="n">str</span> <span class="o">=~</span> <span class="sr">/^\$ (.*?)$/</span>
+      <span class="k">elsif</span> <span class="n">line</span> <span class="o">=~</span> <span class="sr">/^\$ (.*?)$/</span>
         <span class="n">print_command</span> <span class="vg">$1</span>
       <span class="k">else</span>
-        <span class="n">print_stdout</span> <span class="n">str</span>
+        <span class="n">print_stdout</span> <span class="n">line</span>
       <span class="k">end</span>
+    <span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="print-char" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#print-char">&#182;</a>
+              </div>
+              <h3>print_char</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-5" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Prints a single character.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">print_char</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+      <span class="vg">$last</span> <span class="o">||=</span> <span class="s1">&#39;&#39;</span>
+
+      <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">print_clear</span>
+        <span class="n">print_str</span> <span class="vg">$last</span>
+        <span class="vg">$last</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+      <span class="k">else</span>
+        <span class="nb">print</span> <span class="s1">&#39;       &#39;</span> <span class="k">if</span> <span class="vg">$last</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span>
+        <span class="nb">print</span> <span class="n">ch</span>
+        <span class="vg">$last</span> <span class="o">+=</span> <span class="n">ch</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">print_clear</span>
+      <span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1K</span><span class="se">\r</span><span class="s2">&quot;</span>
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
@@ -101,10 +137,10 @@ Unlocked.
                           </td>
           </tr>
                                       
-          <tr id="section-5" class="">
+          <tr id="section-7" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>Prints a status message. (<code>-----&gt;</code>)</p>            </td>
             <td class="code">
@@ -124,10 +160,10 @@ Unlocked.
                           </td>
           </tr>
                                       
-          <tr id="section-7" class="">
+          <tr id="section-9" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Prints an error message (header).</p>            </td>
             <td class="code">
@@ -146,10 +182,10 @@ Unlocked.
                           </td>
           </tr>
                                       
-          <tr id="section-9" class="">
+          <tr id="section-11" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>Prints an error message (body), or prints stderr output.</p>            </td>
             <td class="code">
@@ -168,10 +204,10 @@ Unlocked.
                           </td>
           </tr>
                                       
-          <tr id="section-11" class="">
+          <tr id="section-13" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>Prints a command.</p>            </td>
             <td class="code">
@@ -190,10 +226,10 @@ Unlocked.
                           </td>
           </tr>
                                       
-          <tr id="section-13" class="">
+          <tr id="section-15" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>Prints a normal message.</p>            </td>
             <td class="code">
@@ -212,10 +248,10 @@ Unlocked.
                           </td>
           </tr>
                                       
-          <tr id="section-15" class="">
+          <tr id="section-17" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>Colorizes a string.
 Returns the string <code>str</code> with the color <code>c</code>.</p>            </td>
@@ -267,6 +303,10 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                                                                               <li class='heading level-3'>
                       <a href="#print-str">
                         print_str                      </a>
+                    </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#print-char">
+                        print_char                      </a>
                     </li>
                                                                               <li class='heading level-3'>
                       <a href="#print-status">
@@ -385,6 +425,11 @@ Returns the string <code>str</code> with the color <code>c</code>.</p>          
                                                     <a href='../../lib/mina/exec_helpers.html#f' class='item file '>
                 <i></i>
                 exec_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/foreman.html#f' class='item file '>
+                <i></i>
+                foreman.rb              </a>
                       </li>
                                                     <li class='level-3'>
                                                     <a href='../../lib/mina/git.html#f' class='item file '>

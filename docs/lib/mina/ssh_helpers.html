@@ -123,7 +123,7 @@ puts ssh_command
 </code></pre>            </td>
             <td class="code">
               <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">ssh_command</span>
-      <span class="n">args</span> <span class="o">=</span> <span class="n">domain!</span>
+      <span class="n">args</span> <span class="o">=</span> <span class="n">domain!</span><span class="o">.</span><span class="n">dup</span>
       <span class="n">args</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">user</span><span class="si">}</span><span class="s2">@</span><span class="si">#{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">user?</span>
       <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -i </span><span class="si">#{</span><span class="n">identity_file</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">identity_file?</span>
       <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot; -p </span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">port?</span>
@@ -205,7 +205,17 @@ puts ssh_command
             <td class="code">
               <div class="highlight"><pre>      <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">this</span><span class="p">)</span>
         <span class="n">term_mode</span> <span class="o">=</span> <span class="ss">:&quot;</span><span class="si">#{</span><span class="n">this</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">term_mode</span><span class="si">}</span><span class="ss">&quot;</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">this</span><span class="o">.</span><span class="n">ssh_command</span><span class="si">}</span><span class="s2"> -- </span><span class="si">#{</span><span class="n">script</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">this</span><span class="o">.</span><span class="n">ssh_command</span><span class="si">}</span><span class="s2"> -- </span><span class="si">#{</span><span class="n">script</span><span class="si">}</span><span class="s2">&quot;</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-12" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Certain environments can't do :pretty mode.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>        <span class="n">term_mode</span> <span class="o">=</span> <span class="ss">:exec</span>  <span class="k">if</span> <span class="n">term_mode</span> <span class="o">==</span> <span class="ss">:pretty</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">pretty_supported?</span>
 
         <span class="k">case</span> <span class="n">term_mode</span>
         <span class="k">when</span> <span class="ss">:pretty</span>
@@ -216,6 +226,21 @@ puts ssh_command
           <span class="nb">system</span> <span class="n">code</span>
           <span class="vg">$?</span><span class="o">.</span><span class="n">to_i</span>
         <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">pretty_supported?</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="section-13" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>open4 is not supported under Windows.
+https://github.com/nadarei/mina/issues/58</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>        <span class="nb">require</span> <span class="s1">&#39;rbconfig&#39;</span>
+        <span class="o">!</span> <span class="p">(</span><span class="no">RbConfig</span><span class="o">::</span><span class="no">CONFIG</span><span class="o">[</span><span class="s1">&#39;host_os&#39;</span><span class="o">]</span> <span class="o">=~</span> <span class="sr">/mswin|mingw/</span><span class="p">)</span>
       <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
@@ -229,10 +254,10 @@ puts ssh_command
                           </td>
           </tr>
                                       
-          <tr id="section-13" class="">
+          <tr id="section-15" class="">
             <td class="docs">
               <div class="pilwrap">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p><strong>Internal:</strong> Halts the execution if the given result code is not
 successful (non-zero).</p>            </td>
@@ -402,6 +427,11 @@ successful (non-zero).</p>            </td>
                                                     <a href='../../lib/mina/exec_helpers.html#f' class='item file '>
                 <i></i>
                 exec_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/foreman.html#f' class='item file '>
+                <i></i>
+                foreman.rb              </a>
                       </li>
                                                     <li class='level-3'>
                                                     <a href='../../lib/mina/git.html#f' class='item file '>

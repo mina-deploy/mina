@@ -58,10 +58,14 @@
 
 <pre><code>invoke :'git:clone'
 invoke :restart
-</code></pre>            </td>
+</code></pre>
+
+<p>Options:
+  reenable (bool) - Execute the task even next time.</p>            </td>
             <td class="code">
-              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
       <span class="no">Rake</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">invoke_task</span> <span class="n">task</span>
+      <span class="no">Rake</span><span class="o">::</span><span class="no">Task</span><span class="o">[</span><span class="n">task</span><span class="o">].</span><span class="n">reenable</span> <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:reenable</span><span class="o">]</span>
     <span class="k">end</span></pre></div>            </td>
           </tr>
                                       
@@ -372,6 +376,7 @@ input string unharmed.</p>
             <td class="code">
               <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">echo_cmd</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">verbose_mode?</span>
+        <span class="nb">require</span> <span class="s1">&#39;shellwords&#39;</span>
         <span class="s2">&quot;echo </span><span class="si">#{</span><span class="no">Shellwords</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="s2">&quot;$ &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">)</span><span class="si">}</span><span class="s2"> &amp;&amp;</span><span class="se">\n</span><span class="si">#{</span><span class="n">str</span><span class="si">}</span><span class="s2">&quot;</span>
       <span class="k">else</span>
         <span class="n">str</span>
@@ -821,6 +826,28 @@ See #settings for an explanation.</p>
             <td class="code">
               <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">reindent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
       <span class="n">indent</span> <span class="n">n</span><span class="p">,</span> <span class="n">unindent</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="k">end</span></pre></div>            </td>
+          </tr>
+                                      
+          <tr id="capture" class="heading">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#capture">&#182;</a>
+              </div>
+              <h3>capture</h3>            </td>
+            <td class="code">
+                          </td>
+          </tr>
+                                      
+          <tr id="section-57" class="">
+            <td class="docs">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-57">&#182;</a>
+              </div>
+              <p>Returns the output of command via SSH.</p>            </td>
+            <td class="code">
+              <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">capture</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{})</span>
+      <span class="n">ssh</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="ss">:return</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span>
     <span class="k">end</span>
 
   <span class="k">end</span>
@@ -980,6 +1007,10 @@ See #settings for an explanation.</p>
                       <a href="#reindent">
                         reindent                      </a>
                     </li>
+                                                                              <li class='heading level-3'>
+                      <a href="#capture">
+                        capture                      </a>
+                    </li>
                                   </ul>
                           </li>
           </ul>
@@ -1073,6 +1104,11 @@ See #settings for an explanation.</p>
                                                     <a href='../../lib/mina/exec_helpers.html#f' class='item file '>
                 <i></i>
                 exec_helpers.rb              </a>
+                      </li>
+                                                    <li class='level-3'>
+                                                    <a href='../../lib/mina/foreman.html#f' class='item file '>
+                <i></i>
+                foreman.rb              </a>
                       </li>
                                                     <li class='level-3'>
                                                     <a href='../../lib/mina/git.html#f' class='item file '>
