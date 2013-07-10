@@ -26,7 +26,7 @@ module Mina
           pid_in  = Sys.stream_stdin!     { |chr| i.putc chr }
 
           # __In the foreground,__ stream stdout to the output helper.
-          Sys.stream_stdout(o) { |str| print_str str }
+          Sys.stream_stdout(o) { |ch| print_char ch }
 
           Process.waitpid pid_err
           Process.kill 'TERM', pid_in
@@ -93,7 +93,7 @@ module Mina
       # output helper.
 
       def stream_stdout(o, &blk)
-        while str = o.gets
+        while str = o.getc
           yield str
         end
       end

@@ -63,5 +63,5 @@ end
 
 task :get_password do
   set :term_mode, :pretty
-  queue %[echo -n "Password: "; read x; echo out: $x;]
+  queue %[echo "-> Getting password"; echo -n "Password: "; read x; echo ""; echo out: $x;]
 end

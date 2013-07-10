@@ -19,16 +19,36 @@ module Mina
     #
     # Returns nothing.
     #
-    def print_str(str)
-      if str =~ /^\-+> (.*?)$/
+    def print_str(line)
+      if line =~ /^\-+> (.*?)$/
         print_status $1
-      elsif str =~ /^! (.*?)$/
+      elsif line =~ /^! (.*?)$/
         print_error $1
-      elsif str =~ /^\$ (.*?)$/
+      elsif line =~ /^\$ (.*?)$/
         print_command $1
       else
-        print_stdout str
+        print_stdout line
       end
+    end
+
+    # ### print_char
+    # Prints a single character.
+    def print_char(ch)
+      $last ||= ''
+
+      if ch == "\n"
+        print_clear
+        print_str $last
+        $last = ''
+      else
+        print '       ' if $last == ''
+        print ch
+        $last += ch
+      end
+    end
+
+    def print_clear
+      print "\033[1K\r"
     end
 
     # ### print_status
