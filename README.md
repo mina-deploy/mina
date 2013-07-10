@@ -1,4 +1,4 @@
-# Mina [![status](https://secure.travis-ci.org/nadarei/mina.png?branch=master)](http://travis-ci.org/nadarei/mina)
+# Mina
 
 Really fast deployer and server automation tool.
 
@@ -12,6 +12,8 @@ session per deploy, minimizing the SSH connection overhead.
 
     $ gem install mina
     $ mina
+
+[![Status](https://secure.travis-ci.org/nadarei/mina.png?branch=master)](http://travis-ci.org/nadarei/mina) [![Version](https://badge.fury.io/rb/mina.png)](http://badge.fury.io/rb/mina)
 
 Documentation
 -------------
