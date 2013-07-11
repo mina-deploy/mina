@@ -217,11 +217,11 @@ module Mina
     #
     # Returns nothing.
     #
-    #   in_directory './webapp' do
-    #     queue "./reload"
-    #   end
+    #     in_directory './webapp' do
+    #       queue "./reload"
+    #     end
     #
-    #   commands.should == ['cd ./webapp && (./reload && true)']
+    #     commands.should == ['cd ./webapp && (./reload && true)']
 
     def in_directory(path, &blk)
       isolated_commands = isolate { yield; commands }
