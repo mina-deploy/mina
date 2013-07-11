@@ -15,11 +15,11 @@ module Mina
     # ### deploy_script
     # Wraps the things inside it in a deploy script.
     #
-    #   script = deploy_script do
-    #     invoke :'git:checkout'
-    #   end
+    #     script = deploy_script do
+    #       invoke :'git:checkout'
+    #     end
     #
-    #   queue script
+    #     queue script
     #
     # Returns the deploy script as a string, ready for `queue`ing.
     #

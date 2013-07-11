@@ -1,4 +1,4 @@
-# # Helpers: Default helpers
+# # Helpers
 
 module Mina
   module Helpers
@@ -313,10 +313,10 @@ module Mina
 
     def verbose_mode?
       if Rake.respond_to?(:verbose)
-        # Rake 0.9.x
+        #- Rake 0.9.x
         Rake.verbose == true
       else
-        # Rake 0.8.x
+        #- Rake 0.8.x
         RakeFileUtils.verbose_flag != :default
       end
     end

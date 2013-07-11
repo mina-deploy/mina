@@ -118,7 +118,7 @@ make_run_task[:rake, 'db:migrate']
 # ### console
 # Opens the Ruby console for the currently-deployed version.
 #
-#    $ mina console
+#     $ mina console
 
 desc "Starts an interactive console."
 task :console do
