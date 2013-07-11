@@ -470,6 +470,7 @@ end
 commands.should == ['cd ./webapp && (./reload && true)']
 ~~~
 
+### to
 Defines instructions on how to do a certain thing.
 This makes the commands that are `queue`d go into a different bucket in commands.
 
@@ -534,6 +535,12 @@ Returns things.
 Checks if Rake was invoked with --verbose.
 
 Returns true or false.
+
+~~~ ruby
+if verbose_mode?
+  queue %[echo "-----> Starting a new process"]
+end
+~~~
 
 ### simulate_mode?
 Checks if Rake was invoked with --simulate.

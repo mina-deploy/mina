@@ -228,6 +228,7 @@ module Mina
       isolated_commands.each { |cmd| queue "(cd #{path} && (#{cmd}))" }
     end
 
+    # ### to
     # Defines instructions on how to do a certain thing.
     # This makes the commands that are `queue`d go into a different bucket in commands.
     #
@@ -310,6 +311,10 @@ module Mina
     # Checks if Rake was invoked with --verbose.
     #
     # Returns true or false.
+    #
+    #     if verbose_mode?
+    #       queue %[echo "-----> Starting a new process"]
+    #     end
 
     def verbose_mode?
       if Rake.respond_to?(:verbose)
@@ -369,6 +374,7 @@ module Mina
 
     # ### capture
     # Returns the output of command via SSH.
+
     def capture(cmd, options={})
       ssh cmd, options.merge(:return => true)
     end
