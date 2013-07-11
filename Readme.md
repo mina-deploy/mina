@@ -568,7 +568,9 @@ $ mina rake db:cleanup
 ### console
 Opens the Ruby console for the currently-deployed version.
 
-   $ mina console
+~~~ ruby
+$ mina console
+~~~
 
 ## Deploy tasks
 These tasks are meant to be invoked inside deploy scripts, not invoked on
