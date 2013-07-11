@@ -23,8 +23,10 @@ Invokes another Rake task.
 
 Invokes the task given in `task`. Returns nothing.
 
-    invoke :'git:clone'
-    invoke :restart
+~~~ ruby
+invoke :'git:clone'
+invoke :restart
+~~~
 
 Options:
   reenable (bool) - Execute the task even next time.
@@ -32,13 +34,13 @@ Options:
 ### erb
 Evaluates an ERB block in the current scope and returns a string.
 
-    a = 1
-    b = 2
-
-    # Assuming foo.erb is <%= a %> and <%= b %>
-    puts erb('foo.erb')
-
-    #=> "1 and 2"
+~~~ ruby
+a = 1
+b = 2
+# Assuming foo.erb is <%= a %> and <%= b %>
+puts erb('foo.erb')
+#=> "1 and 2"
+~~~
 
 Returns the output string of the ERB template.
 
@@ -48,8 +50,10 @@ SSHs into the host and runs the code that has been queued.
 This is already automatically invoked before Rake exits to run all
 commands that have been queued up.
 
-    queue "sudo restart"
-    run!
+~~~ ruby
+queue "sudo restart"
+run!
+~~~
 
 Returns nothing.
 
@@ -57,13 +61,14 @@ Returns nothing.
 Report time elapsed in the block.
 Returns the output of the block.
 
-    report_time do
-      sleep 2
-      # do other things
-    end
-
-    # Output:
-    # Elapsed time: 2.0 seconds
+~~~ ruby
+report_time do
+  sleep 2
+  # do other things
+end
+# Output:
+# Elapsed time: 2.0 seconds
+~~~
 
 ### measure
 Measures the time (in ms) a block takes.
@@ -80,8 +85,10 @@ Returns nothing.
 Exits with a nice looking message.
 Returns nothing.
 
-    die 2
-    die 2, "Tests failed"
+~~~ ruby
+die 2
+die 2, "Tests failed"
+~~~
 
 ### error
 __Internal:__ Prints to stdout.
@@ -97,10 +104,11 @@ To get the things that have been queued, use commands[:default]
 
 Returns nothing.
 
-    queue "sudo restart"
-    queue "true"
-
-    commands == ['sudo restart', 'true']
+~~~ ruby
+queue "sudo restart"
+queue "true"
+commands == ['sudo restart', 'true']
+~~~
 
 ### queue!
 Shortcut for `queue`ing a command that shows up in verbose mode.
@@ -113,8 +121,10 @@ Returns a string of the compound bash command, typically in the format of
 `echo xx && xx`. However, if `verbose_mode?` is false, it returns the
 input string unharmed.
 
-    echo_cmd("ln -nfs releases/2 current")
-    #=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
+~~~ ruby
+echo_cmd("ln -nfs releases/2 current")
+#=> echo "$ ln -nfs releases/2 current" && ln -nfs releases/2 current
+~~~
 
 ## Commands
 
@@ -125,31 +135,31 @@ You may give an optional `aspect`.
 
 Returns an array of strings.
 
-    queue "sudo restart"
-    queue "true"
-
-    to :clean do
-      queue "rm"
-    end
-
-    commands == ["sudo restart", "true"]
-    commands(:clean) == ["rm"]
+~~~ ruby
+queue "sudo restart"
+queue "true"
+to :clean do
+  queue "rm"
+end
+commands == ["sudo restart", "true"]
+commands(:clean) == ["rm"]
+~~~
 
 ### isolate
 Starts a new block where new `commands` are collected.
 
 Returns nothing.
 
-    queue "sudo restart"
-    queue "true"
-    commands.should == ['sudo restart', 'true']
-
-    isolate do
-      queue "reload"
-      commands.should == ['reload']
-    end
-
-    commands.should == ['sudo restart', 'true']
+~~~ ruby
+queue "sudo restart"
+queue "true"
+commands.should == ['sudo restart', 'true']
+isolate do
+  queue "reload"
+  commands.should == ['reload']
+end
+commands.should == ['sudo restart', 'true']
+~~~
 
 ### in_directory
 Starts a new block where #commands are collected, to be executed inside `path`.
@@ -157,7 +167,10 @@ Starts a new block where #commands are collected, to be executed inside `path`.
 Returns nothing.
 
   in_directory './webapp' do
-    queue "./reload"
+~~~ ruby
+queue "./reload"
+~~~
+
   end
 
   commands.should == ['cd ./webapp && (./reload && true)']
@@ -167,15 +180,16 @@ This makes the commands that are `queue`d go into a different bucket in commands
 
 Returns nothing.
 
-    to :prepare do
-      run "bundle install"
-    end
-    to :launch do
-      run "nginx -s restart"
-    end
-
-    commands(:prepare) == ["bundle install"]
-    commands(:restart) == ["nginx -s restart"]
+~~~ ruby
+to :prepare do
+  run "bundle install"
+end
+to :launch do
+  run "nginx -s restart"
+end
+commands(:prepare) == ["bundle install"]
+commands(:restart) == ["nginx -s restart"]
+~~~
 
 ## Settings helpers
 
@@ -185,7 +199,9 @@ Sets given symbol `key` to value in `value`.
 
 Returns the value.
 
-    set :domain, 'kickflip.me'
+~~~ ruby
+set :domain, 'kickflip.me'
+~~~
 
 ### set_default
 Sets default settings.
@@ -193,21 +209,23 @@ Sets given symbol `key` to value in `value` only if the key isn't set yet.
 
 Returns the value.
 
-    set_default :term_mode, :pretty
-    set :term_mode, :system
-    settings.term_mode.should == :system
-
-    set :term_mode, :system
-    set_default :term_mode, :pretty
-    settings.term_mode.should == :system
+~~~ ruby
+set_default :term_mode, :pretty
+set :term_mode, :system
+settings.term_mode.should == :system
+set :term_mode, :system
+set_default :term_mode, :pretty
+settings.term_mode.should == :system
+~~~
 
 ### settings
 Accesses the settings hash.
 
-    set :domain, 'kickflip.me'
-
-    settings.domain  #=> 'kickflip.me'
-    domain           #=> 'kickflip.me'
+~~~ ruby
+set :domain, 'kickflip.me'
+settings.domain  #=> 'kickflip.me'
+domain           #=> 'kickflip.me'
+~~~
 
 ### method_missing
 Hook to get settings.
@@ -237,13 +255,15 @@ __Internal:__ Normalizes indentation on a given string.
 
 Returns the normalized string without extraneous indentation.
 
-    puts unindent %{
-      Hello
-        There
-    }
-    # Output:
-    # Hello
-    #   There
+~~~ ruby
+puts unindent %{
+  Hello
+    There
+}
+# Output:
+# Hello
+#   There
+~~~
 
 ### reindent
 Resets the indentation on a given code block.
@@ -263,18 +283,21 @@ Returns nothing.
 ### deploy_script
 Wraps the things inside it in a deploy script.
 
-    script = deploy_script do
-      invoke :'git:checkout'
-    end
-
-    queue script
+~~~ ruby
+script = deploy_script do
+  invoke :'git:checkout'
+end
+queue script
+~~~
 
 Returns the deploy script as a string, ready for `queue`ing.
 
 # Modules: Bundler
 Adds settings and tasks for managing Ruby Bundler.
 
-    require 'mina/bundler'
+~~~ ruby
+require 'mina/bundler'
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -333,7 +356,9 @@ by users.
 ### init
 Initializes a new Mina project.
 
-    $ mina init
+~~~ ruby
+$ mina init
+~~~
 
 ### help
 Shows the help screen.
@@ -341,7 +366,9 @@ Shows the help screen.
 ### tasks
 Display all tasks in a nice table.
 
-    $ mina tasks
+~~~ ruby
+$ mina tasks
+~~~
 
 # Modules: Deployment
 This module is automatically loaded for all Mina projects.
@@ -371,11 +398,15 @@ Number of releases to keep when doing the `deploy:cleanup` task.
 ### deploy:force_unlock
 Forces a deploy unlock by deleting the lock file.
 
-    $ mina deploy:force_unlock
+~~~ ruby
+$ mina deploy:force_unlock
+~~~
 
 You can also combine that task with `deploy`:
 
-    $ mina deploy:force_unlock deploy
+~~~ ruby
+$ mina deploy:force_unlock deploy
+~~~
 
 ### deploy:link_shared_paths
 Links the shared paths in the `shared_paths` setting.
@@ -393,7 +424,9 @@ Sets up a site's directory structure.
 ### run[]
 Runs a command on a server.
 
-    $ mina run[tail -f logs.txt]
+~~~ ruby
+$ mina run[tail -f logs.txt]
+~~~
 
 # Modules: Foreman
 Adds settings and tasks for managing projects with [foreman].
@@ -409,15 +442,17 @@ NOTE: Requires sudo privileges
    set :application, "app-name"
 
    task :deploy => :environment do
-     deploy do
-       # ...
-       invoke 'foreman:export'
-       # ...
-     end
+~~~ ruby
+ deploy do
+   # ...
+   invoke 'foreman:export'
+   # ...
+ end
+ to :launch do
+   invoke 'foreman:restart'
+ end
+~~~
 
-     to :launch do
-       invoke 'foreman:restart'
-     end
    end
 
 ## Settings
@@ -438,7 +473,9 @@ encoding: utf-8
 # Modules: Git
 Adds settings and tasks related to managing Git.
 
-    require 'mina/git'
+~~~ ruby
+require 'mina/git'
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -456,7 +493,9 @@ Clones the Git repository. Meant to be used inside a deploy script.
 # Modules: Rails
 Adds settings and tasks for managing Rails projects.
 
-    require 'mina/rails'
+~~~ ruby
+require 'mina/rails'
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -471,17 +510,23 @@ is ran in.
 Prefix for Bundler commands. Often to something like `RAILS_ENV=production
 bundle exec`.
 
-    queue! "#{bundle_prefix} annotate -r"
+~~~ ruby
+queue! "#{bundle_prefix} annotate -r"
+~~~
 
 ### rake
 The prefix for `rake` commands. Use like so:
 
-    queue! "#{rake} db:migrate"
+~~~ ruby
+queue! "#{rake} db:migrate"
+~~~
 
 ### rails
 The prefix for `rails` commands. Use like so:
 
-    queue! "#{rails} console"
+~~~ ruby
+queue! "#{rails} console"
+~~~
 
 ### asset_paths
 The paths to be checked.
@@ -509,12 +554,16 @@ These tasks can be invoked in the command line.
 ### rails[]
 Invokes a rails command.
 
-    $ mina rails[console]
+~~~ ruby
+$ mina rails[console]
+~~~
 
 ### rake[]
 Invokes a rake command.
 
-    $ mina rake db:cleanup
+~~~ ruby
+$ mina rake db:cleanup
+~~~
 
 ### console
 Opens the Ruby console for the currently-deployed version.
@@ -538,17 +587,20 @@ Adds settings and tasks for managing [rbenv] installations.
 
 [rbenv]: https://github.com/sstephenson/rbenv
 
-    require 'mina/rbenv'
+~~~ ruby
+require 'mina/rbenv'
+~~~
 
 ## Common usage
 
-    task :environment do
-      invoke :'rbenv:load'
-    end
-
-    task :deploy => :environment do
-      ...
-    end
+~~~ ruby
+task :environment do
+  invoke :'rbenv:load'
+end
+task :deploy => :environment do
+  ...
+end
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -568,17 +620,20 @@ Adds settings and tasks for managing [RVM] installations.
 
 [rvm]: http://rvm.io
 
-    require 'mina/rvm'
+~~~ ruby
+require 'mina/rvm'
+~~~
 
 ## Common usage
 
-    task :environment do
-      invoke :'rvm:use[ruby-1.9.3-p125@gemset_name]'
-    end
-
-    task :deploy => :environment do
-      ...
-    end
+~~~ ruby
+task :environment do
+  invoke :'rvm:use[ruby-1.9.3-p125@gemset_name]'
+end
+task :deploy => :environment do
+  ...
+end
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -596,19 +651,23 @@ Uses a given RVM environment provided as an argument.
 
 This is usually placed in the `:environment` task.
 
-    task :environment do
-      invoke :'rvm:use[ruby-1.9.3-p125@gemset_name]'
-    end
+~~~ ruby
+task :environment do
+  invoke :'rvm:use[ruby-1.9.3-p125@gemset_name]'
+end
+~~~
 
 ### rvm:wrapper[]
 Creates a rvm wrapper for a given executable
 
 This is usually placed in the `:setup` task.
 
-    task ::setup => :environment do
-      ...
-      invoke :'rvm:wrapper[ruby-1.9.3-p125@gemset_name,wrapper_name,binary_name]'
-    end
+~~~ ruby
+task ::setup => :environment do
+  ...
+  invoke :'rvm:wrapper[ruby-1.9.3-p125@gemset_name,wrapper_name,binary_name]'
+end
+~~~
 
 Adds settings and tasks for managing projects with [whenever].
 [whenever]: http://rubygems.org/gems/whenever
