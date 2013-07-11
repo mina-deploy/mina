@@ -1,5 +1,6 @@
 Readme.md: \
 	support/Readme-header.md \
+	support/guide.md \
 	support/helpers.md \
 	support/modules.md \
 	support/Readme-footer.md
