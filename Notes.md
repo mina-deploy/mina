@@ -1,3 +1,10 @@
+Readme
+------
+
+The readme file is auto-generated using make.
+
+    $ make Readme.md
+
 Documentation
 -------------
 
