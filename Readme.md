@@ -222,10 +222,6 @@ Checks if Rake was invoked with --verbose.
 
 Returns true or false.
 
-Rake 0.9.x
-
-Rake 0.8.x
-
 ### simulate_mode?
 Checks if Rake was invoked with --simulate.
 
@@ -267,11 +263,11 @@ Returns nothing.
 ### deploy_script
 Wraps the things inside it in a deploy script.
 
-  script = deploy_script do
-    invoke :'git:checkout'
-  end
+    script = deploy_script do
+      invoke :'git:checkout'
+    end
 
-  queue script
+    queue script
 
 Returns the deploy script as a string, ready for `queue`ing.
 
