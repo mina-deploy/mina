@@ -21,3 +21,8 @@ support/helpers.md: \
 	lib/mina/helpers.rb \
 	lib/mina/deploy_helpers.rb
 	cat $^ | ruby support/to_md.rb > $@
+
+clean:
+	rm Readme.md support/modules.md support/helpers.md
+
+.PHONY: clean
