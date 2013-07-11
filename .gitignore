@@ -6,3 +6,5 @@ test_env/deploy
 Gemfile.lock
 pkg/
 docs
+support/helpers.md
+support/modules.md
