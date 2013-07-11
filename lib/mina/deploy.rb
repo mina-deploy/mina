@@ -4,10 +4,26 @@
 # ## Settings
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
+# ### releases_path
+# (default: 'releases')
 set_default :releases_path, "releases"
+
+# ### shared_path
+# (default: 'shared')
 set_default :shared_path, "shared"
+
+# ### current_path
+# (default: 'current_path')
 set_default :current_path, "current"
+
+# ### lock_file
+# Name of the file to generate while a deploy is currently ongoing.
+# (default: 'deploy.lock')
 set_default :lock_file, "deploy.lock"
+
+# ### keep_releases
+# Number of releases to keep when doing the `deploy:cleanup` task.
+# (default: 5)
 set_default :keep_releases, 5
 
 namespace :deploy do

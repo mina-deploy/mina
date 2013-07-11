@@ -1,4 +1,4 @@
-# # Helpers: Default helpers
+# # Helpers
 
 module Mina
   module Helpers
