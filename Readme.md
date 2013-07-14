@@ -63,7 +63,7 @@ via SSH and create the right directories.
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](#directory_structure) for more info.
+See [directory structure](#directory-structure) for more info.
 
 ### Step 4: Deploy!
 
