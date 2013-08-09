@@ -64,7 +64,7 @@ module Mina
     #     end
     #
     #     # Output:
-    #     # Elapsed time: 2.0 seconds
+    #     # Elapsed time: 2.00 seconds
 
     def report_time(&blk)
       time, output = measure &blk
@@ -73,13 +73,13 @@ module Mina
     end
 
     # ### measure
-    # Measures the time (in ms) a block takes.
+    # Measures the time (in seconds) a block takes.
     # Returns a [time, output] tuple.
 
     def measure(&blk)
       t = Time.now
       output = yield
-      [(Time.now - t).to_i, output]
+      [Time.now - t, output]
     end
 
     # ### mina_cleanup
