@@ -36,7 +36,7 @@ task :chruby, :env do |t, args|
   end
 
   queue %{
-    echo "-----> chruby to version: '#{args[:env]}"
+    echo "-----> chruby to version: '#{args[:env]}'"
 
     if [[ ! -s "#{chruby_path}" ]]; then
       echo "! chruby.sh init file not found"
