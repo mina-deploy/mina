@@ -57,13 +57,13 @@ change it's ownership to the correct user.
 ### Step 3: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory_structure) in this path. This will connect to your server 
+structure](#directory-structure) in this path. This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](#directory_structure) for more info.
+See [directory structure](#directory-structure) for more info.
 
 ### Step 4: Deploy!
 
