@@ -33,6 +33,7 @@ set_default :rbenv_path, "$HOME/.rbenv"
 task :'rbenv:load' do
   queue %{
     echo "-----> Loading rbenv"
+    #{echo_cmd %{export RBENV_ROOT="#{rbenv_path}"}}
     #{echo_cmd %{export PATH="#{rbenv_path}/bin:$PATH"}}
 
     if ! which rbenv >/dev/null; then
