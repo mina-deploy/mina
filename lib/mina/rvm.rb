@@ -57,9 +57,8 @@ task :'rvm:use', :env do |t, args|
   }
 end
 
-
 # ### rvm:wrapper[]
-# Creates a rvm wrapper for a given executable
+# Creates a rvm wrapper for a given executable.
 #
 # This is usually placed in the `:setup` task.
 #
@@ -71,7 +70,7 @@ end
 task :'rvm:wrapper', :env, :name, :bin do |t,args|
   unless args[:env] && args[:name] && args[:bin]
     print_error "Task 'rvm:wrapper' needs an RVM environment name, an wrapper name and the binary name as arguments"
-    print_error "Example: invoke :'rvm:use[ruby-1.9.2@myapp,myapp,unicorn_rails]'"
+    print_error "Example: invoke :'rvm:wrapper[ruby-1.9.2@myapp,myapp,unicorn_rails]'"
     die
   end
 
@@ -86,5 +85,4 @@ task :'rvm:wrapper', :env, :name, :bin do |t,args|
     source #{rvm_path}
     #{echo_cmd %{rvm wrapper #{args[:env]} #{args[:name]} #{args[:bin]} }} || exit 1
   }
-
 end
