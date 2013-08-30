@@ -735,7 +735,7 @@ Adds settings and tasks for managing projects with [foreman].
 
 NOTE: Requires sudo privileges
 
-[foreman]: http://rubygems.org/ddolar/foreman
+[foreman]: http://theforeman.org/
 
    require 'mina/foreman'
 
