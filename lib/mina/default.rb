@@ -142,3 +142,13 @@ desc "Show all tasks."
 task :tasks do
   show_task_help :full => true
 end
+
+# ### ssh
+# Connects to the server via ssh
+#
+#     $ mina ssh
+
+desc "Open an ssh session to the server"
+task :ssh do
+  exec ssh_command
+end
