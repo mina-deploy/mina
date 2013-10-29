@@ -7,7 +7,7 @@ generates an entire procedure as a Bash script and runs it remotely in the
 server.
 
 Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Mina only creates *one* SSH
+runs separately in their own SSH session. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
     $ gem install mina
@@ -806,7 +806,7 @@ Any and all of these settings can be overriden in your `deploy.rb`.
 Sets the Rails environment for `rake` and `rails` commands.
 
 Note that changing this will NOT change the environment that your application
-is ran in.
+runs in.
 
 ### bundle_prefix
 Prefix for Bundler commands. Often to something like `RAILS_ENV=production

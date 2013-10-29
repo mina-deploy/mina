@@ -34,7 +34,7 @@ task :environment do
   # invoke :'rvm:use[ruby-1.9.3-p125@default]'
 end
 
-# Put any custom mkdir's in here for when `mina setup` is ran.
+# Put any custom mkdir's in here for when `mina setup` runs.
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
 task :setup => :environment do
