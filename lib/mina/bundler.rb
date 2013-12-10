@@ -17,7 +17,7 @@ set_default :bundle_bin, 'bundle'
 # This path will be symlinked to `./shared/bundle` so that the gems cache will
 # be shared between all releases.
 
-set_default :bundle_path, './vendor/bundle'
+set_default :bundle_path, './vendor'
 
 # ### bundle_options
 # Sets the options for installing gems via Bundler.
