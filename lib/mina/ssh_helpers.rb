@@ -52,7 +52,8 @@ module Mina
       args << " -i #{identity_file}" if identity_file?
       args << " -p #{port}" if port?
       args << " -A" if forward_agent?
-      args << " #{ssh_options}"  if ssh_options?
+      args << " #{ssh_options}" if ssh_options?
+      args << " export #{env_vars}" if env_vars?
       args << " -t"
       "ssh #{args}"
     end
