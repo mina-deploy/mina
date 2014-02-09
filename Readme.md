@@ -57,13 +57,13 @@ change it's ownership to the correct user.
 ### Step 3: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory-structure) in this path. This will connect to your server 
+structure](#directory_structure) in this path. This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](#directory-structure) for more info.
+See [directory structure](#directory_structure) for more info.
 
 ### Step 4: Deploy!
 
@@ -364,11 +364,11 @@ report_time do
   # do other things
 end
 # Output:
-# Elapsed time: 2.0 seconds
+# Elapsed time: 2.00 seconds
 ~~~
 
 ### measure
-Measures the time (in ms) a block takes.
+Measures the time (in seconds) a block takes.
 Returns a [time, output] tuple.
 
 ### mina_cleanup
@@ -573,6 +573,16 @@ Resets the indentation on a given code block.
 ### capture
 Returns the output of command via SSH.
 
+## Remote file transfer helers
+Requirements rsync in local system and remote server.
+Warning: These helpers is not queueing.
+
+### upload
+Upload files from `from` to remote location `to` via Rsync.
+
+### download
+Download files from remote location `from` to `to` via Rsync.
+
 # Helpers: Deploy helpers
 Helpers for deployment.
 
@@ -735,7 +745,7 @@ Adds settings and tasks for managing projects with [foreman].
 
 NOTE: Requires sudo privileges
 
-[foreman]: http://theforeman.org/
+[foreman]: http://rubygems.org/ddolar/foreman
 
    require 'mina/foreman'
 
@@ -962,7 +972,7 @@ end
 ~~~
 
 ### rvm:wrapper[]
-Creates a rvm wrapper for a given executable
+Creates a rvm wrapper for a given executable.
 
 This is usually placed in the `:setup` task.
 

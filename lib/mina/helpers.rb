@@ -379,5 +379,24 @@ module Mina
       ssh cmd, options.merge(:return => true)
     end
 
+    # ## Remote file transfer helers
+    # Requirements rsync in local system and remote server.
+    # Warning: These helpers is not queueing.
+
+    # ### upload
+    # Upload files from `from` to remote location `to` via Rsync.
+
+    def upload(from, to, options={})
+      rsync(:upload, from, to, options)
+    end
+
+    # ### download
+    # Download files from remote location `from` to `to` via Rsync.
+
+    def download(from, to, options={})
+      rsync(:download, from, to, options)
+    end
+
+
   end
 end
