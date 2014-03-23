@@ -24,15 +24,15 @@
 
 namespace :unicorn do
   desc "Start unicorn service"
-  task :start do
+  task :start => :environment do
     queue %{
       echo "-----> Starting unicorn service"
-      #{echo_cmd %[cd #{deploy_to!}/#{current_path!}; RAILS_ENV=production bundle exec unicorn_rails -c config/unicorn.rb -D]}
+      #{echo_cmd %[cd #{deploy_to!}/#{current_path!}; bundle exec unicorn -c #{deploy_to!}/#{current_path!}/config/unicorn.rb -D -E production]}
     }
   end
 
   desc "Stop unicorn service"
-  task :stop do
+  task :stop => :environment do
     queue %{
       echo "-----> Stoping unicorn service"
       #{echo_cmd %[kill -s QUIT `cat #{deploy_to!}/#{current_path!}/tmp/pids/unicorn.pid`]}
@@ -40,7 +40,7 @@ namespace :unicorn do
   end
 
   desc "Zero-downtime restart of unicorn service"
-  task :restart do
+  task :restart => :environment do
     queue %{
       echo "-----> Zero-downtime restart of unicorn service"
       #{echo_cmd %[kill -s USR2 `cat #{deploy_to!}/#{current_path!}/tmp/pids/unicorn.pid`]}
