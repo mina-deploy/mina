@@ -31,7 +31,7 @@ In your project, type `mina init` to create a sample of this file.
     $ mina init
     Created config/deploy.rb.
 
-This is just a Rake file with tasks! See [About deploy.rb](#about-deployrb) for 
+This is just a Rake file with tasks! See [About deploy.rb](#about-deployrb) for
 more info on what *deploy.rb* is. You will want to at least configure your
 server:
 
@@ -56,8 +56,8 @@ change it's ownership to the correct user.
 
 ### Step 3: Run 'mina setup'
 
-Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory-structure) in this path. This will connect to your server 
+Back at your computer, do `mina setup` to set up the [folder
+structure](#directory-structure) in this path. This will connect to your server
 via SSH and create the right directories.
 
     $ mina setup
@@ -300,7 +300,7 @@ Basic usage:
 
 ### Tasks
 
-There are many tasks available. See the [tasks reference](tasks/index.html), or 
+There are many tasks available. See the [tasks reference](tasks/index.html), or
 type `mina tasks`.
 
 ### Variables
@@ -772,6 +772,40 @@ Sets the foreman log path. Defaults to *shared/log*
 
 encoding: utf-8
 
+# Modules: Unicorn
+Adds tasks for managing unicorn web-server.
+
+[unicorn]: http://unicorn.bogomips.org/
+
+~~~ ruby
+require 'mina/unicorn'
+~~~
+
+## Usage under deploy
+
+~~~ ruby
+set :application, "app-name"
+
+task :deploy => :environment do
+  deploy do
+   # ...
+   to :launch do
+     invoke :'unicorn:restart'
+   end
+ end
+end
+~~~
+
+## Common usage
+
+~~~ ruby
+$ mina unicorn:start
+$ mina unicorn:stop
+$ mina unicorn:restart
+~~~
+
+Restart task reload unicorn with zero-downtime.
+
 # Modules: Git
 Adds settings and tasks related to managing Git.
 
@@ -979,11 +1013,11 @@ Adds settings and tasks for managing projects with [whenever].
 Acknowledgements
 ----------------
 
-© 2012-2013, Nadarei. Released under the [MIT 
+© 2012-2013, Nadarei. Released under the [MIT
 License](http://www.opensource.org/licenses/mit-license.php).
 
-Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
-Galero][mg] with help from its [contributors][c]. It is sponsored by our 
+Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael
+Galero][mg] with help from its [contributors][c]. It is sponsored by our
 startup, [Nadarei][nd].
 
  * [Nadarei](http://nadarei.co) (nadarei.co)
