@@ -40,6 +40,7 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
     File.directory?('deploy/releases/2').should be_false
     File.exists?('deploy/current').should be_true
     File.read('deploy/last_version').strip.should == '1'
+    File.exists?('deploy/current/build.txt').should be_true
     File.exists?('deploy/current/tmp/restart.txt').should be_true
 
     # And again, to test out sequential versions and stuff

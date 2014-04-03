@@ -1,5 +1,6 @@
 <%
   prepare = commands(:default).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  build   = commands(:build).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
   launch  = commands(:launch).map  { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
   clean   = commands(:clean).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
 %>
@@ -49,16 +50,29 @@ fi
   <%= echo_cmd %[cd "$build_path"] %> &&
   (
 <%= indent 4, (prepare.empty? ? "true" : prepare) %>
-  )
+  ) &&
+  echo "-----> Deploy finished"
 ) &&
 
 #
-# Rename to the real release path, then symlink 'current'
+# Build
 (
-  echo "-----> Build finished"
+  echo "-----> Building"
   echo "-----> Moving build to $release_path"
   <%= echo_cmd %[mv "$build_path" "$release_path"] %> &&
+  <%= echo_cmd %[cd "$release_path"] %> &&
+  (
+<%= indent 4, (build.empty? ? "true" : build) %>
+  ) &&
+  echo "-----> Build finished"
 
+) &&
+
+#
+# Launching
+# Rename to the real release path, then symlink 'current'
+(
+  echo "-----> Launching"
   echo "-----> Updating the <%= current_path %> symlink" &&
   <%= echo_cmd %[ln -nfs "$release_path" "#{current_path}"] %>
 ) &&
