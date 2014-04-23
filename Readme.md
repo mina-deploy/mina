@@ -13,8 +13,7 @@ session per deploy, minimizing the SSH connection overhead.
     $ gem install mina
     $ mina
 
-[![Status](https://secure.travis-ci.org/nadarei/mina.png?branch=master)](http://travis-ci.org/nadarei/mina) [![Version](https://badge.fury.io/rb/mina.png)](http://badge.fury.io/rb/mina)
-
+[![Build Status](https://travis-ci.org/mina-deploy/mina.svg?branch=master)](https://travis-ci.org/mina-deploy/mina) [![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina)
 
 User guide
 ==========
@@ -57,13 +56,13 @@ change it's ownership to the correct user.
 ### Step 3: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory-structure) in this path. This will connect to your server 
+structure](#directory_structure) in this path. This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](#directory-structure) for more info.
+See [directory structure](#directory_structure) for more info.
 
 ### Step 4: Deploy!
 
@@ -364,11 +363,11 @@ report_time do
   # do other things
 end
 # Output:
-# Elapsed time: 2.0 seconds
+# Elapsed time: 2.00 seconds
 ~~~
 
 ### measure
-Measures the time (in ms) a block takes.
+Measures the time (in seconds) a block takes.
 Returns a [time, output] tuple.
 
 ### mina_cleanup
@@ -735,7 +734,7 @@ Adds settings and tasks for managing projects with [foreman].
 
 NOTE: Requires sudo privileges
 
-[foreman]: http://theforeman.org/
+[foreman]: http://rubygems.org/ddolar/foreman
 
    require 'mina/foreman'
 
@@ -962,7 +961,7 @@ end
 ~~~
 
 ### rvm:wrapper[]
-Creates a rvm wrapper for a given executable
+Creates a rvm wrapper for a given executable.
 
 This is usually placed in the `:setup` task.
 
