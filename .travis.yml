@@ -1,12 +1,18 @@
 language: ruby
 rvm:
- - 1.8.7
- - 1.9.3
+  - 1.8.7
+  - 1.9.3
+  - 2.0.0
+  - 2.1.1
+  - rbx
+  - jruby
 env:
- - "rake=0.8"
- - "rake=0.9"
- - "rake=10"
+  - "rake=0.8"
+  - "rake=0.9"
+  - "rake=10"
 script: "bundle exec rspec"
 notifications:
   email:
    - dropbox+travis@ricostacruz.com
+   - dario@uxtemple.com
+   - gabrijel.skoro@infinum.hr
