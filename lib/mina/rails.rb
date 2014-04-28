@@ -12,7 +12,7 @@ require 'mina/bundler'
 # Sets the Rails environment for `rake` and `rails` commands.
 #
 # Note that changing this will NOT change the environment that your application
-# is ran in.
+# is run in.
 
 set_default :rails_env, 'production'
 

@@ -119,9 +119,9 @@ module Mina
     # ## Queueing
 
     # ### queue
-    # Queues code to be ran.
+    # Queues code to be run.
     #
-    # This queues code to be ran to the current code bucket (defaults to `:default`).
+    # This queues code to be run to the current code bucket (defaults to `:default`).
     # To get the things that have been queued, use commands[:default]
     #
     # Returns nothing.
