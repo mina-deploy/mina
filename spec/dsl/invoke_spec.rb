@@ -30,4 +30,19 @@ describe 'Mina' do
 
     rake.commands.should == ['git pull', 'git pull']
   end
+
+  it '#invoke with task arguments should work with :reenable option' do
+
+    rake {
+      task :hello, [:world] do |t, args|
+        queue "echo Hello #{args[:world]}"
+      end
+    }
+
+    %w(World Pirate).each { |name|
+      rake { invoke :"hello[#{name}]", :reenable => true }
+    }
+
+    rake.commands.should == ['echo Hello World', 'echo Hello Pirate']
+  end
 end
