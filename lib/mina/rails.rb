@@ -190,7 +190,7 @@ namespace :rails do
         :at => [*asset_paths],
         :skip => %[
           echo "-----> Skipping asset precompilation"
-          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
+          #{echo_cmd %[cp -R #{deploy_to}/#{current_path}/public/assets ./public/]}
         ],
         :changed => %[
           echo "-----> #{message}"
