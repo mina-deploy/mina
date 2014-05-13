@@ -1,6 +1,8 @@
 * Fix copy command for assets. (#150) [Joshua Dover]
+* Add comment for system-wide RVM install. (#112) [Sam Qiu]
 
 [Joshua Dover]: https://github.com/gerfuls
+[Sam Qiu]: https://github.com/samqiu
 
 v0.3.0 - July 10, 2013
 ----------------------
