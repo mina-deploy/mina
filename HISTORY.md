@@ -1,3 +1,7 @@
+* Fix copy command for assets. (#150) [Joshua Dover]
+
+[Joshua Dover]: https://github.com/gerfuls
+
 v0.3.0 - July 10, 2013
 ----------------------
 
