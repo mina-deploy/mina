@@ -6,7 +6,7 @@ describe "Invoking the 'mina deploy:cleanup' command" do
     Dir.chdir root('test_env')
   end
 
-  it "should cleanup old deployments" do
+  it "should cleanup old deployments", :ssh => true do
     3.times { mina 'deploy' }
 
     mina 'deploy:cleanup'
