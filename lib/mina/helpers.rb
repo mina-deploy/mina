@@ -17,7 +17,10 @@ module Mina
 
     def invoke(task, options = {})
       Rake.application.invoke_task task
-      Rake::Task[task].reenable if options[:reenable]
+      if options[:reenable]
+        name = Rake.application.parse_task_string(task).first
+        Rake::Task[name].reenable
+      end
     end
 
     # ### erb
