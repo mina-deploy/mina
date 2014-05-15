@@ -11,6 +11,6 @@ describe "Invoking the 'mina deploy:cleanup' command" do
 
     mina 'deploy:cleanup'
 
-    Dir["deploy/releases/*"].length.should == 2
+    expect(Dir["deploy/releases/*"].length).to eq(2)
   end
 end

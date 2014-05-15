@@ -21,33 +21,33 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
   it 'should set up and deploy fine' do
     print "[setup]" if ENV['verbose']
     mina 'setup', '--verbose'
-    File.directory?('deploy').should be_true
-    File.directory?('deploy/releases').should be_true
-    File.directory?('deploy/shared').should be_true
-    File.exists?('deploy/last_version').should be_false
-    File.exists?('deploy/deploy.lock').should be_false
+    expect(File.directory?('deploy')).to be_true
+    expect(File.directory?('deploy/releases')).to be_true
+    expect(File.directory?('deploy/shared')).to be_true
+    expect(File.exists?('deploy/last_version')).to be_false
+    expect(File.exists?('deploy/deploy.lock')).to be_false
 
     print "[deploy 1]" if ENV['verbose']
     mina 'deploy', '--verbose'
-    stdout.should include "-----> Creating a temporary build path"
-    stdout.should include "rm -rf .git"
-    stdout.should include "mkdir -p"
-    File.exists?('deploy/last_version').should be_true
-    File.exists?('deploy/deploy.lock').should be_false
-    File.directory?('deploy/releases').should be_true
-    File.directory?('deploy/releases/1').should be_true
-    File.exists?('deploy/releases/1/README.md').should be_true
-    File.directory?('deploy/releases/2').should be_false
-    File.exists?('deploy/current').should be_true
-    File.read('deploy/last_version').strip.should == '1'
-    File.exists?('deploy/current/tmp/restart.txt').should be_true
+    expect(stdout).to include "-----> Creating a temporary build path"
+    expect(stdout).to include "rm -rf .git"
+    expect(stdout).to include "mkdir -p"
+    expect(File.exists?('deploy/last_version')).to be_true
+    expect(File.exists?('deploy/deploy.lock')).to be_false
+    expect(File.directory?('deploy/releases')).to be_true
+    expect(File.directory?('deploy/releases/1')).to be_true
+    expect(File.exists?('deploy/releases/1/README.md')).to be_true
+    expect(File.directory?('deploy/releases/2')).to be_false
+    expect(File.exists?('deploy/current')).to be_true
+    expect(File.read('deploy/last_version').strip).to eq('1')
+    expect(File.exists?('deploy/current/tmp/restart.txt')).to be_true
 
     # And again, to test out sequential versions and stuff
     print "[deploy 2]" if ENV['verbose']
     mina 'deploy'
-    stdout.should_not include "rm -rf .git"
-    stdout.should_not include "mkdir -p"
-    File.directory?('deploy/releases/2').should be_true
-    File.read('deploy/last_version').strip.should == '2'
+    expect(stdout).not_to include "rm -rf .git"
+    expect(stdout).not_to include "mkdir -p"
+    expect(File.directory?('deploy/releases/2')).to be_true
+    expect(File.read('deploy/last_version').strip).to eq('2')
   end
 end

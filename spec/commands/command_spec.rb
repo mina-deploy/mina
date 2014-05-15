@@ -8,24 +8,24 @@ describe "Invoking the 'mina' command in a project" do
 
   it "should think it's 'mina', not 'rake' (1)" do
     run_command 'pinkledills'
-    exitstatus.should_not == 0
-    stderr.should include 'mina aborted'
+    expect(exitstatus).not_to eq(0)
+    expect(stderr).to include 'mina aborted'
   end
 
   it "should think it's 'mina', not 'rake' (1)" do
     mina '-T'
-    stdout.should include 'mina help'
-    stdout.should include 'mina git:clone'
+    expect(stdout).to include 'mina help'
+    expect(stdout).to include 'mina git:clone'
   end
 
   it 'with --version should print the version' do
     mina '--version'
-    stdout.should include Mina.version
+    expect(stdout).to include Mina.version
   end
 
   it 'with -V should print the version' do
     mina '-V'
-    stdout.should include Mina.version
+    expect(stdout).to include Mina.version
   end
 
   describe 'without arguments' do
@@ -35,37 +35,37 @@ describe "Invoking the 'mina' command in a project" do
 
     it 'should print standard help tasks' do
       mina
-      stdout.should include 'mina help'
-      stdout.should include 'mina init'
-      stdout.should include 'mina tasks'
+      expect(stdout).to include 'mina help'
+      expect(stdout).to include 'mina init'
+      expect(stdout).to include 'mina tasks'
     end
 
     it 'should print project-specific tasks' do
       mina
-      stdout.should include 'mina deploy'
-      stdout.should include 'mina restart'
-      stdout.should include 'mina setup'
+      expect(stdout).to include 'mina deploy'
+      expect(stdout).to include 'mina restart'
+      expect(stdout).to include 'mina setup'
     end
 
     it "should be the same as running 'help'" do
       previous_out = stdout
 
       mina 'help'
-      stdout.should == previous_out
+      expect(stdout).to eq(previous_out)
     end
   end
 
   it "with 'mina -f' on a non-existing file should fail" do
     run_command '-f', 'foobar'
-    stderr.should include 'mina aborted'
-    stderr.should include 'No Rakefile found'
+    expect(stderr).to include 'mina aborted'
+    expect(stderr).to include 'No Rakefile found'
   end
 
   it "with 'mina tasks' should print tasks" do
     mina 'tasks'
 
-    stdout.should include('bundle:install')
-    stdout.should include('Install gem dependencies using Bundler')
-    stdout.should include('passenger:restart')
+    expect(stdout).to include('bundle:install')
+    expect(stdout).to include('Install gem dependencies using Bundler')
+    expect(stdout).to include('passenger:restart')
   end
 end
