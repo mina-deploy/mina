@@ -35,7 +35,7 @@ v0.3.0 - July 10, 2013
 
 Special thanks to all the contributors who made this release happen.
 
-https://github.com/nadarei/mina/compare/v0.2.1...v0.3.0
+https://github.com/mina-deploy/mina/compare/v0.2.1...v0.3.0
 
 [sonots]: https://github.com/sonots
 [Tomas Varneckas]: https://github.com/tomasv
