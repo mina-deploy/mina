@@ -1,14 +1,18 @@
+## v0.3.1 - unreleased
+
 * Fix copy command for assets. (#150) [Joshua Dover]
 * Add comment for system-wide RVM install. (#112) [Sam Qiu]
 * Incorrect exit status if deploy fails (#95) [borovsky]
 * Bundler: Allow configuration of groups to be skipped during installation (#123) [luislavena]
 * Parse task string to reenable task (#189) [PChambino]
+* Update Travis CI to test via Ruby 2.1.2. (#197) [lucianosousa]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
 [borovsky]: https://github.com/borovsky
 [luislavena]: https://github.com/luislavena
 [PChambino]: https://github.com/PChambino
+[lucianosousa]: https://github.com/lucianosousa
 
 v0.3.0 - July 10, 2013
 ----------------------
