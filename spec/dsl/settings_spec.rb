@@ -8,38 +8,38 @@ describe 'Settings' do
 
     it 'setting/getting should work' do
       @settings.domain = '192.168.1.1'
-      @settings.domain.should == '192.168.1.1'
+      expect(@settings.domain).to eql '192.168.1.1'
     end
 
     it 'question mark should work' do
       @settings.deploy_to = '/var/www/there'
-      @settings.deploy_to?.should eql true
-      @settings.foobar?.should eql false
+      expect(@settings.deploy_to?).to eql true
+      expect(@settings.foobar?).to eql false
     end
 
     it 'question mark should work with nils' do
       @settings.deploy_to = nil
-      @settings.deploy_to?.should eql true
-      @settings.foobar?.should eql false
+      expect(@settings.deploy_to?).to eql true
+      expect(@settings.foobar?).to eql false
     end
 
     it '||= should work (1)' do
       @settings.x = 2
       @settings.x ||= 3
-      @settings.x.should == 2
+      expect(@settings.x).to eql 2
     end
 
     it '||= should work (2)' do
       @settings.x ||= 3
-      @settings.x.should == 3
+      expect(@settings.x).to eql 3
     end
 
     it 'lambdas should work' do
       @settings.path = lambda { "/var/www/#{@settings.version}" }
       @settings.version = '3'
 
-      @settings.path?.should eql true
-      @settings.path.should == "/var/www/3"
+      expect(@settings.path?).to eql true
+      expect(@settings.path).to eql "/var/www/3"
     end
 
     it 'bangs should check for settings' do
@@ -48,7 +48,7 @@ describe 'Settings' do
 
     it 'bangs should return settings' do
       @settings.version = 4
-      @settings.version!.should == 4
+      expect(@settings.version!).to eql 4
     end
   end
 end
