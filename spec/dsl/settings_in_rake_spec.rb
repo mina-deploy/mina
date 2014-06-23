@@ -25,7 +25,7 @@ describe 'Settings in rake tasks' do
     }
 
     rake.path.should == "/var/www/42"
-    rake.path?.should be_true
+    rake.path?.should eql true
   end
 
   it '#settings with a bang should work' do

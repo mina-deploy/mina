@@ -13,14 +13,14 @@ describe 'Settings' do
 
     it 'question mark should work' do
       @settings.deploy_to = '/var/www/there'
-      @settings.deploy_to?.should be_true
-      @settings.foobar?.should be_false
+      @settings.deploy_to?.should eql true
+      @settings.foobar?.should eql false
     end
 
     it 'question mark should work with nils' do
       @settings.deploy_to = nil
-      @settings.deploy_to?.should be_true
-      @settings.foobar?.should be_false
+      @settings.deploy_to?.should eql true
+      @settings.foobar?.should eql false
     end
 
     it '||= should work (1)' do
@@ -38,7 +38,7 @@ describe 'Settings' do
       @settings.path = lambda { "/var/www/#{@settings.version}" }
       @settings.version = '3'
 
-      @settings.path?.should be_true
+      @settings.path?.should eql true
       @settings.path.should == "/var/www/3"
     end
 
