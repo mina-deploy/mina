@@ -28,7 +28,7 @@ describe 'Mina' do
       rake { invoke :pull, :reenable => true }
     }
 
-    expect(rake.commands).to eql['git pull', 'git pull']
+    expect(rake.commands).to eql ['git pull', 'git pull']
   end
 
   it '#invoke with task arguments should work with :reenable option' do
