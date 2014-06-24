@@ -14,7 +14,7 @@
 [luislavena]: https://github.com/luislavena
 [PChambino]: https://github.com/PChambino
 [lucianosousa]: https://github.com/lucianosousa
-[mrbrdo]: https://github.com/mrbrdo
+[Jan Berdajs]: https://github.com/mrbrdo
 
 v0.3.0 - July 10, 2013
 ----------------------
