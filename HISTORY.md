@@ -1,4 +1,4 @@
-## v0.3.1 - unreleased
+## v0.4.0 - unreleased
 
 * Fix copy command for assets. (#150) [Joshua Dover]
 * Add comment for system-wide RVM install. (#112) [Sam Qiu]
@@ -6,6 +6,7 @@
 * Bundler: Allow configuration of groups to be skipped during installation (#123) [luislavena]
 * Parse task string to reenable task (#189) [PChambino]
 * Update Travis CI to test via Ruby 2.1.2. (#197) [lucianosousa]
+* Add jRuby support by using threads instead of fork. (#147, #148) [Jan Berdajs]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
@@ -13,6 +14,7 @@
 [luislavena]: https://github.com/luislavena
 [PChambino]: https://github.com/PChambino
 [lucianosousa]: https://github.com/lucianosousa
+[mrbrdo]: https://github.com/mrbrdo
 
 v0.3.0 - July 10, 2013
 ----------------------
