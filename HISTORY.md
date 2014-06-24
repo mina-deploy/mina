@@ -2,18 +2,18 @@
 
 * Fix copy command for assets. (#150) [Joshua Dover]
 * Add comment for system-wide RVM install. (#112) [Sam Qiu]
-* Incorrect exit status if deploy fails (#95) [borovsky]
-* Bundler: Allow configuration of groups to be skipped during installation (#123) [luislavena]
-* Parse task string to reenable task (#189) [PChambino]
-* Update Travis CI to test via Ruby 2.1.2. (#197) [lucianosousa]
+* Incorrect exit status if deploy fails (#95) [Alexander Borovsky]
+* Bundler: Allow configuration of groups to be skipped during installation (#123) [Luis Lavena]
+* Parse task string to reenable task (#189) [Pedro Chambino]
+* Update Travis CI to test via Ruby 2.1.2. (#197) [Luciano Sousa]
 * Add jRuby support by using threads instead of fork. (#147, #148) [Jan Berdajs]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
-[borovsky]: https://github.com/borovsky
-[luislavena]: https://github.com/luislavena
-[PChambino]: https://github.com/PChambino
-[lucianosousa]: https://github.com/lucianosousa
+[Alexander Borovsky]: https://github.com/borovsky
+[Luis Lavena]: https://github.com/luislavena
+[Pedro Chambino]: https://github.com/PChambino
+[Luciano Sousa]: https://github.com/lucianosousa
 [Jan Berdajs]: https://github.com/mrbrdo
 
 v0.3.0 - July 10, 2013
