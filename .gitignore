@@ -3,6 +3,7 @@ test_env/deploy
 .rvmrc
 .ruby-gemset
 .ruby-version
+.idea
 Gemfile.lock
 pkg/
 docs
