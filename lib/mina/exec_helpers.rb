@@ -86,6 +86,8 @@ module Mina
               yield char if char
             end
           rescue Interrupt
+          # rubinius 
+          rescue SignalException
           end
         end
       end
