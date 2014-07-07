@@ -8,7 +8,7 @@ describe 'Mina' do
       end
       invoke :hello
     }
-    rake.instance_variable_get(:@hello).should == 'world'
+    expect(rake.instance_variable_get(:@hello)).to eq('world')
   end
 
   it '#queue should work' do
@@ -16,7 +16,7 @@ describe 'Mina' do
       queue 'sudo service nginx restart'
     }
 
-    rake.commands.should == ['sudo service nginx restart']
+    expect(rake.commands).to eq(['sudo service nginx restart'])
   end
 
   it '#queue should work with multiple commands' do
@@ -25,7 +25,7 @@ describe 'Mina' do
       queue 'sudo service nginx restart'
     }
 
-    rake.commands.should == ['echo Restarting', 'sudo service nginx restart']
+    expect(rake.commands).to eq(['echo Restarting', 'sudo service nginx restart'])
   end
 
   it '#queue should work inside tasks' do
@@ -44,6 +44,6 @@ describe 'Mina' do
 
     rake { invoke :restart }
 
-    rake.commands.should == ['echo Restarting', 'touch tmp/restart.txt']
+    expect(rake.commands).to eq(['echo Restarting', 'touch tmp/restart.txt'])
   end
 end
