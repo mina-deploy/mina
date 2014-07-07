@@ -8,6 +8,7 @@
 * Update Travis CI to test via Ruby 2.1.2. (#197) [Luciano Sousa]
 * Add jRuby support by using threads instead of fork. (#147, #148) [Jan Berdajs]
 * Add rescue for rubinius SignalException. (#204) [Qen]
+* Using `bundle_bin` instead `bundle` in whenever tasks. (#195) [Maxim Dorofienko]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
@@ -17,6 +18,7 @@
 [Luciano Sousa]: https://github.com/lucianosousa
 [Jan Berdajs]: https://github.com/mrbrdo
 [Qen]: https://github.com/qen
+[Maxim Dorofienko]: https://github.com/mdorfin
 
 v0.3.0 - July 10, 2013
 ----------------------
