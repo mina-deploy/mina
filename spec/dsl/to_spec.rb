@@ -14,7 +14,7 @@ describe 'Mina' do
 
     rake { invoke :deploy }
 
-    rake.commands.should == ['git clone']
-    rake.commands(:restart).should == ['touch tmp/restart.txt']
+    expect(rake.commands).to eq(['git clone'])
+    expect(rake.commands(:restart)).to eq(['touch tmp/restart.txt'])
   end
 end

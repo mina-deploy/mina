@@ -36,7 +36,7 @@ def mina(*args)
     puts stderr
   end
 
-  exitstatus.should == 0
+  expect(exitstatus).to eq(0)
 end
 
 def stdout
