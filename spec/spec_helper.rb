@@ -1,6 +1,11 @@
 require 'mina'
 require 'rake'
 
+RSpec.configure do |config|
+  config.order = 'random'
+  config.seed = '12345'
+end
+
 class RakeScope
   include Rake::DSL  if Rake.const_defined?(:DSL)
   include Mina::Helpers
@@ -19,3 +24,4 @@ end
 def root(*a)
   File.join File.expand_path('../../', __FILE__), *a
 end
+
