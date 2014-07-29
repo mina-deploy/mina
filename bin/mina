@@ -58,7 +58,7 @@ Rake.application.instance_eval do
       puts ""
       scope.print_error "Command failed."
       scope.print_stderr "#{e.message}"
-      exit(e.exitstatus > 255 ? e.exitstatus >> 8 : e.exit_status)
+      exit(e.exitstatus > 255 ? e.exitstatus >> 8 : e.exitstatus)
     end
   end
 end
