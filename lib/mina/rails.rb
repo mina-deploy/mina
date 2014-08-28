@@ -121,7 +121,7 @@ make_run_task[:rake, 'db:migrate']
 #     $ mina console
 
 desc "Starts an interactive console."
-task :console do
+task :console => :environment do
   queue echo_cmd %[cd "#{deploy_to!}/#{current_path!}" && #{rails} console && exit]
 end
 
