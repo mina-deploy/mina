@@ -199,7 +199,7 @@ task :deploy do
 
     # These are instructions to start the app after it's been prepared.
     to :launch do
-      queue 'touch tmp/restart.txt'
+      queue 'touch #{deploy_to}/#{current_path}/tmp/restart.txt'
     end
 
     # This optional block defines how a broken release should be cleaned up.
