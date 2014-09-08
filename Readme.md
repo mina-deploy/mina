@@ -975,6 +975,28 @@ end
 Adds settings and tasks for managing projects with [whenever].
 [whenever]: http://rubygems.org/gems/whenever
 
+# Modules: NPM
+Adds settings and tasks for managing NodeJS projects.
+
+~~~ ruby
+require 'mina/npm'
+~~~
+
+## Settings
+Any and all of these settings can be overriden in your `deploy.rb`.
+
+### npm_options
+Parameters to pass to the npm binary. Default to `--production`.
+
+----
+
+## Deploy tasks
+These tasks are meant to be invoked inside deploy scripts, not invoked on
+their own.
+
+### npm:install
+
+
 Acknowledgements
 ----------------
 
