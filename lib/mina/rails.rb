@@ -75,7 +75,7 @@ make_run_task = lambda { |name, sample_args|
 
 def check_for_changes_script(options={})
   diffs = options[:at].map { |path|
-    %[diff -r "#{deploy_to}/#{current_path}/#{path}" "./#{path}" 2>/dev/null]
+    %[diff -rN "#{deploy_to}/#{current_path}/#{path}" "./#{path}" 2>/dev/null]
   }.join("\n")
 
   unindent %[
