@@ -166,6 +166,16 @@ namespace :rails do
     }
   end
 
+  # ### rails:db_seed
+  desc "Seeds the Rails database."
+  task :db_seed do
+    queue %{
+      echo "-----> Seeding the database"
+      cd "#{deploy_to!}/#{current_path!}"
+      #{echo_cmd %[#{rake} db:seed]}
+    }
+  end
+
   # ### rails:assets_precompile:force
   desc "Precompiles assets."
   task :'assets_precompile:force' do
