@@ -98,27 +98,48 @@ task :setup do
 
   user = settings.user? ? "#{settings.user}" : "username"
 
-  queue %{
-    echo "-----> Setting up #{deploy_to}" && (
-      #{echo_cmd %{mkdir -p "#{deploy_to}"}} &&
-      #{echo_cmd %{chown -R `whoami` "#{deploy_to}"}} &&
-      #{echo_cmd %{chmod g+rx,u+rwx "#{deploy_to}"}} &&
-      #{echo_cmd %{cd "#{deploy_to}"}} &&
-      #{echo_cmd %{mkdir -p "#{releases_path}"}} &&
-      #{echo_cmd %{chmod g+rx,u+rwx "#{releases_path}"}} &&
-      #{echo_cmd %{mkdir -p "#{shared_path}"}} &&
-      #{echo_cmd %{chmod g+rx,u+rwx "#{shared_path}"}} &&
-      echo "" &&
-      #{echo_cmd %{ls -la "#{deploy_to}"}} &&
-      echo "" &&
-      echo "-----> Done."
-    ) || (
-      echo "! ERROR: Setup failed."
-      echo "! Ensure that the path '#{deploy_to}' is accessible to the SSH user."
-      echo "! Try doing:"
-      echo "!    sudo mkdir -p \\"#{deploy_to}\\" && sudo chown -R #{user} \\"#{deploy_to}\\""
-    )
-  }
+  def queue_mkdir(dir)
+    queue! %{mkdir -p "#{dir}" &&}
+    queue! %{chmod g+rx,u+rwx "#{dir}" &&}
+  end
+
+  queue  "("
+
+  queue  %{echo "-----> Setting up #{deploy_to}" &&}
+  queue! %{mkdir -p "#{deploy_to}" &&}
+  queue! %{chown -R `whoami` "#{deploy_to}" &&}
+  queue! %{chmod g+rx,u+rwx "#{deploy_to}" &&}
+  queue! %{cd "#{deploy_to}" &&}
+  queue_mkdir releases_path
+  queue_mkdir shared_path
+  queue  %{echo "" &&}
+  queue! %{ls -la "#{deploy_to}" &&}
+  queue  %{echo "" &&}
+
+  # creating shared paths
+  dirs = settings.fetch(:shared_dirs, [])
+  dirs.each do |dir|
+    queue_mkdir "#{deploy_to}/#{shared_path}/#{dir}"
+  end
+
+  files = settings.fetch(:shared_files, [])
+  files.each do |file|
+    queue_mkdir "#{deploy_to}/#{shared_path}/#{File.dirname(file)}"
+    queue! %{touch "#{deploy_to}/#{shared_path}/#{file}" &&}
+    queue  %{echo "-----> Be sure to edit '#{shared_path}/#{file}'." &&}
+  end
+
+  queue! %{ls -la "#{deploy_to}/#{shared_path}" &&}
+
+  queue  %{echo "-----> Done."}
+  queue  ") || ("
+
+  queue  %{echo "! ERROR: Setup failed."}
+  queue  %{echo "! Ensure that the path '#{deploy_to}' is accessible to the SSH user."}
+  queue  %{echo "! Try doing:"}
+  queue  %{echo "!    sudo mkdir -p \\"#{deploy_to}\\" && sudo chown -R #{user} \\"#{deploy_to}\\""}
+
+  queue  ")"
 end
 
 # ### run[]

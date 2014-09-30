@@ -27,6 +27,12 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
     expect(File.exists?('deploy/last_version')).to be_falsey
     expect(File.exists?('deploy/deploy.lock')).to be_falsey
 
+    # Shared paths
+    File.directory?('deploy/shared/config').should be_true
+    File.exists?('deploy/shared/config/database.yml').should be_true
+    File.directory?('deploy/shared/log').should be_true
+    File.directory?('deploy/shared/tmp/pids').should be_true
+
     print "[deploy 1]" if ENV['verbose']
     mina 'deploy', '--verbose'
     expect(stdout).to include "-----> Creating a temporary build path"
