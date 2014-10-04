@@ -13,6 +13,7 @@
 * Remove binstubs options from defaults (#219) [lucapette]
 * Updated deploy.rb template to use shared_path (#235) [postmodern]
 * Allow the foreman export format to be configurable (#232) [postmodern]
+* fix: bin/mina exit_status -> exitstatus (#212) [Zhomart Mukhamejanov]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
@@ -26,6 +27,7 @@
 [Logan Hasson]: https://github.com/loganhasson
 [lucapette]: https://github.com/lucapette
 [postmodern]: https://github.com/postmodern
+[Zhomart Mukhamejanov]: https://github.com/Zhomart
 
 v0.3.0 - July 10, 2013
 ----------------------
