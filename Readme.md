@@ -316,7 +316,7 @@ You can add as many variables as needed.
 # Helpers
 
 ### invoke
-Invokes another Rake task.
+Invokes another Rake task. By default if the task has already been invoked it will not been executed again (see the `:reenable` option).
 
 Invokes the task given in `task`. Returns nothing.
 
@@ -325,8 +325,8 @@ invoke :'git:clone'
 invoke :restart
 ~~~
 
-Options:
-  reenable (bool) - Execute the task even next time.
+__Options:__
+  `:reenable` (bool) - Execute the task even next time. Defaults to `false`
 
 ### erb
 Evaluates an ERB block in the current scope and returns a string.
