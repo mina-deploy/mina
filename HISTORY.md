@@ -11,6 +11,7 @@
 * Using `bundle_bin` instead `bundle` in whenever tasks. (#195) [Maxim Dorofienko]
 * Convert specs to RSpec expect syntax with transpec (#194) [Logan Hasson]
 * Remove binstubs options from defaults (#219) [lucapette]
+* Updated deploy.rb template to use shared_path (#235) [postmodern]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
@@ -23,6 +24,7 @@
 [Maxim Dorofienko]: https://github.com/mdorfin
 [Logan Hasson]: https://github.com/loganhasson
 [lucapette]: https://github.com/lucapette
+[postmodern]: https://github.com/postmodern
 
 v0.3.0 - July 10, 2013
 ----------------------
