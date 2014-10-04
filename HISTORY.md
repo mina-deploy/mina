@@ -12,6 +12,7 @@
 * Convert specs to RSpec expect syntax with transpec (#194) [Logan Hasson]
 * Remove binstubs options from defaults (#219) [lucapette]
 * Updated deploy.rb template to use shared_path (#235) [postmodern]
+* Allow the foreman export format to be configurable (#232) [postmodern]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
