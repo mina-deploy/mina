@@ -83,7 +83,8 @@ module Mina
       # `term_mode`.  Called by `ssh`.
 
       def invoke(script, this)
-        term_mode = :"#{this.settings.term_mode}"
+        # Ruby 1.8.7 doesn't let you have empty symbols
+        term_mode = :"#{this.settings.term_mode}" if this.settings.term_mode
         code = "#{this.ssh_command} -- #{script}"
 
         # Certain environments can't do :pretty mode.
