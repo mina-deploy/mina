@@ -15,6 +15,7 @@
 * Allow the foreman export format to be configurable (#232) [postmodern]
 * fix: bin/mina exit_status -> exitstatus (#212) [Zhomart Mukhamejanov]
 * Add foreman_location and foreman_sudo configs (#239) [Pedro Chambino]
+* Check db/migrate/ instead of schema.rb (#177) [Charles Dale]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
@@ -29,6 +30,7 @@
 [lucapette]: https://github.com/lucapette
 [postmodern]: https://github.com/postmodern
 [Zhomart Mukhamejanov]: https://github.com/Zhomart
+[Charles Dale]: https://github.com/chuckd
 
 v0.3.0 - July 10, 2013
 ----------------------
