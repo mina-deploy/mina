@@ -14,6 +14,7 @@
 * Updated deploy.rb template to use shared_path (#235) [postmodern]
 * Allow the foreman export format to be configurable (#232) [postmodern]
 * fix: bin/mina exit_status -> exitstatus (#212) [Zhomart Mukhamejanov]
+* Add foreman_location and foreman_sudo configs (#239) [Pedro Chambino]
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
