@@ -141,10 +141,10 @@ namespace :rails do
         'Migrating database'
 
       queue check_for_changes_script \
-        :check => 'db/schema.rb',
-        :at => ['db/schema.rb'],
+        :check => 'db/migrate/',
+        :at => ['db/migrate/'],
         :skip => %[
-          echo "-----> DB schema unchanged; skipping DB migration"
+          echo "-----> DB migrations unchanged; skipping DB migration"
         ],
         :changed => %[
           echo "-----> #{message}"
