@@ -17,6 +17,9 @@
 * Add foreman_location and foreman_sudo configs (#239) [Pedro Chambino]
 * Check db/migrate/ instead of schema.rb (#177) [Charles Dale]
 * Fix mina deploy --help, should not cause a deploy (#238)
+* Fix git:clone on win7 x64 had error (#216)
+* Add deploy:cleanup after deploy
+
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
