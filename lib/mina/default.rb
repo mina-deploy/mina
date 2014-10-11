@@ -131,6 +131,7 @@ task :help do
   puts ""
   puts "All of Rake's options are also available as '#{name}' options. See 'rake --help'"
   puts "for more information."
+  exit
 end
 
 # ### tasks
