@@ -16,6 +16,7 @@
 * fix: bin/mina exit_status -> exitstatus (#212) [Zhomart Mukhamejanov]
 * Add foreman_location and foreman_sudo configs (#239) [Pedro Chambino]
 * Check db/migrate/ instead of schema.rb (#177) [Charles Dale]
+* Fix mina deploy --help, should not cause a deploy (#238)
 
 [Joshua Dover]: https://github.com/gerfuls
 [Sam Qiu]: https://github.com/samqiu
