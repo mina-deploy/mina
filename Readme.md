@@ -979,7 +979,7 @@ Adds settings and tasks for managing projects with [whenever].
 Acknowledgements
 ----------------
 
-© 2012-2013, Nadarei. Released under the [MIT 
+© 2012-2014, Nadarei. Released under the [MIT 
 License](http://www.opensource.org/licenses/mit-license.php).
 
 Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 

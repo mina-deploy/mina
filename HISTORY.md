@@ -19,6 +19,7 @@
 * Fix mina deploy --help, should not cause a deploy (#238)
 * Fix git:clone on win7 x64 had error (#216)
 * Add deploy:cleanup after deploy
+* Prevent foreman export from expanding the current/ symlink (#241)
 
 
 [Joshua Dover]: https://github.com/gerfuls
