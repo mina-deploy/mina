@@ -98,7 +98,9 @@ module Mina
 
       def stream_stdout(o, &blk)
         while str = o.getc
+          # Ruby 1.8.7 fix
           str = str.chr if str.is_a? Fixnum
+          
           yield str
         end
       end

@@ -1,4 +1,7 @@
-## v0.4.0 - unreleased
+## v0.3.2 - unreleased
+
+v0.3.1 - October 17, 2014
+-------------------------
 
 * Fix copy command for assets. (#150) [Joshua Dover]
 * Add comment for system-wide RVM install. (#112) [Sam Qiu]
@@ -20,6 +23,8 @@
 * Fix git:clone on win7 x64 had error (#216)
 * Add deploy:cleanup after deploy
 * Prevent foreman export from expanding the current/ symlink (#241)
+* Support pretty_system on ruby 1.8.7 (#237)
+* Ruby 1.8.7 doesn't support empty symbols (#240)
 
 
 [Joshua Dover]: https://github.com/gerfuls

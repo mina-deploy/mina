@@ -1002,8 +1002,8 @@ Michael:
 
 [rsc]: http://ricostacruz.com
 [mg]:  http://devblog.michaelgalero.com/
-[c]:   http://github.com/nadarei/mina/contributors
+[c]:   https://github.com/mina-deploy/mina/graphs/contributors
 [nd]:  http://nadarei.co
-[issues]: https://github.com/nadarei/mina/issues
+[issues]: https://github.com/mina-deploy/mina/issues
 [trello]: https://trello.com/board/mina/4fc8b3023d9c9a4d72e573e6
 
