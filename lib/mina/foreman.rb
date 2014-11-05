@@ -48,11 +48,12 @@ namespace :foreman do
   desc 'Export the Procfile to Ubuntu upstart scripts'
   task :export do
     sudo_cmd = "sudo" if foreman_sudo
-    export_cmd = "#{sudo_cmd} bundle exec foreman export #{foreman_format} #{foreman_location} -a #{foreman_app} -u #{foreman_user} -d #{deploy_to!}/#{current_path!} -l #{foreman_log}"
+    export_cmd = "#{bundle_bin} exec foreman export #{foreman_format} #{deploy_to!}/tmp/foreman -a #{foreman_app} -u #{foreman_user} -d #{deploy_to!}/#{current_path!} -l #{foreman_log}"
+    copy_cmd = "#{sudo_cmd} cp #{deploy_to!}/tmp/foreman/* #{foreman_location}"
 
     queue %{
       echo "-----> Exporting foreman procfile for #{foreman_app}"
-      #{echo_cmd %[cd #{deploy_to!}/#{current_path!} ; #{export_cmd}]}
+      #{echo_cmd %[cd #{deploy_to!}/#{current_path!} ; #{export_cmd} ; #{copy_cmd}]}
     }
   end
 
