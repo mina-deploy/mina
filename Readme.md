@@ -730,6 +730,25 @@ Runs a command on a server.
 $ mina run[tail -f logs.txt]
 ~~~
 
+# Modules: Delayed job
+Adds settings and tasks for background processing with with [delayed_job].
+[delayed_job]: https://rubygems.org/gems/delayed_job
+
+~~~ ruby
+require 'mina/delayed_job'
+~~~
+
+## Settings
+Any and all of these settings can be overriden in your `deploy.rb`.
+
+### delayed_job_executable
+Sets the delayed_job executable (default is Rails 4 `bin/delayed_job`)
+
+## Deploy tasks
+
+### delayed_job:restart
+Restart Delayed job
+
 # Modules: Foreman
 Adds settings and tasks for managing projects with [foreman].
 
