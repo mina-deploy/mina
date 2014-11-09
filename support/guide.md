@@ -283,7 +283,7 @@ Basic usage:
 
 ### Tasks
 
-There are many tasks available. See the [tasks reference](tasks/index.html), or 
+There are many tasks available. See the [tasks reference](http://mina-deploy.github.io/mina/tasks/), or
 type `mina tasks`.
 
 ### Variables
