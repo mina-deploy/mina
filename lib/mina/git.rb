@@ -49,6 +49,13 @@ namespace :git do
       }
     end
 
+    write_revision_file = if git_revision_file?
+      %{
+        echo "-----> Writing revision to #{git_revision_file}" &&
+        #{echo_cmd %[git rev-parse HEAD > #{git_revision_file}]} &&
+      }
+    end
+
     status = %[
       echo "-----> Using this git commit" &&
       echo &&
@@ -57,6 +64,6 @@ namespace :git do
       echo
     ]
 
-    queue clone + status
+    queue clone + write_revision_file + status
   end
 end
