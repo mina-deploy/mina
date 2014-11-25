@@ -55,6 +55,7 @@ namespace :git do
         #{echo_cmd %[git rev-parse HEAD > #{git_revision_file}]} &&
       }
     end
+    write_revision_file ||= ""
 
     status = %[
       echo "-----> Using this git commit" &&
