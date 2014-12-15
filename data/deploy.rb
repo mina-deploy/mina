@@ -50,6 +50,9 @@ task :setup => :environment do
 
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
+
+  queue %[repository_host=`echo #{repository} | sed -e 's/.*@//g' -e 's/:.*//g'`]
+  queue %[ssh-keyscan -H $repository_host >> ~/.ssh/known_hosts]
 end
 
 desc "Deploys the current version to the server."
