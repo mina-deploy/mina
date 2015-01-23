@@ -16,6 +16,6 @@ env:
 script: "bundle exec rspec"
 notifications:
   email:
-   - dropbox+travis@ricostacruz.com
-   - dario@uxtemple.com
    - gabrijel.skoro@infinum.hr
+   - stjepan.hadjic@infinum.hr
+
