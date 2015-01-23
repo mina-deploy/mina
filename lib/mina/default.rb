@@ -148,21 +148,11 @@ task :tasks do
 end
 
 # ### ssh
-# Connects to the server via ssh
+# Connects to the server via ssh and cd to deploy_to folder
 #
 #     $ mina ssh
 
-desc "Open an ssh session to the server"
+desc "Open an ssh session to the server and cd to deploy_to folder"
 task :ssh do
-  exec ssh_command
-end
-
-# ### ssh_deploy
-# Connects to the server via ssh and cd to deploy folder
-#
-#     $ mina ssh_deploy
-
-desc "Open an ssh session to the server and cd to deploy folder"
-task :ssh_deploy do
   exec ssh_command + " 'cd #{deploy_to} && exec \$SHELL'"
 end
