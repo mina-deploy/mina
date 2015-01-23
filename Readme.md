@@ -976,6 +976,21 @@ end
 Adds settings and tasks for managing projects with [whenever].
 [whenever]: http://rubygems.org/gems/whenever
 
+3rd party modules
+------
+
+* [mina-rollbar](https://github.com/code-lever/mina-rollbar)
+* [mina-stack](https://github.com/div/mina-stack)
+* [mina-rsync](https://github.com/moll/mina-rsync)
+* [mina-sidekiq](https://github.com/Mic92/mina-sidekiq)
+* [mina-nginx](https://github.com/hbin/mina-nginx)
+* [mina-newrelic](https://github.com/navinpeiris/mina-newrelic)
+* [mina-rbenv-addons](https://github.com/stas/mina-rbenv-addons)
+* [mina-multistage](https://github.com/endoze/mina-multistage)
+* [mina-s3](https://github.com/stas/mina-s3)
+* [mina-scp](https://github.com/adie/mina-scp)
+* [mina-hooks](https://github.com/elskwid/mina-hooks)
+
 Acknowledgements
 ----------------
 
@@ -1006,4 +1021,3 @@ Michael:
 [nd]:  http://nadarei.co
 [issues]: https://github.com/mina-deploy/mina/issues
 [trello]: https://trello.com/board/mina/4fc8b3023d9c9a4d72e573e6
-
