@@ -675,6 +675,13 @@ Display all tasks in a nice table.
 $ mina tasks
 ~~~
 
+### ssh
+Connects to the server via ssh and cd to deploy_to folder
+
+~~~ ruby
+$ mina ssh
+~~~
+
 # Modules: Deployment
 This module is automatically loaded for all Mina projects.
 
