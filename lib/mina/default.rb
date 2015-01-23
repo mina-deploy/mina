@@ -156,3 +156,13 @@ desc "Open an ssh session to the server"
 task :ssh do
   exec ssh_command
 end
+
+# ### ssh_deploy
+# Connects to the server via ssh and cd to deploy folder
+#
+#     $ mina ssh_deploy
+
+desc "Open an ssh session to the server and cd to deploy folder"
+task :ssh_deploy do
+  exec ssh_command + " 'cd #{deploy_to} && exec \$SHELL'"
+end
