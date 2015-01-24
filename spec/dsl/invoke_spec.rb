@@ -39,6 +39,7 @@ describe 'Mina' do
       end
     }
 
+
     %w(World Pirate).each { |name|
       rake { invoke :"hello[#{name}]", :reenable => true }
     }

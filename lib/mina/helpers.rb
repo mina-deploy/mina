@@ -16,6 +16,8 @@ module Mina
     #
 
     def invoke(task, options = {})
+      # task.to_s is a ruby 1.8.7 fix
+      task = task.to_s
       Rake.application.invoke_task task
       if options[:reenable]
         name = Rake.application.parse_task_string(task).first
