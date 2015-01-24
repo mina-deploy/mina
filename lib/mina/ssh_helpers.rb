@@ -22,7 +22,6 @@ module Mina
     def ssh(cmd, options={})
       require 'shellwords'
 
-      binding.pry
       cmd.unshift("export #{env_vars}") if env_vars?
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
       script = Shellwords.escape(cmd)
