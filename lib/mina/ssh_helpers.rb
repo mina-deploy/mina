@@ -22,6 +22,8 @@ module Mina
     def ssh(cmd, options={})
       require 'shellwords'
 
+      binding.pry
+      cmd.unshift("export #{env_vars}") if env_vars?
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
       script = Shellwords.escape(cmd)
 
@@ -53,7 +55,6 @@ module Mina
       args << " -p #{port}" if port?
       args << " -A" if forward_agent?
       args << " #{ssh_options}" if ssh_options?
-      args << " export #{env_vars}" if env_vars?
       args << " -t"
       "ssh #{args}"
     end
