@@ -1022,6 +1022,14 @@ their own.
 * [mina-s3](https://github.com/stas/mina-s3)
 * [mina-scp](https://github.com/adie/mina-scp)
 * [mina-hooks](https://github.com/elskwid/mina-hooks)
+* [mina-slack](https://github.com/TAKAyukiatkwsk/mina-slack)
+* [mina-cakephp](https://github.com/mobvox/mina-cakephp)
+* [mina-unicorn](https://github.com/openteam/mina-unicorn)
+* [mina-puma](https://github.com/sandelius/mina-puma)
+* [mina-mercurial](https://github.com/rainlabs/mina-mercurial)
+* [mina-faye](https://github.com/NingenUA/mina-faye)
+* [mina-clockwork](https://github.com/907th/mina-clockwork)
+* [mina-ftp](https://github.com/stas/mina-ftp)
 
 Acknowledgements
 ----------------
