@@ -1,4 +1,23 @@
-## v0.3.2 - unreleased
+v0.3.2 - January 24, 2015
+-----------------------------
+
+* 3rd party modules (#258) [Denis]
+* Adding support for environment variables, env_var (#161) [Ted Price]
+* Make rails console task dependent on the environment (#220) [lucapette]
+* mention  .ruby-version for rbenv comment (#249) [Tomi]
+* update emails for travis
+* npm support with a simple npm:install task (#227) [Paul B.]
+* `mina ssh` command to connect to server (#249) [Anton Dieterle]
+* link in the support guide (#254) [Aaditya S]
+
+[Denis]: (https://github.com/stereodenis)
+[Aaditya S]: (https://github.com/jartek)
+[Tomi]: (https://github.com/equivalent)
+[lucapette]: (https://github.com/lucapette)
+[Ted Price]: (https://github.com/pricees)
+[Anton Dieterle]: (https://github.com/adie)
+[Paul B.]: (https://github.com/paulRbr)
+
 
 v0.3.1 - October 17, 2014
 -------------------------
