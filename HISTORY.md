@@ -10,13 +10,13 @@ v0.3.2 - January 24, 2015
 * `mina ssh` command to connect to server (#249) [Anton Dieterle]
 * link in the support guide (#254) [Aaditya S]
 
-[Denis]: (https://github.com/stereodenis)
-[Aaditya S]: (https://github.com/jartek)
-[Tomi]: (https://github.com/equivalent)
-[lucapette]: (https://github.com/lucapette)
-[Ted Price]: (https://github.com/pricees)
-[Anton Dieterle]: (https://github.com/adie)
-[Paul B.]: (https://github.com/paulRbr)
+[Denis]: https://github.com/stereodenis
+[Aaditya S]: https://github.com/jartek
+[Tomi]: https://github.com/equivalent
+[lucapette]: https://github.com/lucapette
+[Ted Price]: https://github.com/pricees
+[Anton Dieterle]: https://github.com/adie
+[Paul B.]: https://github.com/paulRbr
 
 
 v0.3.1 - October 17, 2014
