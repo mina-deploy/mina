@@ -777,6 +777,9 @@ variable as a default. It should be set, otherwise export command will fail.
 ### foreman_user
 Sets the user under which foreman will execute the service. Defaults to *user*
 
+### foreman_env
+(Optional) Sets environment file that foreman will apply to the upstart files.
+
 ### foreman_log
 Sets the foreman log path. Defaults to *shared/log*
 
