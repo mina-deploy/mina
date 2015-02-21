@@ -1,12 +1,21 @@
 language: ruby
 rvm:
- - 1.8.7
- - 1.9.3
+  - 1.8.7
+  - 1.9.3
+  - 2.0.0
+  - 2.1.2
+  - rbx-2
+  - jruby
 env:
- - "rake=0.8"
- - "rake=0.9"
- - "rake=10"
+  - "rake=0.8"
+  - "rake=0.9"
+  - "rake=10"
+# before_script:
+#   - cat ~/.ssh/*.pub >> ~/.ssh/authorized_keys
+#   - ssh -o StrictHostKeyChecking=no localhost "exit"
 script: "bundle exec rspec"
 notifications:
   email:
-   - dropbox+travis@ricostacruz.com
+   - gabrijel.skoro@infinum.hr
+   - stjepan.hadjic@infinum.hr
+

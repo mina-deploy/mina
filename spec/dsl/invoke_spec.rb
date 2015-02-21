@@ -13,7 +13,7 @@ describe 'Mina' do
       rake { invoke :clone }
     }
 
-    rake.commands.should == ['git clone']
+    expect(rake.commands).to eq(['git clone'])
   end
 
   it '#invoke should work with :reenable option' do
@@ -28,6 +28,22 @@ describe 'Mina' do
       rake { invoke :pull, :reenable => true }
     }
 
-    rake.commands.should == ['git pull', 'git pull']
+    expect(rake.commands).to eq(['git pull', 'git pull'])
+  end
+
+  it '#invoke with task arguments should work with :reenable option' do
+
+    rake {
+      task :hello, [:world] do |t, args|
+        queue "echo Hello #{args[:world]}"
+      end
+    }
+
+
+    %w(World Pirate).each { |name|
+      rake { invoke :"hello[#{name}]", :reenable => true }
+    }
+
+    expect(rake.commands).to eq(['echo Hello World', 'echo Hello Pirate'])
   end
 end

@@ -1,3 +1,66 @@
+v0.3.2 - January 24, 2015
+-----------------------------
+
+* 3rd party modules (#258) [Denis]
+* Adding support for environment variables, env_var (#161) [Ted Price]
+* Make rails console task dependent on the environment (#220) [lucapette]
+* mention  .ruby-version for rbenv comment (#249) [Tomi]
+* update emails for travis
+* npm support with a simple npm:install task (#227) [Paul B.]
+* `mina ssh` command to connect to server (#249) [Anton Dieterle]
+* link in the support guide (#254) [Aaditya S]
+
+[Denis]: https://github.com/stereodenis
+[Aaditya S]: https://github.com/jartek
+[Tomi]: https://github.com/equivalent
+[lucapette]: https://github.com/lucapette
+[Ted Price]: https://github.com/pricees
+[Anton Dieterle]: https://github.com/adie
+[Paul B.]: https://github.com/paulRbr
+
+
+v0.3.1 - October 17, 2014
+-------------------------
+
+* Fix copy command for assets. (#150) [Joshua Dover]
+* Add comment for system-wide RVM install. (#112) [Sam Qiu]
+* Incorrect exit status if deploy fails (#95) [Alexander Borovsky]
+* Bundler: Allow configuration of groups to be skipped during installation (#123) [Luis Lavena]
+* Parse task string to reenable task (#189) [Pedro Chambino]
+* Update Travis CI to test via Ruby 2.1.2. (#197) [Luciano Sousa]
+* Add jRuby support by using threads instead of fork. (#147, #148) [Jan Berdajs]
+* Add rescue for rubinius SignalException. (#204) [Qen]
+* Using `bundle_bin` instead `bundle` in whenever tasks. (#195) [Maxim Dorofienko]
+* Convert specs to RSpec expect syntax with transpec (#194) [Logan Hasson]
+* Remove binstubs options from defaults (#219) [lucapette]
+* Updated deploy.rb template to use shared_path (#235) [postmodern]
+* Allow the foreman export format to be configurable (#232) [postmodern]
+* fix: bin/mina exit_status -> exitstatus (#212) [Zhomart Mukhamejanov]
+* Add foreman_location and foreman_sudo configs (#239) [Pedro Chambino]
+* Check db/migrate/ instead of schema.rb (#177) [Charles Dale]
+* Fix mina deploy --help, should not cause a deploy (#238)
+* Fix git:clone on win7 x64 had error (#216)
+* Add deploy:cleanup after deploy
+* Prevent foreman export from expanding the current/ symlink (#241)
+* Support pretty_system on ruby 1.8.7 (#237)
+* Ruby 1.8.7 doesn't support empty symbols (#240)
+
+
+[Joshua Dover]: https://github.com/gerfuls
+[Sam Qiu]: https://github.com/samqiu
+[Alexander Borovsky]: https://github.com/borovsky
+[Luis Lavena]: https://github.com/luislavena
+[Pedro Chambino]: https://github.com/PChambino
+[Luciano Sousa]: https://github.com/lucianosousa
+[Jan Berdajs]: https://github.com/mrbrdo
+[Qen]: https://github.com/qen
+[Maxim Dorofienko]: https://github.com/mdorfin
+[Logan Hasson]: https://github.com/loganhasson
+[lucapette]: https://github.com/lucapette
+[postmodern]: https://github.com/postmodern
+[Zhomart Mukhamejanov]: https://github.com/Zhomart
+[Charles Dale]: https://github.com/chuckd
+
 v0.3.0 - July 10, 2013
 ----------------------
 
@@ -19,7 +82,7 @@ v0.3.0 - July 10, 2013
 
 Special thanks to all the contributors who made this release happen.
 
-https://github.com/nadarei/mina/compare/v0.2.1...v0.3.0
+https://github.com/mina-deploy/mina/compare/v0.2.1...v0.3.0
 
 [sonots]: https://github.com/sonots
 [Tomas Varneckas]: https://github.com/tomasv

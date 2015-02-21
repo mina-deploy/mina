@@ -22,14 +22,14 @@ module Mina
           trap("INT") { Sys.handle_sigint(coathooks += 1, pid, self) }
 
           # __In the background,__ make stdin passthru, and stream stderr.
-          pid_err = Sys.stream_stderr!(e) { |str| print_stderr str }
-          pid_in  = Sys.stream_stdin!     { |chr| i.putc chr }
+          th_err = Sys.stream_stderr!(e) { |str| print_stderr str }
+          th_in  = Sys.stream_stdin!     { |chr| i.putc chr }
 
           # __In the foreground,__ stream stdout to the output helper.
           Sys.stream_stdout(o) { |ch| print_char ch }
 
-          Process.waitpid pid_err
-          Process.kill 'TERM', pid_in
+          th_err.join
+          th_in.terminate
         end
 
       status.exitstatus
@@ -59,31 +59,35 @@ module Mina
 
       # ### Sys.stream_stderr!
       # __Internal:__ Read from stderr stream `err` *[0]*, supress expected
-      # errors *[1]*, and yield. Returns the PID.
+      # errors *[1]*, and yield. Returns the thread.
 
       def stream_stderr!(err, &blk)
-        fork do
-          trap("INT") {}
+        Thread.new do
+          begin
+            while str = err.gets #[0]
+              next if str.include? "bash: no job control in this shell" #[1]
+              next if str.include? "stdin is not a terminal"
 
-          while str = err.gets #[0]
-            next if str.include? "bash: no job control in this shell" #[1]
-            next if str.include? "stdin is not a terminal"
-
-            yield str.strip #[2]
+              yield str.strip #[2]
+            end
+          rescue Interrupt
           end
         end
       end
 
       # ### Sys.stream_stdin!
       # __Internal:__ Read from the real stdin stream and pass it onto the given
-      # stdin stream `i`. Returns the PID.
+      # stdin stream `i`. Returns the thread.
 
       def stream_stdin!(&blk)
-        fork do
-          trap("INT") {}
-
-          while (char = STDIN.getbyte rescue nil)
-            yield char if char
+        Thread.new do
+          begin
+            while (char = STDIN.getbyte rescue nil)
+              yield char if char
+            end
+          rescue Interrupt
+          # rubinius 
+          rescue SignalException
           end
         end
       end
@@ -94,6 +98,9 @@ module Mina
 
       def stream_stdout(o, &blk)
         while str = o.getc
+          # Ruby 1.8.7 fix
+          str = str.chr if str.is_a? Fixnum
+          
           yield str
         end
       end

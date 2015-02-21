@@ -7,14 +7,13 @@ generates an entire procedure as a Bash script and runs it remotely in the
 server.
 
 Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Mina only creates *one* SSH
+is run separately on their own SSH sessions. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
     $ gem install mina
     $ mina
 
-[![Status](https://secure.travis-ci.org/nadarei/mina.png?branch=master)](http://travis-ci.org/nadarei/mina) [![Version](https://badge.fury.io/rb/mina.png)](http://badge.fury.io/rb/mina)
-
+[![Build Status](https://travis-ci.org/mina-deploy/mina.svg?branch=master)](https://travis-ci.org/mina-deploy/mina) [![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina)
 
 User guide
 ==========
@@ -57,7 +56,7 @@ change it's ownership to the correct user.
 ### Step 3: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory-structure) in this path. This will connect to your server 
+structure](#directory_structure) in this path. This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
@@ -96,7 +95,7 @@ example, it provides the `mina restart` command.
 
 The magic of Mina is in the new commands it gives you.
 
-The `queue` command queues up Bash commands to be ran on the remote server.
+The `queue` command queues up Bash commands to be run on the remote server.
 If you invoke `mina restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
@@ -156,7 +155,7 @@ end
 ~~~
 
 In this example above, if you type `mina down`, it simply invokes the other
-subtasks which queues up their commands. The commands will be ran after
+subtasks which queues up their commands. The commands will be run after
 everything.
 
 Directory structure
@@ -194,13 +193,14 @@ set :repository, 'http://github.com/flipstack/flipstack.git'
 task :deploy do
   deploy do
     # Put things that prepare the empty release folder here.
-    # Commands queued here will be ran on a new release directory.
+    # Commands queued here will be run on a new release directory.
     invoke :'git:clone'
     invoke :'bundle:install'
 
     # These are instructions to start the app after it's been prepared.
     to :launch do
-      queue 'touch tmp/restart.txt'
+      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
+      queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
 
     # This optional block defines how a broken release should be cleaned up.
@@ -262,7 +262,7 @@ commands to restart the webserver process. Once this in complete, you're done!
 ### What about failure?
 
 If it fails at any point, the release path will be deleted. If any commands are
-queued using the `to :clean` block, they will be ran. It will be as if nothing
+queued using the `to :clean` block, they will be run. It will be as if nothing
 happened. Lets see what happens if a build fails:
 
     $
@@ -300,7 +300,7 @@ Basic usage:
 
 ### Tasks
 
-There are many tasks available. See the [tasks reference](tasks/index.html), or 
+There are many tasks available. See the [tasks reference](http://mina-deploy.github.io/mina/tasks/index.html), or 
 type `mina tasks`.
 
 ### Variables
@@ -316,7 +316,7 @@ You can add as many variables as needed.
 # Helpers
 
 ### invoke
-Invokes another Rake task.
+Invokes another Rake task. By default if the task has already been invoked it will not been executed again (see the `:reenable` option).
 
 Invokes the task given in `task`. Returns nothing.
 
@@ -325,8 +325,8 @@ invoke :'git:clone'
 invoke :restart
 ~~~
 
-Options:
-  reenable (bool) - Execute the task even next time.
+__Options:__
+  `:reenable` (bool) - Execute the task even next time. Defaults to `false`
 
 ### erb
 Evaluates an ERB block in the current scope and returns a string.
@@ -364,11 +364,11 @@ report_time do
   # do other things
 end
 # Output:
-# Elapsed time: 2.0 seconds
+# Elapsed time: 2.00 seconds
 ~~~
 
 ### measure
-Measures the time (in ms) a block takes.
+Measures the time (in seconds) a block takes.
 Returns a [time, output] tuple.
 
 ### mina_cleanup
@@ -394,9 +394,9 @@ Consider using `print_error` instead.
 ## Queueing
 
 ### queue
-Queues code to be ran.
+Queues code to be run.
 
-This queues code to be ran to the current code bucket (defaults to `:default`).
+This queues code to be run to the current code bucket (defaults to `:default`).
 To get the things that have been queued, use commands[:default]
 
 Returns nothing.
@@ -648,6 +648,9 @@ The local path to the SSH private key file.
 ### ssh_options
 Switches to be passed to the `ssh` command.
 
+### env_vars
+Environment variables passed to the `ssh` command (e.g. "foo=bar baz=1").
+
 ## Tasks
 Any and all of these settings can be overriden in your `deploy.rb`.
 
@@ -670,6 +673,13 @@ Display all tasks in a nice table.
 
 ~~~ ruby
 $ mina tasks
+~~~
+
+### ssh
+Connects to the server via ssh and cd to deploy_to folder
+
+~~~ ruby
+$ mina ssh
 ~~~
 
 # Modules: Deployment
@@ -735,7 +745,7 @@ Adds settings and tasks for managing projects with [foreman].
 
 NOTE: Requires sudo privileges
 
-[foreman]: http://theforeman.org/
+[foreman]: http://rubygems.org/ddolar/foreman
 
    require 'mina/foreman'
 
@@ -806,7 +816,7 @@ Any and all of these settings can be overriden in your `deploy.rb`.
 Sets the Rails environment for `rake` and `rails` commands.
 
 Note that changing this will NOT change the environment that your application
-is ran in.
+is run in.
 
 ### bundle_prefix
 Prefix for Bundler commands. Often to something like `RAILS_ENV=production
@@ -962,7 +972,7 @@ end
 ~~~
 
 ### rvm:wrapper[]
-Creates a rvm wrapper for a given executable
+Creates a rvm wrapper for a given executable.
 
 This is usually placed in the `:setup` task.
 
@@ -976,10 +986,55 @@ end
 Adds settings and tasks for managing projects with [whenever].
 [whenever]: http://rubygems.org/gems/whenever
 
+
+# Modules: NPM
+Adds settings and tasks for managing NodeJS projects.
+
+~~~ ruby
+require 'mina/npm'
+~~~
+
+## Settings
+Any and all of these settings can be overriden in your `deploy.rb`.
+
+### npm_options
+Parameters to pass to the npm binary. Default to `--production`.
+
+----
+
+## Deploy tasks
+These tasks are meant to be invoked inside deploy scripts, not invoked on
+their own.
+
+### npm:install
+
+3rd party modules
+------
+
+* [mina-rollbar](https://github.com/code-lever/mina-rollbar)
+* [mina-stack](https://github.com/div/mina-stack)
+* [mina-rsync](https://github.com/moll/mina-rsync)
+* [mina-sidekiq](https://github.com/Mic92/mina-sidekiq)
+* [mina-nginx](https://github.com/hbin/mina-nginx)
+* [mina-newrelic](https://github.com/navinpeiris/mina-newrelic)
+* [mina-rbenv-addons](https://github.com/stas/mina-rbenv-addons)
+* [mina-multistage](https://github.com/endoze/mina-multistage)
+* [mina-s3](https://github.com/stas/mina-s3)
+* [mina-scp](https://github.com/adie/mina-scp)
+* [mina-hooks](https://github.com/elskwid/mina-hooks)
+* [mina-slack](https://github.com/TAKAyukiatkwsk/mina-slack)
+* [mina-cakephp](https://github.com/mobvox/mina-cakephp)
+* [mina-unicorn](https://github.com/openteam/mina-unicorn)
+* [mina-puma](https://github.com/sandelius/mina-puma)
+* [mina-mercurial](https://github.com/rainlabs/mina-mercurial)
+* [mina-faye](https://github.com/NingenUA/mina-faye)
+* [mina-clockwork](https://github.com/907th/mina-clockwork)
+* [mina-ftp](https://github.com/stas/mina-ftp)
+
 Acknowledgements
 ----------------
 
-© 2012-2013, Nadarei. Released under the [MIT 
+© 2012-2014, Nadarei. Released under the [MIT 
 License](http://www.opensource.org/licenses/mit-license.php).
 
 Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
@@ -1002,8 +1057,7 @@ Michael:
 
 [rsc]: http://ricostacruz.com
 [mg]:  http://devblog.michaelgalero.com/
-[c]:   http://github.com/nadarei/mina/contributors
+[c]:   https://github.com/mina-deploy/mina/graphs/contributors
 [nd]:  http://nadarei.co
-[issues]: https://github.com/nadarei/mina/issues
+[issues]: https://github.com/mina-deploy/mina/issues
 [trello]: https://trello.com/board/mina/4fc8b3023d9c9a4d72e573e6
-

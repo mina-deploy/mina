@@ -22,6 +22,7 @@ module Mina
     def ssh(cmd, options={})
       require 'shellwords'
 
+      cmd.unshift("export #{env_vars}") if env_vars?
       cmd = cmd.join("\n")  if cmd.is_a?(Array)
       script = Shellwords.escape(cmd)
 
@@ -52,7 +53,7 @@ module Mina
       args << " -i #{identity_file}" if identity_file?
       args << " -p #{port}" if port?
       args << " -A" if forward_agent?
-      args << " #{ssh_options}"  if ssh_options?
+      args << " #{ssh_options}" if ssh_options?
       args << " -t"
       "ssh #{args}"
     end
@@ -83,7 +84,8 @@ module Mina
       # `term_mode`.  Called by `ssh`.
 
       def invoke(script, this)
-        term_mode = :"#{this.settings.term_mode}"
+        # Ruby 1.8.7 doesn't let you have empty symbols
+        term_mode = :"#{this.settings.term_mode}" if this.settings.term_mode
         code = "#{this.ssh_command} -- #{script}"
 
         # Certain environments can't do :pretty mode.

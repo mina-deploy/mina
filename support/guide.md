@@ -79,7 +79,7 @@ example, it provides the `mina restart` command.
 
 The magic of Mina is in the new commands it gives you.
 
-The `queue` command queues up Bash commands to be ran on the remote server.
+The `queue` command queues up Bash commands to be run on the remote server.
 If you invoke `mina restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
@@ -139,7 +139,7 @@ end
 ~~~
 
 In this example above, if you type `mina down`, it simply invokes the other
-subtasks which queues up their commands. The commands will be ran after
+subtasks which queues up their commands. The commands will be run after
 everything.
 
 Directory structure
@@ -177,7 +177,7 @@ set :repository, 'http://github.com/flipstack/flipstack.git'
 task :deploy do
   deploy do
     # Put things that prepare the empty release folder here.
-    # Commands queued here will be ran on a new release directory.
+    # Commands queued here will be run on a new release directory.
     invoke :'git:clone'
     invoke :'bundle:install'
 
@@ -245,7 +245,7 @@ commands to restart the webserver process. Once this in complete, you're done!
 ### What about failure?
 
 If it fails at any point, the release path will be deleted. If any commands are
-queued using the `to :clean` block, they will be ran. It will be as if nothing
+queued using the `to :clean` block, they will be run. It will be as if nothing
 happened. Lets see what happens if a build fails:
 
     $
@@ -283,7 +283,7 @@ Basic usage:
 
 ### Tasks
 
-There are many tasks available. See the [tasks reference](tasks/index.html), or 
+There are many tasks available. See the [tasks reference](http://mina-deploy.github.io/mina/tasks/), or
 type `mina tasks`.
 
 ### Variables

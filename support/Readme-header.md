@@ -7,11 +7,10 @@ generates an entire procedure as a Bash script and runs it remotely in the
 server.
 
 Compare this to the likes of Vlad or Capistrano, where each command
-is ran separately on their own SSH sessions. Mina only creates *one* SSH
+is run separately on their own SSH sessions. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
     $ gem install mina
     $ mina
 
-[![Status](https://secure.travis-ci.org/nadarei/mina.png?branch=master)](http://travis-ci.org/nadarei/mina) [![Version](https://badge.fury.io/rb/mina.png)](http://badge.fury.io/rb/mina)
-
+[![Build Status](https://travis-ci.org/mina-deploy/mina.svg?branch=master)](https://travis-ci.org/mina-deploy/mina) [![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina)

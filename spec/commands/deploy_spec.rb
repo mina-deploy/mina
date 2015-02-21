@@ -12,21 +12,21 @@ describe "Invoking the 'mina' command in a project" do
     end
 
     it "should take care of the lockfile" do
-      stdout.should =~ /ERROR: another deployment is ongoing/
-      stdout.should =~ /touch ".*deploy\.lock"/
-      stdout.should =~ /rm -f ".*deploy\.lock"/
+      expect(stdout).to match(/ERROR: another deployment is ongoing/)
+      expect(stdout).to match(/touch ".*deploy\.lock"/)
+      expect(stdout).to match(/rm -f ".*deploy\.lock"/)
     end
 
     it "should honor releases_path" do
-      stdout.should include "releases/"
+      expect(stdout).to include "releases/"
     end
 
     it "should symlink the current_path" do
-      stdout.should =~ /ln .*current/
+      expect(stdout).to match(/ln .*current/)
     end
 
     it "should include deploy directives" do
-      stdout.should include "bundle exec rake db:migrate"
+      expect(stdout).to include "bundle exec rake db:migrate"
     end
 
     it "should include 'to :build' directives" do
@@ -34,7 +34,7 @@ describe "Invoking the 'mina' command in a project" do
     end
 
     it "should include 'to :launch' directives" do
-      stdout.should include "touch tmp/restart.txt"
+      expect(stdout).to include "touch tmp/restart.txt"
     end
   end
 end

@@ -23,6 +23,9 @@
 # ### ssh_options
 # Switches to be passed to the `ssh` command.
 
+# ### env_vars
+# Environment variables to be passed to `ssh` command.
+
 # ## Tasks
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
@@ -131,6 +134,7 @@ task :help do
   puts ""
   puts "All of Rake's options are also available as '#{name}' options. See 'rake --help'"
   puts "for more information."
+  exit
 end
 
 # ### tasks
@@ -141,4 +145,14 @@ end
 desc "Show all tasks."
 task :tasks do
   show_task_help :full => true
+end
+
+# ### ssh
+# Connects to the server via ssh and cd to deploy_to folder
+#
+#     $ mina ssh
+
+desc "Open an ssh session to the server and cd to deploy_to folder"
+task :ssh do
+  exec ssh_command + " 'cd #{deploy_to} && exec \$SHELL'"
 end

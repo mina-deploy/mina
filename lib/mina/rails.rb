@@ -12,7 +12,7 @@ require 'mina/bundler'
 # Sets the Rails environment for `rake` and `rails` commands.
 #
 # Note that changing this will NOT change the environment that your application
-# is ran in.
+# is run in.
 
 set_default :rails_env, 'production'
 
@@ -121,7 +121,7 @@ make_run_task[:rake, 'db:migrate']
 #     $ mina console
 
 desc "Starts an interactive console."
-task :console do
+task :console => :environment do
   queue echo_cmd %[cd "#{deploy_to!}/#{current_path!}" && #{rails} console && exit]
 end
 
@@ -141,10 +141,10 @@ namespace :rails do
         'Migrating database'
 
       queue check_for_changes_script \
-        :check => 'db/schema.rb',
-        :at => ['db/schema.rb'],
+        :check => 'db/migrate/',
+        :at => ['db/migrate/'],
         :skip => %[
-          echo "-----> DB schema unchanged; skipping DB migration"
+          echo "-----> DB migrations unchanged; skipping DB migration"
         ],
         :changed => %[
           echo "-----> #{message}"
@@ -190,7 +190,7 @@ namespace :rails do
         :at => [*asset_paths],
         :skip => %[
           echo "-----> Skipping asset precompilation"
-          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public/assets"]}
+          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public"]}
         ],
         :changed => %[
           echo "-----> #{message}"

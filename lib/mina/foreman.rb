@@ -40,11 +40,15 @@
 set_default :foreman_app,  lambda { application }
 set_default :foreman_user, lambda { user }
 set_default :foreman_log,  lambda { "#{deploy_to!}/#{shared_path}/log" }
+set_default :foreman_sudo, true
+set_default :foreman_format, 'upstart'
+set_default :foreman_location, '/etc/init'
 
 namespace :foreman do
   desc 'Export the Procfile to Ubuntu upstart scripts'
   task :export do
-    export_cmd = "sudo bundle exec foreman export upstart /etc/init -a #{foreman_app} -u #{foreman_user} -l #{foreman_log}"
+    sudo_cmd = "sudo" if foreman_sudo
+    export_cmd = "#{sudo_cmd} bundle exec foreman export #{foreman_format} #{foreman_location} -a #{foreman_app} -u #{foreman_user} -d #{deploy_to!}/#{current_path!} -l #{foreman_log}"
 
     queue %{
       echo "-----> Exporting foreman procfile for #{foreman_app}"

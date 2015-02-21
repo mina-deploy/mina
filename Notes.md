@@ -8,17 +8,15 @@ The readme file is auto-generated using make.
 Documentation
 -------------
 
-Please consult the [project documentation](http://nadarei.co/mina) for full
+Please consult the [project documentation](http://mina-deploy.github.io/mina) for full
 details.
 
-Problems or suggestions? File issues at the [issue tracker][issues]
-(github.com).  You may also look at the [Trello board][trello] (trello.com) we
-use for development.
+Problems or suggestions? File issues at the [issue tracker][issues].
 
 Documentation sources
 ---------------------
 
-See [nadarei/mina-docs](https://github.com/nadarei/mina-docs) for the sources of
+See [mina-deploy/mina-docs](https://github.com/mina-deploy/mina-docs) for the sources of
 the documentation site. Please ensure that docs there are in sync with the
 features here.
 

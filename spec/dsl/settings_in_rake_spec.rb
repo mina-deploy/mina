@@ -4,8 +4,8 @@ describe 'Settings in rake tasks' do
   it '#set should work' do
     rake { set :domain, 'localhost' }
 
-    rake.domain.should == 'localhost'
-    rake.settings.domain.should == 'localhost'
+    expect(rake.domain).to eq('localhost')
+    expect(rake.settings.domain).to eq('localhost')
   end
 
   it '#settings ||= should work' do
@@ -14,8 +14,8 @@ describe 'Settings in rake tasks' do
       settings.version ||= '3'
     }
 
-    rake.settings.version.should == '2'
-    rake.version.should == '2'
+    expect(rake.settings.version).to eq('2')
+    expect(rake.version).to eq('2')
   end
 
   it '#settings with lambdas should work' do
@@ -24,8 +24,8 @@ describe 'Settings in rake tasks' do
       set :path, lambda { "/var/www/#{version}" }
     }
 
-    rake.path.should == "/var/www/42"
-    rake.path?.should be_true
+    expect(rake.path).to eq("/var/www/42")
+    expect(rake.path?).to be_truthy
   end
 
   it '#settings with a bang should work' do
