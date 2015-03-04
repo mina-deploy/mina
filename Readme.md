@@ -56,7 +56,7 @@ change it's ownership to the correct user.
 ### Step 3: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory_structure) in this path. This will connect to your server 
+structure](#directory-structure) in this path. This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
@@ -751,21 +751,20 @@ NOTE: Requires sudo privileges
 
 ## Common usage
 
-   set :application, "app-name"
-
-   task :deploy => :environment do
 ~~~ ruby
- deploy do
-   # ...
-   invoke 'foreman:export'
-   # ...
- end
- to :launch do
-   invoke 'foreman:restart'
- end
-~~~
+set :application, "app-name"
 
-   end
+task :deploy => :environment do
+  deploy do
+    # ...
+    invoke 'foreman:export'
+    # ...
+  end
+  to :launch do
+    invoke 'foreman:restart'
+  end
+end
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
