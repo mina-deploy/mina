@@ -85,6 +85,27 @@ namespace :deploy do
       #{echo_cmd %{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}}
     }
   end
+
+  # ### deploy:rollback
+  # Rollbacks the latest release.
+  #
+  # By default, the last 5 releases are kept on each server (though you can
+  # change this with the keep_releases setting).  All other deployed revisions
+  # are removed from the servers."
+  desc "Rollbacks the latest release"
+  task :rollback => :environment do
+    queue %[echo "-----> Rolling back to previous release for instance: #{domain}"]
+
+    # Delete existing sym link and create a new symlink pointing to the previous release
+    queue %[echo -n "-----> Creating new symlink from the previous release: "]
+    queue %[ls -Art "#{deploy_to}/releases" | sort | tail -n 2 | head -n 1]
+    queue! %[ls -Art "#{deploy_to}/releases" | sort | tail -n 2 | head -n 1 | xargs -I active ln -nfs "#{deploy_to}/releases/active" "#{deploy_to}/current"]
+
+    # Remove latest release folder (current release)
+    queue %[echo -n "-----> Deleting current release: "]
+    queue %[ls -Art "#{deploy_to}/releases" | sort | tail -n 1]
+    queue! %[ls -Art "#{deploy_to}/releases" | sort | tail -n 1 | xargs -I active rm -rf "#{deploy_to}/releases/active"]
+  end
 end
 
 # ### setup
