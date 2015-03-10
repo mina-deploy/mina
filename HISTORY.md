@@ -1,3 +1,20 @@
+Latest version - Mar 10, 2015
+-----------------------------
+
+### Fixed:
+  * link typo in readme (#273) [Henare Degan]
+  * up formatting of code block in readme (#274) [Henare Degan]
+  * Rolling back to previous release (#9) [Tyler Mandry]
+  * ruby 1.8.7 and rake 0.9 issue with invoke
+
+### Changed:
+  * update 3rd party list
+  * update docs, added db_rollback rails command
+
+[Tyler Mandry]: https://github.com/tmandry
+[Henare Degan]: https://github.com/henare
+
+
 v0.3.2 - January 24, 2015
 -----------------------------
 
