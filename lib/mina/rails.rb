@@ -102,7 +102,7 @@ end
 # ### rails[]
 # Invokes a rails command.
 #
-#     $ mina rails[console]
+#     $ mina "rails[console]"
 
 desc "Execute a Rails command in the current deploy."
 make_run_task[:rails, 'console']
@@ -110,7 +110,7 @@ make_run_task[:rails, 'console']
 # ### rake[]
 # Invokes a rake command.
 #
-#     $ mina rake db:cleanup
+#     $ mina "rake[db:migrate]"
 
 desc "Execute a Rake command in the current deploy."
 make_run_task[:rake, 'db:migrate']
@@ -163,6 +163,15 @@ namespace :rails do
     queue %{
       echo "-----> Migrating database"
       #{echo_cmd %[#{rake} db:migrate]}
+    }
+  end
+
+  # ### rails:db_rollback
+  desc "Rollbacks the Rails database."
+  task :'db_rollback' do
+    queue %{
+      echo "-----> Rollbacking database"
+      #{echo_cmd %[#{rake} db:rollback]}
     }
   end
 

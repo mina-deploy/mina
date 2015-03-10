@@ -89,9 +89,10 @@ namespace :deploy do
   # ### deploy:rollback
   # Rollbacks the latest release.
   #
-  # By default, the last 5 releases are kept on each server (though you can
-  # change this with the keep_releases setting).  All other deployed revisions
-  # are removed from the servers."
+  # Changes the current link to previous release, and deletes the newest deploy release
+  # Does NOT rollback the database, use
+  #
+  #     mina "rake[db:rollback]"
   desc "Rollbacks the latest release"
   task :rollback => :environment do
     queue %[echo "-----> Rolling back to previous release for instance: #{domain}"]
@@ -145,7 +146,7 @@ end
 # ### run[]
 # Runs a command on a server.
 #
-#     $ mina run[tail -f logs.txt]
+#     $ mina "run[tail -f logs.txt]"
 
 desc "Runs a command in the server."
 task :run, [:command] => [:environment] do |t, args|
