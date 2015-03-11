@@ -85,6 +85,28 @@ namespace :deploy do
       #{echo_cmd %{ls -1d [0-9]* | sort -rn | tail -n $remove | xargs rm -rf {}}}
     }
   end
+
+  # ### deploy:rollback
+  # Rollbacks the latest release.
+  #
+  # Changes the current link to previous release, and deletes the newest deploy release
+  # Does NOT rollback the database, use
+  #
+  #     mina "rake[db:rollback]"
+  desc "Rollbacks the latest release"
+  task :rollback => :environment do
+    queue %[echo "-----> Rolling back to previous release for instance: #{domain}"]
+
+    # Delete existing sym link and create a new symlink pointing to the previous release
+    queue %[echo -n "-----> Creating new symlink from the previous release: "]
+    queue %[ls -Art "#{deploy_to}/releases" | sort | tail -n 2 | head -n 1]
+    queue! %[ls -Art "#{deploy_to}/releases" | sort | tail -n 2 | head -n 1 | xargs -I active ln -nfs "#{deploy_to}/releases/active" "#{deploy_to}/current"]
+
+    # Remove latest release folder (current release)
+    queue %[echo -n "-----> Deleting current release: "]
+    queue %[ls -Art "#{deploy_to}/releases" | sort | tail -n 1]
+    queue! %[ls -Art "#{deploy_to}/releases" | sort | tail -n 1 | xargs -I active rm -rf "#{deploy_to}/releases/active"]
+  end
 end
 
 # ### setup
@@ -124,7 +146,7 @@ end
 # ### run[]
 # Runs a command on a server.
 #
-#     $ mina run[tail -f logs.txt]
+#     $ mina "run[tail -f logs.txt]"
 
 desc "Runs a command in the server."
 task :run, [:command] => [:environment] do |t, args|
