@@ -21,21 +21,29 @@ module Mina
 
     def ssh(cmd, options={})
       require 'shellwords'
-
-      cmd.unshift("export #{env_vars}") if env_vars?
-      cmd = cmd.join("\n")  if cmd.is_a?(Array)
-      script = Shellwords.escape(cmd)
-
-      if options[:return] == true
-        `#{ssh_command} -- #{script}`
-
-      elsif simulate_mode?
-        Ssh.simulate(cmd, ssh_command)
-
+      if hosts?
+          hostnames = hosts!
       else
-        result = Ssh.invoke(script, self)
-        Ssh.ensure_successful result, self
+          hostnames = [ domain! ]
       end
+      hostnames.each do |host|
+          set :domain, host
+          puts "operating on host: #{host}"
+          cmd.unshift("export #{env_vars}") if env_vars?
+          cmd = cmd.join("\n")  if cmd.is_a?(Array)
+          script = Shellwords.escape(cmd)
+
+          if options[:return] == true
+            `#{ssh_command} -- #{script}`
+
+          elsif simulate_mode?
+            Ssh.simulate(cmd, ssh_command)
+
+          else
+            result = Ssh.invoke(script, self)
+            Ssh.ensure_successful result, self
+          end
+        end
     end
 
     # ### ssh_command
