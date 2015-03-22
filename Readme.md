@@ -1014,6 +1014,7 @@ their own.
 * [mina-stack](https://github.com/div/mina-stack)
 * [mina-rsync](https://github.com/moll/mina-rsync)
 * [mina-sidekiq](https://github.com/Mic92/mina-sidekiq)
+* [mina-delayed_job](https://github.com/d4be4st/mina-delayed_job)
 * [mina-nginx](https://github.com/hbin/mina-nginx)
 * [mina-newrelic](https://github.com/navinpeiris/mina-newrelic)
 * [mina-rbenv-addons](https://github.com/stas/mina-rbenv-addons)
