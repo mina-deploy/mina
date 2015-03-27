@@ -19,6 +19,7 @@ File.open("#{Dir.pwd}/deploy/config/database.yml", 'w') { |f| f.write "Hello" }
 require 'mina/rails'
 require 'mina/bundler'
 require 'mina/git'
+require 'pry'
 
 set :domain, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
@@ -35,12 +36,18 @@ desc "Deploys."
 task :deploy => :environment do
   queue "bundle() { true; }" # Stub the bundle command.
 
+  to :before_hook do
+    queue %[ echo "-----> This is before hook"]
+  end
+
   deploy do
-    queue %[ruby -e "\\$stderr.write \\\"This is stdout output\n\\\""]
-    invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
-    invoke :'bundle:install'
-    invoke :'rails:db_migrate'
+    to :default do
+      queue %[ruby -e "\\$stderr.write \\\"This is stdout output\n\\\""]
+      invoke :'git:clone'
+      invoke :'deploy:link_shared_paths'
+      invoke :'bundle:install'
+      invoke :'rails:db_migrate'
+    end
 
     to :launch do
       invoke :'passenger:restart'
@@ -50,7 +57,17 @@ end
 
 desc "Restarts the passenger server."
 task :restart do
+  set :term_mode, :pretty
+  to :before do
+    queue %(
+      echo "-----> Copying files"
+      #{echo_cmd %[cp deploy/last_version deploy/last_version_2]}
+    )
+  end
   invoke :'passenger:restart'
+  to :after do
+    queue "echo '-----> After'"
+  end
 end
 
 namespace :passenger do

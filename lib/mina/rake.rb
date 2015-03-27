@@ -2,6 +2,7 @@
 extend Mina::Helpers
 extend Mina::DeployHelpers
 extend Mina::SshHelpers
+extend Mina::LocalHelpers
 extend Mina::OutputHelpers
 extend Mina::ExecHelpers
 

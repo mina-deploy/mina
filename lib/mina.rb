@@ -7,6 +7,7 @@ module Mina
   autoload :DeployHelpers, 'mina/deploy_helpers'
   autoload :OutputHelpers, 'mina/output_helpers'
   autoload :SshHelpers, 'mina/ssh_helpers'
+  autoload :LocalHelpers, 'mina/local_helpers'
   autoload :ExecHelpers, 'mina/exec_helpers'
   autoload :Helpers, 'mina/helpers'
   autoload :Settings, 'mina/settings'

@@ -10,6 +10,7 @@ class RakeScope
   include Rake::DSL  if Rake.const_defined?(:DSL)
   include Mina::Helpers
   include Mina::SshHelpers
+  include Mina::LocalHelpers
 end
 
 def rake(&blk)

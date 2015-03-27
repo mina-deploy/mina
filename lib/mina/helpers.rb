@@ -59,6 +59,23 @@ module Mina
       report_time { ssh commands(:default) }
     end
 
+    # ### run_local!
+    # runs the code locally that has been queued.
+    # Has to be in :before_hook or :after_hook queue
+    #
+    # This is already automatically invoked before Rake exits to run all
+    # commands that have been queued up.
+    #
+    #     to :before_hook do
+    #       queue "cp file1 file2"
+    #     end
+    #     run_local!(:before_hook)
+    #
+    # Returns nothing.
+    def run_local!(aspect)
+      report_time { local commands(aspect) }
+    end
+
     # ### report_time
     # Report time elapsed in the block.
     # Returns the output of the block.
@@ -93,7 +110,9 @@ module Mina
     # Returns nothing.
 
     def mina_cleanup!
+      run_local!(:before_hook) if commands(:before_hook).any?
       run! if commands.any?
+      run_local!(:after_hook) if commands(:after_hook).any?
     end
 
     # ## Errors
@@ -138,7 +157,9 @@ module Mina
 
     def queue(code)
       commands
+      @to ||= :default
       commands(@to) << unindent(code)
+      # binding.pry
     end
 
     # ### queue!
@@ -187,9 +208,8 @@ module Mina
     #     commands == ["sudo restart", "true"]
     #     commands(:clean) == ["rm"]
 
-    def commands(aspect=:default)
+    def commands(aspect = :default)
       (@commands ||= begin
-        @to = :default
         Hash.new { |h, k| h[k] = Array.new }
       end)[aspect]
     end
