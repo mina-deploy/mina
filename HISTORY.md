@@ -1,3 +1,13 @@
+Latest version - Mar 27, 2015
+-----------------------------
+
+### Fixed:
+  * invoke does not work after a to block (#285)
+
+### Added:
+  * before and after hooks
+
+
 Latest version - Mar 10, 2015
 -----------------------------
 
