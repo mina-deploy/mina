@@ -54,6 +54,9 @@ end
 
 desc "Deploys the current version to the server."
 task :deploy => :environment do
+  to :before_hook do
+    # Put things to run locally before ssh
+  end
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.

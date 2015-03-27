@@ -56,13 +56,13 @@ change it's ownership to the correct user.
 ### Step 3: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory-structure) in this path. This will connect to your server 
+structure](#directory_structure) in this path. This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](#directory-structure) for more info.
+See [directory structure](#directory_structure) for more info.
 
 ### Step 4: Deploy!
 
@@ -199,8 +199,7 @@ task :deploy do
 
     # These are instructions to start the app after it's been prepared.
     to :launch do
-      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
-      queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+      queue 'touch tmp/restart.txt'
     end
 
     # This optional block defines how a broken release should be cleaned up.
@@ -300,7 +299,7 @@ Basic usage:
 
 ### Tasks
 
-There are many tasks available. See the [tasks reference](http://mina-deploy.github.io/mina/tasks/index.html), or 
+There are many tasks available. See the [tasks reference](http://mina-deploy.github.io/mina/tasks/), or
 type `mina tasks`.
 
 ### Variables
@@ -316,7 +315,8 @@ You can add as many variables as needed.
 # Helpers
 
 ### invoke
-Invokes another Rake task. By default if the task has already been invoked it will not been executed again (see the `:reenable` option).
+Invokes another Rake task.
+By default if the task has already been invoked it will not been executed again (see the `:reenable` option).
 
 Invokes the task given in `task`. Returns nothing.
 
@@ -325,8 +325,10 @@ invoke :'git:clone'
 invoke :restart
 ~~~
 
-__Options:__
-  `:reenable` (bool) - Execute the task even next time. Defaults to `false`
+Options:
+  reenable (bool) - Execute the task even next time.
+
+task.to_s is a ruby 1.8.7 fix
 
 ### erb
 Evaluates an ERB block in the current scope and returns a string.
@@ -350,6 +352,22 @@ commands that have been queued up.
 ~~~ ruby
 queue "sudo restart"
 run!
+~~~
+
+Returns nothing.
+
+### run_local!
+runs the code locally that has been queued.
+Has to be in :before_hook or :after_hook queue
+
+This is already automatically invoked before Rake exits to run all
+commands that have been queued up.
+
+~~~ ruby
+to :before_hook do
+  queue "cp file1 file2"
+end
+run_local!(:before_hook)
 ~~~
 
 Returns nothing.
@@ -613,6 +631,9 @@ Sets the path to where the gems are expected to be.
 This path will be symlinked to `./shared/bundle` so that the gems cache will
 be shared between all releases.
 
+### bundle_withouts
+Sets the colon-separated list of groups to be skipped from installation.
+
 ### bundle_options
 Sets the options for installing gems via Bundler.
 
@@ -649,7 +670,7 @@ The local path to the SSH private key file.
 Switches to be passed to the `ssh` command.
 
 ### env_vars
-Environment variables passed to the `ssh` command (e.g. "foo=bar baz=1").
+Environment variables to be passed to `ssh` command. (e.g. "foo=bar baz=1")
 
 ## Tasks
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -730,6 +751,20 @@ By default, the last 5 releases are kept on each server (though you can
 change this with the keep_releases setting).  All other deployed revisions
 are removed from the servers."
 
+### deploy:rollback
+Rollbacks the latest release.
+
+Changes the current link to previous release, and deletes the newest deploy release
+Does NOT rollback the database, use
+
+~~~ ruby
+mina "rake[db:rollback]"
+~~~
+
+Delete existing sym link and create a new symlink pointing to the previous release
+
+Remove latest release folder (current release)
+
 ### setup
 Sets up a site's directory structure.
 
@@ -737,7 +772,7 @@ Sets up a site's directory structure.
 Runs a command on a server.
 
 ~~~ ruby
-$ mina run[tail -f logs.txt]
+$ mina "run[tail -f logs.txt]"
 ~~~
 
 # Modules: Foreman
@@ -751,20 +786,21 @@ NOTE: Requires sudo privileges
 
 ## Common usage
 
-~~~ ruby
-set :application, "app-name"
+   set :application, "app-name"
 
-task :deploy => :environment do
-  deploy do
-    # ...
-    invoke 'foreman:export'
-    # ...
-  end
-  to :launch do
-    invoke 'foreman:restart'
-  end
-end
+   task :deploy => :environment do
+~~~ ruby
+ deploy do
+   # ...
+   invoke 'foreman:export'
+   # ...
+ end
+ to :launch do
+   invoke 'foreman:restart'
+ end
 ~~~
+
+   end
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
@@ -866,14 +902,14 @@ These tasks can be invoked in the command line.
 Invokes a rails command.
 
 ~~~ ruby
-$ mina rails[console]
+$ mina "rails[console]"
 ~~~
 
 ### rake[]
 Invokes a rake command.
 
 ~~~ ruby
-$ mina rake db:cleanup
+$ mina "rake[db:migrate]"
 ~~~
 
 ### console
@@ -890,6 +926,8 @@ their own.
 ### rails:db_migrate
 
 ### rails:db_migrate:force
+
+### rails:db_rollback
 
 ### rails:assets_precompile:force
 
@@ -982,12 +1020,7 @@ task ::setup => :environment do
 end
 ~~~
 
-Adds settings and tasks for managing projects with [whenever].
-[whenever]: http://rubygems.org/gems/whenever
-
-
-# Modules: NPM
-Adds settings and tasks for managing NodeJS projects.
+Adds settings and tasks for managing Node packages.
 
 ~~~ ruby
 require 'mina/npm'
@@ -996,16 +1029,54 @@ require 'mina/npm'
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
 
-### npm_options
-Parameters to pass to the npm binary. Default to `--production`.
+### npm_bin
+Sets the npm binary.
 
-----
+### bower_bin
+Sets the bower binary.
+
+### grunt_bin
+Sets the grunt binary.
+
+### npm_options
+Sets the options for installing modules via npm.
+
+### bower_options
+Sets the options for installing modules via bower.
+
+### grunt_options
+Sets the options for grunt.
+
+### grunt_task
+Sets the task parameters for grunt.
 
 ## Deploy tasks
 These tasks are meant to be invoked inside deploy scripts, not invoked on
 their own.
 
 ### npm:install
+Installs node modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
+
+### bower:install
+Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
+
+### bower:install
+Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
+
+# Modules: Whenever
+Adds settings and tasks for managing projects with [whenever].
+
+[whenever]: http://rubygems.org/gems/whenever
+
+## Common usage
+~~~ ruby
+require 'mina/whenever'
+task :deploy => :environment do
+  deploy do
+    ...
+  invoke :'whenever:update'
+end
+~~~
 
 3rd party modules
 ------
@@ -1034,7 +1105,7 @@ their own.
 Acknowledgements
 ----------------
 
-© 2012-2014, Nadarei. Released under the [MIT 
+© 2012-2015, Nadarei. Released under the [MIT 
 License](http://www.opensource.org/licenses/mit-license.php).
 
 Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
@@ -1057,7 +1128,8 @@ Michael:
 
 [rsc]: http://ricostacruz.com
 [mg]:  http://devblog.michaelgalero.com/
-[c]:   https://github.com/mina-deploy/mina/graphs/contributors
+[c]:   http://github.com/mina-deploy/mina/graphs/contributors
 [nd]:  http://nadarei.co
 [issues]: https://github.com/mina-deploy/mina/issues
 [trello]: https://trello.com/board/mina/4fc8b3023d9c9a4d72e573e6
+

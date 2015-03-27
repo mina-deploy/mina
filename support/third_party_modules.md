@@ -1,0 +1,23 @@
+3rd party modules
+------
+
+* [mina-rollbar](https://github.com/code-lever/mina-rollbar)
+* [mina-stack](https://github.com/div/mina-stack)
+* [mina-rsync](https://github.com/moll/mina-rsync)
+* [mina-sidekiq](https://github.com/Mic92/mina-sidekiq)
+* [mina-delayed_job](https://github.com/d4be4st/mina-delayed_job)
+* [mina-nginx](https://github.com/hbin/mina-nginx)
+* [mina-newrelic](https://github.com/navinpeiris/mina-newrelic)
+* [mina-rbenv-addons](https://github.com/stas/mina-rbenv-addons)
+* [mina-multistage](https://github.com/endoze/mina-multistage)
+* [mina-s3](https://github.com/stas/mina-s3)
+* [mina-scp](https://github.com/adie/mina-scp)
+* [mina-hooks](https://github.com/elskwid/mina-hooks)
+* [mina-slack](https://github.com/TAKAyukiatkwsk/mina-slack)
+* [mina-cakephp](https://github.com/mobvox/mina-cakephp)
+* [mina-unicorn](https://github.com/openteam/mina-unicorn)
+* [mina-puma](https://github.com/sandelius/mina-puma)
+* [mina-mercurial](https://github.com/rainlabs/mina-mercurial)
+* [mina-faye](https://github.com/NingenUA/mina-faye)
+* [mina-clockwork](https://github.com/907th/mina-clockwork)
+* [mina-ftp](https://github.com/stas/mina-ftp)

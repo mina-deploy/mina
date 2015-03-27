@@ -24,7 +24,7 @@
 # Switches to be passed to the `ssh` command.
 
 # ### env_vars
-# Environment variables to be passed to `ssh` command.
+# Environment variables to be passed to `ssh` command. (e.g. "foo=bar baz=1")
 
 # ## Tasks
 # Any and all of these settings can be overriden in your `deploy.rb`.

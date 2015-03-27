@@ -1,6 +1,17 @@
 # # Modules: Whenever
 # Adds settings and tasks for managing projects with [whenever].
+#
 # [whenever]: http://rubygems.org/gems/whenever
+#
+#
+# ## Common usage
+#     require 'mina/whenever'
+#
+#     task :deploy => :environment do
+#       deploy do
+#         ...
+#       invoke :'whenever:update'
+#     end
 
 namespace :whenever do
   desc "Clear crontab"

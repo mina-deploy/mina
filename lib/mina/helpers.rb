@@ -5,6 +5,7 @@ module Mina
 
     # ### invoke
     # Invokes another Rake task.
+    # By default if the task has already been invoked it will not been executed again (see the `:reenable` option).
     #
     # Invokes the task given in `task`. Returns nothing.
     #
@@ -159,7 +160,6 @@ module Mina
       commands
       @to ||= :default
       commands(@to) << unindent(code)
-      # binding.pry
     end
 
     # ### queue!
