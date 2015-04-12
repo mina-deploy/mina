@@ -1060,9 +1060,6 @@ Installs node modules. Takes into account if executed `in_directory` and namespa
 ### bower:install
 Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
 
-### bower:install
-Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
-
 # Modules: Whenever
 Adds settings and tasks for managing projects with [whenever].
 
