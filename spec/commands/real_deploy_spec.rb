@@ -30,6 +30,7 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
     print "[deploy 1]" if ENV['verbose']
     mina 'deploy', '--verbose'
     expect(stdout).to include "-----> Creating a temporary build path"
+    expect(stdout).to include "git rev-parse HEAD > .mina_git_revision"
     expect(stdout).to include "rm -rf .git"
     expect(stdout).to include "mkdir -p"
     expect(File.exists?('deploy/last_version')).to be_truthy
@@ -41,6 +42,7 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
     expect(File.exists?('deploy/current')).to be_truthy
     expect(File.read('deploy/last_version').strip).to eq('1')
     expect(File.exists?('deploy/current/tmp/restart.txt')).to be_truthy
+    expect(File.exists?('deploy/current/.mina_git_revision')).to be_truthy
 
     # And again, to test out sequential versions and stuff
     print "[deploy 2]" if ENV['verbose']
@@ -49,5 +51,6 @@ describe "Invoking the 'mina' command in a project", :ssh => true do
     expect(stdout).not_to include "mkdir -p"
     expect(File.directory?('deploy/releases/2')).to be_truthy
     expect(File.read('deploy/last_version').strip).to eq('2')
+    expect(File.exists?('deploy/current/.mina_git_revision')).to be_truthy
   end
 end
