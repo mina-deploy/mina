@@ -63,8 +63,8 @@ describe Mina::LocalHelpers::Local do
     it 'returns the sub-shell exit status when using Kernel.system' do
       settings.term_mode = nil
 
-      expect(described_class.invoke(%[exit 0], scope)).to eq 0
-      expect(described_class.invoke(%[exit 13], scope)).to eq 13
+      expect(described_class.invoke(%[/bin/sh -c 'exit 0'], scope)).to eq 0
+      expect(described_class.invoke(%[/bin/sh -c 'exit 13'], scope)).to eq 13
     end
   end
 end
