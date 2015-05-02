@@ -19,15 +19,12 @@ module Mina
     #     local("ls", return: true)
 
     def local(cmd, options = {})
-      require 'shellwords'
-
-      cmd = cmd.join("\n") if cmd.is_a?(Array)
-      script = Shellwords.escape(cmd)
+      script = cmd.join("\n") if cmd.is_a?(Array)
 
       if options[:return] == true
         `#{script}`
       elsif simulate_mode?
-        Local.simulate(cmd)
+        Local.simulate(script)
       else
         result = Local.invoke(script, self)
         Local.ensure_successful result, self
@@ -64,16 +61,18 @@ module Mina
         code = "#{script}"
 
         # Certain environments can't do :pretty mode.
-        term_mode = :exec  if term_mode == :pretty && !pretty_supported?
+        term_mode = :exec if term_mode == :pretty && !pretty_supported?
 
         case term_mode
         when :pretty
+          require 'shellwords'
+          code = Shellwords.escape(code)
           this.pretty_system(code)
         when :exec
-          exec code
+          Kernel.exec code
         else
-          system code
-          $?.to_i
+          Kernel.system code
+          $?.exitstatus
         end
       end
 
