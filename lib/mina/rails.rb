@@ -176,6 +176,15 @@ namespace :rails do
     }
   end
 
+  # ### rails:db_create
+  desc "Rollbacks the Rails database."
+  task :'db_create' do
+    queue %{
+      echo "-----> Rollbacking database"
+      #{echo_cmd %[#{rake} db:create]}
+    }
+  end
+
   # ### rails:db_rollback
   desc "Rollbacks the Rails database."
   task :'db_rollback' do
