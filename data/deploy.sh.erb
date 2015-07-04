@@ -25,7 +25,7 @@ fi
 if [ -e "<%= lock_file %>" ]; then
   echo "! ERROR: another deployment is ongoing."
   echo "The file '<%= lock_file %>' was found."
-  echo "If no other deployment is ongoing, delete the file to continue."
+  echo "If no other deployment is ongoing, run 'mina deploy:force_unlock' to delete the file."
   exit 17
 fi
 
