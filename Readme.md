@@ -13,7 +13,7 @@ session per deploy, minimizing the SSH connection overhead.
     $ gem install mina
     $ mina
 
-[![Build Status](https://travis-ci.org/mina-deploy/mina.svg?branch=master)](https://travis-ci.org/mina-deploy/mina) [![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina)
+[![Build Status](https://travis-ci.org/mina-deploy/mina.svg?branch=master)](https://travis-ci.org/mina-deploy/mina) [![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina) [![Inline docs](http://inch-ci.org/github/mina-deploy/mina.svg?branch=master)](http://inch-ci.org/github/mina-deploy/mina)
 
 User guide
 ==========
@@ -837,6 +837,9 @@ their own.
 ### git:clone
 Clones the Git repository. Meant to be used inside a deploy script.
 
+### git:revision
+Gets the current git revision deployed on server.
+
 # Modules: Rails
 Adds settings and tasks for managing Rails projects.
 
@@ -887,6 +890,14 @@ release.
 Override this if you have custom asset paths declared in your Rails's
 `config.assets.paths` setting.
 
+### compiled_asset_path
+The path to be copied to the new release.
+
+The path your assets are compiled to. If your `assets_path` assets have changed,
+this is the folder that gets copied accross from the current release to the new release.
+
+Override this if you have custom public asset paths.
+
 ### rake_assets_precompile
 The command to invoke when precompiling assets.
 Override me if you like.
@@ -919,6 +930,9 @@ Opens the Ruby console for the currently-deployed version.
 $ mina console
 ~~~
 
+### log
+Tail log from server
+
 ## Deploy tasks
 These tasks are meant to be invoked inside deploy scripts, not invoked on
 their own.
@@ -926,6 +940,8 @@ their own.
 ### rails:db_migrate
 
 ### rails:db_migrate:force
+
+### rails:db_create
 
 ### rails:db_rollback
 
@@ -1060,8 +1076,8 @@ Installs node modules. Takes into account if executed `in_directory` and namespa
 ### bower:install
 Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
 
-### bower:install
-Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
+### grunt:install
+Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable before calling this.
 
 # Modules: Whenever
 Adds settings and tasks for managing projects with [whenever].
@@ -1074,7 +1090,9 @@ require 'mina/whenever'
 task :deploy => :environment do
   deploy do
     ...
-  invoke :'whenever:update'
+  to :launch do
+    invoke :'whenever:update'
+  end
 end
 ~~~
 
@@ -1105,8 +1123,7 @@ end
 Acknowledgements
 ----------------
 
-© 2012-2015, Nadarei. Released under the [MIT 
-License](http://www.opensource.org/licenses/mit-license.php).
+© 2012-2015, Nadarei. Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
 Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
 Galero][mg] with help from its [contributors][c]. It is sponsored by our 
