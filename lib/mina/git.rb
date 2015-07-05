@@ -60,4 +60,10 @@ namespace :git do
 
     queue clone + status
   end
+
+  # ### git:revision
+  # Gets the current git revision deployed on server.
+  task :revision do
+    queue %[cat #{deploy_to}/current/.mina_git_revision]
+  end
 end

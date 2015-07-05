@@ -139,7 +139,7 @@ end
 # Tail log from server
 desc "Tail log from server"
 task :log => :environment do
-  queue "tail -f #{deploy_to}/#{current_path}/log/#{rails_env}.log"
+  queue %[tail -f #{deploy_to}/#{current_path}/log/#{rails_env}.log]
 end
 
 # ## Deploy tasks
