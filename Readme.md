@@ -1071,6 +1071,7 @@ Adds settings and tasks for managing projects with [whenever].
 ## Common usage
 ~~~ ruby
 require 'mina/whenever'
+set :roles, ->{ [:db, :app, :staging] } # roles for multistage usage
 task :deploy => :environment do
   deploy do
     ...
