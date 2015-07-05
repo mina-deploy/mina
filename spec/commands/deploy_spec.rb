@@ -29,6 +29,10 @@ describe "Invoking the 'mina' command in a project" do
       expect(stdout).to include "bundle exec rake db:migrate"
     end
 
+    it "should include 'to :build' directives" do
+      stdout.should include "touch build.txt"
+    end
+
     it "should include 'to :launch' directives" do
       expect(stdout).to include "touch tmp/restart.txt"
     end

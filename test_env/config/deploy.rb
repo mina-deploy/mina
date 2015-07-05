@@ -49,6 +49,9 @@ task :deploy => :environment do
       invoke :'rails:db_migrate'
     end
 
+    to :build do
+      queue "touch build.txt"
+    end
     to :launch do
       invoke :'passenger:restart'
     end
