@@ -137,6 +137,9 @@ end
 
 # ### log
 # Tail log from server
+#
+#     $ mina log
+
 desc "Tail log from server"
 task :log => :environment do
   queue %[tail -f #{deploy_to}/#{current_path}/log/#{rails_env}.log]

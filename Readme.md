@@ -933,6 +933,10 @@ $ mina console
 ### log
 Tail log from server
 
+~~~ ruby
+$ mina log
+~~~
+
 ## Deploy tasks
 These tasks are meant to be invoked inside deploy scripts, not invoked on
 their own.
