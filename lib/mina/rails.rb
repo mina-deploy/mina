@@ -177,10 +177,10 @@ namespace :rails do
   end
 
   # ### rails:db_create
-  desc "Rollbacks the Rails database."
+  desc "Creates the Rails database."
   task :'db_create' do
     queue %{
-      echo "-----> Rollbacking database"
+      echo "-----> Creating database"
       #{echo_cmd %[#{rake} db:create]}
     }
   end
