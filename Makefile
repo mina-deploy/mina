@@ -17,6 +17,7 @@ support/modules.md: \
 	lib/mina/rbenv.rb \
 	lib/mina/rvm.rb \
 	lib/mina/npm.rb \
+	lib/mina/tools.rb \
 	lib/mina/whenever.rb
 	cat $^ | ruby support/to_md.rb > $@
 

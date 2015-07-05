@@ -135,6 +135,13 @@ task :console => :environment do
   queue echo_cmd %[cd "#{deploy_to!}/#{current_path!}" && #{rails} console && exit]
 end
 
+# ### log
+# Tail log from server
+desc "Tail log from server"
+task :log => :environment do
+  queue "tail -f #{deploy_to}/#{current_path}/log/#{rails_env}.log"
+end
+
 # ## Deploy tasks
 # These tasks are meant to be invoked inside deploy scripts, not invoked on
 # their own.
