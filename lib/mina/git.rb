@@ -52,6 +52,7 @@ namespace :git do
     status = %[
       echo "-----> Using this git commit" &&
       echo &&
+      #{echo_cmd %[git rev-parse HEAD > .mina_git_revision]} &&
       #{echo_cmd %[git --no-pager log --format='%aN (%h):%n> %s' -n 1]} &&
       #{echo_cmd %[rm -rf .git]} &&
       echo
