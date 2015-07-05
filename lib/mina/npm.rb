@@ -77,8 +77,8 @@ namespace :bower do
 end
 
 namespace :grunt do
-  # ### bower:install
-  # Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
+  # ### grunt:install
+  # Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable before calling this.
   desc "Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable before calling this."
   task :task => :environment do
     queue %{
