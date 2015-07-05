@@ -10,7 +10,9 @@
 #     task :deploy => :environment do
 #       deploy do
 #         ...
-#       invoke :'whenever:update'
+#       to :launch do
+#         invoke :'whenever:update'
+#       end
 #     end
 
 namespace :whenever do
