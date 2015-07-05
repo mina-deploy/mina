@@ -8,3 +8,4 @@ pkg/
 docs
 support/helpers.md
 support/modules.md
+*.swp
