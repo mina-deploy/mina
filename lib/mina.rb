@@ -12,6 +12,7 @@ module Mina
   autoload :Helpers, 'mina/helpers'
   autoload :Settings, 'mina/settings'
   autoload :Tools, 'mina/tools'
+  autoload :RsyncHelpers, 'mina/rsync_helpers'
 
   Error = Class.new(Exception)
   class Failed < Error

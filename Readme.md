@@ -591,6 +591,16 @@ Resets the indentation on a given code block.
 ### capture
 Returns the output of command via SSH.
 
+## Remote file transfer helers
+Requirements rsync in local system and remote server.
+Warning: These helpers is not queueing.
+
+### upload
+Upload files from `from` to remote location `to` via Rsync.
+
+### download
+Download files from remote location `from` to `to` via Rsync.
+
 # Helpers: Deploy helpers
 Helpers for deployment.
 

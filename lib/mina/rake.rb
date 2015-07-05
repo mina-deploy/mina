@@ -5,6 +5,7 @@ extend Mina::SshHelpers
 extend Mina::LocalHelpers
 extend Mina::OutputHelpers
 extend Mina::ExecHelpers
+extend Mina::RsyncHelpers
 
 require 'mina/default'
 require 'mina/deploy' if Rake.application.have_rakefile
