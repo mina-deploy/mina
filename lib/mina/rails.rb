@@ -52,6 +52,16 @@ set_default :rails, lambda { %{#{bundle_prefix} rails} }
 
 set_default :asset_paths, ['vendor/assets/', 'app/assets/']
 
+# ### compiled_asset_path
+# The path to be copied to the new release.
+#
+# The path your assets are compiled to. If your `assets_path` assets have changed,
+# this is the folder that gets copied accross from the current release to the new release.
+#
+# Override this if you have custom public asset paths.
+
+set_default :compiled_asset_path, 'public/assets'
+
 # ### rake_assets_precompile
 # The command to invoke when precompiling assets.
 # Override me if you like.
@@ -195,11 +205,12 @@ namespace :rails do
         'Precompiling asset files'
 
       queue check_for_changes_script \
-        :check => 'public/assets/',
+        :check => compiled_asset_path,
         :at => [*asset_paths],
         :skip => %[
           echo "-----> Skipping asset precompilation"
-          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/public/assets" "./public"]}
+          #{echo_cmd %[mkdir -p "#{deploy_to}/$build_path/#{compiled_asset_path}"]}
+          #{echo_cmd %[cp -R "#{deploy_to}/#{current_path}/#{compiled_asset_path}/." "#{deploy_to}/$build_path/#{compiled_asset_path}"]}
         ],
         :changed => %[
           echo "-----> #{message}"
