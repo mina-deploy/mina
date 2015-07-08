@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.3.7](https://github.com/mina-deploy/mina/tree/v0.3.7) (2015-07-08)
+
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v0.3.6...v0.3.7)
+
+**Closed issues:**
+
+- New setup project cannot deploy, "Failed with status 1 \(1\)" [\#328](https://github.com/mina-deploy/mina/issues/328)
+
+- How to do mina rake task invocation if rake task has arguments? [\#325](https://github.com/mina-deploy/mina/issues/325)
+
+- Git commit is lost after checkout [\#308](https://github.com/mina-deploy/mina/issues/308)
+
+- Trust foreman binary [\#144](https://github.com/mina-deploy/mina/issues/144)
+
 ## [v0.3.6](https://github.com/mina-deploy/mina/tree/v0.3.6) (2015-07-05)
 
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v0.3.4...v0.3.6)
