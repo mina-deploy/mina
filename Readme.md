@@ -1058,6 +1058,9 @@ Sets the bower binary.
 ### grunt_bin
 Sets the grunt binary.
 
+### gulp_bin
+Sets the gulp binary.
+
 ### npm_options
 Sets the options for installing modules via npm.
 
@@ -1069,6 +1072,12 @@ Sets the options for grunt.
 
 ### grunt_task
 Sets the task parameters for grunt.
+
+### gulp_options
+Sets the options for gulp.
+
+### gulp_task
+Sets the task parameters for gulp.
 
 ## Deploy tasks
 These tasks are meant to be invoked inside deploy scripts, not invoked on
@@ -1082,6 +1091,9 @@ Installs bower modules. Takes into account if executed `in_directory` and namesp
 
 ### grunt:install
 Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable before calling this.
+
+### gulp:install
+Launch a task with gulp. Set the gulp_task (defaults to \"build\") variable before calling this.
 
 # Modules: Whenever
 Adds settings and tasks for managing projects with [whenever].
