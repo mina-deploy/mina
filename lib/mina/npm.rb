@@ -109,7 +109,7 @@ namespace :gulp do
   task :task => :environment do
     queue %{
       echo "-----> Launch a build with Gulp"
-      #{echo_cmd %[[ -f Gulpfile.js ] && (#{gulp_bin} #{gulp_task} #{gulp_options}) || ! [ -f Gulpfile.js ]]}
+      #{echo_cmd %[[ -f gulpfile.js ] && (#{gulp_bin} #{gulp_task} #{gulp_options}) || ! [ -f gulpfile.js ]]}
     }
   end
 end
