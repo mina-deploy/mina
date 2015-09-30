@@ -894,7 +894,7 @@ Override this if you have custom asset paths declared in your Rails's
 The path to be copied to the new release.
 
 The path your assets are compiled to. If your `assets_path` assets have changed,
-this is the folder that gets copied accross from the current release to the new release.
+this is the folder that gets copied across from the current release to the new release.
 
 Override this if you have custom public asset paths.
 
