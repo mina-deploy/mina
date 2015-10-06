@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/nadarei/mina"
   s.files = `git ls-files`.strip.split("\n")
   s.executables = Dir["bin/*"].map { |f| File.basename(f) }
+  s.licenses = ['MIT']
 
   s.add_dependency "rake"
   s.add_dependency "open4", "~> 1.3.4"
