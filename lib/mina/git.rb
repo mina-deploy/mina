@@ -12,6 +12,7 @@
 # Sets the branch to be deployed.
 
 set_default :branch, 'master'
+set_default :remove_git_dir, true
 
 namespace :git do
   # ## Deploy tasks
@@ -54,8 +55,12 @@ namespace :git do
       echo &&
       #{echo_cmd %[git rev-parse HEAD > .mina_git_revision]} &&
       #{echo_cmd %[git --no-pager log --format='%aN (%h):%n> %s' -n 1]} &&
-      #{echo_cmd %[rm -rf .git]} &&
-      echo
+    ]
+    if remove_git_dir
+      status += %[#{echo_cmd %[rm -rf .git]} &&
+      ]
+    end
+    status += %[echo
     ]
 
     queue clone + status
