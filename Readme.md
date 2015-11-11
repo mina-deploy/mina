@@ -1123,6 +1123,7 @@ end
 * [mina-faye](https://github.com/NingenUA/mina-faye)
 * [mina-clockwork](https://github.com/907th/mina-clockwork)
 * [mina-ftp](https://github.com/stas/mina-ftp)
+* [mina-laravel](https://github.com/kikyous/mina-laravel)
 
 Acknowledgements
 ----------------
