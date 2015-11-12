@@ -7,7 +7,9 @@ describe 'Mina' do
         queue 'git clone'
 
         to :restart do
-          queue 'touch tmp/restart.txt'
+          in_directory 'tmp' do
+            queue 'touch restart.txt'
+          end
         end
       end
     }
@@ -15,6 +17,6 @@ describe 'Mina' do
     rake { invoke :deploy }
 
     expect(rake.commands).to eq(['git clone'])
-    expect(rake.commands(:restart)).to eq(['touch tmp/restart.txt'])
+    expect(rake.commands(:restart)).to eq(['(cd tmp && (touch restart.txt))'])
   end
 end
