@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.8](https://github.com/mina-deploy/mina/tree/v0.3.7) (Not yet published)
+
+**Merged pull requests:**
+
+- fix for starting server path [\#349](https://github.com/mina-deploy/mina/pull/349) ([Freeza91](https://github.com/Freeza91))
+
+
 ## [v0.3.7](https://github.com/mina-deploy/mina/tree/v0.3.7) (2015-07-08)
 
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v0.3.6...v0.3.7)
