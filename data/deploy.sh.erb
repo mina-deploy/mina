@@ -78,10 +78,10 @@ fi
 ) &&
 
 # ============================
-# === Start up serve => (in deployer)
+# === Start up server => (in deployer)
 (
   echo "-----> Launching"
-  <%= echo_cmd %[cd "$release_path"] %>
+  <%= echo_cmd %[cd "#{current_path}"] %>
 <%= indent 2, (launch.empty? ? "true" : launch) %>
 ) &&
 
