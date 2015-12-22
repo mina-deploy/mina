@@ -22,6 +22,11 @@
 # Override the default name used by Whenever when clearing,
 # updating or writing the crontab file.
 
+# ### whenever_sets
+# Pass optional name=value pairs to the --set argument of whenever.
+# Specify these in your deploy.rb as a hash:
+#     set :whenever_sets, host: ENV['HOST']
+
 namespace :whenever do
   # NOTE: setting this as a lambda to allow the user to override
   # the domain variable at any time in their schedule.rb file
