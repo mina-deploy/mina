@@ -30,7 +30,7 @@ describe "Invoking the 'mina' command in a project" do
     end
 
     it "should include 'to :build' directives" do
-      stdout.should include "touch build.txt"
+      expect(stdout).to include "touch build.txt"
     end
 
     it "should include 'to :launch' directives" do
