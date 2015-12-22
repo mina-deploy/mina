@@ -156,3 +156,23 @@ desc "Open an ssh session to the server and cd to deploy_to folder"
 task :ssh do
   exec ssh_command + " 'cd #{deploy_to} && exec \$SHELL'"
 end
+
+# ### ssh_keyscan
+# Adds current repo host to the known hosts
+# Avoids git promt at a thirst deploy
+#
+# $ mina ssh_keyscan
+
+desc "Adds current repo host to the known hosts"
+task :ssh_keyscan do
+  if repository
+    repo_host = repository.split(%r{@|://}).last.split(%r{:|\/}).first
+    repo_port = /:([0-9]+)/.match(repository) && /:([0-9]+)/.match(repository)[1] || '22'
+
+    queue %[
+      if ! ssh-keygen -H  -F #{repo_host} &>/dev/null; then
+        ssh-keyscan -t rsa -p #{repo_port} -H #{repo_host} >> ~/.ssh/known_hosts
+      fi
+    ]
+  end
+end
