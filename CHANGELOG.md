@@ -1,10 +1,20 @@
 # Change Log
 
-## [v0.3.8](https://github.com/mina-deploy/mina/tree/v0.3.7) (Not yet published)
+## [v0.3.8](https://github.com/mina-deploy/mina/tree/v0.3.8) (2016-01-04)
+
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v0.3.7...v0.3.8)
 
 **Merged pull requests:**
 
-- fix for starting server path [\#349](https://github.com/mina-deploy/mina/pull/349) ([Freeza91](https://github.com/Freeza91))
+- Fixed bug where domain was not set yet when whenever_name was being called (set_default) causing multiple crontab entries [\#335](https://github.com/mina-deploy/mina/pull/335)
+
+- Fix missing shell repo variable in setup [\#329](https://github.com/mina-deploy/mina/pull/329)
+
+- Add license to gemspec [\#343](https://github.com/mina-deploy/mina/pull/343)
+
+- Fix for starting server path [\#349](https://github.com/mina-deploy/mina/pull/349)
+
+- Add mina-laravel to 3rd party modules [\#352](https://github.com/mina-deploy/mina/pull/352)
 
 
 ## [v0.3.7](https://github.com/mina-deploy/mina/tree/v0.3.7) (2015-07-08)
