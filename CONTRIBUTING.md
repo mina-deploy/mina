@@ -86,7 +86,7 @@ project:
 1. [Fork](http://help.github.com/fork-a-repo/) the project.
 
 2. Clone your fork (`git clone
-   https://github.com/<your-username>/html5-boilerplate.git`).
+   https://github.com/<your-username>/mina.git`).
 
 3. Add an `upstream` remote (`git remote add upstream
    https://github.com/nadarei/mina.git`).
