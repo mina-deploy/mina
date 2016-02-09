@@ -6,7 +6,8 @@ Mina works really fast because it's a deploy Bash script generator. It
 generates an entire procedure as a Bash script and runs it remotely in the
 server.
 
-Compare this to the likes of Vlad or Capistrano, where each command
+Compare this to the likes of [Vlad](https://github.com/seattlerb/vlad) or
+[Capistrano](https://github.com/capistrano/capistrano), where each command
 is run separately on their own SSH sessions. Mina only creates *one* SSH
 session per deploy, minimizing the SSH connection overhead.
 
@@ -55,14 +56,14 @@ change it's ownership to the correct user.
 
 ### Step 3: Run 'mina setup'
 
-Back at your computer, do `mina setup` to set up the [folder 
-structure](#directory_structure) in this path. This will connect to your server 
+Back at your computer, do `mina setup` to set up the [folder structure](#directory-structure) in this path.
+This will connect to your server 
 via SSH and create the right directories.
 
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](#directory_structure) for more info.
+See [directory structure](#directory-structure) for more info.
 
 ### Step 4: Deploy!
 
