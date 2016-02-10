@@ -786,21 +786,21 @@ NOTE: Requires sudo privileges
 
 ## Common usage
 
-   set :application, "app-name"
-
-   task :deploy => :environment do
 ~~~ ruby
- deploy do
-   # ...
-   invoke 'foreman:export'
-   # ...
- end
- to :launch do
-   invoke 'foreman:restart'
- end
-~~~
+set :application, "app-name"
 
-   end
+task :deploy => :environment do
+  deploy do
+    # ...
+    invoke 'foreman:export'
+    # ...
+  end
+ 
+  to :launch do
+    invoke 'foreman:restart'
+  end
+end
+~~~
 
 ## Settings
 Any and all of these settings can be overriden in your `deploy.rb`.
