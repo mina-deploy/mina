@@ -21,6 +21,11 @@ set_default :bower_bin, 'bower'
 
 set_default :grunt_bin, 'grunt'
 
+# ### gulp_bin
+# Sets the gulp binary.
+
+set_default :gulp_bin, 'gulp'
+
 # ### npm_options
 # Sets the options for installing modules via npm.
 
@@ -41,6 +46,15 @@ set_default :grunt_options, ''
 
 set_default :grunt_task, 'build'
 
+# ### gulp_options
+# Sets the options for gulp.
+
+set_default :gulp_options, ''
+
+# ### gulp_task
+# Sets the task parameters for gulp.
+
+set_default :gulp_task, 'build'
 
 # ## Deploy tasks
 # These tasks are meant to be invoked inside deploy scripts, not invoked on
@@ -84,6 +98,18 @@ namespace :grunt do
     queue %{
       echo "-----> Launch a build with Grunt"
       #{echo_cmd %[[ -f Gruntfile.js ] && (#{grunt_bin} #{grunt_task} #{grunt_options}) || ! [ -f Gruntfile.js ]]}
+    }
+  end
+end
+
+namespace :gulp do
+  # ### gulp:install
+  # Launch a task with gulp. Set the gulp_task (defaults to \"build\") variable before calling this.
+  desc "Launch a task with gulp. Set the gulp_task (defaults to \"build\") variable before calling this."
+  task :task => :environment do
+    queue %{
+      echo "-----> Launch a build with Gulp"
+      #{echo_cmd %[[ -f gulpfile.js ] && (#{gulp_bin} #{gulp_task} #{gulp_options}) || ! [ -f gulpfile.js ]]}
     }
   end
 end
