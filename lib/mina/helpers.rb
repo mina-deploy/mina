@@ -249,7 +249,7 @@ module Mina
     #     commands.should == ['cd ./webapp && (./reload && true)']
 
     def in_directory(path, &blk)
-      isolated_commands = isolate { yield; commands }
+      isolated_commands = isolate { yield; commands(@to) }
       isolated_commands.each { |cmd| queue "(cd #{path} && (#{cmd}))" }
     end
 
