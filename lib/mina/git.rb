@@ -37,15 +37,17 @@ namespace :git do
       ]
     else
       %{
-        if [ ! -d "#{deploy_to}/scm/objects" ]; then
+        if [ ! -d "#{deploy_to}/scm" ]; then
           echo "-----> Cloning the Git repository"
-          #{echo_cmd %[git clone "#{repository!}" "#{deploy_to}/scm" --bare]}
+          #{echo_cmd %[git clone "#{repository!}" "#{deploy_to}/scm" --recursive && (cd "#{deploy_to}/scm" && git checkout -b deploy #{branch})]}
         else
           echo "-----> Fetching new git commits"
-          #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force)]}
+          #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force && git reset --hard #{branch})]}
         fi &&
-        echo "-----> Using git branch '#{branch}'" &&
-        #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive --branch "#{branch}"]} &&
+        echo "-----> Updating git submodules" &&
+        #{echo_cmd %[(cd "#{deploy_to}/scm" && git submodule init && git submodule sync && git submodule update --init --recursive)]} &&
+        echo "-----> Copying to release path (branch: '#{branch}')" &&
+        #{echo_cmd %[rsync -lrpt "#{deploy_to}/scm/" .]} &&
       }
     end
 
