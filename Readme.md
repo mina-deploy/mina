@@ -1116,6 +1116,7 @@ end
 * [mina-s3](https://github.com/stas/mina-s3)
 * [mina-scp](https://github.com/adie/mina-scp)
 * [mina-hooks](https://github.com/elskwid/mina-hooks)
+* [mina-hipchat](https://github.com/apertureless/mina-hipchat)
 * [mina-slack](https://github.com/TAKAyukiatkwsk/mina-slack)
 * [mina-cakephp](https://github.com/mobvox/mina-cakephp)
 * [mina-unicorn](https://github.com/openteam/mina-unicorn)
