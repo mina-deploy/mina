@@ -1108,6 +1108,7 @@ end
 * [mina-stack](https://github.com/div/mina-stack)
 * [mina-rsync](https://github.com/moll/mina-rsync)
 * [mina-sidekiq](https://github.com/Mic92/mina-sidekiq)
+* [mina-blue_green](https://github.com/reedlaw/mina-blue_green)
 * [mina-delayed_job](https://github.com/d4be4st/mina-delayed_job)
 * [mina-nginx](https://github.com/hbin/mina-nginx)
 * [mina-newrelic](https://github.com/navinpeiris/mina-newrelic)
