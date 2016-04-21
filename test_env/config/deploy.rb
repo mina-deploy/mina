@@ -19,6 +19,7 @@ File.open("#{Dir.pwd}/deploy/config/database.yml", 'w') { |f| f.write "Hello" }
 require 'mina/rails'
 require 'mina/bundler'
 require 'mina/git'
+require 'mina/vault'
 require 'pry'
 
 set :domain, 'localhost'

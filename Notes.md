@@ -1,25 +1,3 @@
-Readme
-------
-
-The readme file is auto-generated using make.
-
-    $ make Readme.md
-
-Documentation
--------------
-
-Please consult the [project documentation](http://mina-deploy.github.io/mina) for full
-details.
-
-Problems or suggestions? File issues at the [issue tracker][issues].
-
-Documentation sources
----------------------
-
-See [mina-deploy/mina-docs](https://github.com/mina-deploy/mina-docs) for the sources of
-the documentation site. Please ensure that docs there are in sync with the
-features here.
-
 Development & testing
 ---------------------
 
