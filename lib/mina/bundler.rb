@@ -22,7 +22,7 @@ set_default :bundle_path, './vendor/bundle'
 # ### bundle_withouts
 # Sets the colon-separated list of groups to be skipped from installation.
 
-set_default :bundle_withouts, 'development:test'
+set_default :bundle_withouts, 'development test'
 
 # ### bundle_options
 # Sets the options for installing gems via Bundler.
