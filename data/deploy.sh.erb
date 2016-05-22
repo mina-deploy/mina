@@ -1,40 +1,40 @@
 <%
-  prepare = commands(:default).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  build   = commands(:build).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  launch  = commands(:launch).map  { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  clean   = commands(:clean).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  default = commands.fetch(Commands::Params.new(:remote, :default)).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  build   = commands.fetch(Commands::Params.new(:remote, :build)).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  launch  = commands.fetch(Commands::Params.new(:remote, :launch)).map  { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  clean   = commands.fetch(Commands::Params.new(:remote, :clean)).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
 %>
 #!/usr/bin/env bash
 
 # Go to the deploy path
-cd "<%= deploy_to %>" || (
+cd "<%= fetch(:deploy_to) %>" || (
   echo "! ERROR: not set up."
-  echo "The path '<%= deploy_to %>' is not accessible on the server."
+  echo "The path '<%= fetch(:deploy_to) %>' is not accessible on the server."
   echo "You may need to run 'mina setup' first."
   false
 ) || exit 15
 
 # Check releases path
-if [ ! -d "<%= releases_path %>" ]; then
+if [ ! -d "<%= fetch(:releases_path) %>" ]; then
   echo "! ERROR: not set up."
-  echo "The directory '<%= releases_path %>' does not exist on the server."
+  echo "The directory '<%= fetch(:releases_path) %>' does not exist on the server."
   echo "You may need to run 'mina setup' first."
   exit 16
 fi
 
 # Check lockfile
-if [ -e "<%= lock_file %>" ]; then
+if [ -e "<%= fetch(:lock_file) %>" ]; then
   echo "! ERROR: another deployment is ongoing."
-  echo "The file '<%= lock_file %>' was found."
+  echo "The file '<%= fetch(:lock_file) %>' was found."
   echo "If no other deployment is ongoing, run 'mina deploy:force_unlock' to delete the file."
   exit 17
 fi
 
 # Determine $previous_path and other variables
-[ -h "<%= current_path %>" ] && [ -d "<%= current_path %>" ] && previous_path=$(cd "<%= current_path %>" >/dev/null && pwd -LP)
+[ -h "<%= fetch(:current_path) %>" ] && [ -d "<%= fetch(:current_path) %>" ] && previous_path=$(cd "<%= fetch(:current_path) %>" >/dev/null && pwd -LP)
 build_path="./tmp/build-`date +%s`$RANDOM"
-version=$((`cat "<%= deploy_to %>/last_version" 2>/dev/null`+1))
-release_path="<%= releases_path %>/$version"
+version=$((`cat "<%= fetch(:deploy_to) %>/last_version" 2>/dev/null`+1))
+release_path="<%= fetch(:releases_path) %>/$version"
 
 # Sanity check
 if [ -e "$build_path" ]; then
@@ -45,11 +45,11 @@ fi
 # Bootstrap script (in deployer)
 (
   echo "-----> Creating a temporary build path"
-  <%= echo_cmd %[touch "#{lock_file}"] %> &&
+  <%= echo_cmd %[touch "#{fetch(:lock_file)}"] %> &&
   <%= echo_cmd %[mkdir -p "$build_path"] %> &&
   <%= echo_cmd %[cd "$build_path"] %> &&
   (
-<%= indent 4, (prepare.empty? ? "true" : prepare) %>
+<%= indent 4, (default.empty? ? "true" : default) %>
   ) &&
   echo "-----> Deploy finished"
 ) &&
@@ -73,22 +73,21 @@ fi
 # Rename to the real release path, then symlink 'current'
 (
   echo "-----> Launching"
-  echo "-----> Updating the <%= current_path %> symlink" &&
-  <%= echo_cmd %[ln -nfs "$release_path" "#{current_path}"] %>
+  echo "-----> Updating the <%= fetch(:current_path) %> symlink" &&
+  <%= echo_cmd %[ln -nfs "$release_path" "#{fetch(:current_path)}"] %>
 ) &&
 
 # ============================
 # === Start up server => (in deployer)
 (
-  echo "-----> Launching"
-  <%= echo_cmd %[cd "#{current_path}"] %>
+  <%= echo_cmd %[cd "#{fetch(:current_path)}"] %>
 <%= indent 2, (launch.empty? ? "true" : launch) %>
 ) &&
 
 # ============================
 # === Complete & unlock
 (
-  rm -f "<%= lock_file %>"
+  rm -f "<%= fetch(:lock_file) %>"
   echo "$version" > "./last_version"
   echo "-----> Done. Deployed v$version"
 ) ||
@@ -110,11 +109,11 @@ fi
   )
   (
     echo "Unlinking current"
-    [ -n "$previous_path" ] && <%= echo_cmd %[ln -nfs "$previous_path" "#{current_path}"] %>
+    [ -n "$previous_path" ] && <%= echo_cmd %[ln -nfs "$previous_path" "#{fetch(:current_path)}"] %>
   )
 
   # Unlock
-  <%= echo_cmd %[rm -f "#{lock_file}"] %>
+  <%= echo_cmd %[rm -f "#{fetch(:lock_file)}"] %>
   echo "OK"
   exit 19
 )

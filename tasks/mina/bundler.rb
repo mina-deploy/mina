@@ -1,9 +1,12 @@
+require 'mina/default'
+require 'mina/deploy' if Rake.application.have_rakefile
+
 # # Modules: Bundler
 # Adds settings and tasks for managing Ruby Bundler.
 #
 #     require 'mina/bundler'
 
-# ## Settings
+# ## Configuration
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### bundle_bin

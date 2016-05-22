@@ -5,7 +5,7 @@
 
 require 'mina/bundler'
 
-# ## Settings
+# ## Configuration
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### rails_env

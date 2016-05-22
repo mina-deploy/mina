@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Settings in rake tasks' do
+describe 'Configuration in rake tasks' do
   it '#set should work' do
     rake { set :domain, 'localhost' }
 

@@ -3,7 +3,7 @@
 #
 #     require 'mina/npm'
 
-# ## Settings
+# ## Configuration
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### npm_bin

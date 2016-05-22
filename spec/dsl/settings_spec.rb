@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'Settings' do
+describe 'Configuration' do
   describe 'instances' do
     before :each do
-      @settings = Mina::Settings.new
+      @settings = Mina::Configuration.new
     end
 
     it 'setting/getting should work' do

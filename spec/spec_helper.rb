@@ -1,5 +1,6 @@
 require 'mina'
 require 'rake'
+require 'pry'
 
 RSpec.configure do |config|
   config.order = 'random'
@@ -25,4 +26,3 @@ end
 def root(*a)
   File.join File.expand_path('../../', __FILE__), *a
 end
-

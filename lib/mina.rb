@@ -1,24 +1,39 @@
+require 'rake'
+Rake.application.options.trace = true
+
+require 'pry'
+require 'awesome_print'
+
+require 'forwardable'
+require 'shellwords'
+require 'singleton'
+require 'open4'
+
+require 'mina/version'
+require 'mina/configuration'
+require 'mina/dsl'
+require 'mina/helpers/output'
+require 'mina/helpers/internal'
+require 'mina/commands'
+require 'mina/commands/params'
+require 'mina/commands/element'
+require 'mina/commands/queue'
+require 'mina/runner'
+require 'mina/runner/pretty'
+require 'mina/runner/system'
+require 'mina/runner/exec'
+require 'mina/runner/printer'
+require 'mina/backend/local'
+require 'mina/backend/remote'
+require 'mina/application'
+
 module Mina
-  PREFIX = File.dirname(__FILE__)
-  ROOT = File.expand_path('../../', __FILE__)
-
-  require 'mina/version'
-
-  autoload :DeployHelpers, 'mina/deploy_helpers'
-  autoload :OutputHelpers, 'mina/output_helpers'
-  autoload :SshHelpers, 'mina/ssh_helpers'
-  autoload :LocalHelpers, 'mina/local_helpers'
-  autoload :ExecHelpers, 'mina/exec_helpers'
-  autoload :Helpers, 'mina/helpers'
-  autoload :Settings, 'mina/settings'
-  autoload :Tools, 'mina/tools'
-
-  Error = Class.new(Exception)
-  class Failed < Error
-    attr_accessor :exitstatus
-  end
-
-  def self.root_path(*a)
-    File.join ROOT, *a
+  # Error = Class.new(Exception)
+  # class Failed < Error
+  #   attr_accessor :exitstatus
+  # end
+  #
+  def self.root_path(*args)
+    File.join File.expand_path('../../', __FILE__), *args
   end
 end

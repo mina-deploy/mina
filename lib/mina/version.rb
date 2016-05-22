@@ -1,5 +1,3 @@
 module Mina
-  def self.version
-    '0.3.8'
-  end
+  VERSION = '1.0.0'.freeze
 end

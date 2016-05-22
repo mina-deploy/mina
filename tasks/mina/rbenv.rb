@@ -15,7 +15,7 @@
 #       ...
 #     end
 
-# ## Settings
+# ## Configuration
 # Any and all of these settings can be overriden in your `deploy.rb`.
 
 # ### rbenv_path
