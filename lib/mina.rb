@@ -2,7 +2,7 @@ require 'rake'
 Rake.application.options.trace = true
 
 require 'pry'
-require 'awesome_print'
+# require 'awesome_print'
 
 require 'forwardable'
 require 'shellwords'
@@ -15,9 +15,6 @@ require 'mina/dsl'
 require 'mina/helpers/output'
 require 'mina/helpers/internal'
 require 'mina/commands'
-require 'mina/commands/params'
-require 'mina/commands/element'
-require 'mina/commands/queue'
 require 'mina/runner'
 require 'mina/runner/pretty'
 require 'mina/runner/system'

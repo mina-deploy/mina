@@ -1,12 +1,11 @@
 task :environment do
 end
 
-desc 'Run commands'
-task :run_commands do
-  run_commands
+task run_commands: :environment do
+  commands.run(:remote) unless commands.queue.empty?
 end
 
-task :debug_configuration_variables do
+task debug_configuration_variables: :environment do
   if fetch(:debug_configuration_variables)
     puts
     puts '------- Printing current config variables -------'
@@ -26,10 +25,12 @@ task :run, [:command] => [:environment] do |_, args|
     exit 1
   end
 
-  command "cd #{fetch(:deploy_to)} && #{command}"
+  in_path fetch(:deploy_to) do
+    command command
+  end
 end
 
 desc 'Open an ssh session to the server and cd to deploy_to folder'
-task :ssh do
+task ssh: :environment do
   exec ssh_command + " 'cd #{deploy_to} && exec \$SHELL'"
 end

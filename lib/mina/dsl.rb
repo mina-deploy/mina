@@ -4,14 +4,10 @@ module Mina
 
     extend Forwardable
     def_delegators :configuration, :fetch, :set, :set?, :ensure!
-    def_delegators :commands, :command, :comment, :command_without_verbose
+    def_delegators :commands, :command, :comment
 
     def configuration
       Configuration.instance
-    end
-
-    def commands
-      Commands.instance
     end
 
     def invoke(task, *args)
@@ -19,33 +15,32 @@ module Mina
       Rake::Task[task].reenable
     end
 
-    def run(locality = :local)
-      old_commands_params = save_commands_params(locality: locality)
-      yield
-      restore_commands_params(old_commands_params)
+    def commands
+      @commands ||= Commands.new
     end
 
-    def run_commands
-      commands.run
+    def run(backend)
+      @commands = Commands.new
+      yield
+      commands.run(backend)
     end
 
-    def on(queue_name = :default)
-      old_commands_params = save_commands_params(queue_name: queue_name)
+    def on(stage)
+      old_stage, commands.stage = commands.stage, stage
       yield
-      restore_commands_params(old_commands_params)
+      commands.stage = old_stage
     end
 
-    def in_path(path = '')
-      old_commands_params = save_commands_params(path: path)
+    def in_path(path, indent: nil)
+      real_commands = commands
+      @commands = Commands.new
       yield
-      restore_commands_params(old_commands_params)
+      real_commands.command(commands.process(path), quiet: true, indent: indent)
+      @commands = real_commands
     end
 
     def deploy(&block)
-      set :execution_mode, :pretty
-      run :remote do
-        command_without_verbose deploy_script(&block)
-      end
+      command deploy_script(&block), quiet: true
     end
   end
 end

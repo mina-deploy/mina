@@ -1,36 +1,45 @@
 module Mina
   class Commands
-    include Singleton
     extend Forwardable
+    include Helpers::Internal
 
-    attr_accessor :queue, :params
-    def_delegators :queue, :find, :fetch
+    attr_reader :queue
+    attr_accessor :stage
+    def_delegators :queue, :find, :fetch, :process
 
-    def initialize
-      @params = Params.new(:remote, :default, nil)
-      @queue = Queue.new
+    def initialize(stage = :default)
+      @stage = stage
+      @queue = Hash.new { |hash, key| hash[key] = [] }
     end
 
-    def command(code)
-      queue.find(params).add(code)
+    def command(code, quiet: false, indent: nil)
+      code = indent(indent, code) if indent
+      queue[stage] << (quiet ? code : echo_cmd(code))
     end
 
-    def command_without_verbose(code)
-      params.ignore_verbose!
-      queue.find(params).add(code)
+    def comment(code, indent: nil)
+      if indent
+        queue[stage] << indent(indent, "echo '-----> #{code}'")
+      else
+        queue[stage] << "echo '-----> #{code}'"
+      end
     end
 
-    def comment(code)
-      queue.find(params).add("echo '-----> #{code}'")
+    def fetch(stage)
+      queue.delete(stage) || []
     end
 
-    def run
-      queue.run(
-        Mina::Configuration.instance.fetch(
-          :command_run_order,
-          [[:local, :before], [:remote], [:local, :after]]
-        )
-      )
+    def process(path = nil, indent: nil)
+      if path
+        queue[stage].unshift("echo '$ cd #{path}'") if Mina::Configuration.instance.fetch(:verbose)
+        "(cd #{path} && #{queue[stage].join(' && ')})"
+      else
+        fetch(stage).join("\n")
+      end
+    end
+
+    def run(backend)
+      Mina::Runner.new(process, backend).run
     end
   end
 end

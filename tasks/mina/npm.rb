@@ -51,7 +51,7 @@ namespace :npm do
   # Installs node modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
   desc "Install node modules using Npm."
   task :install => :environment do
-    queue %{
+    command %{
       echo "-----> Installing node modules using Npm"
       sub_directory=$(pwd | sed -r "s/.*?$(basename $build_path)//g")
       #{echo_cmd %[mkdir -p "#{deploy_to}/#{shared_path}/$sub_directory/node_modules"]}
@@ -66,7 +66,7 @@ namespace :bower do
   # Installs bower modules. Takes into account if executed `in_directory` and namespaces the installed modules in the shared folder.
   desc "Install bower modules."
   task :install => :environment do
-    queue %{
+    command %{
       echo "-----> Installing bower modules"
       sub_directory=$(pwd | sed -r "s/.*?$(basename $build_path)//g")
       #{echo_cmd %[mkdir -p "#{deploy_to}/#{shared_path}/$sub_directory/bower_components"]}
@@ -81,7 +81,7 @@ namespace :grunt do
   # Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable before calling this.
   desc "Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable before calling this."
   task :task => :environment do
-    queue %{
+    command %{
       echo "-----> Launch a build with Grunt"
       #{echo_cmd %[[ -f Gruntfile.js ] && (#{grunt_bin} #{grunt_task} #{grunt_options}) || ! [ -f Gruntfile.js ]]}
     }

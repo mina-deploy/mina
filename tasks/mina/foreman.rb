@@ -51,7 +51,7 @@ namespace :foreman do
     sudo_cmd = "sudo" if foreman_sudo
     export_cmd = "#{sudo_cmd} bundle exec foreman export #{foreman_format} #{foreman_location} -a #{foreman_app} -u #{foreman_user} -d #{deploy_to!}/#{current_path!} -l #{foreman_log} -f #{foreman_procfile}"
 
-    queue %{
+    command %{
       echo "-----> Exporting foreman procfile for #{foreman_app}"
       #{echo_cmd %[cd #{deploy_to!}/#{current_path!} ; #{export_cmd}]}
     }
@@ -59,7 +59,7 @@ namespace :foreman do
 
   desc "Start the application services"
   task :start do
-    queue %{
+    command %{
       echo "-----> Starting #{foreman_app} services"
       #{echo_cmd %[sudo start #{foreman_app}]}
     }
@@ -67,7 +67,7 @@ namespace :foreman do
 
   desc "Stop the application services"
   task :stop do
-    queue %{
+    command %{
       echo "-----> Stopping #{foreman_app} services"
       #{echo_cmd %[sudo stop #{foreman_app}]}
     }
@@ -75,7 +75,7 @@ namespace :foreman do
 
   desc "Restart the application services"
   task :restart do
-    queue %{
+    command %{
       echo "-----> Restarting #{foreman_app} services"
       #{echo_cmd %[sudo start #{foreman_app} || sudo restart #{foreman_app}]}
     }

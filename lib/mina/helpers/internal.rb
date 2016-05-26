@@ -1,24 +1,9 @@
 module Mina
   module Helpers
     module Internal
-      def save_commands_params(locality: nil, queue_name: nil, path: nil)
-        params = commands.params
-        commands.params =
-          Commands::Params.new(
-            locality || params.locality,
-            queue_name || params.queue_name,
-            path || params.path
-          )
-        params
-      end
-
-      def restore_commands_params(params)
-        commands.params = params
-      end
-
       def deploy_script
         yield
-        erb Mina.root_path('data/deploy.sh.erb')
+        erb Mina.root_path(fetch(:deploy_script))
       end
 
       def erb(file, b = binding)

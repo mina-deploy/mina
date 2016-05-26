@@ -1,8 +1,8 @@
 <%
-  default = commands.fetch(Commands::Params.new(:remote, :default)).map { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  build   = commands.fetch(Commands::Params.new(:remote, :build)).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  launch  = commands.fetch(Commands::Params.new(:remote, :launch)).map  { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
-  clean   = commands.fetch(Commands::Params.new(:remote, :clean)).map   { |s| "(\n\n#{indent 2, s}\n\n)" }.join(" && ")
+  default = commands.fetch(:default).map { |s| indent 2, s }.join(" &&\n")
+  build   = commands.fetch(:build).map   { |s| indent 2, s }.join(" &&\n")
+  launch  = commands.fetch(:launch).map  { |s| indent 2, s }.join(" &&\n")
+  clean   = commands.fetch(:clean).map   { |s| indent 2, s }.join(" &&\n")
 %>
 #!/usr/bin/env bash
 
@@ -49,7 +49,7 @@ fi
   <%= echo_cmd %[mkdir -p "$build_path"] %> &&
   <%= echo_cmd %[cd "$build_path"] %> &&
   (
-<%= indent 4, (default.empty? ? "true" : default) %>
+<%= indent 2, (default.empty? ? "true" : default) %>
   ) &&
   echo "-----> Deploy finished"
 ) &&
@@ -62,7 +62,7 @@ fi
   <%= echo_cmd %[mv "$build_path" "$release_path"] %> &&
   <%= echo_cmd %[cd "$release_path"] %> &&
   (
-<%= indent 4, (build.empty? ? "true" : build) %>
+<%= indent 2, (build.empty? ? "true" : build) %>
   ) &&
   echo "-----> Build finished"
 

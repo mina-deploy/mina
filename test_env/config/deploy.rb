@@ -19,7 +19,7 @@
 
 require 'mina/deploy'
 require 'mina/git'
-# require 'mina/rails'
+require 'mina/bundler'
 # require 'mina/rails'
 # require 'pry'
 #
@@ -30,21 +30,18 @@ set :repository, "#{Mina.root_path}"
 set :shared_paths, ['config/database.yml', 'log']
 #
 set :keep_releases, 2
-#
-# task :environment do
-#   queue %[echo "-----> Loading env"]
-#   queue %[echo "-----> Buaj"]
-# end
+
+task :environment do
+  command 'eval "$(rbenv init -)"'
+end
 #
 # desc "Deploys."
 task deploy: :environment do
   deploy do
-    # queue %[ruby -e "\\$stderr.write \\\"This is stdout output\n\\\""]
     invoke :'git:clone'
-    # invoke :'deploy:link_shared_paths'
-    # invoke :'bundle:install'
-    # invoke :'rails:db_migrate'
     invoke :'deploy:link_shared_paths'
+    invoke :'bundle:install'
+    # invoke :'rails:db_migrate'
     invoke :'deploy:cleanup'
 
     on :launch do
@@ -81,13 +78,14 @@ end
 #
 desc 'Task description'
 task :test do
-  set :execution_mode, :system
-  run :remote do
-    on :before do
-      command 'sudo pwd'
+  run :local do
+    comment 'PWD'
+    in_path('/Users') do
+      command 'ls -al'
     end
-    # command 'touch novifile'
-    # command 'ls -al'
+    on :after do
+      command 'pwd'
+    end
   end
 end
 
