@@ -781,7 +781,7 @@ Adds settings and tasks for managing projects with [foreman].
 
 NOTE: Requires sudo privileges
 
-[foreman]: http://rubygems.org/ddolar/foreman
+[foreman]: https://rubygems.org/ddolar/foreman
 
    require 'mina/foreman'
 
@@ -957,7 +957,7 @@ their own.
 # Modules: rbenv
 Adds settings and tasks for managing [rbenv] installations.
 
-[rbenv]: https://github.com/sstephenson/rbenv
+[rbenv]: https://github.com/rbenv/rbenv
 
 ~~~ ruby
 require 'mina/rbenv'
@@ -1087,7 +1087,7 @@ Launch a task with grunt. Set the grunt_task (defaults to \"build\") variable be
 # Modules: Whenever
 Adds settings and tasks for managing projects with [whenever].
 
-[whenever]: http://rubygems.org/gems/whenever
+[whenever]: https://rubygems.org/gems/whenever
 
 ## Common usage
 ~~~ ruby
@@ -1118,7 +1118,7 @@ end
 * [mina-hooks](https://github.com/elskwid/mina-hooks)
 * [mina-slack](https://github.com/TAKAyukiatkwsk/mina-slack)
 * [mina-cakephp](https://github.com/mobvox/mina-cakephp)
-* [mina-unicorn](https://github.com/openteam/mina-unicorn)
+* [mina-unicorn](https://github.com/scarfacedeb/mina-unicorn)
 * [mina-puma](https://github.com/sandelius/mina-puma)
 * [mina-mercurial](https://github.com/rainlabs/mina-mercurial)
 * [mina-faye](https://github.com/NingenUA/mina-faye)
@@ -1129,25 +1129,25 @@ end
 Acknowledgements
 ----------------
 
-© 2012-2015, Nadarei. Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+© 2012-2015, Nadarei. Released under the [MIT License](http://opensource.org/licenses/mit-license.php).
 
 Mina is authored and maintained by [Rico Sta. Cruz][rsc] and [Michael 
 Galero][mg] with help from its [contributors][c]. It is sponsored by our 
 startup, [Nadarei][nd].
 
  * [Nadarei](http://nadarei.co) (nadarei.co)
- * [Github](http://github.com/nadarei) (@nadarei)
+ * [Github](https://github.com/nadarei) (@nadarei)
 
 Rico:
 
  * [My website](http://ricostacruz.com) (ricostacruz.com)
- * [Github](http://github.com/rstacruz) (@rstacruz)
- * [Twitter](http://twitter.com/rstacruz) (@rstacruz)
+ * [Github](https://github.com/rstacruz) (@rstacruz)
+ * [Twitter](https://twitter.com/rstacruz) (@rstacruz)
 
 Michael:
 
  * [My website][mg] (michaelgalero.com)
- * [Github](http://github.com/mikong) (@mikong)
+ * [Github](https://github.com/mikong) (@mikong)
 
 [rsc]: http://ricostacruz.com
 [mg]:  http://devblog.michaelgalero.com/
