@@ -46,4 +46,12 @@ namespace :bundle do
       #{echo_cmd %[#{bundle_bin} install #{bundle_options}]}
     }
   end
+
+  desc "Cleans up unused gems in your bundler directory"
+  task :clean do
+    queue %{
+      echo "-----> Cleans up unsed gems"
+      #{echo_cmd %[#{bundle_bin} clean]}
+    }
+  end
 end
