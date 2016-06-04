@@ -38,6 +38,17 @@ set_default :rake, lambda { %{#{bundle_prefix} rake} }
 
 set_default :rails, lambda { %{#{bundle_prefix} rails} }
 
+# ### migration_paths
+#
+# Migration paths are checked if they have changed from the previous
+# release.
+#
+# If they're unchanged, migration is skipped.
+#
+# Ovrride this if you have custom migration paths declared.
+
+set_default :migration_paths, ['db/migration']
+
 # ### asset_paths
 # The paths to be checked.
 #
@@ -161,8 +172,7 @@ namespace :rails do
         'Migrating database'
 
       queue check_for_changes_script \
-        :check => 'db/migrate/',
-        :at => ['db/migrate/'],
+        :at => [ *migration_paths ],
         :skip => %[
           echo "-----> DB migrations unchanged; skipping DB migration"
         ],
