@@ -23,15 +23,6 @@ module Mina
       def indent(count, str)
         str.gsub(/^/, ' ' * count)
       end
-
-      def unindent(code)
-        code = code.gsub(/^#{Regexp.last_match[1]}/, '') if code =~ /^\n([ \t]+)/
-        code.strip
-      end
-
-      def reindent(n, code)
-        indent n, unindent(code)
-      end
     end
   end
 end

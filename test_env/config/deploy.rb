@@ -17,18 +17,15 @@
 # # -- Stubs end, deploy script begins! --------------
 #
 
-require 'mina/deploy'
 require 'mina/git'
-require 'mina/bundler'
-# require 'mina/rails'
+require 'mina/rails'
 # require 'pry'
 #
+
 set :domain, 'localhost'
-set :user, 'stef'
 set :deploy_to, "#{Dir.pwd}/deploy"
 set :repository, "#{Mina.root_path}"
 set :shared_paths, ['config/database.yml', 'log']
-#
 set :keep_releases, 2
 
 task :environment do
@@ -41,41 +38,15 @@ task deploy: :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    # invoke :'rails:db_migrate'
+    invoke :'rails:db_migrate'
     invoke :'deploy:cleanup'
 
     on :launch do
-      # invoke :'passenger:restart'
       comment 'in launch'
     end
   end
 end
-#
-# desc "Restarts the passenger server."
-# task :restart do
-#   set :term_mode, :pretty
-#   to :before do
-#     queue %(
-#       echo "-----> Copying files"
-#       #{echo_cmd %[cp deploy/last_version deploy/last_version_2]}
-#     )
-#   end
-#   invoke :'passenger:restart'
-#   to :after do
-#     queue "echo '-----> After'"
-#   end
-# end
-#
-# namespace :passenger do
-#   task :restart do
-#     queue %{
-#       echo "-----> Restarting passenger"
-#       #{echo_cmd %[mkdir -p tmp]}
-#       #{echo_cmd %[touch tmp/restart.txt]}
-#     }
-#   end
-# end
-#
+
 desc 'Task description'
 task :test do
   run :local do
@@ -85,16 +56,6 @@ task :test do
     end
     on :after do
       command 'pwd'
-    end
-  end
-end
-
-desc 'password'
-task :password do
-  set :execution_mode, :pretty
-  run :local do
-    on :before do
-      command %[echo "-> Getting password"; echo -n "Password: "; read x; echo ""; echo out: $x;]
     end
   end
 end

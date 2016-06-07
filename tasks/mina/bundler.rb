@@ -8,7 +8,7 @@ set :shared_dirs, fetch(:shared_dirs, []).push(fetch(:bundle_path))
 
 namespace :bundle do
   desc 'Install gem dependencies using Bundler.'
-  task :install do
+  task install: :environment do
     comment 'Installing gem dependencies using Bundler'
     command "#{fetch(:bundle_bin)} install #{fetch(:bundle_options)}"
   end

@@ -1,11 +1,11 @@
 module Mina
   class Runner
-    attr_reader :commands, :locality
+    attr_reader :commands, :backend
 
-    def initialize(commands, locality)
+    def initialize(commands, backend)
       fail 'You must specify execution mode' if execution_mode.nil?
       fail 'Unsuported execution mode (pretty on windows)' if unsuported_execution_mode?
-      @locality = locality
+      @backend = backend
       @commands = commands
     end
 
@@ -13,19 +13,19 @@ module Mina
       Mina::Runner.const_get(class_name_for(execution_mode)).new(script).run
     end
 
-    private
-
     def execution_mode
       @execution_mode ||=
-        if Mina::Configuration.instance.fetch(:simulate)
-          :printer
-        else
-          Mina::Configuration.instance.fetch(:execution_mode)
-        end
+      if Mina::Configuration.instance.fetch(:simulate)
+        :printer
+      else
+        Mina::Configuration.instance.fetch(:execution_mode)
+      end
     end
 
+    private
+
     def script
-      Mina::Backend.const_get(class_name_for(locality)).new(commands).prepare
+      Mina::Backend.const_get(class_name_for(backend)).new(commands).prepare
     end
 
     def unsuported_execution_mode?

@@ -1,28 +1,18 @@
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require 'mina'
-require 'rake'
-require 'pry'
+require 'rspec'
+
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
+  config.include RunHelper
+
+  config.raise_errors_for_deprecations!
   config.order = 'random'
-  config.seed = '12345'
-end
 
-class RakeScope
-  include Rake::DSL  if Rake.const_defined?(:DSL)
-  include Mina::Helpers
-  include Mina::SshHelpers
-  include Mina::LocalHelpers
-end
-
-def rake(&blk)
-  if block_given?
-    @scope ||= RakeScope.new
-    @scope.instance_eval &blk
+  config.after(:each) do
+    Mina::Configuration.instance.reset!
   end
-
-  @scope
-end
-
-def root(*a)
-  File.join File.expand_path('../../', __FILE__), *a
 end

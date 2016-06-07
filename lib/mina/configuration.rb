@@ -13,8 +13,12 @@ module Mina
     end
 
     def fetch(key, default = nil)
-      value = variables.fetch(key, default)
+      value = ENV[key.to_s] || variables.fetch(key, default)
       value.respond_to?(:call) ? value.call : value
+    end
+
+    def remove(key)
+      variables.delete(key)
     end
 
     def set?(key)
@@ -23,6 +27,10 @@ module Mina
 
     def ensure!(key)
       fail "#{key} must be defined!" unless set?(key)
+    end
+
+    def reset!
+      @variables = {}
     end
   end
 end

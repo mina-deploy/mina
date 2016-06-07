@@ -10,13 +10,13 @@ set :execution_mode, :pretty
 
 namespace :deploy do
   desc 'Forces a deploy unlock.'
-  task :force_unlock do
+  task force_unlock: :environment do
     comment 'Unlocking'
     command "rm -f '#{fetch(:deploy_to)}/#{fetch(:lock_file)}'"
   end
 
   desc 'Links paths set in :shared_dirs and :shared_files.'
-  task :link_shared_paths do
+  task link_shared_paths: :environment do
     comment 'Symlinking shared paths'
 
     fetch(:shared_dirs, []).each do |linked_dir|
@@ -31,7 +31,7 @@ namespace :deploy do
   end
 
   desc 'Clean up old releases.'
-  task :cleanup do
+  task cleanup: :environment do
     ensure!(:keep_releases)
     ensure!(:deploy_to)
 
@@ -62,7 +62,7 @@ end
 # end
 
 desc 'Sets up a site.'
-task :setup do
+task setup: :environment do
   ensure!(:deploy_to)
 
   comment "Setting up #{fetch(:deploy_to)}"

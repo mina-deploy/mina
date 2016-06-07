@@ -24,7 +24,7 @@ module Mina
 
             stderr_thread = Thread.new do
               while (line = stderr.gets)
-                print_line(line)
+                print_stderr(line)
               end
             end
 
@@ -48,33 +48,6 @@ module Mina
         end
         @coathooks += 1
       end
-
-      # def stream_stderr!(err)
-      #   Thread.new do
-      #     begin
-      #       while str = err.gets #[0]
-      #         next if str.include? 'bash: no job control in this shell' #[1]
-      #         next if str.include? 'stdin is not a terminal'
-      #
-      #         yield str.strip #[2]
-      #       end
-      #     rescue Interrupt
-      #     end
-      #   end
-      # end
-      #
-      # def stream_stdin!
-      #   Thread.new do
-      #     begin
-      #       while (char = STDIN.getbyte rescue nil)
-      #         yield char if char
-      #       end
-      #     rescue Interrupt
-      #     # rubinius
-      #     rescue SignalException
-      #     end
-      #   end
-      # end
     end
   end
 end

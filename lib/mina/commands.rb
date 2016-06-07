@@ -29,7 +29,7 @@ module Mina
       queue.delete(stage) || []
     end
 
-    def process(path = nil, indent: nil)
+    def process(path = nil)
       if path
         queue[stage].unshift("echo '$ cd #{path}'") if Mina::Configuration.instance.fetch(:verbose)
         "(cd #{path} && #{queue[stage].join(' && ')})"
