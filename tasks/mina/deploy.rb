@@ -1,8 +1,8 @@
 require 'mina/default'
 
-set :releases_path, 'releases'
-set :shared_path, 'shared'
-set :current_path, 'current'
+set :releases_path, -> { "#{fetch(:deploy_to)}/releases" }
+set :shared_path, -> { "#{fetch(:deploy_to)}/shared" }
+set :current_path, -> { "#{fetch(:deploy_to)}/current" }
 set :lock_file, 'deploy.lock'
 set :deploy_script, 'data/deploy.sh.erb'
 set :keep_releases, 5
@@ -22,11 +22,11 @@ namespace :deploy do
     fetch(:shared_dirs, []).each do |linked_dir|
       command %(mkdir -p #{File.dirname("./#{linked_dir}")})
       command "rm -rf './#{linked_dir}'"
-      command "ln -s '#{fetch(:deploy_to)}/#{fetch(:shared_path)}/#{linked_dir}' './#{linked_dir}'"
+      command "ln -s '#{fetch(:shared_path)}/#{linked_dir}' './#{linked_dir}'"
     end
 
     fetch(:shared_files, []).each do |linked_path|
-      command "ln -s '#{fetch(:deploy_to)}/#{fetch(:shared_path)}/#{linked_path}' './#{linked_path}'"
+      command "ln -s '#{fetch(:shared_path)}/#{linked_path}' './#{linked_path}'"
     end
   end
 
@@ -36,7 +36,7 @@ namespace :deploy do
     ensure!(:deploy_to)
 
     comment "Cleaning up old releases (keeping #{fetch(:keep_releases)})"
-    in_path "#{fetch(:deploy_to)}/#{fetch(:releases_path)}" do
+    in_path "#{fetch(:releases_path)}" do
       command 'count=`ls -1 | sort -rn | wc -l`'
       command "remove=$((count > #{fetch(:keep_releases)} ? $count - #{fetch(:keep_releases)} : 0))"
       command 'ls -1 | sort -rn | tail -n $remove | xargs rm -rf {}'
@@ -51,13 +51,13 @@ end
 #
 #     # Delete existing sym link and create a new symlink pointing to the previous release
 #     comment 'Creating new symlink from the previous release: '
-#     command "ls -Art '#{fetch(:deploy_to)}/#{fetch(:releases_path)}' | sort | tail -n 2 | head -n 1"
-#     command "ls -Art '#{fetch(:deploy_to)}/#{fetch(:releases_path)}' | sort | tail -n 2 | head -n 1 | xargs -I active ln -nfs '#{fetch(:deploy_to)}/#{fetch(:releases_path)}/active' '#{fetch(:deploy_to)}/#{fetch(:current_path)}'"
+#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 2 | head -n 1"
+#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 2 | head -n 1 | xargs -I active ln -nfs '#{fetch(:releases_path)}/active' '#{fetch(:current_path)}'"
 #
 #     # Remove latest release folder (current release)
 #     comment 'Deleting current release: '
-#     command "ls -Art '#{fetch(:deploy_to)}/#{fetch(:releases_path)}' | sort | tail -n 1"
-#     command "ls -Art '#{fetch(:deploy_to)}/#{fetch(:releases_path)}' | sort | tail -n 1 | xargs -I active rm -rf '#{fetch(:deploy_to)}/#{fetch(:releases_path)}/active'"
+#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 1"
+#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 1 | xargs -I active rm -rf '#{fetch(:releases_path)}/active'"
 #   end
 # end
 
@@ -69,14 +69,12 @@ task setup: :environment do
   command "mkdir -p '#{fetch(:deploy_to)}'"
   command "chown -R `whoami` '#{fetch(:deploy_to)}'"
   command "chmod g+rx,u+rwx '#{fetch(:deploy_to)}'"
-  in_path fetch(:deploy_to) do
-    command "mkdir -p '#{fetch(:releases_path)}'"
-    command "chmod g+rx,u+rwx '#{fetch(:releases_path)}'"
-    command "mkdir -p '#{fetch(:shared_path)}'"
-    command "chmod g+rx,u+rwx '#{fetch(:shared_path)}'"
-  end
+  command "mkdir -p '#{fetch(:releases_path)}'"
+  command "chmod g+rx,u+rwx '#{fetch(:releases_path)}'"
+  command "mkdir -p '#{fetch(:shared_path)}'"
+  command "chmod g+rx,u+rwx '#{fetch(:shared_path)}'"
 
-  in_path "#{fetch(:deploy_to)}/#{fetch(:shared_path)}" do
+  in_path "#{fetch(:shared_path)}" do
     fetch(:shared_dirs, []).each do |linked_dir|
       command "mkdir -p '#{linked_dir}'"
       command "chmod g+rx,u+rwx '#{linked_dir}'"

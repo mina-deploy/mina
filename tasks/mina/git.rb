@@ -31,6 +31,6 @@ namespace :git do
 
   task revision: :environment do
     ensure!(:deploy_to)
-    command "cat #{fetch(:deploy_to)}/#{fetch(:current_path)}/.mina_git_revision"
+    command "cat #{fetch(:current_path)}/.mina_git_revision"
   end
 end

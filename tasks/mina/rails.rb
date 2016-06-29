@@ -13,7 +13,7 @@ set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compil
 desc 'Starts an interactive console.'
 task console: :environment do
   set :execution_mode, :exec
-  in_path "#{fetch(:deploy_to)}/#{fetch(:current_path)}" do
+  in_path "#{fetch(:current_path)}" do
     command "#{fetch(:rails)} console"
   end
 end
@@ -21,7 +21,7 @@ end
 desc 'Tail log from server'
 task log: :environment do
   set :execution_mode, :exec
-  in_path "#{fetch(:deploy_to)}/#{fetch(:shared_path)}/log" do
+  in_path "#{fetch(:shared_path)}/log" do
     command "tail -f #{fetch(:rails_env)}.log"
   end
 end
@@ -76,7 +76,7 @@ end
 
 def check_for_changes_script(options)
   diffs = options[:at].map do |path|
-    "diff -qrN '#{fetch(:deploy_to)}/#{fetch(:current_path)}/#{path}' './#{path}' 2>/dev/null"
+    "diff -qrN '#{fetch(:current_path)}/#{path}' './#{path}' 2>/dev/null"
   end.join(' && ')
 
   %(if #{diffs}
