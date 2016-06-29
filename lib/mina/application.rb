@@ -64,7 +64,7 @@ module Mina
 
     def debug_configuration_variables
       ['--debug-configuration-variables', '-d',
-       'Display the defined config variables before starting the deployment tasks.',
+       'Display the defined config variables before runnig the tasks.',
        lambda do |_value|
          Mina::Configuration.instance.set(:debug_configuration_variables, true)
        end

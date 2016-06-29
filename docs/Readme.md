@@ -1,5 +1,7 @@
 # Mina Documentations
 
 * [Getting started](getting_started.md)
-* [Writing your own scripts](writing_your_own_scripts.md)
+* [Deploying](deploying.md)
+* [Writing your own tasks](writing_your_own_tasks.md)
+* [Command line options](command_line_options.md)
 * [FAQ](faq.md)
