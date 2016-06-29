@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mina'
 require 'rspec'
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
