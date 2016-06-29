@@ -19,7 +19,9 @@ session per deploy, minimizing the SSH connection overhead.
     $ gem install mina
     $ mina
 
-[![Build Status](https://travis-ci.org/mina-deploy/mina.svg?branch=master)](https://travis-ci.org/mina-deploy/mina)
+[![Code Climate](https://codeclimate.com/repos/5774207165982076ca005984/badges/6877153919d603250738/gpa.svg)](https://codeclimate.com/repos/5774207165982076ca005984/feed)
+[![Test Coverage](https://codeclimate.com/repos/5774207165982076ca005984/badges/6877153919d603250738/coverage.svg)](https://codeclimate.com/repos/5774207165982076ca005984/coverage)
+[![Build Status](https://semaphoreci.com/api/v1/d4be4st/mina/branches/master/shields_badge.svg)](https://semaphoreci.com/d4be4st/mina)
 [![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina)
 
 Documentation
