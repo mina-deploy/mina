@@ -25,10 +25,10 @@ session per deploy, minimizing the SSH connection overhead.
 Documentation
 ----------------
 
-For quick start check out [Getting starting guide](https://github.com/mina-deploy/mina/wiki/Getting-Started)
+For quick start check out [Getting starting guide](docs/getting_started.md)
 
 
-For other documentation please visit the [wiki](https://github.com/mina-deploy/mina/wiki)
+For other documentation please visit the [docs](docs)
 
 Acknowledgements
 ----------------

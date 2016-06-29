@@ -88,13 +88,13 @@ def check_for_changes_script(options)
 end
 
 # Macro used later by :rails, :rake, etc
-make_run_task = lambda { |name, sample_args|
+make_run_task = lambda { |name, example|
   task name, [:arguments] => :environment do |_, args|
     set :execution_mode, :exec
 
     arguments = args[:arguments]
     unless arguments
-      puts %(You need to provide arguments. Try: mina "#{name}[#{sample_args}]")
+      puts %(You need to provide arguments. Try: mina "#{name}[#{example}]")
       exit 1
     end
     command %(cd "#{deploy_to!}/#{current_path!}" && #{fetch(name)} #{arguments})

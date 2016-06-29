@@ -5,6 +5,5 @@ test_env/deploy
 .ruby-version
 Gemfile.lock
 pkg/
-docs
 support/helpers.md
 support/modules.md
