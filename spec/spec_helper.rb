@@ -1,10 +1,14 @@
+require 'codeclimate-test-reporter'
+require 'simplecov'
+
+CodeClimate::TestReporter.start
+SimpleCov.start
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mina'
 require 'rspec'
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
