@@ -29,6 +29,9 @@ Documentation
 
 For quick start check out [Getting starting guide](docs/getting_started.md)
 
+For migrating your current 0.3.x deploy scripts, please look at the [migrating guide](docs/migrating.md)
+
+For FAQ please visit the [faq](docs/faq.md)
 
 For other documentation please visit the [docs](docs)
 
@@ -72,4 +75,6 @@ Nadrei:
 [mg]:  http://devblog.michaelgalero.com/
 [c]:   http://github.com/mina-deploy/mina/graphs/contributors
 [nd]:  http://nadarei.co
-[sh]:  
+[sh]:  https://github.com/d4be4st
+[gs]:  https://github.com/gabskoro
+[inf]: https://infinum.co

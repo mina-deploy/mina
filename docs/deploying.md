@@ -1,8 +1,7 @@
 Deploying
 --------------------
 
-Mina provides the `deploy` command which *queue*s up a deploy script for
-you.
+Mina provides the `deploy` command which runs your commands on remote backend.
 
 ``` ruby
 # config/deploy.rb
