@@ -1,5 +1,7 @@
 module Mina
-  class Configuration < BasicObject
+  class Configuration
+    include Singleton
+
     module DSL
       def self.included(base)
         [:set, :fetch, :remove, :set?, :ensure!, :reset!].each do |method|
@@ -10,7 +12,6 @@ module Mina
       end
     end
 
-    include Singleton
 
     attr_reader :variables
 
