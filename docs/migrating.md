@@ -23,3 +23,8 @@ Migrating from 0.3.x to 1.0
 * `fetch`                       # **ALL** variables now need to be fetched with `fetch`. Removed `method_missing`
 * `set?`
 * `ensure!`
+
+# Deploy variables
+
+All `*_path` variables (`:current_path`, `:shared_path`, ...) now include `:deploy_to`
+* `#{fetch(:deploy_to)}/#{fetch(:current_path)}` -> `fetch(:current_path)`
