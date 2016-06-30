@@ -1,6 +1,7 @@
 module Mina
   class Runner
     attr_reader :commands, :backend
+    include Configuration::DSL
 
     def initialize(commands, backend)
       fail 'You must specify execution mode' if execution_mode.nil?
@@ -15,10 +16,10 @@ module Mina
 
     def execution_mode
       @execution_mode ||=
-      if Mina::Configuration.instance.fetch(:simulate)
+      if fetch(:simulate)
         :printer
       else
-        Mina::Configuration.instance.fetch(:execution_mode)
+        fetch(:execution_mode)
       end
     end
 

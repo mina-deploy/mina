@@ -1,5 +1,15 @@
 module Mina
-  class Configuration
+  class Configuration < BasicObject
+    module DSL
+      def self.included(base)
+        [:set, :fetch, :remove, :set?, :ensure!, :reset!].each do |method|
+          base.send :define_method, method do |*args,  &block|
+            Configuration.instance.send(method, *args, &block)
+          end
+        end
+      end
+    end
+
     include Singleton
 
     attr_reader :variables
