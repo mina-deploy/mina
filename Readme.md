@@ -33,6 +33,8 @@ For migrating your current 0.3.x deploy scripts, please look at the [migrating g
 
 For FAQ please visit the [faq](docs/faq.md)
 
+If you are missing some plugins check the [3rd party plugins doc](docs/3rd_party_plugins.md)
+
 For other documentation please visit the [docs](docs)
 
 Acknowledgements
