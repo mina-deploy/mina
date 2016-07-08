@@ -8,7 +8,7 @@ Mina provides the `deploy` command which runs your commands on remote backend.
 set :domain, 'flipstack.com'
 set :user, 'flipstack'
 set :deploy_to, '/var/www/flipstack.com'
-set :repository, 'http://github.com/flipstack/flipstack.git'
+set :repository, 'https://github.com/flipstack/flipstack.git'
 
 task :deploy do
   deploy do

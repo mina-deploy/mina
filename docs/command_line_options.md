@@ -20,7 +20,7 @@ Beside normal rake options mina added some of its own:
 
 ### Tasks
 
-There are many tasks available. See the [tasks reference](http://mina-deploy.github.io/mina/tasks/), or
+There are many tasks available. See the [tasks reference](https://mina-deploy.github.io/mina/tasks/), or
 type `mina -T`.
 
 ### Variables

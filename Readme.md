@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/repos/5774207165982076ca005984/badges/6877153919d603250738/gpa.svg)](https://codeclimate.com/repos/5774207165982076ca005984/feed)
 [![Test Coverage](https://codeclimate.com/repos/5774207165982076ca005984/badges/6877153919d603250738/coverage.svg)](https://codeclimate.com/repos/5774207165982076ca005984/coverage)
 [![Build Status](https://semaphoreci.com/api/v1/d4be4st/mina/branches/master/shields_badge.svg)](https://semaphoreci.com/d4be4st/mina)
-[![Gem Version](https://badge.fury.io/rb/mina.svg)](http://badge.fury.io/rb/mina)
+[![Gem Version](https://badge.fury.io/rb/mina.svg)](https://badge.fury.io/rb/mina)
 
 Really fast deployer and server automation tool.
 
@@ -40,7 +40,7 @@ Acknowledgements
 
 © 2012-2015, Nadarei.  
 2015-2016, Infinum.  
-Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+Released under the [MIT License](https://www.opensource.org/licenses/mit-license.php).
 
 Mina is authored [Rico Sta. Cruz][rsc] and [Michael Galero][mg] with help from its [contributors][c] and their startup, [Nadarei][nd].  
 It is maintained by [Stjepan Hadjić][sh] and [Gabrijel Škoro][gs] and sponsored by [Infinum][inf].
@@ -57,24 +57,24 @@ Gabrijel:
 
 Rico:
 
- * [My website](http://ricostacruz.com) (ricostacruz.com)
- * [Github](http://github.com/rstacruz) (@rstacruz)
- * [Twitter](http://twitter.com/rstacruz) (@rstacruz)
+ * [My website](https://ricostacruz.com) (ricostacruz.com)
+ * [Github](https://github.com/rstacruz) (@rstacruz)
+ * [Twitter](https://twitter.com/rstacruz) (@rstacruz)
 
 Michael:
 
  * [My website][mg] (michaelgalero.com)
- * [Github](http://github.com/mikong) (@mikong)
+ * [Github](https://github.com/mikong) (@mikong)
 
 Nadrei:
 
- * [Nadarei](http://nadarei.co) (nadarei.co)
- * [Github](http://github.com/nadarei) (@nadarei)
+ * [Nadarei](https://nadarei.co) (nadarei.co)
+ * [Github](https://github.com/nadarei) (@nadarei)
 
-[rsc]: http://ricostacruz.com
-[mg]:  http://devblog.michaelgalero.com/
-[c]:   http://github.com/mina-deploy/mina/graphs/contributors
-[nd]:  http://nadarei.co
+[rsc]: https://ricostacruz.com
+[mg]:  https://devblog.michaelgalero.com/
+[c]:   https://github.com/mina-deploy/mina/graphs/contributors
+[nd]:  https://nadarei.co
 [sh]:  https://github.com/d4be4st
 [gs]:  https://github.com/gabskoro
 [inf]: https://infinum.co

@@ -209,7 +209,7 @@ Metrics/AbcSize:
   Description: >-
                  A calculated magnitude based on number of assignments,
                  branches, and conditions.
-  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+  Reference: 'https://c2.com/cgi/wiki?AbcMetric'
   Enabled: false
   Max: 20
 
@@ -358,7 +358,7 @@ Rails/ScopeArgs:
 Rails/TimeZone:
   Description: 'Checks the correct usage of time zone aware methods.'
   StyleGuide: 'https://github.com/bbatsov/rails-style-guide#time'
-  Reference: 'http://danilenko.org/2012/7/6/rails_timezones'
+  Reference: 'https://danilenko.org/2012/7/6/rails_timezones'
   Enabled: false
 
 Rails/Validation:
@@ -644,7 +644,7 @@ Style/FormatString:
 Style/GlobalVars:
   Description: 'Do not introduce global variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#instance-vars'
-  Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
+  Reference: 'https://www.zenspider.com/Languages/Ruby/QuickRef.html'
   Enabled: false
 
 Style/GuardClause:

@@ -3,6 +3,15 @@ Setting up a project
 
 Let's deploy a project using Mina.
 
+### Step 0: Configure server
+
+Your server needs to be properly configured for mina to work. Requirements for mina 1.0 to work:
+- SSH public/private key pair set up
+- deploy user to have access to folders where you want to install the application
+- installed git
+- installed ruby (some ruby manager recommended rbenv/rvm/chruby)
+- installed bundler
+
 ### Step 1: Create a config/deploy.rb
 
 In your project, type `mina init` to create a sample of this file.
