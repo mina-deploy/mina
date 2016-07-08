@@ -1,6 +1,7 @@
 require 'mina/default'
 
 set :branch, 'master'
+set :remove_git_dir, true
 
 namespace :git do
   desc 'Clones the Git repository to the release path.'
@@ -26,7 +27,9 @@ namespace :git do
     comment 'Using this git commit'
     command 'git rev-parse HEAD > .mina_git_revision'
     command "git --no-pager log --format='%aN (%h):%n> %s' -n 1"
-    command 'rm -rf .git'
+    if fetch(:remove_git_dir)
+      command 'rm -rf .git'
+    end
   end
 
   task revision: :environment do
