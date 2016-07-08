@@ -82,4 +82,6 @@ task setup: :environment do
   end
 
   command "tree '#{fetch(:deploy_to)}' || ls -al '#{fetch(:deploy_to)}'"
+
+  invoke :ssh_keyscan
 end
