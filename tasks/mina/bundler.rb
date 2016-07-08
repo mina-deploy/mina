@@ -12,4 +12,10 @@ namespace :bundle do
     comment 'Installing gem dependencies using Bundler'
     command "#{fetch(:bundle_bin)} install #{fetch(:bundle_options)}"
   end
+
+  desc 'Cleans up unused gems in your bundler directory'
+  task :clean do
+    comment 'Cleans up unsed gems'
+    command "#{fetch(:bundle_bin)} clean #{fetch(:bundle_options)}"
+  end
 end
