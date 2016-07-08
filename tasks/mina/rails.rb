@@ -6,7 +6,8 @@ set :bundle_prefix, -> { "RAILS_ENV='#{fetch(:rails_env)}' #{fetch(:bundle_bin)}
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
 set :compiled_asset_path, 'public/assets'
-set :asset_paths, ['vendor/assets/', 'app/assets/']
+set :asset_dirs, ['vendor/assets/', 'app/assets/']
+set :migration_dirs ['db/migrate']
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path))
 
@@ -34,7 +35,7 @@ namespace :rails do
       command "#{fetch(:rake)} db:migrate"
     else
       command check_for_changes_script(
-        at: ['db/migrate'],
+        at: fetch(:migration_dirs),
         skip: "echo '-----> DB migrations unchanged; skipping DB migration'",
         changed: %(
           echo '-----> Migrating database'
@@ -63,7 +64,7 @@ namespace :rails do
       command "#{fetch(:rake)} assets:precompile"
     else
       command check_for_changes_script(
-        at: fetch(:asset_paths),
+        at: fetch(:asset_dirs),
         skip: 'echo "-----> Skipping asset precompilation"',
         changed: %(
           echo "-----> Precompiling asset files"
