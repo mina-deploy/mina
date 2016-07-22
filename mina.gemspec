@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.files = `git ls-files`.strip.split("\n")
   spec.executables = Dir['bin/*'].map { |f| File.basename(f) }
   spec.licenses = ['MIT']
-  spec.require_paths = ['lib', 'tasks']
+  spec.require_paths = ['lib']
 
   spec.add_dependency 'rake'
   spec.add_dependency 'open4', '~> 1.3.4'
