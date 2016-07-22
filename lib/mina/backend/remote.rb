@@ -23,8 +23,6 @@ module Mina
         end
       end
 
-      private
-
       def ssh
         fail 'No domain set' unless set?(:domain)
         args = fetch(:domain)
