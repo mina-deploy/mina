@@ -7,7 +7,7 @@ set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
 set :compiled_asset_path, 'public/assets'
 set :asset_dirs, ['vendor/assets/', 'app/assets/']
-set :migration_dirs ['db/migrate']
+set :migration_dirs, ['db/migrate']
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path))
 
