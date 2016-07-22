@@ -39,7 +39,9 @@ module Mina
     end
 
     def run(backend)
-      Mina::Runner.new(process, backend).run
+      report_time do
+        Mina::Runner.new(process, backend).run
+      end
     end
   end
 end

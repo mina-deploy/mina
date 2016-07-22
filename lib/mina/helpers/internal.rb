@@ -23,6 +23,12 @@ module Mina
       def indent(count, str)
         str.gsub(/^/, ' ' * count)
       end
+
+      def report_time
+        time_start = Time.now
+        yield
+        puts "Elapsed time: %.2f seconds" % [Time.now - time_start]
+      end
     end
   end
 end
