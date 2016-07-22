@@ -30,3 +30,10 @@ Migrating from 0.3.x to 1.0
 
 All `*_path` variables (`:current_path`, `:shared_path`, ...) now include `:deploy_to`
 * `#{fetch(:deploy_to)}/#{fetch(:current_path)}` -> `fetch(:current_path)`
+
+# Using new mina on old projects
+
+* run `mina setup`
+* if you do not want for bundle to install gems copy `current/vendor/bundle` to `/shared/vender/bundle`
+* if you do not want to precompile assets copy `current/public/assets` to `shared/public/assets`
+* if you want to precompile you will need to run deploy with `force_asset_precompile=true`
