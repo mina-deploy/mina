@@ -26,8 +26,9 @@ module Mina
 
       def report_time
         time_start = Time.now
-        yield
+        output = yield
         puts "Elapsed time: %.2f seconds" % [Time.now - time_start]
+        output
       end
     end
   end

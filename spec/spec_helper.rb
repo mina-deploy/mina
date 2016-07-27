@@ -9,6 +9,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'mina'
 require 'rspec'
+require 'pry'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
