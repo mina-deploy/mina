@@ -4,7 +4,7 @@ task :init do
   config_file = Rake.application.rakefile
 
   unless File.exist?(config_file)
-    print_str "! You already have #{config_file}."
+    puts "! You already have #{config_file}."
     exit 8
   end
 
@@ -13,6 +13,6 @@ task :init do
   FileUtils.mkdir_p './config'
   FileUtils.cp Mina.root_path('data/deploy.rb'), outfile
 
-  print_str "-----> Created #{outfile}"
-  print_str "Edit this file, then run `#{name} setup` after."
+  puts "-----> Created #{outfile}"
+  puts "Edit this file, then run `#{name} setup` after."
 end
