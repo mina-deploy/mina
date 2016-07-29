@@ -19,9 +19,9 @@ module Mina
 
     def comment(code, indent: nil)
       if indent
-        queue[stage] << indent(indent, "echo '-----> #{code}'")
+        queue[stage] << indent(indent, %(echo "-----> #{code}"))
       else
-        queue[stage] << "echo '-----> #{code}'"
+        queue[stage] << %(echo "-----> #{code}")
       end
     end
 

@@ -37,29 +37,27 @@ namespace :deploy do
 
     comment "Cleaning up old releases (keeping #{fetch(:keep_releases)})"
     in_path "#{fetch(:releases_path)}" do
-      command 'count=`ls -1 | sort -rn | wc -l`'
+      command 'count=`ls -A1 | sort -rn | wc -l`'
       command "remove=$((count > #{fetch(:keep_releases)} ? $count - #{fetch(:keep_releases)} : 0))"
-      command 'ls -1 | sort -rn | tail -n $remove | xargs rm -rf {}'
+      command 'ls -A1 | sort -rn | tail -n $remove | xargs rm -rf {}'
     end
   end
 end
 
-# TODO: Test this
-#   desc 'Rollbacks the latest release'
-#   task rollback: :environment do
-#     comment "Rolling back to previous release for instance: #{fetch(:domain)}"
-#
-#     # Delete existing sym link and create a new symlink pointing to the previous release
-#     comment 'Creating new symlink from the previous release: '
-#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 2 | head -n 1"
-#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 2 | head -n 1 | xargs -I active ln -nfs '#{fetch(:releases_path)}/active' '#{fetch(:current_path)}'"
-#
-#     # Remove latest release folder (current release)
-#     comment 'Deleting current release: '
-#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 1"
-#     command "ls -Art '#{fetch(:releases_path)}' | sort | tail -n 1 | xargs -I active rm -rf '#{fetch(:releases_path)}/active'"
-#   end
-# end
+desc 'Rollbacks the latest release'
+task rollback: :environment do
+  comment "Rolling back to previous release"
+
+  in_path "#{fetch(:releases_path)}" do
+    # TODO: add check if there are more than 1 release
+    command "rollback_release=`ls -1A | sort -n | tail -n 2 | head -n 1`"
+    comment 'Rollbacking to release: $rollback_release'
+    command "ln -nfs #{fetch(:releases_path)}/$rollback_release #{fetch(:current_path)}"
+    command "current_release=`ls -1A | sort -n | tail -n 1`"
+    comment 'Deleting current release: $current_release'
+    command "rm -rf #{fetch(:releases_path)}/$current_release"
+  end
+end
 
 desc 'Sets up a site.'
 task setup: :environment do
