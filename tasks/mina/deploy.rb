@@ -6,6 +6,7 @@ set :current_path, -> { "#{fetch(:deploy_to)}/current" }
 set :lock_file, 'deploy.lock'
 set :deploy_script, 'data/deploy.sh.erb'
 set :keep_releases, 5
+set :version_scheme, :datetime
 set :execution_mode, :pretty
 
 namespace :deploy do

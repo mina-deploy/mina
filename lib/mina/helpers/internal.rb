@@ -34,7 +34,14 @@ module Mina
       end
 
       def next_version
-
+        case fetch(:version_scheme)
+        when :datetime
+          Time.now.utc.strftime("%Y%m%d%H%M%S")
+        when :sequence
+          "$((`ls -1 #{fetch(:releases_path)} | sort -n | tail -n 1`+1))"
+        else
+          fail 'Unrecognizes version scheme. Use :datetime or :sequence'
+        end
       end
     end
   end

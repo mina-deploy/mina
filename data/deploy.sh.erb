@@ -89,8 +89,7 @@ fi
 # === Complete & unlock
 (
   rm -f "<%= fetch(:lock_file) %>"
-  echo "$version" > "./last_version"
-  echo "-----> Done. Deployed v$version"
+  echo "-----> Done. Deployed version $version"
 ) ||
 
 # ============================
