@@ -9,7 +9,10 @@ describe Mina::Helpers::Internal do
   let(:helper) { DummyInternalHelper.new }
 
   describe '#deploy_script' do
-    before { Mina::Configuration.instance.set(:deploy_script, 'data/deploy.sh.erb') }
+    before do
+      Mina::Configuration.instance.set(:deploy_script, 'data/deploy.sh.erb')
+      Mina::Configuration.instance.set(:version_scheme, :sequence)
+    end
 
     it 'returns whole script' do
       expect(helper.deploy_script {}).to_not be_empty
@@ -17,6 +20,8 @@ describe Mina::Helpers::Internal do
   end
 
   describe '#erb' do
+    before { Mina::Configuration.instance.set(:version_scheme, :sequence) }
+    
     it 'returns whole script' do
       expect(helper.erb('data/deploy.sh.erb')).to_not be_empty
     end
