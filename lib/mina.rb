@@ -22,14 +22,10 @@ require 'mina/runner/exec'
 require 'mina/runner/printer'
 require 'mina/backend/local'
 require 'mina/backend/remote'
+require 'mina/windows_patches'
 require 'mina/application'
 
 module Mina
-  # Error = Class.new(Exception)
-  # class Failed < Error
-  #   attr_accessor :exitstatus
-  # end
-  #
   def self.root_path(*args)
     File.join File.expand_path('../../', __FILE__), *args
   end
