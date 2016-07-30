@@ -12,7 +12,6 @@ module Mina
       end
     end
 
-
     attr_reader :variables
 
     def initialize

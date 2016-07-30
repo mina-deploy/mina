@@ -37,21 +37,21 @@ describe Mina::Commands do
     it 'adds a comment to the queue' do
       commands.comment('ls -al')
 
-      expect(commands.queue[:default]).to include("echo '-----> ls -al'")
+      expect(commands.queue[:default]).to include('echo "-----> ls -al"')
     end
 
     it 'indents a comment' do
       commands.comment('ls -al', indent: 4)
 
-      expect(commands.queue[:default]).to include("    echo '-----> ls -al'")
+      expect(commands.queue[:default]).to include('    echo "-----> ls -al"')
     end
   end
 
-  describe '#fetch' do
+  describe '#delete' do
     it 'returns a stage and deletes it from commands' do
       commands.command('ls -al')
 
-      expect(commands.fetch(:default)).to include('ls -al')
+      expect(commands.delete(:default)).to include('ls -al')
       expect(commands.queue[:default]).to be_empty
     end
   end

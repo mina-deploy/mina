@@ -1,8 +1,8 @@
 <%
-  default = commands.fetch(:default).map { |s| indent 2, s }.join(" &&\n")
-  build   = commands.fetch(:build).map   { |s| indent 2, s }.join(" &&\n")
-  launch  = commands.fetch(:launch).map  { |s| indent 2, s }.join(" &&\n")
-  clean   = commands.fetch(:clean).map   { |s| indent 2, s }.join(" &&\n")
+  default = commands.delete(:default).map { |s| indent 2, s }.join(" &&\n")
+  build   = commands.delete(:build).map   { |s| indent 2, s }.join(" &&\n")
+  launch  = commands.delete(:launch).map  { |s| indent 2, s }.join(" &&\n")
+  clean   = commands.delete(:clean).map   { |s| indent 2, s }.join(" &&\n")
 %>
 #!/usr/bin/env bash
 
@@ -33,7 +33,8 @@ fi
 # Determine $previous_path and other variables
 [ -h "<%= fetch(:current_path) %>" ] && [ -d "<%= fetch(:current_path) %>" ] && previous_path=$(cd "<%= fetch(:current_path) %>" >/dev/null && pwd -LP)
 build_path="./tmp/build-`date +%s`$RANDOM"
-version=$((`cat "<%= fetch(:deploy_to) %>/last_version" 2>/dev/null`+1))
+
+version="<%= next_version %>"
 release_path="<%= fetch(:releases_path) %>/$version"
 
 # Sanity check

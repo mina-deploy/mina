@@ -1,5 +1,7 @@
 module Mina
   class Application < Rake::Application
+    include Configuration::DSL
+
     def initialize
       super
       @rakefiles = ['config/deploy.rb', minafile]
@@ -48,7 +50,7 @@ module Mina
       ['--verbose', '-v',
        'Print more info',
        lambda do |_value|
-         Mina::Configuration.instance.set(:verbose, true)
+         set(:verbose, true)
        end
       ]
     end
@@ -57,7 +59,7 @@ module Mina
       ['--simulate', '-s',
        'Do a simulate run without executing actions',
        lambda do |_value|
-         Mina::Configuration.instance.set(:simulate, true)
+         set(:simulate, true)
        end
       ]
     end
@@ -66,7 +68,7 @@ module Mina
       ['--debug-configuration-variables', '-d',
        'Display the defined config variables before runnig the tasks.',
        lambda do |_value|
-         Mina::Configuration.instance.set(:debug_configuration_variables, true)
+         set(:debug_configuration_variables, true)
        end
       ]
     end

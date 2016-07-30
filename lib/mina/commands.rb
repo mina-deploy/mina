@@ -2,10 +2,10 @@ module Mina
   class Commands
     extend Forwardable
     include Helpers::Internal
+    include Configuration::DSL
 
     attr_reader :queue
     attr_accessor :stage
-    def_delegators :queue, :find, :fetch, :process
 
     def initialize(stage = :default)
       @stage = stage
@@ -25,16 +25,16 @@ module Mina
       end
     end
 
-    def fetch(stage)
+    def delete(stage)
       queue.delete(stage) || []
     end
 
     def process(path = nil)
       if path
-        queue[stage].unshift("echo '$ cd #{path}'") if Mina::Configuration.instance.fetch(:verbose)
+        queue[stage].unshift("echo '$ cd #{path}'") if fetch(:verbose)
         "(cd #{path} && #{queue[stage].join(' && ')})"
       else
-        fetch(stage).join("\n")
+        queue[stage].join("\n")
       end
     end
 

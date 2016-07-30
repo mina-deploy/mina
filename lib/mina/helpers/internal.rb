@@ -1,6 +1,8 @@
 module Mina
   module Helpers
     module Internal
+      extend Configuration::DSL
+
       def deploy_script
         yield
         erb Mina.root_path(fetch(:deploy_script))
@@ -13,7 +15,7 @@ module Mina
       end
 
       def echo_cmd(code, ignore_verbose = false)
-        if Mina::Configuration.instance.fetch(:verbose) && !ignore_verbose
+        if fetch(:verbose) && !ignore_verbose
           "echo #{Shellwords.escape('$ ' + code)} &&\n#{code}"
         else
           code
@@ -29,6 +31,10 @@ module Mina
         output = yield
         puts "Elapsed time: %.2f seconds" % [Time.now - time_start]
         output
+      end
+
+      def next_version
+
       end
     end
   end

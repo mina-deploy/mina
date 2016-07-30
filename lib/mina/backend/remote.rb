@@ -1,13 +1,10 @@
 module Mina
   module Backend
     class Remote
-      attr_reader :commands, :configuration
-
-      extend Forwardable
-      def_delegators :configuration, :fetch, :set?
+      attr_reader :commands
+      include Configuration::DSL
 
       def initialize(commands)
-        @configuration = Mina::Configuration.instance
         @commands = commands
       end
 
