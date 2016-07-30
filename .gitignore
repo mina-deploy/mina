@@ -7,3 +7,4 @@ Gemfile.lock
 pkg/
 support/helpers.md
 support/modules.md
+coverage/

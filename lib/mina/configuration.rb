@@ -2,6 +2,17 @@ module Mina
   class Configuration
     include Singleton
 
+    module DSL
+      def self.included(base)
+        [:set, :fetch, :remove, :set?, :ensure!, :reset!].each do |method|
+          base.send :define_method, method do |*args,  &block|
+            Configuration.instance.send(method, *args, &block)
+          end
+        end
+      end
+    end
+
+
     attr_reader :variables
 
     def initialize

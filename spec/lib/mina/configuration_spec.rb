@@ -49,4 +49,15 @@ describe Mina::Configuration do
       expect { config.ensure!(:key) }.to raise_error(StandardError)
     end
   end
+
+  describe Mina::Configuration::DSL do
+    let(:host_class) { Class.new { include Mina::Configuration::DSL } }
+    let(:host) { host_class.new }
+
+    [:fetch, :set].each do |method|
+      it "should respond to #{method}" do
+        expect(host).to respond_to(method)
+      end
+    end
+  end
 end
