@@ -26,6 +26,7 @@ module Mina
     end
 
     def top_level_tasks
+      return @top_level_tasks if @top_level_tasks.include?('init')
       @top_level_tasks << :debug_configuration_variables
       @top_level_tasks << :run_commands
     end
