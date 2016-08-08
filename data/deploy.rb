@@ -20,8 +20,8 @@ set :branch, 'master'
 #   set :forward_agent, true     # SSH forward_agent.
 
 # They will be linked in the 'deploy:link_shared_paths' step.
-# set :shared_dirs, -> { fetch(:shared_dirs, []).push('config') }
-# set :shared_files, -> { fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml') }
+# set :shared_dirs, fetch(:shared_dirs, []).push('config')
+# set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
