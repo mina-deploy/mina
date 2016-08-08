@@ -2,7 +2,7 @@ set :rbenv_path, "$HOME/.rbenv"
 
 task :'rbenv:load' do
   comment 'Loading rbenv'
-  command "export RBENV_ROOT='#{fetch(:rbenv_path)}'"
+  command %(export RBENV_ROOT="#{fetch(:rbenv_path)}")
   command %(export PATH="#{fetch(:rbenv_path)}/bin:$PATH")
   command %( \\
     if ! which rbenv >/dev/null; then
