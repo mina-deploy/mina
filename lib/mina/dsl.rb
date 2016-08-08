@@ -15,6 +15,15 @@ module Mina
       Rake::Task[task].reenable
     end
 
+    def ensure_git_pushed!(opts = {})
+      branch = opts[:branch] || fetch(:branch)
+      remote = opts[:remote] || fetch(:remote)
+      message = opts[:message].to_s ||
+        "Your branch #{branch} needs to be pushed to #{remote} before deploying"
+      pending = system "[ $(git log #{remote}/#{branch}..#{branch} | wc -l) -ne 0 ]"
+      fail message if pending
+    end
+
     def commands
       @commands ||= Commands.new
     end
