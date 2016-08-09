@@ -30,7 +30,7 @@ set :domain, 'your.server.com'
 set :deploy_to, '/var/www/flipstack.com'
 ...
 ```
-**Notes:** You may be use the ruby version tool(Rbenv or RVM) to manage ruby and gem, if you use one of than, don't forget uncomment these setting:
+**Notes:** You may be using a ruby versioning tool (rbenv or RVM) to manage ruby and gems. If you are using one of them, don't forget to uncomment these settings:
 ```
 ...
 require 'mina/bundler'
