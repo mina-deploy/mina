@@ -5,6 +5,10 @@ task run_commands: :environment do
   commands.run(:remote) unless commands.queue.empty?
 end
 
+task :reset! do
+  reset!
+end
+
 task debug_configuration_variables: :environment do
   if fetch(:debug_configuration_variables)
     puts

@@ -4,6 +4,7 @@ describe Mina::Backend::Local do
   let(:backend) { Mina::Backend::Local.new ['ls -al'] }
   describe '#prepare' do
     it 'escpaces shellwords' do
+      Mina::Configuration.instance.remove(:simulate)
       expect(backend.prepare).to eq("\\[\\\"ls\\ -al\\\"\\]")
     end
 

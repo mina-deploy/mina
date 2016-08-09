@@ -1,0 +1,13 @@
+echo "-----> Symlinking shared paths"
+mkdir -p ./vendor
+rm -rf './vendor/bundle'
+ln -s '.*deploy/shared/vendor/bundle' './vendor/bundle'
+mkdir -p .
+rm -rf './log'
+ln -s '.*deploy/shared/log' './log'
+mkdir -p ./tmp
+rm -rf './tmp/cache'
+ln -s '.*deploy/shared/tmp/cache' './tmp/cache'
+mkdir -p ./public
+rm -rf './public/assets'
+ln -s '.*deploy/shared/public/assets' './public/assets'

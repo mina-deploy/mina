@@ -27,10 +27,7 @@ describe Mina::Runner do
     it 'runs the commands on a backend' do
       instance.set(:execution_mode, :printer)
       runner = Mina::Runner.new(['ls -al'], :local)
-      out, _err = capture_io do
-        runner.run
-      end
-      expect(out).to eq("\\[\\\"ls\\ -al\\\"\\]\n")
+      expect { runner.run }.to output("\\[\\\"ls\\ -al\\\"\\]\n").to_stdout
     end
   end
 end

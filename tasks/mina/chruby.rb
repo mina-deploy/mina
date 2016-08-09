@@ -2,9 +2,9 @@ set :chruby_path, '/etc/profile.d/chruby.sh'
 
 task :chruby, :env do |_, args|
   unless args[:env]
-    print_error "Task 'chruby' needs a Ruby version as an argument."
-    print_error "Example: invoke :'chruby[ruby-1.9.3-p392]'"
-    die
+    puts "Task 'chruby' needs a Ruby version as an argument."
+    puts "Example: invoke :'chruby[ruby-1.9.3-p392]'"
+    exit 1
   end
 
   comment "chruby to version: '#{args[:env]}'"

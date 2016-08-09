@@ -1,0 +1,14 @@
+echo "-----> Setting up .*deploy"
+mkdir -p '.*deploy'
+chown -R `whoami` '.*deploy'
+chmod g+rx,u+rwx '.*deploy'
+mkdir -p '.*deploy/releases'
+chmod g+rx,u+rwx '.*deploy/releases'
+mkdir -p '.*deploy/shared'
+chmod g+rx,u+rwx '.*deploy/shared'
+(cd .*deploy/shared && mkdir -p 'vendor/bundle' && chmod g+rx,u+rwx 'vendor/bundle' && mkdir -p 'log' && chmod g+rx,u+rwx 'log' && mkdir -p 'tmp/cache' && chmod g+rx,u+rwx 'tmp/cache' && mkdir -p 'public/assets' && chmod g+rx,u+rwx 'public/assets')
+tree '.*deploy' || ls -al '.*deploy'
+
+    if ! ssh-keygen -H  -F  &>/dev/null; then
+      ssh-keyscan -t rsa -p 22 -H  >> ~/.ssh/known_hosts
+    fi

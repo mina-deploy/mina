@@ -1,7 +1,7 @@
 require 'rake'
 Rake.application.options.trace = true
 
-# require 'pry'
+require 'pry'
 # require 'awesome_print'
 
 require 'forwardable'

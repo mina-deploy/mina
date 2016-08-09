@@ -1,3 +1,4 @@
+
 desc 'Creates a sample config file.'
 task :init do
   name = Rake.application.name

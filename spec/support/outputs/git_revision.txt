@@ -1,0 +1,1 @@
+cat .*deploy/current/.mina_git_revision

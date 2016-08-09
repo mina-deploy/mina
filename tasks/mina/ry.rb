@@ -2,7 +2,7 @@ set :ry_path, '$HOME/.local'
 
 task :ry, :env do |_, args|
   unless args[:env]
-    print_status "Task 'ry' without argument will use default Ruby version."
+    puts "Task 'ry' without argument will use default Ruby version."
   end
 
   comment "ry to version: '#{args[:env] || '**not specified**'}"

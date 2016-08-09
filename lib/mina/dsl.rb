@@ -19,6 +19,10 @@ module Mina
       @commands ||= Commands.new
     end
 
+    def reset!
+      @commands = Commands.new
+    end
+
     def run(backend)
       @commands = Commands.new
       yield

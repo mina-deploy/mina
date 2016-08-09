@@ -21,14 +21,14 @@ module Mina
       end
 
       def ssh
-        fail 'No domain set' unless set?(:domain)
+        ensure!(:domain)
         args = fetch(:domain)
         args = "#{fetch(:user)}@#{fetch(:domain)}" if set?(:user)
-        args << " -i #{fetch(:identity_file)}" if set?(:identity_file)
-        args << " -p #{fetch(:port)}" if set?(:port)
-        args << ' -A' if set?(:forward_agent)
-        args << " #{fetch(:ssh_options)}" if set?(:ssh_options)
-        args << ' -tt'
+        args += " -i #{fetch(:identity_file)}" if set?(:identity_file)
+        args += " -p #{fetch(:port)}" if set?(:port)
+        args += ' -A' if set?(:forward_agent)
+        args += " #{fetch(:ssh_options)}" if set?(:ssh_options)
+        args += ' -tt'
         "ssh #{args}"
       end
 

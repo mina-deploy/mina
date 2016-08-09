@@ -21,7 +21,8 @@ describe Mina::Helpers::Internal do
 
   describe '#erb' do
     before { Mina::Configuration.instance.set(:version_scheme, :sequence) }
-    
+    after { Mina::Configuration.instance.remove(:version_scheme) }
+
     it 'returns whole script' do
       expect(helper.erb('data/deploy.sh.erb')).to_not be_empty
     end
@@ -36,6 +37,7 @@ describe Mina::Helpers::Internal do
 
     context 'when verbose' do
       before { Mina::Configuration.instance.set(:verbose, true) }
+      after { Mina::Configuration.instance.remove(:verbose) }
 
       it 'modifies code' do
         expect(helper.echo_cmd('ls -al')).to eq("echo \\$\\ ls\\ -al &&\nls -al")
