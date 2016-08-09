@@ -30,6 +30,28 @@ set :domain, 'your.server.com'
 set :deploy_to, '/var/www/flipstack.com'
 ...
 ```
+**Notes:** You may be using a ruby versioning tool (rbenv or RVM) to manage ruby and gems. If you are using one of them, don't forget to uncomment these settings:
+```
+...
+require 'mina/bundler'
+require 'mina/rails'
+require 'mina/git'
+# require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
+# require 'mina/rvm'    # for rvm support. (http://rvm.io)
+...
+```
+``` ruby
+...
+task :environment do
+  # If you're using rbenv, use this to load the rbenv environment.
+  # Be sure to commit your .ruby-version or .rbenv-version to your repository.
+  # invoke :'rbenv:load'
+
+  # For those using RVM, use this to load an RVM version@gemset.
+  # invoke :'rvm:use[ruby-1.9.3-p125@default]'
+end
+...
+```
 
 ### Step 2: Run 'mina setup'
 
