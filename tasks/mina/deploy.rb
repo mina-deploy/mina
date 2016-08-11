@@ -78,6 +78,10 @@ task setup: :environment do
       command "mkdir -p '#{linked_dir}'"
       command "chmod g+rx,u+rwx '#{linked_dir}'"
     end
+    fetch(:shared_paths, []).each do |linked_path|
+      command "mkdir -p '#{File.dirname(linked_path)}'"
+      command "chmod g+rx,u+rwx '#{File.dirname(linked_path)}'"
+    end
   end
 
   command "tree '#{fetch(:deploy_to)}' || ls -al '#{fetch(:deploy_to)}'"
