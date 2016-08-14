@@ -1,7 +1,7 @@
 # Mina
 
-[![Code Climate](https://codeclimate.com/repos/5774207165982076ca005984/badges/6877153919d603250738/gpa.svg)](https://codeclimate.com/repos/5774207165982076ca005984/feed)
-[![Test Coverage](https://codeclimate.com/repos/5774207165982076ca005984/badges/6877153919d603250738/coverage.svg)](https://codeclimate.com/repos/5774207165982076ca005984/coverage)
+[![Code Climate](https://codeclimate.com/github/mina-deploy/mina/badges/gpa.svg)](https://codeclimate.com/github/mina-deploy/mina)
+[![Test Coverage](https://codeclimate.com/github/mina-deploy/mina/badges/coverage.svg)](https://codeclimate.com/github/mina-deploy/mina/coverage)
 [![Build Status](https://semaphoreci.com/api/v1/d4be4st/mina/branches/master/shields_badge.svg)](https://semaphoreci.com/d4be4st/mina)
 [![Gem Version](https://badge.fury.io/rb/mina.svg)](https://badge.fury.io/rb/mina)
 
