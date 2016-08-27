@@ -32,7 +32,7 @@ fi
 
 # Determine $previous_path and other variables
 [ -h "<%= fetch(:current_path) %>" ] && [ -d "<%= fetch(:current_path) %>" ] && previous_path=$(cd "<%= fetch(:current_path) %>" >/dev/null && pwd -LP)
-build_path="./tmp/build-`date +%s`$RANDOM"
+build_path="./tmp/build-$(date +%s)$RANDOM"
 
 version="<%= next_version %>"
 release_path="<%= fetch(:releases_path) %>/$version"

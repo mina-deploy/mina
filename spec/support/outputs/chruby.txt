@@ -1,4 +1,4 @@
-echo "-----> chruby to version: '123'"
+echo "-----> chruby to version: "123""
 
     if [[ ! -s "/etc/profile.d/chruby.sh" ]]; then
       echo "! chruby.sh init file not found"
@@ -6,4 +6,4 @@ echo "-----> chruby to version: '123'"
     fi
 
 source /etc/profile.d/chruby.sh
-chruby '123' || exit 1
+chruby "123" || exit 1

@@ -1,2 +1,2 @@
 echo "-----> Creating database"
-RAILS_ENV='production' bundle exec rake db:create
+RAILS_ENV="production" bundle exec rake db:create

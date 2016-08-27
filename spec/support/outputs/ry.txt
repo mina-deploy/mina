@@ -6,9 +6,9 @@ echo "-----> Loading ry"
       exit 1
     fi
 
-export PATH='$HOME/.local/bin:$PATH'
+export PATH="$HOME/.local/bin:$PATH"
 eval "$(ry setup)"
-RY_RUBY=''
+RY_RUBY=""
 
     if [ -n "$RY_RUBY" ]; then
       ry use $RY_RUBY || exit 1

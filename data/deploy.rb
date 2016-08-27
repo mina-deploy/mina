@@ -37,7 +37,7 @@ end
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task setup: :environment do
-  # command 'rbenv install 2.3.0'
+  # command %(rbenv install 2.3.0)
 end
 
 desc "Deploys the current version to the server."
@@ -54,8 +54,8 @@ task deploy: :environment do
 
     on :launch do
       in_path(fetch(:current_path)) do
-        command "mkdir -p tmp/"
-        command "touch tmp/restart.txt"
+        command %(mkdir -p tmp/)
+        command %(touch tmp/restart.txt)
       end
     end
   end

@@ -7,16 +7,14 @@ task :'rvm:use', :env do |_, args|
     exit 1
   end
 
-  comment "Using RVM environment '#{args[:env]}'"
-  command %(
-    if [[ ! -s "#{fetch(:rvm_path)}" ]]; then
+  comment %(Using RVM environment \\\"#{args[:env]}\\\")
+  command %(if [[ ! -s "#{fetch(:rvm_path)}" ]]; then
       echo "! Ruby Version Manager not found"
       echo "! If RVM is installed, check your :rvm_path setting."
       exit 1
-    fi
-  )
-  command "source #{fetch(:rvm_path)}"
-  command "rvm use '#{args[:env]}' --create"
+    fi)
+  command %(source #{fetch(:rvm_path)})
+  comment %(rvm use \\"#{args[:env]}\\" --create)
 end
 
 task :'rvm:wrapper', :env, :name, :bin do |_, args|
@@ -26,14 +24,12 @@ task :'rvm:wrapper', :env, :name, :bin do |_, args|
     exit 1
   end
 
-  comment "creating RVM wrapper '#{args[:name]}_#{args[:bin]}' using '#{args[:env]}'"
-  command %(
-    if [[ ! -s "#{fetch(:rvm_path)}" ]]; then
+  comment %(creating RVM wrapper "#{args[:name]}_#{args[:bin]}" using \\"#{args[:env]}\\")
+  command %(if [[ ! -s "#{fetch(:rvm_path)}" ]]; then
       echo "! Ruby Version Manager not found"
       echo "! If RVM is installed, check your :rvm_path setting."
       exit 1
-    fi
-  )
-  command "source #{fetch(:rvm_path)}"
-  command "rvm wrapper #{args[:env]} #{args[:name]} #{args[:bin]} || exit 1"
+    fi)
+  command %(source #{fetch(:rvm_path)})
+  command %(rvm wrapper #{args[:env]} #{args[:name]} #{args[:bin]} || exit 1)
 end

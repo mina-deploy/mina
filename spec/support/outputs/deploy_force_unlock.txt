@@ -1,2 +1,2 @@
 echo "-----> Unlocking"
-rm -f '.*/deploy/deploy.lock'
+rm -f ".*/deploy/deploy.lock"
