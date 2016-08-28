@@ -49,5 +49,5 @@ end
 
 desc 'Open an ssh session to the server and cd to deploy_to folder'
 task ssh: :environment do
-  exec Mina::Backend::Remote.new(nil).ssh + %( "cd #{fetch(:deploy_to)} && exec $SHELL")
+  exec Mina::Backend::Remote.new(nil).ssh + %{ "cd #{fetch(:deploy_to)} && exec $SHELL"}
 end

@@ -2,7 +2,7 @@ require 'mina/deploy'
 require 'mina/bundler'
 
 set :rails_env, 'production'
-set :bundle_prefix, -> { %(RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec) }
+set :bundle_prefix, -> { %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec} }
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
 set :compiled_asset_path, 'public/assets'
@@ -15,7 +15,7 @@ desc 'Starts an interactive console.'
 task console: :environment do
   set :execution_mode, :exec
   in_path "#{fetch(:current_path)}" do
-    command %(#{fetch(:rails)} console)
+    command %{#{fetch(:rails)} console}
   end
 end
 
@@ -23,7 +23,7 @@ desc 'Tail log from server'
 task log: :environment do
   set :execution_mode, :exec
   in_path "#{fetch(:shared_path)}/log" do
-    command %(tail -f #{fetch(:rails_env)}.log)
+    command %{tail -f #{fetch(:rails_env)}.log}
   end
 end
 
@@ -31,45 +31,41 @@ namespace :rails do
   desc 'Migrate database'
   task db_migrate: :environment do
     if fetch(:force_migrate)
-      comment %(Migrating database)
-      command %(#{fetch(:rake)} db:migrate)
+      comment %{Migrating database}
+      command %{#{fetch(:rake)} db:migrate}
     else
       command check_for_changes_script(
         at: fetch(:migration_dirs),
-        skip: %(echo "-----> DB migrations unchanged; skipping DB migration"),
-        changed: %(
-          echo "-----> Migrating database"
-          #{echo_cmd("#{fetch(:rake)} db:migrate")}
-        )
+        skip: %{echo "-----> DB migrations unchanged; skipping DB migration"},
+        changed: %{echo "-----> Migrating database"
+          #{echo_cmd("#{fetch(:rake)} db:migrate")}}
       ), quiet: true
     end
   end
 
   desc 'Create database'
   task db_create: :environment do
-    comment %(Creating database)
-    command %(#{fetch(:rake)} db:create)
+    comment %{Creating database}
+    command %{#{fetch(:rake)} db:create}
   end
 
   desc 'Rollback database'
   task db_rollback: :environment do
-    comment %(Rollbacking database)
-    command %(#{fetch(:rake)} db:rollback)
+    comment %{Rollbacking database}
+    command %{#{fetch(:rake)} db:rollback}
   end
 
   desc 'Precompiles assets (skips if nothing has changed since the last release).'
   task assets_precompile: :environment do
     if fetch(:force_asset_precompile)
-      comment %(Precompiling asset files)
-      command %(#{fetch(:rake)} assets:precompile)
+      comment %{Precompiling asset files}
+      command %{#{fetch(:rake)} assets:precompile}
     else
       command check_for_changes_script(
         at: fetch(:asset_dirs),
-        skip: %(echo "-----> Skipping asset precompilation"),
-        changed: %(
-          echo "-----> Precompiling asset files"
-          #{echo_cmd "#{fetch(:rake)} assets:precompile"}
-        )
+        skip: %{echo "-----> Skipping asset precompilation"},
+        changed: %{echo "-----> Precompiling asset files"
+          #{echo_cmd "#{fetch(:rake)} assets:precompile"}}
       ), quiet: true
     end
   end
@@ -77,15 +73,15 @@ end
 
 def check_for_changes_script(options)
   diffs = options[:at].map do |path|
-    %(diff -qrN "#{fetch(:current_path)}/#{path}" "./#{path}" 2>/dev/null)
+    %{diff -qrN "#{fetch(:current_path)}/#{path}" "./#{path}" 2>/dev/null}
   end.join(' && ')
 
-  %(if #{diffs}
+  %{if #{diffs}
     then
       #{options[:skip]}
     else
       #{options[:changed]}
-    fi)
+    fi}
 end
 
 # Macro used later by :rails, :rake, etc
@@ -95,10 +91,10 @@ make_run_task = lambda { |name, example|
 
     arguments = args[:arguments]
     unless arguments
-      puts %(You need to provide arguments. Try: mina "#{name}[#{example}]")
+      puts %{You need to provide arguments. Try: mina "#{name}[#{example}]"}
       exit 1
     end
-    command %(cd "#{deploy_to!}/#{current_path!}" && #{fetch(name)} #{arguments})
+    command %{cd "#{deploy_to!}/#{current_path!}" && #{fetch(name)} #{arguments}}
   end
 }
 

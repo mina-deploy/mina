@@ -19,9 +19,9 @@ module Mina
 
     def comment(code, indent: nil)
       if indent
-        queue[stage] << indent(indent, %(echo "-----> #{code}"))
+        queue[stage] << indent(indent, %{echo "-----> #{code}"})
       else
-        queue[stage] << %(echo "-----> #{code}")
+        queue[stage] << %{echo "-----> #{code}"}
       end
     end
 
@@ -31,8 +31,8 @@ module Mina
 
     def process(path = nil)
       if path
-        queue[stage].unshift(%(echo "$ cd #{path}")) if fetch(:verbose)
-        %((cd #{path} && #{queue[stage].join(' && ')}))
+        queue[stage].unshift(%{echo "$ cd #{path}"}) if fetch(:verbose)
+        %{(cd #{path} && #{queue[stage].join(' && ')})}
       else
         queue[stage].join("\n")
       end

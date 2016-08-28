@@ -29,7 +29,7 @@ set :shared_paths, ['config/database.yml', 'log']
 set :keep_releases, 2
 
 task :environment do
-  command %(eval "$(rbenv init -)")
+  command %{eval "$(rbenv init -)"}
 end
 #
 # desc "Deploys."
@@ -42,7 +42,7 @@ task deploy: :environment do
     invoke :'deploy:cleanup'
 
     on :launch do
-      comment %(in launch)
+      comment %{in launch}
     end
   end
 end
@@ -50,12 +50,12 @@ end
 desc 'Task description'
 task :test do
   run :local do
-    comment %(PWD)
+    comment %{PWD}
     in_path('/Users') do
-      command %(ls -al)
+      command %{ls -al}
     end
     on :after do
-      command %(pwd)
+      command %{pwd}
     end
   end
 end
