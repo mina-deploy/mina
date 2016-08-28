@@ -9,7 +9,7 @@ Really fast deployer and server automation tool.
 
 ## Warning
 
-**This is a readme of the current master, version 1.0.0.beta1. If you are using older mina (pre 0.3) please take a look at [0.3 readme](https://github.com/mina-deploy/mina/blob/v0.3.8/Readme.md)**
+**This is a readme of the current master, version 1.0.0.betax. If you are using older mina (pre 0.3) please take a look at [0.3 readme](https://github.com/mina-deploy/mina/blob/v0.3.8/Readme.md)**
 
 
 Mina works really fast because it's a deploy Bash script generator. It
