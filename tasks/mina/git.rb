@@ -2,6 +2,8 @@ require 'mina/default'
 
 set :branch, 'master'
 set :remove_git_dir, true
+set :remote, 'origin'
+set :git_not_pushed_message, -> { "Your branch #{fetch(:branch)} needs to be pushed to #{fetch(:remote)} before deploying" }
 
 namespace :git do
   desc 'Clones the Git repository to the release path.'
@@ -35,5 +37,15 @@ namespace :git do
   task revision: :environment do
     ensure!(:deploy_to)
     command %(cat #{fetch(:current_path)}/.mina_git_revision)
+  end
+
+  task ensure_pushed: :environment do
+    run :local do
+      comment %(Ensuring everyting is pushed to git)
+      command %( if [ $(git log #{fetch(:remote)}/#{fetch(:branch)}..#{fetch(:branch)} | wc -l) -ne 0 ]; then
+        echo "! #{fetch(:git_not_pushed_message)}"
+        exit 1
+      fi)
+    end
   end
 end
