@@ -27,6 +27,7 @@ module Mina
       @commands = Commands.new
       yield
       commands.run(backend)
+      @commands = Commands.new
     end
 
     def on(stage)
@@ -44,7 +45,9 @@ module Mina
     end
 
     def deploy(&block)
-      command deploy_script(&block), quiet: true
+      run :remote do
+        command deploy_script(&block), quiet: true
+      end
     end
   end
 end

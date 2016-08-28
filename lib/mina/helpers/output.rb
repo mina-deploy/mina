@@ -30,6 +30,10 @@ module Mina
         puts "       #{color('$', 36)} #{color(msg, 36)}"
       end
 
+      def print_info(msg)
+        puts "       #{color(msg, 96)}"
+      end
+
       def print_stdout(msg)
         puts "       #{msg}"
       end

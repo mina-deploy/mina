@@ -11,6 +11,7 @@ module Mina
 
       def run
         puts script
+        true
       end
     end
   end

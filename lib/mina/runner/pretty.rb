@@ -32,7 +32,7 @@ module Mina
             stderr_thread.join
           end
 
-        status.exitstatus
+        status.exitstatus == 0
       end
 
       private

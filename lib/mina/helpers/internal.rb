@@ -1,7 +1,7 @@
 module Mina
   module Helpers
     module Internal
-      extend Configuration::DSL
+      include Helpers::Output
 
       def deploy_script
         yield
@@ -29,7 +29,7 @@ module Mina
       def report_time
         time_start = Time.now
         output = yield
-        puts "Elapsed time: %.2f seconds" % [Time.now - time_start]
+        print_info "Elapsed time: %.2f seconds" % [Time.now - time_start]
         output
       end
 
@@ -40,8 +40,13 @@ module Mina
         when :sequence
           "$((`ls -1 #{fetch(:releases_path)} | sort -n | tail -n 1`+1))"
         else
-          fail 'Unrecognizes version scheme. Use :datetime or :sequence'
+          error! 'Unrecognizes version scheme. Use :datetime or :sequence'
         end
+      end
+
+      def error!(message)
+        print_error message
+        exit 1
       end
     end
   end

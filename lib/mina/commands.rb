@@ -40,7 +40,8 @@ module Mina
 
     def run(backend)
       report_time do
-        Mina::Runner.new(process, backend).run
+        status = Mina::Runner.new(process, backend).run
+        error! 'Run Error' unless status
       end
     end
   end

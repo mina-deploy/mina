@@ -1,6 +1,7 @@
 module Mina
   class Configuration
     include Singleton
+    include Helpers::Internal
 
     module DSL
       def self.included(base)
@@ -36,7 +37,7 @@ module Mina
     end
 
     def ensure!(key)
-      fail "#{key} must be defined!" unless set?(key)
+      error! "#{key} must be defined!" unless set?(key)
     end
 
     def reset!
