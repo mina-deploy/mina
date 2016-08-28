@@ -115,10 +115,3 @@ Raises an error if variable is not set
 ``` ruby
 ensure!(:deploy_to)
 ```
-
-### ensure_git_pushed!
-Aborts the build if the local branch has not been pushed to the remote branch.
-
-``` ruby
-ensure_git_pushed!(branch: :master, remote: :origin, message: "Your master branch needs to be pushed to origin before deploying")
-```
