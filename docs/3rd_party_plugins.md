@@ -1,6 +1,8 @@
 3rd party modules
 ------
 
+**Many are not updated to mina 1.x**
+
 * [mina-blue_green](https://github.com/reedlaw/mina-blue_green)
 * [mina-cakephp](https://github.com/mobvox/mina-cakephp)
 * [mina-clockwork](https://github.com/907th/mina-clockwork)

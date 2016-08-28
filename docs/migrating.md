@@ -9,7 +9,7 @@ Migrating from 0.3.x to 1.0
 * `in_directory`  -> `in_path`  # wraps commands to be run in specified path
 
 ## new
-* `run`                         # runs commands on a specified backend
+* `run`                         # runs commands on a specified backend, this has replaced old before and after hooks
 * `comment`                     # adds a 'echo -----> #{command}' to queue
 
 **Other commands have been removed!**
