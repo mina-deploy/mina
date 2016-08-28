@@ -82,14 +82,11 @@ describe Mina::Commands do
   end
 
   describe '#run' do
-    before do
+    it 'calls run on a backend' do
       runner = double(:runner)
       allow(Mina::Runner).to receive(:new).and_return(runner)
-      allow(runner).to receive(:run).and_return(:ran)
-    end
-
-    it 'calls run on a backend' do
-      expect(commands.run(:local)).to eq(:ran)
+      expect(runner).to receive(:run).and_return(true)
+      commands.run(:local)
     end
   end
 end

@@ -46,7 +46,7 @@ describe Mina::Configuration do
     end
 
     it 'raises an error if key is not set' do
-      expect { config.ensure!(:key) }.to raise_error(StandardError)
+      expect { config.ensure!(:key) }.to raise_error(SystemExit)
     end
   end
 
