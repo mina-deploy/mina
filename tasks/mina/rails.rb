@@ -94,7 +94,9 @@ make_run_task = lambda { |name, example|
       puts %{You need to provide arguments. Try: mina "#{name}[#{example}]"}
       exit 1
     end
-    command %{cd "#{deploy_to!}/#{current_path!}" && #{fetch(name)} #{arguments}}
+    in_path "#{fetch(:current_path)}" do
+      command %(#{fetch(name)} #{arguments})
+    end
   end
 }
 
