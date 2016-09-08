@@ -3,12 +3,13 @@ require 'mina/default'
 set :bundle_bin, 'bundle'
 set :bundle_path, 'vendor/bundle'
 set :bundle_withouts, 'development test'
-unless fetch(:bundle_path)
+if fetch(:bundle_path) == nil
   set :bundle_options, -> { %{--without #{fetch(:bundle_withouts)} --deployment} }
+  set :shared_dirs, fetch(:shared_dirs, [])
 else
   set :bundle_options, -> { %{--without #{fetch(:bundle_withouts)} --path "#{fetch(:bundle_path)}" --deployment} }
+  set :shared_dirs, fetch(:shared_dirs, []).push(fetch(:bundle_path))
 end
-set :shared_dirs, fetch(:shared_dirs, []).push(fetch(:bundle_path))
 
 namespace :bundle do
   desc 'Install gem dependencies using Bundler.'
