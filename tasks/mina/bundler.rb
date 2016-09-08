@@ -3,7 +3,11 @@ require 'mina/default'
 set :bundle_bin, 'bundle'
 set :bundle_path, 'vendor/bundle'
 set :bundle_withouts, 'development test'
-set :bundle_options, -> { %{--without #{fetch(:bundle_withouts)} --path "#{fetch(:bundle_path)}" --deployment} }
+unless fetch(:bundle_path)
+  set :bundle_options, -> { %{--without #{fetch(:bundle_withouts)} --deployment} }
+else
+  set :bundle_options, -> { %{--without #{fetch(:bundle_withouts)} --path "#{fetch(:bundle_path)}" --deployment} }
+end
 set :shared_dirs, fetch(:shared_dirs, []).push(fetch(:bundle_path))
 
 namespace :bundle do
