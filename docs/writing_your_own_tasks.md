@@ -46,6 +46,8 @@ Adds a command to the command queue.
 
 This queues code to be run on the current queue name (defaults to `:default`).
 
+By default, whitespace is stripped from the beginning and end of the command.
+
 ``` ruby
 command 'ls -al' # => [ls -al]
 ```

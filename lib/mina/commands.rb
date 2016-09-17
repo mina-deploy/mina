@@ -12,7 +12,8 @@ module Mina
       @queue = Hash.new { |hash, key| hash[key] = [] }
     end
 
-    def command(code, quiet: false, indent: nil)
+    def command(code, strip: true, quiet: false, indent: nil)
+      code = code.strip if strip
       code = indent(indent, code) if indent
       queue[stage] << (quiet ? code : echo_cmd(code))
     end
