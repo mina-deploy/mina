@@ -66,25 +66,19 @@ task setup: :environment do
 
   comment %{Setting up #{fetch(:deploy_to)}}
   command %{mkdir -p "#{fetch(:deploy_to)}"}
-  command %{chown -R $(whoami) "#{fetch(:deploy_to)}"}
-  command %{chmod g+rx,u+rwx "#{fetch(:deploy_to)}"}
   command %{mkdir -p "#{fetch(:releases_path)}"}
-  command %{chmod g+rx,u+rwx "#{fetch(:releases_path)}"}
   command %{mkdir -p "#{fetch(:shared_path)}"}
-  command %{chmod g+rx,u+rwx "#{fetch(:shared_path)}"}
 
   in_path "#{fetch(:shared_path)}" do
     fetch(:shared_dirs, []).each do |linked_dir|
       command %{mkdir -p "#{linked_dir}"}
-      command %{chmod g+rx,u+rwx "#{linked_dir}"}
     end
     fetch(:shared_paths, []).each do |linked_path|
       command %{mkdir -p "#{File.dirname(linked_path)}"}
-      command %{chmod g+rx,u+rwx "#{File.dirname(linked_path)}"}
     end
   end
 
-  command %{tree "#{fetch(:deploy_to)}" || ls -al "#{fetch(:deploy_to)}"}
+  command %{if [ -x "$(command -v tree)" ]; then tree -d -L 2 "#{fetch(:deploy_to)}"; else ls -al "#{fetch(:deploy_to)}"; fi}
 
   invoke :ssh_keyscan
 end
