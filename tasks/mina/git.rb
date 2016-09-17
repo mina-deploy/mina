@@ -15,7 +15,8 @@ namespace :git do
       command %{git clone "#{fetch(:repository)}" . --recursive}
       command %{git checkout -b current_release "#{fetch(:commit)}" --force}
     else
-      command %{if [ ! -d "#{fetch(:deploy_to)}/scm/objects" ]; then
+      command %{
+        if [ ! -d "#{fetch(:deploy_to)}/scm/objects" ]; then
           echo "-----> Cloning the Git repository"
           #{echo_cmd %[git clone "#{fetch(:repository)}" "#{fetch(:deploy_to)}/scm" --bare]}
         else
@@ -23,7 +24,8 @@ namespace :git do
           #{echo_cmd %[(cd "#{fetch(:deploy_to)}/scm" && git fetch "#{fetch(:repository)}" "#{fetch(:branch)}:#{fetch(:branch)}" --force)]}
         fi &&
         echo "-----> Using git branch '#{fetch(:branch)}'" &&
-        #{echo_cmd %[git clone "#{fetch(:deploy_to)}/scm" . --recursive --branch "#{fetch(:branch)}"]}}, quiet: true
+        #{echo_cmd %[git clone "#{fetch(:deploy_to)}/scm" . --recursive --branch "#{fetch(:branch)}"]}
+      }, quiet: true
     end
 
     comment %{Using this git commit}
@@ -42,10 +44,12 @@ namespace :git do
   task ensure_pushed: :environment do
     run :local do
       comment %{Ensuring everyting is pushed to git}
-      command %{if [ $(git log #{fetch(:remote)}/#{fetch(:branch)}..#{fetch(:branch)} | wc -l) -ne 0 ]; then
-        echo "! #{fetch(:git_not_pushed_message)}"
-        exit 1
-      fi}
+      command %{
+        if [ $(git log #{fetch(:remote)}/#{fetch(:branch)}..#{fetch(:branch)} | wc -l) -ne 0 ]; then
+          echo "! #{fetch(:git_not_pushed_message)}"
+          exit 1
+        fi
+      }
     end
   end
 end

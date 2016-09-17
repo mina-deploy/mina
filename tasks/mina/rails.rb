@@ -76,12 +76,14 @@ def check_for_changes_script(options)
     %{diff -qrN "#{fetch(:current_path)}/#{path}" "./#{path}" 2>/dev/null}
   end.join(' && ')
 
-  %{if #{diffs}
+  %{
+    if #{diffs}
     then
       #{options[:skip]}
     else
       #{options[:changed]}
-    fi}
+    fi
+  }
 end
 
 # Macro used later by :rails, :rake, etc

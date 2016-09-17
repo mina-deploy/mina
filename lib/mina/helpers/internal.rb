@@ -26,6 +26,14 @@ module Mina
         str.gsub(/^/, ' ' * count)
       end
 
+      def unindent(code)
+        if code =~ /^\n([ \t]+)/
+          code = code.gsub(/^#{$1}/, '')
+        end
+
+        code.strip
+      end
+
       def report_time
         time_start = Time.now
         output = yield

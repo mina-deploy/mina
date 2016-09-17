@@ -13,7 +13,7 @@ module Mina
     end
 
     def command(code, strip: true, quiet: false, indent: nil)
-      code = code.strip if strip
+      code = unindent(code) if strip
       code = indent(indent, code) if indent
       queue[stage] << (quiet ? code : echo_cmd(code))
     end

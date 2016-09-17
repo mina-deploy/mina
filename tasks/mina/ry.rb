@@ -8,15 +8,19 @@ task :ry, :env do |_, args|
   comment %{ry to version: \\"#{args[:env] || '**not specified**'}\\"}
   comment %{Loading ry}
 
-  command %{if [[ ! -e "#{fetch(:ry_path)}/bin" ]]; then
+  command %{
+    if [[ ! -e "#{fetch(:ry_path)}/bin" ]]; then
       echo "! ry not found"
       echo "! If ry is installed, check your :ry_path setting."
       exit 1
-    fi}
+    fi
+  }
   command %{export PATH="#{fetch(:ry_path)}/bin:$PATH"}
   command %{eval "$(ry setup)"}
   command %{RY_RUBY="#{args[:env]}"}
-  command %{if [ -n "$RY_RUBY" ]; then
+  command %{
+    if [ -n "$RY_RUBY" ]; then
       #{echo_cmd 'ry use $RY_RUBY'} || exit 1
-    fi}
+    fi
+  }
 end

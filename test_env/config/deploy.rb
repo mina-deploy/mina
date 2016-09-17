@@ -19,7 +19,10 @@
 
 require 'mina/git'
 require 'mina/rails'
-# require 'pry'
+require 'mina/rvm'
+require 'mina/rbenv'
+require 'mina/chruby'
+require 'pry'
 #
 
 set :domain, 'localhost'
@@ -29,7 +32,8 @@ set :shared_paths, ['config/database.yml', 'log']
 set :keep_releases, 2
 
 task :environment do
-  command %{eval "$(rbenv init -)"}
+  invoke :'rbenv:load'
+  invoke :'rvm:use', '123'
 end
 #
 # desc "Deploys."

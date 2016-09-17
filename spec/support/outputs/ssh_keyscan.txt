@@ -1,3 +1,0 @@
-if ! ssh-keygen -H  -F  &>/dev/null; then
-      ssh-keyscan -t rsa -p 22 -H  >> ~/.ssh/known_hosts
-    fi
