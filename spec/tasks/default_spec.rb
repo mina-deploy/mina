@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe 'default', type: :rake do
-  describe 'ssh_keyscan' do
+  describe 'ssh_keyscan_repo' do
     it 'scans ssh' do
-      expect { invoke_all }.to output(output_file('ssh_keyscan')).to_stdout
+      expect { invoke_all }.to output(output_file('ssh_keyscan_repo')).to_stdout
     end
   end
 

@@ -80,5 +80,5 @@ task setup: :environment do
 
   command %{if [ -x "$(command -v tree)" ]; then tree -d -L 2 "#{fetch(:deploy_to)}"; else ls -al "#{fetch(:deploy_to)}"; fi}
 
-  invoke :ssh_keyscan
+  invoke :ssh_keyscan_repo
 end
