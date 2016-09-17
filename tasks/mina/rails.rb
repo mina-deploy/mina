@@ -12,7 +12,7 @@ set :migration_dirs, ['db/migrate']
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path))
 
 desc 'Starts an interactive console.'
-task console: :environment do
+task :console do
   set :execution_mode, :exec
   in_path "#{fetch(:current_path)}" do
     command %{#{fetch(:rails)} console}
@@ -20,7 +20,7 @@ task console: :environment do
 end
 
 desc 'Tail log from server'
-task log: :environment do
+task :log do
   set :execution_mode, :exec
   in_path "#{fetch(:shared_path)}/log" do
     command %{tail -f #{fetch(:rails_env)}.log}
@@ -29,7 +29,7 @@ end
 
 namespace :rails do
   desc 'Migrate database'
-  task db_migrate: :environment do
+  task :db_migrate do
     if fetch(:force_migrate)
       comment %{Migrating database}
       command %{#{fetch(:rake)} db:migrate}
@@ -44,19 +44,19 @@ namespace :rails do
   end
 
   desc 'Create database'
-  task db_create: :environment do
+  task :db_create do
     comment %{Creating database}
     command %{#{fetch(:rake)} db:create}
   end
 
   desc 'Rollback database'
-  task db_rollback: :environment do
+  task :db_rollback do
     comment %{Rollbacking database}
     command %{#{fetch(:rake)} db:rollback}
   end
 
   desc 'Precompiles assets (skips if nothing has changed since the last release).'
-  task assets_precompile: :environment do
+  task :assets_precompile do
     if fetch(:force_asset_precompile)
       comment %{Precompiling asset files}
       command %{#{fetch(:rake)} assets:precompile}
@@ -88,7 +88,7 @@ end
 
 # Macro used later by :rails, :rake, etc
 make_run_task = lambda { |name, example|
-  task name, [:arguments] => :environment do |_, args|
+  task name, [:arguments] do |_, args|
     set :execution_mode, :exec
 
     arguments = args[:arguments]

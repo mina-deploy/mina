@@ -23,7 +23,7 @@ set :branch, 'master'
 # set :shared_dirs, fetch(:shared_dirs, []).push('config')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 
-# This task is the environment that is loaded for most commands, such as
+# This task is the environment that is loaded all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :environment do
   # If you're using rbenv, use this to load the rbenv environment.
@@ -36,12 +36,12 @@ end
 
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
-task setup: :environment do
+task :setup do
   # command %{rbenv install 2.3.0}
 end
 
 desc "Deploys the current version to the server."
-task deploy: :environment do
+task :deploy do
   # uncomment this line to make sure you pushed your local branch to the remote origin
   # invoke :'git:ensure_pushed'
   deploy do
@@ -61,6 +61,9 @@ task deploy: :environment do
       end
     end
   end
+
+  # you can use `run :local` to run tasks on local machine before of after the deploy scripts
+  # run :local { say 'done' }
 end
 
 # For help in making your deploy script, see the Mina documentation:

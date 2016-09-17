@@ -37,7 +37,11 @@ task :environment do
 end
 #
 # desc "Deploys."
-task deploy: :environment do
+task :deploy do
+  run :local do
+    command 'ls'
+  end
+
   deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'

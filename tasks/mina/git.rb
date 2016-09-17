@@ -7,7 +7,7 @@ set :git_not_pushed_message, -> { "Your branch #{fetch(:branch)} needs to be pus
 
 namespace :git do
   desc 'Clones the Git repository to the release path.'
-  task clone: :environment do
+  task :clone do
     ensure!(:repository)
     ensure!(:deploy_to)
     if set?(:commit)
@@ -36,12 +36,12 @@ namespace :git do
     end
   end
 
-  task revision: :environment do
+  task :revision do
     ensure!(:deploy_to)
     command %{cat #{fetch(:current_path)}/.mina_git_revision}
   end
 
-  task ensure_pushed: :environment do
+  task :ensure_pushed do
     run :local do
       comment %{Ensuring everyting is pushed to git}
       command %{

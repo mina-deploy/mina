@@ -3,7 +3,7 @@ set :port, 22
 task :environment do
 end
 
-task run_commands: :environment do
+task :run_commands do
   commands.run(:remote) unless commands.queue.empty?
 end
 
@@ -11,7 +11,7 @@ task :reset! do
   reset!
 end
 
-task debug_configuration_variables: :environment do
+task :debug_configuration_variables do
   if fetch(:debug_configuration_variables)
     puts
     puts '------- Printing current config variables -------'
@@ -46,7 +46,7 @@ task :ssh_keyscan_domain do
 end
 
 desc 'Runs a command in the server.'
-task :run, [:command] => [:environment] do |_, args|
+task :run, [:command] do |_, args|
   ensure!(:deploy_to)
   command = args[:command]
 
@@ -61,6 +61,6 @@ task :run, [:command] => [:environment] do |_, args|
 end
 
 desc 'Open an ssh session to the server and cd to deploy_to folder'
-task ssh: :environment do
+task :ssh do
   exec %{#{Mina::Backend::Remote.new(nil).ssh} 'cd #{fetch(:deploy_to)} && exec $SHELL'}
 end
