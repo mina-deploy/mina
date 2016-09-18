@@ -4,7 +4,7 @@ task :environment do
 end
 
 task :run_commands do
-  commands.run(:remote) unless commands.queue.empty?
+  commands.run(:remote)
 end
 
 task :reset! do

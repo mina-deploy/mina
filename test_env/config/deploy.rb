@@ -39,7 +39,7 @@ end
 # desc "Deploys."
 task :deploy do
   run :local do
-    command 'ls'
+    puts 'buja'
   end
 
   deploy do

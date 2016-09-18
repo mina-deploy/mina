@@ -83,6 +83,7 @@ describe Mina::Commands do
 
   describe '#run' do
     it 'calls run on a backend' do
+      commands.command('ls -al')
       runner = double(:runner)
       allow(Mina::Runner).to receive(:new).and_return(runner)
       expect(runner).to receive(:run).and_return(true)

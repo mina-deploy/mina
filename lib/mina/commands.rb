@@ -40,6 +40,7 @@ module Mina
     end
 
     def run(backend)
+      return if queue.empty?
       report_time do
         status = Mina::Runner.new(process, backend).run
         error! 'Run Error' unless status
