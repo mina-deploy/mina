@@ -23,7 +23,11 @@ module Mina
       end
 
       def print_stderr(msg)
-        puts "       #{color(msg, 31)}"
+        if msg =~ /I, \[/ # fix for asset precompile
+          print_stdout msg
+        else
+          puts "       #{color(msg, 31)}"
+        end
       end
 
       def print_command(msg)
