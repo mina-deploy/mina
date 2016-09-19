@@ -28,7 +28,7 @@ task :ssh_keyscan_repo do
   repo_port = /:([0-9]+)/.match(fetch(:repository)) && /:([0-9]+)/.match(fetch(:repository))[1] || '22'
 
   command %{
-    if ! ssh-keygen -H  -F #{repo_host} &>/dev/null; then
+    if ! ssh-keygen -H -F #{repo_host} &>/dev/null; then
       ssh-keyscan -t rsa -p #{repo_port} -H #{repo_host} >> ~/.ssh/known_hosts
     fi
   }
@@ -38,11 +38,13 @@ desc 'Adds domain known hosts'
 task :ssh_keyscan_domain do
   ensure!(:domain)
   ensure!(:port)
-  command %{
-    if ! ssh-keygen -H  -F #{fetch(:domain)} &>/dev/null; then
-      ssh-keyscan -t rsa -p #{fetch(:port)} -H #{fetch(:domain)} >> ~/.ssh/known_hosts
-    fi
-  }
+  run :local do
+    command %{
+      if ! ssh-keygen -H -F #{fetch(:domain)} &>/dev/null; then
+        ssh-keyscan -t rsa -p #{fetch(:port)} -H #{fetch(:domain)} >> ~/.ssh/known_hosts
+      fi
+    }
+  end
 end
 
 desc 'Runs a command in the server.'
