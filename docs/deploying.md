@@ -18,13 +18,13 @@ task :deploy do
     invoke :'bundle:install'
 
     # These are instructions to start the app after it's been prepared.
-    to :launch do
-      queue 'touch tmp/restart.txt'
+    on :launch do
+      command %{touch tmp/restart.txt}
     end
 
     # This optional block defines how a broken release should be cleaned up.
-    to :clean do
-      queue 'log "failed deployment"'
+    on :clean do
+      command %{log "failed deployment"}
     end
   end
 end
@@ -58,8 +58,8 @@ In this example, it will do `git:clone` and `bundle:install`.
 
 ### Step 2: Move it to releases
 
-Once the project has been built, it will be moved to `releases/`. A symlink
-called `current/` will be created to point to the active release.
+Once the project has been built, it will be moved to `releases/`.
+Invoke the commands queued up in the `on :build` block.
 
     $
     -----> Moving to releases/4
@@ -69,7 +69,8 @@ called `current/` will be created to point to the active release.
 
 ### Step 3: Launch it
 
-Invoke the commands queued up in the `to :launch` block. These often
+A symlink called `current/` will be created to point to the active release.
+Invoke the commands queued up in the `on :launch` block. These often
 commands to restart the webserver process. Once this in complete, you're done!
 
     $
@@ -81,7 +82,7 @@ commands to restart the webserver process. Once this in complete, you're done!
 ### What about failure?
 
 If it fails at any point, the release path will be deleted. If any commands are
-queued using the `to :clean` block, they will be run. It will be as if nothing
+queued using the `on :clean` block, they will be run. It will be as if nothing
 happened. Lets see what happens if a build fails:
 
     $

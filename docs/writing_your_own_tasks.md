@@ -25,10 +25,6 @@ The `command` command queues up Bash commands to be run on the remote server.
 If you invoke `mina restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
-# Workflow
-
-WIP
-
 # DSL
 
 ## Helpers
@@ -49,22 +45,22 @@ This queues code to be run on the current queue name (defaults to `:default`).
 By default, whitespace is stripped from the beginning and end of the command.
 
 ``` ruby
-command 'ls -al' # => [ls -al]
+command %{ls -al} # => [ls -al]
 ```
 
 ### comment
 Adds a comment to the command queue.
 
 ``` ruby
-comment 'ls -al' # => [echo '-----> ls -al']
+comment %{ls -al} # => [echo "-----> ls -al"]
 ```
 
 ### run
-Runs the given block on the defined backend
+Runs the given block on the defined backend (remote or local)
 
 ``` ruby
 run :remote do
-  command 'ls -al'
+  command %{ls -al}
 end
 ```
 
@@ -82,7 +78,7 @@ Change the path the commands in the given block is run.
 
 ``` ruby
 in_path('some/new/path') do
-  command 'ls -al' # => cd some/new/path && ls -al
+  command %{ls -al} # => cd some/new/path && ls -al
 end
 ```
 
