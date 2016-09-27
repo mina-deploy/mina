@@ -9,12 +9,10 @@ require 'mina/version'
 Gem::Specification.new do |spec|
   spec.name = 'mina'
   spec.version = Mina::VERSION
-  spec.summary = 'Really fast deployer and server automation tool.'
-  spec.description = 'Really fast deployer and server automation tool.'
-  spec.authors = ['Stjepan Hadjić', 'Gabrijel Škoro', 'Rico Sta. Cruz', 'Michael Galero']
-  spec.email = [
-    'stjepan.hadjic@infinum.co', 'gabrijel.skoro@infinum.co', 'rico@nadarei.co', 'mikong@nadarei.co'
-  ]
+  spec.summary = 'Blazing fast application deployment tool.'
+  spec.description = 'Blazing fast application deployment tool.'
+  spec.authors = ['Stjepan Hadjić']
+  spec.email = ['stjepan.hadjic@infinum.co']
   spec.homepage = 'https://github.com/mina-deploy/mina'
   spec.files = `git ls-files`.strip.split("\n")
   spec.executables = Dir['bin/*'].map { |f| File.basename(f) }
