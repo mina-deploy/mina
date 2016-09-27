@@ -48,6 +48,6 @@ Credits
 
 Mina is maintained and sponsored by [Infinum](https://infinum.co).
 
-You can reach us on tiwtter [Stef](https://twitter.com/_Beast_) && [Infinum](https://twitter.com/infinumco)
+You can reach us on tiwtter [Stef](https://twitter.com/_Beast_) & [Infinum](https://twitter.com/infinumco)
 
 ![](https://assets.infinum.co/assets/brand-logo-9e079bfa1875e17c8c1f71d1fee49cf0.svg) © 2016 Infinum.  
