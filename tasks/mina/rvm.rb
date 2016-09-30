@@ -3,7 +3,7 @@ set :rvm_use_path, '$HOME/.rvm/scripts/rvm'
 task :'rvm:use', :env do |_, args|
   unless args[:env]
     puts "Task 'rvm:use' needs an RVM environment name as an argument."
-    puts "Example: invoke :'rvm:use[ruby-1.9.2@default]'"
+    puts "Example: invoke :'rvm:use', 'ruby-1.9.2@default'"
     exit 1
   end
 
@@ -16,13 +16,13 @@ task :'rvm:use', :env do |_, args|
     fi
   }
   command %{source #{fetch(:rvm_use_path)}}
-  comment %{rvm use \\"#{args[:env]}\\" --create}
+  command %{rvm use "#{args[:env]}" --create}
 end
 
 task :'rvm:wrapper', :env, :name, :bin do |_, args|
   unless args[:env] && args[:name] && args[:bin]
     puts "Task 'rvm:wrapper' needs an RVM environment name, an wrapper name and the binary name as arguments"
-    puts "Example: invoke :'rvm:wrapper[ruby-1.9.2@myapp,myapp,unicorn_rails]'"
+    puts "Example: invoke :'rvm:wrapper', 'ruby-1.9.2@myapp,myapp,unicorn_rails'"
     exit 1
   end
 
