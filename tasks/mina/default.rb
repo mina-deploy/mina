@@ -27,8 +27,8 @@ task :ssh_keyscan_repo do
   repo_host = fetch(:repository).split(%r{@|://}).last.split(%r{:|\/}).first
   repo_port = /:([0-9]+)/.match(fetch(:repository)) && /:([0-9]+)/.match(fetch(:repository))[1] || '22'
 
-  next unless repo_host.blank?
-  
+  next if repo_host == ""
+
   command %{
     if ! ssh-keygen -H -F #{repo_host} &>/dev/null; then
       ssh-keyscan -t rsa -p #{repo_port} -H #{repo_host} >> ~/.ssh/known_hosts
