@@ -17,7 +17,7 @@ if you setup your server correctly and you are using a ruby environment manager 
 
 ## - Mina hangs after i type my password in
 
-Mina assumes that you have set up the communication with your server though public/private keys, not password. If you want to use password you will have to change execution mode:
+Mina assumes that you have set up the communication with your server through the public/private keys, not password. If you want to use the password you will have to change the execution mode:
 
     set :execution_mode, :system
 
