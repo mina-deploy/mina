@@ -27,6 +27,7 @@ namespace :deploy do
     end
 
     fetch(:shared_files, []).each do |linked_path|
+      command %{rm -f "./#{linked_path}"}
       command %{ln -s "#{fetch(:shared_path)}/#{linked_path}" "./#{linked_path}"}
     end
   end
