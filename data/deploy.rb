@@ -19,11 +19,11 @@ set :branch, 'master'
 #   set :port, '30000'           # SSH port number.
 #   set :forward_agent, true     # SSH forward_agent.
 
-# They will be linked in the 'deploy:link_shared_paths' step.
-# set :shared_dirs, fetch(:shared_dirs, []).push('config')
+# shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
+# set :shared_dirs, fetch(:shared_dirs, []).push('somedir')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 
-# This task is the environment that is loaded all remote run commands, such as
+# This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :environment do
   # If you're using rbenv, use this to load the rbenv environment.
