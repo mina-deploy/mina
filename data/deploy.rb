@@ -68,4 +68,4 @@ end
 
 # For help in making your deploy script, see the Mina documentation:
 #
-#  - https://github.com/mina-deploy/mina/docs
+#  - http://nadarei.co/mina/
