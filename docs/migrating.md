@@ -7,6 +7,7 @@ Migrating from 0.3.x to 1.0
 * `queue!`        -> `command`  # it will output the command if verbose is true
 * `to`            -> `on`       # changes queue name
 * `in_directory`  -> `in_path`  # wraps commands to be run in specified path
+* `invoke :'task[param]'` -> `invoke :task, param`  # passes params to the task
 
 ## new
 * `run`                         # runs commands on a specified backend, this has replaced old before and after hooks
