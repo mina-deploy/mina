@@ -3,6 +3,9 @@ set :port, 22
 task :environment do
 end
 
+task :default do
+end
+
 task :run_commands do
   commands.run(:remote)
 end

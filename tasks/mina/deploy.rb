@@ -73,7 +73,7 @@ task :setup do
     fetch(:shared_dirs, []).each do |linked_dir|
       command %{mkdir -p "#{linked_dir}"}
     end
-    fetch(:shared_paths, []).each do |linked_path|
+    fetch(:shared_files, []).each do |linked_path|
       command %{mkdir -p "#{File.dirname(linked_path)}"}
     end
   end
