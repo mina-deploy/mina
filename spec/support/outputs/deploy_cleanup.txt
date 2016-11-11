@@ -1,2 +1,2 @@
 echo\ "\-\-\-\-\->\ Cleaning\ up\ old\ releases\ \(keeping\ 2\)"
-\(cd\ .*/deploy/releases\ &&\ count=\$\(ls\ \-A1\ \|\ sort\ \-rn\ \|\ wc\ \-l\)\ &&\ remove=\$\(\(count\ >\ 2\ \?\ count\ \-\ 2\ :\ 0\)\)\ &&\ ls\ \-A1\ \|\ sort\ \-rn\ \|\ tail\ \-n\ \$remove\ \|\ xargs\ rm\ \-rf\ \{\}\)
+\(cd\ .*/deploy/releases\ &&\ count=\$\(ls\ \-A1\ \|\ sort\ \-rn\ \|\ wc\ \-l\)\ &&\ remove=\$\(\(count\ >\ 2\ \?\ count\ \-\ 2\ :\ 0\)\)\ &&\ ls\ \-A1\ \|\ sort\ \-rn\ \|\ tail\ \-n\ \$remove\ \|\ xargs\ rm\ \-rf\ \{\} &&\ cd\ -\)
