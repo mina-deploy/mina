@@ -1,1 +1,1 @@
-\(cd .*deploy && ls -al\)
+\(cd .*deploy && ls -al\ &&\ cd\ -\)

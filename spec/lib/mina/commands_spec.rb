@@ -68,7 +68,7 @@ describe Mina::Commands do
     end
 
     it 'joins all the commands within a path' do
-      expect(commands.process('some/path')).to eq('(cd some/path && ls -al && pwd)')
+      expect(commands.process('some/path')).to eq('(cd some/path && ls -al && pwd && cd -)')
     end
 
     context 'when verbose' do
@@ -76,7 +76,7 @@ describe Mina::Commands do
       after { Mina::Configuration.instance.remove(:verbose) }
 
       it 'joins all the commands within a path and echoes it' do
-        expect(commands.process('some/path')).to eq("(cd some/path && echo \"$ cd some/path\" && ls -al && pwd)")
+        expect(commands.process('some/path')).to eq("(cd some/path && echo \"$ cd some/path\" && ls -al && pwd && cd -)")
       end
     end
   end
