@@ -24,6 +24,8 @@ Compare this to the likes of [Capistrano](https://github.com/capistrano/capistra
     $ gem install mina
     $ mina init
 
+Mina requires ruby 2.0.0 or greater. For older please use [0.3.8 version](https://github.com/mina-deploy/mina/blob/v0.3.8/)
+
 Documentation
 ----------------
 
