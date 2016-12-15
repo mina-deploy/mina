@@ -1,3 +1,5 @@
+require 'mina/install'
+
 set :port, 22
 
 task :environment do
