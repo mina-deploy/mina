@@ -9,6 +9,7 @@ require 'mina/git'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
+set :application_name, 'foobar'
 set :domain, 'foobar.com'
 set :deploy_to, '/var/www/foobar.com'
 set :repository, 'git://...'
