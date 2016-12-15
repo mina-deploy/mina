@@ -7,6 +7,7 @@ task :default do
 end
 
 task :run_commands do
+  invoke :environment
   commands.run(:remote)
 end
 
