@@ -33,7 +33,6 @@ set :keep_releases, 2
 
 task :environment do
   invoke :'rbenv:load'
-  invoke :'rvm:use', '123'
 end
 #
 # desc "Deploys."
@@ -57,7 +56,7 @@ end
 
 desc 'Task description'
 task :test do
-  run :local do
+  run :remote do
     comment %{PWD}
     in_path('/Users') do
       command %{ls -al}
@@ -65,5 +64,9 @@ task :test do
     on :after do
       command %{pwd}
     end
+  end
+
+  run :local do
+    command %{ls -al}
   end
 end

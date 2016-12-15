@@ -9,8 +9,10 @@ task :default do
 end
 
 task :run_commands do
-  invoke :environment
-  commands.run(:remote)
+  if commands.run_default?
+    invoke :environment
+    commands.run(:remote)
+  end
 end
 
 task :reset! do

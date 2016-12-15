@@ -39,6 +39,10 @@ module Mina
       end
     end
 
+    def run_default?
+      !queue.empty? && stage == :default
+    end
+
     def run(backend)
       return if queue.empty?
       report_time do
