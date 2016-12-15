@@ -33,6 +33,11 @@ namespace :git do
     command %{git --no-pager log --format="%aN (%h):%n> %s" -n 1}
     if fetch(:remove_git_dir)
       command %{rm -rf .git}
+      command %{
+        if [ -f .gitmodules ]; then
+          awk '/path =/ { print $3"/.git" }' .gitmodules | xargs rm -f
+        fi
+      }
     end
   end
 
