@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Mina::Configuration do
   let(:config) { Class.new(Mina::Configuration).instance }
   let(:key) { config.fetch(:key, :default) }
+  let(:key_no_default) { config.fetch(:key) }
 
   describe '#set' do
     it 'sets by value' do
@@ -17,13 +18,20 @@ describe Mina::Configuration do
   end
 
   describe '#fetch' do
+    it 'returns the set value even if ENV[key] is set' do
+      ENV['key'] = 'env'
+      config.set(:key, :value)
+      expect(key).to eq :value
+      ENV['key'] = nil
+    end
+
     it 'returns the default value if key not set' do
       expect(key).to eq :default
     end
 
-    it 'returns ENV value if set' do
+    it 'returns ENV value if key and default not set' do
       ENV['key'] = 'env'
-      expect(key).to eq 'env'
+      expect(key_no_default).to eq 'env'
       ENV['key'] = nil
     end
   end

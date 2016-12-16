@@ -23,8 +23,8 @@ module Mina
       variables[key] = block || value
     end
 
-    def fetch(key, default = nil)
-      value = ENV[key.to_s] || variables.fetch(key, default)
+    def fetch(key, default = ENV[key.to_s])
+      value = variables.fetch(key, default)
       value.respond_to?(:call) ? value.call : value
     end
 
