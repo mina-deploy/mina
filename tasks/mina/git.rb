@@ -1,7 +1,7 @@
 require 'mina/default'
 
 set :branch, 'master'
-set :remove_git_dir, true
+set :remove_git_dir, true unless set?(:remove_git_dir)
 set :remote, 'origin'
 set :git_not_pushed_message, -> { "Your branch #{fetch(:branch)} needs to be pushed to #{fetch(:remote)} before deploying" }
 
