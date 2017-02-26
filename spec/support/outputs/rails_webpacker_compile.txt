@@ -1,0 +1,2 @@
+echo "-----> Precompiling webpacker asset files"
+RAILS_ENV="production" bundle exec rails webpacker:compile
