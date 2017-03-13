@@ -11,10 +11,16 @@ set :migration_dirs, ['db/migrate']
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path))
 
-desc 'Starts an interactive console.'
-task :console do
+def exec_in_current_path(&block)
   set :execution_mode, :exec
   in_path "#{fetch(:current_path)}" do
+    block.call
+  end
+end
+
+desc 'Starts an interactive console.'
+task :console do
+  exec_in_current_path do
     command %{#{fetch(:rails)} console}
   end
 end
@@ -30,8 +36,7 @@ end
 namespace :rails do
   desc 'Migrate database'
   task :db_migrate do
-    set :execution_mode, :exec
-    in_path "#{fetch(:current_path)}" do
+    exec_in_current_path do
       if fetch(:force_migrate)
         comment %{Migrating database}
         command %{#{fetch(:rake)} db:migrate}
@@ -48,8 +53,7 @@ namespace :rails do
 
   desc 'Create database'
   task :db_create do
-    set :execution_mode, :exec
-    in_path "#{fetch(:current_path)}" do
+    exec_in_current_path do
       comment %{Creating database}
       command %{#{fetch(:rake)} db:create}
     end
@@ -57,8 +61,7 @@ namespace :rails do
 
   desc 'Rollback database'
   task :db_rollback do
-    set :execution_mode, :exec
-    in_path "#{fetch(:current_path)}" do
+    exec_in_current_path do
       comment %{Rollbacking database}
       command %{#{fetch(:rake)} db:rollback}
     end
@@ -66,8 +69,7 @@ namespace :rails do
 
   desc 'Precompiles assets (skips if nothing has changed since the last release).'
   task :assets_precompile do
-    set :execution_mode, :exec
-    in_path "#{fetch(:current_path)}" do
+    exec_in_current_path do
       if fetch(:force_asset_precompile)
         comment %{Precompiling asset files}
         command %{#{fetch(:rake)} assets:precompile}
@@ -101,14 +103,12 @@ end
 # Macro used later by :rails, :rake, etc
 make_run_task = lambda { |name, example|
   task name, [:arguments] do |_, args|
-    set :execution_mode, :exec
-
     arguments = args[:arguments]
     unless arguments
       puts %{You need to provide arguments. Try: mina "#{name}[#{example}]"}
       exit 1
     end
-    in_path "#{fetch(:current_path)}" do
+    exec_in_current_path do
       command %(#{fetch(name)} #{arguments})
     end
   end
