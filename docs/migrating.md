@@ -27,7 +27,14 @@ Migrating from 0.3.x to 1.0
 
 # Deploy variables
 
-* `shared_paths` -> separate into `shared_dirs` & `shared_files`
+* `shared_paths` -> separated into `shared_dirs` & `shared_files`
+
+For example:
+
+```rb
+set :shared_dirs, fetch(:shared_dirs, []).push('somedir')
+set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
+```
 
 All `*_path` variables (`:current_path`, `:shared_path`, ...) now include `:deploy_to`
 * `#{fetch(:deploy_to)}/#{fetch(:current_path)}` -> `fetch(:current_path)`
