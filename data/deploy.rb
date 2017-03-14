@@ -38,7 +38,7 @@ end
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
-  # command %{rbenv install 2.3.0}
+  # command %{rbenv install 2.3.0 --skip-existing}
 end
 
 desc "Deploys the current version to the server."
