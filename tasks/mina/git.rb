@@ -30,6 +30,7 @@ namespace :git do
 
     comment %{Using this git commit}
     command %{git rev-parse HEAD > .mina_git_revision}
+    command %{echo "Branch #{fetch(:branch)} (at $(cat .mina_git_revision)) deployed by #{fetch(:user)} in #{Time.now.strftime("%Y-%d-%m %H:%M:%S %Z")}" >> #{fetch(:deploy_to)}/.mina_revisions_log }
     command %{git --no-pager log --format="%aN (%h):%n> %s" -n 1}
     if fetch(:remove_git_dir)
       command %{rm -rf .git}

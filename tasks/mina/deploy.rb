@@ -57,6 +57,7 @@ task :rollback do
     command %{current_release=$(ls -1A | sort -n | tail -n 1)}
     comment %{Deleting current release: $current_release}
     command %{rm -rf #{fetch(:releases_path)}/$current_release}
+    command %{echo "#{fetch(:user)} rolled back to release $rollback_release in #{Time.now.strftime("%Y-%d-%m %H:%M:%S %Z")}" >> #{fetch(:deploy_to)}/.mina_revisions_log }
   end
 end
 
