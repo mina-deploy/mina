@@ -37,6 +37,12 @@ RSpec.describe 'rails', type: :rake do
     end
   end
 
+  describe 'rails:webpacker_compile' do
+    it 'rails webpacker compile' do
+      expect { invoke_all }.to output(output_file('rails_webpacker_compile')).to_stdout
+    end
+  end
+
   # describe 'rollback' do
   #   it 'rollback' do
   #     expect { invoke_all }.to output(output_file('rollback')).to_stdout

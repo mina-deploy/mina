@@ -69,6 +69,12 @@ namespace :rails do
       ), quiet: true
     end
   end
+
+  desc 'Compile webpacker assets'
+  task :webpacker_compile do
+    comment %{Precompiling webpacker asset files}
+    command %{#{fetch(:rails)} webpacker:compile}
+  end
 end
 
 def check_for_changes_script(options)
