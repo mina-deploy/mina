@@ -28,6 +28,7 @@
 * [mina-sidekiq](https://github.com/Mic92/mina-sidekiq)
 * [mina-slack](https://github.com/TAKAyukiatkwsk/mina-slack)
 * [mina-stack](https://github.com/div/mina-stack)
+* [mina-supervisord](https://github.com/hovancik/mina-supervisord)
 * [mina-systemd](https://github.com/alexkojin/mina-systemd)
 * [mina-tail](https://github.com/modomoto/mina-tail)
 * [mina-unicorn](https://github.com/openteam/mina-unicorn)
