@@ -75,6 +75,12 @@ namespace :rails do
     comment %{Removing older assets}
     command %{#{fetch(:rake)} assets:clean}
   end
+
+  desc 'DB schema load'
+  task :db_schema_load do
+    comment %{DB schema load}
+    command %{#{fetch(:rake)} db:schema:load}
+  end
 end
 
 def check_for_changes_script(options)
