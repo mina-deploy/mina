@@ -11,32 +11,49 @@ module Mina
       end
 
       def run
-        status =
-          Open4.popen4(*script) do |pid, _stdin, stdout, stderr|
+        status = nil
+        begin
+          pid, stdin, stdout, stderr = (RUBY_PLATFORM =~ /java/ ? IO : Open4).send(:popen4, command)
+          #Open4.popen4(*script) do |pid, _stdin, stdout, stderr|
             # Handle `^C`.
-            trap('INT') { handle_sigint(pid) }
+          trap('INT') { handle_sigint(pid) }
 
-            stdout_thread = Thread.new do
-              while (line = stdout.gets)
-                print_line(line)
-              end
+          stdout_thread = Thread.new do
+            while (line = stdout.gets)
+              print_line(line)
             end
-
-            stderr_thread = Thread.new do
-              while (line = stderr.gets)
-                print_stderr(line)
-              end
-            end
-
-            stdout_thread.join
-            stderr_thread.join
           end
 
-        status.exitstatus == 0
+          stderr_thread = Thread.new do
+            while (line = stderr.gets)
+              print_stderr(line)
+            end
+          end
+
+          stdout_thread.join
+          stderr_thread.join
+
+          p, status = Process.waitpid2(pid) if still_alive?(pid)
+          
+          not (status.nil? || status.exitstatus != 0)
+        rescue => e
+          print_status "Mina: Got error: #{e.message}"
+          false
+        end
       end
 
       private
 
+      
+      def still_alive?(pid)
+        begin
+          Process.getpgid(pid)
+          true
+        rescue Errno::ESRCH
+          false
+        end
+      end
+      
       def handle_sigint(pid)
         puts ''
         if coathooks > 1
