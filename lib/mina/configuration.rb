@@ -33,7 +33,7 @@ module Mina
     end
 
     def set?(key)
-      !variables.fetch(key, nil).nil?
+      ENV.has_key?(key.to_s) || !variables.fetch(key, nil).nil?
     end
 
     def ensure!(key)

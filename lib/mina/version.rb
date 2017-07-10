@@ -1,3 +1,3 @@
 module Mina
-  VERSION = '1.0.0'.freeze
+  VERSION = '1.0.3'.freeze
 end

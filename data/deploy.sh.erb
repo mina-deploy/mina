@@ -25,7 +25,7 @@ fi
 # Check lockfile
 if [ -e "<%= fetch(:lock_file) %>" ]; then
   echo "! ERROR: another deployment is ongoing."
-  echo "The file '<%= fetch(:lock_file) %>' was found."
+  echo "The file '<%= fetch(:lock_file) %>' was found. File was last modified at $(stat -c %y <%= fetch(:lock_file) %>)"
   echo "If no other deployment is ongoing, run 'mina deploy:force_unlock' to delete the file."
   exit 17
 fi
