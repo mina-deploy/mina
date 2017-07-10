@@ -3,6 +3,7 @@ require 'spec_helper'
 RSpec.describe 'default', type: :rake do
   describe 'ssh_keyscan_repo' do
     it 'scans ssh' do
+      Mina::Configuration.instance.set(:repository, 'git@github.com/exapmle')
       expect { invoke_all }.to output(output_file('ssh_keyscan_repo')).to_stdout
     end
   end

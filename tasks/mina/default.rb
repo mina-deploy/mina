@@ -3,6 +3,9 @@ set :port, 22
 task :environment do
 end
 
+task :default do
+end
+
 task :run_commands do
   commands.run(:remote)
 end
@@ -26,6 +29,8 @@ task :ssh_keyscan_repo do
   ensure!(:repository)
   repo_host = fetch(:repository).split(%r{@|://}).last.split(%r{:|\/}).first
   repo_port = /:([0-9]+)/.match(fetch(:repository)) && /:([0-9]+)/.match(fetch(:repository))[1] || '22'
+
+  next if repo_host == ""
 
   command %{
     if ! ssh-keygen -H -F #{repo_host} &>/dev/null; then

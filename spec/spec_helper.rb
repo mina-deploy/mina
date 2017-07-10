@@ -1,7 +1,5 @@
-require 'codeclimate-test-reporter'
 require 'simplecov'
 
-CodeClimate::TestReporter.start
 SimpleCov.start
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
