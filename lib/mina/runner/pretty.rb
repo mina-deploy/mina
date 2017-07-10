@@ -13,7 +13,7 @@ module Mina
       def run
         status = nil
         begin
-          pid, stdin, stdout, stderr = (RUBY_PLATFORM =~ /java/ ? IO : Open4).send(:popen4, command)
+          pid, stdin, stdout, stderr = (RUBY_PLATFORM =~ /java/ ? IO : Open4).send(:popen4, *script)
           #Open4.popen4(*script) do |pid, _stdin, stdout, stderr|
             # Handle `^C`.
           trap('INT') { handle_sigint(pid) }
