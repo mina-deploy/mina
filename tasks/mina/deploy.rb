@@ -70,6 +70,8 @@ task :setup do
   command %{mkdir -p "#{fetch(:shared_path)}"}
 
   in_path "#{fetch(:shared_path)}" do
+    # ensure no error when shared dirs and files are empty
+    command %{true}
     fetch(:shared_dirs, []).each do |linked_dir|
       command %{mkdir -p "#{linked_dir}"}
     end
