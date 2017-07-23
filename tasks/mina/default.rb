@@ -10,8 +10,12 @@ end
 
 task :run_commands do
   if commands.run_default?
-    invoke :environment
-    commands.run(:remote)
+    real_commands = commands.process
+
+    reset!
+    run :remote do
+      command real_commands
+    end
   end
 end
 
