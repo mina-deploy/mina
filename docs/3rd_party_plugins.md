@@ -11,6 +11,7 @@
 * [mina-faye](https://github.com/NingenUA/mina-faye)
 * [mina-foreman](https://github.com/mina-deploy/mina-foreman)
 * [mina-ftp](https://github.com/stas/mina-ftp)
+* [mina-hanami](https://github.com/mgrachev/mina-hanami)
 * [mina-hipchat](https://github.com/apertureless/mina-hipchat)
 * [mina-hooks](https://github.com/elskwid/mina-hooks)
 * [mina-mercurial](https://github.com/rainlabs/mina-mercurial)
