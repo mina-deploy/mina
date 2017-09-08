@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/mina-deploy/mina/tree/HEAD)
-
-[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.6...HEAD)
+## [v1.0.7](https://github.com/mina-deploy/mina/tree/v1.0.7) (2017-09-08)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.6...v1.0.7)
 
 **Closed issues:**
 
