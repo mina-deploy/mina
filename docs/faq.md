@@ -7,13 +7,22 @@ You need to setup your server correctly [getting started](getting_started.md#ste
 
     gem install bundler
 
-## - ruby version not found, but is already installed
+## - `my_program` not found, but is already installed
 
 Mina is running in a non-interactive ssh mode. That means that your full profile will not be loaded:  ![ssh](http://capistranorb.com/images/BashStartupFiles1.png)
 
-if you setup your server correctly and you are using a ruby environment manager please ensure that:
-  - you are using a mina plugin for that manager or
-  - the lines that load up your manager are at the top of your .bashrc file: http://stackoverflow.com/a/216204/1339894
+There is a line at the top in most `.bashrc` files:
+```
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+```
+this means that all lines below this will not be executed when using mina.
+
+The easiest way to fix this is to move all your `export` and `source` lines to the top of your `.bashrc` file.
+More info at: http://stackoverflow.com/a/216204/1339894
 
 ## - Mina hangs after i type my password in
 
