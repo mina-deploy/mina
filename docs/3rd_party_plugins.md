@@ -33,3 +33,4 @@
 * [mina-tail](https://github.com/modomoto/mina-tail)
 * [mina-unicorn](https://github.com/openteam/mina-unicorn)
 * [mina-whenever](https://github.com/mina-deploy/mina-whenever)
+* [mina-lock] (https://github.com/lorenzosinisi/mina-lock)
