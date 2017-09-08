@@ -16,12 +16,9 @@ Beside normal rake options mina added some of its own:
 
 * `-V` / `--version` - Shows the current version.
 
+* `-AT` / `--all --tasks` - Show all tasks mina can run.
+
 * `-d` / `--debug-configuration-variables` - Display the defined config variables before runnig the tasks.
-
-### Tasks
-
-There are many tasks available. See the [tasks reference](https://mina-deploy.github.io/mina/tasks/), or
-type `mina -T`.
 
 ### Variables
 
