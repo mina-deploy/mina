@@ -74,4 +74,4 @@ Use `mina deploy` to run the `deploy` task defined in *config/deploy.rb*.
 
 ### Step 4: Considerations after first deploy
 
-If you changed `shared_files` and `shared_dirs` in your `deploy.rb` you have to run `mina setup` again. This ensures all neede folders are created.
+If you changed `shared_files` and `shared_dirs` in your `deploy.rb` you have to run `mina setup` again. This ensures all needed folders are created.
