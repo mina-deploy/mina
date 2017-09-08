@@ -4,7 +4,7 @@ module Mina
 
     def initialize
       super
-      @rakefiles = ['config/deploy.rb', minafile]
+      @rakefiles = ['Minafile', '.deploy.rb', 'deploy.rb', 'config/deploy.rb', minafile]
     end
 
     def name
