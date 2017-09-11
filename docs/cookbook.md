@@ -43,5 +43,25 @@ task :deploy do
   end
 end
 ```
+
+# Deploy plain HTML websites
+```
+require 'mina/git'
+require 'mina/deploy'
+...
+desc "Deploys the current version to the server."
+task :deploy do
+  deploy do
+    invoke :'git:clone'
+    invoke :'deploy:cleanup'
+
+    on :launch do
+      in_path(fetch(:current_path)) do
+        command %{npm install}
+      end
+    end
+  end
+end
+```
 -------------------------------
 \* *feel free to add your own recipes*
