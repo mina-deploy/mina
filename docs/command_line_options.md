@@ -14,6 +14,8 @@ Beside normal rake options mina added some of its own:
 
 * `-s` / `--simulate` - This will not run any commands; instead, it will simply output the script it builds.
 
+* `-T` / `--tasks` - Shows the tasks available.
+
 * `-V` / `--version` - Shows the current version.
 
 * `-AT` / `--all --tasks` - Show all tasks mina can run.

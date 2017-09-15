@@ -1,2 +1,1 @@
-echo "-----> Creating database"
-RAILS_ENV="production" bundle exec rake db:create
+\(cd .*/deploy/current && echo "-----> Creating database" && RAILS_ENV="production" bundle exec rake db:create && cd -\)

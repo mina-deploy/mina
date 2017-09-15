@@ -1,2 +1,1 @@
-echo "-----> Rollbacking database"
-RAILS_ENV="production" bundle exec rake db:rollback
+\(cd .*/deploy/current && echo "-----> Rollbacking database" && RAILS_ENV="production" bundle exec rake db:rollback && cd -\)
