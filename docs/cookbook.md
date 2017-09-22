@@ -43,7 +43,7 @@ task :deploy do
 end
 ```
 
-# Deploy plain HTML websites
+## Deploy plain HTML websites
 ```
 require 'mina/git'
 require 'mina/deploy'
