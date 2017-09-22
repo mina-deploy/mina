@@ -1,7 +1,6 @@
-Cookbook
---------------------
+# Cookbook
 
-# Multi environment deploy
+## Multi environment deploy
 
 ``` ruby
 # deploy.rb
@@ -30,7 +29,7 @@ $ mina staging deploy
 $ mina production deploy
 ```
 
-# Copy `config/application.yml` to your server
+## Copy `config/application.yml` to your server
 
 ```
 task :deploy do

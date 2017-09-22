@@ -1,5 +1,4 @@
-Default Variables
------------------
+# Default Variables
 
 The variables in the list below are usable, chengable and overwritable if you include the plugin in your `deploy.rb` script.
 Example:
@@ -22,6 +21,7 @@ mina deploy rails_env=development
   :domain                 #=> nil
   :port                   #=> 22
   :deploy_to              #=> nil
+  :execution_mode         #=> :pretty ## Can be [:exec, :pretty, :pritner, :system]
 ```
 
 ### Deploy plugin
@@ -33,7 +33,6 @@ mina deploy rails_env=development
   :deploy_script          #=> 'data/deploy.sh.erb'
   :keep_releases          #=> 5
   :version_scheme         #=> :sequence ## Can be [:sequence, :datetime]
-  :execution_mode         #=> :pretty   ## Can be [:exec, :pretty, :pritner, :system]
   :shared_dirs            #=> []
   :shared_fiels           #=> []
 ```

@@ -1,5 +1,4 @@
-Frequently Asked Questions
---------------------
+# Frequently Asked Questions
 
 ## - `command not found: bundle`
 
