@@ -40,6 +40,8 @@ See [Execution mode](how_mina_works.md#execution-modes-runners)
 
 ### Tasks
 ``` ruby
+  local_environment       #=> Task to be run before all local tasks
+  remote_environment      #=> Task to be run before all remote tasks
   ssh_keyscan_domain      #=> Adds repository host to the known hosts
   ssh_keyscan_repo        #=> Adds domain to the known hosts
   run                     #=> Runs a command on the server; Example: `$ mina 'run[rake db:migrate]'`
