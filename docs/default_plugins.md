@@ -32,8 +32,11 @@ require 'mina/default'
   :domain                 #=> nil
   :port                   #=> 22
   :deploy_to              #=> nil
-  :execution_mode         #=> :pretty ## Can be [:exec, :pretty, :pritner, :system]; [More info](how_mina_works.md#execution-modes-runners)
+  :execution_mode         #=> :pretty ## Can be [:exec, :pretty, :pritner, :system]
 ```
+
+### Execution mode
+See [Execution mode](how_mina_works.md#execution-modes-runners)
 
 ### Tasks
 ``` ruby

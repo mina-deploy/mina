@@ -15,7 +15,9 @@ RSpec.describe 'rails', type: :rake do
 
   describe 'rails:db_migrate' do
     it 'rails db migrate' do
+      Mina::Configuration.instance.set(:deploy_block, true)
       expect { invoke_all }.to output(output_file('rails_db_migrate')).to_stdout
+      Mina::Configuration.instance.set(:deploy_block, false)
     end
   end
 
@@ -33,7 +35,9 @@ RSpec.describe 'rails', type: :rake do
 
   describe 'rails:assets_precompile' do
     it 'rails assets precompile' do
+      Mina::Configuration.instance.set(:deploy_block, true)
       expect { invoke_all }.to output(output_file('rails_assets_precompile')).to_stdout
+      Mina::Configuration.instance.set(:deploy_block, false)
     end
   end
 
