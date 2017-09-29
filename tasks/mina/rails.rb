@@ -30,6 +30,7 @@ end
 namespace :rails do
   desc 'Migrate database'
   task :db_migrate do
+    ensure!(:deploy_block, message: "Can't be run outside deploy do block. Please use mina 'rake[db_migrate]' instead")
     if fetch(:force_migrate)
       comment %{Migrating database}
       command %{#{fetch(:rake)} db:migrate}
@@ -57,6 +58,7 @@ namespace :rails do
 
   desc 'Precompiles assets (skips if nothing has changed since the last release).'
   task :assets_precompile do
+    ensure!(:deploy_block, message: "Can't be run outside deploy do block. Please use mina 'rake[assets_precompile]' instead")
     if fetch(:force_asset_precompile)
       comment %{Precompiling asset files}
       command %{#{fetch(:rake)} assets:precompile}

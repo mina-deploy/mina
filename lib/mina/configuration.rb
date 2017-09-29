@@ -36,8 +36,10 @@ module Mina
       ENV.has_key?(key.to_s) || !variables.fetch(key, nil).nil?
     end
 
-    def ensure!(key)
-      error! "#{key} must be defined!" unless set?(key)
+    def ensure!(key, message: nil)
+      return if set?(key)
+      message ||= "#{key} must be defined!"
+      error! message
     end
 
     def reset!
