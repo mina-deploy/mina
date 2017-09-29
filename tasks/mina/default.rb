@@ -29,7 +29,7 @@ task :debug_configuration_variables do
   end
 end
 
-desc 'Adds current repo host to the known hosts'
+desc 'Adds repo host to the known hosts'
 task :ssh_keyscan_repo do
   ensure!(:repository)
   repo_host = fetch(:repository).split(%r{@|://}).last.split(%r{:|\/}).first
@@ -44,7 +44,7 @@ task :ssh_keyscan_repo do
   }
 end
 
-desc 'Adds domain known hosts'
+desc 'Adds domain to the known hosts'
 task :ssh_keyscan_domain do
   ensure!(:domain)
   ensure!(:port)
