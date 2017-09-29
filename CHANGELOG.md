@@ -1,5 +1,53 @@
 # Change Log
 
+## [v1.2.0](https://github.com/mina-deploy/mina/tree/v1.2.0) (2017-09-29)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.1.1...v1.2.0)
+
+**Fixed bugs:**
+
+- Fix keyscan\_domain task [\#570](https://github.com/mina-deploy/mina/issues/570)
+
+## [v1.1.1](https://github.com/mina-deploy/mina/tree/v1.1.1) (2017-09-29)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.1.0...v1.1.1)
+
+## [v1.1.0](https://github.com/mina-deploy/mina/tree/v1.1.0) (2017-09-29)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.7...v1.1.0)
+
+**Implemented enhancements:**
+
+- Separate environment to local and backend environment tasks [\#569](https://github.com/mina-deploy/mina/issues/569)
+- Add warning when using rails:\* tasks [\#567](https://github.com/mina-deploy/mina/issues/567)
+- Provide --no-report-time [\#540](https://github.com/mina-deploy/mina/issues/540)
+
+**Fixed bugs:**
+
+- disable running `run` blocks inside another `run` block [\#565](https://github.com/mina-deploy/mina/issues/565)
+
+**Closed issues:**
+
+- rails:assets\_precompile not working although working locally or via SSH [\#566](https://github.com/mina-deploy/mina/issues/566)
+- py-mina [\#564](https://github.com/mina-deploy/mina/issues/564)
+- Is it possible to deploy static websites with mina ? [\#562](https://github.com/mina-deploy/mina/issues/562)
+- Add directory structure doc [\#558](https://github.com/mina-deploy/mina/issues/558)
+- Update command line options docs [\#557](https://github.com/mina-deploy/mina/issues/557)
+- How Mina work? [\#546](https://github.com/mina-deploy/mina/issues/546)
+- Log of mina deploy command [\#529](https://github.com/mina-deploy/mina/issues/529)
+- Fix 'No Rakefile found' for rails:{db\_create, db\_migrate, db\_rollback, assetts\_precompile} commands [\#524](https://github.com/mina-deploy/mina/issues/524)
+- The old "force\_assets=1" option is mentioned on the "rails:assets\_precompile" doc webpage rather than the new "force\_asset\_precompile=true" one [\#520](https://github.com/mina-deploy/mina/issues/520)
+- Skipping assets:precompile doesn't copy assets folder to new current\_path [\#518](https://github.com/mina-deploy/mina/issues/518)
+- `remote` command doesn't find my executable \(after upgrade from 0.3 to 1.0\) [\#513](https://github.com/mina-deploy/mina/issues/513)
+- Add hint about creating `shared/database.yml` in README [\#503](https://github.com/mina-deploy/mina/issues/503)
+- Provide meaningful default shared folders [\#501](https://github.com/mina-deploy/mina/issues/501)
+- Managing environment variables file application.yml  [\#497](https://github.com/mina-deploy/mina/issues/497)
+- mina setup or mina init, don't know how to build task [\#488](https://github.com/mina-deploy/mina/issues/488)
+
+**Merged pull requests:**
+
+- added a recipe for deploying static websites [\#563](https://github.com/mina-deploy/mina/pull/563) ([alexwebgr](https://github.com/alexwebgr))
+- Fix typo: space between "\]" and "\(" [\#561](https://github.com/mina-deploy/mina/pull/561) ([lorenzosinisi](https://github.com/lorenzosinisi))
+- Fixed typo [\#560](https://github.com/mina-deploy/mina/pull/560) ([pborreli](https://github.com/pborreli))
+- Add skip-existing option to example rbenv install [\#527](https://github.com/mina-deploy/mina/pull/527) ([sunny](https://github.com/sunny))
+
 ## [v1.0.7](https://github.com/mina-deploy/mina/tree/v1.0.7) (2017-09-08)
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.6...v1.0.7)
 
