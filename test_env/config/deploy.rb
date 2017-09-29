@@ -70,3 +70,12 @@ task :test do
     command %{ls -al}
   end
 end
+
+desc 'Fails test'
+task :fail do
+  run :remote do
+    run :local do
+      command "pwd"
+    end
+  end
+end

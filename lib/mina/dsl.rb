@@ -24,11 +24,13 @@ module Mina
     end
 
     def run(backend)
-      # @commands = Commands.new
+      error! "Can't use run block inside another run block. #{caller[2]}" if set?(:run_bock)
+      set(:run_bock, true)
       invoke :environment if backend == :remote
       yield
       commands.run(backend)
       @commands = Commands.new
+      set(:run_bock, nil)
     end
 
     def on(stage)
