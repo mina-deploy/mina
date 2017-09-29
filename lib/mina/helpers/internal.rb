@@ -37,7 +37,7 @@ module Mina
       def report_time
         time_start = Time.now
         output = yield
-        print_info "Elapsed time: %.2f seconds" % [Time.now - time_start]
+        print_info "Elapsed time: %.2f seconds" % [Time.now - time_start] unless fetch(:skip_report_time)
         output
       end
 

@@ -22,7 +22,7 @@ module Mina
         switch =~ /--#{Regexp.union(not_applicable_to_mina)}/
       end
 
-      super.push(version, verbose, simulate, debug_configuration_variables)
+      super.push(version, verbose, simulate, debug_configuration_variables, no_report_time)
     end
 
     def top_level_tasks
@@ -70,6 +70,15 @@ module Mina
        'Display the defined config variables before runnig the tasks.',
        lambda do |_value|
          set(:debug_configuration_variables, true)
+       end
+      ]
+    end
+
+    def no_report_time
+      ['--no-report-time', nil,
+       'Skip time reporting',
+       lambda do |_value|
+         set(:skip_report_time, true)
        end
       ]
     end
