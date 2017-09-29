@@ -164,7 +164,7 @@ When writing your tasks you can choose on which backend you want your scripts to
 
 Backend | Description
 --------|---------
-`:remote` | Run on your server over SSH
+`:remote` | Run on your server over SSH (Default)
 `:local` | Run on your machine
 
 Choosing on which backend a particular block is ran is defined in [`run(backend) do` block](writing_your_own_tasks.rb#run)
@@ -190,4 +190,13 @@ end
 
 `deploy do` block is a wrapper around `run(:backend) do` block.
 
+If a tasks is created without a `run do` block, `:remote` backend is assumed:
+
+``` ruby
+task :example do
+  command "passenger-configure restart-app"
+end
+```
+
+The above command will be run on your server.
 
