@@ -17,7 +17,7 @@ end
 
 task :run_commands do
   if commands.run_default?
-    invoke :environment
+    invoke :remote_environment
     commands.run(:remote)
   end
 end
