@@ -58,7 +58,7 @@ task :ssh_keyscan_domain do
   run :local do
     command %{
       if ! ssh-keygen -H -F #{fetch(:domain)} &>/dev/null; then
-        ssh-keyscan -t rsa -p #{fetch(:port)} -H #{fetch(:domain)} >> ~/.ssh/known_hosts
+        ssh-keyscan -p #{fetch(:port)} #{fetch(:domain)} >> ~/.ssh/known_hosts
       fi
     }
   end
