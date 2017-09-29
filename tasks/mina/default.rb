@@ -3,6 +3,13 @@ require 'mina/install'
 set :port, 22
 
 task :environment do
+  print_error ':environment is DEPRECATED! Please use local_environment and remote_environment'
+end
+
+task :local_environment do
+end
+
+task :remote_environment do
 end
 
 task :default do

@@ -15,6 +15,15 @@
 
 **Other commands have been removed!**
 
+Remove `:environment` dependency on all your tasks!
+```
+task deploy: :environment do
+  ...
+--->
+task :deploy do
+  ...
+```
+
 ## Setting variables
 
 ### same
