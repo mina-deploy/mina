@@ -49,9 +49,9 @@ module Mina
 
     def deploy(&block)
       run :remote do
-        set(:deploy, true)
+        set(:deploy_block, true)
         command deploy_script(&block), quiet: true
-        set(:deploy, false)
+        set(:deploy_block, false)
       end
     end
   end
