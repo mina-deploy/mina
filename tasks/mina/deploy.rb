@@ -21,6 +21,14 @@ namespace :deploy do
     comment %{Symlinking shared paths}
 
     fetch(:shared_dirs, []).each do |linked_dir|
+      command %{
+        if [ ! -d  "#{fetch(:shared_path)}/#{linked_dir}" ]; then
+          echo "! ERROR: not set up."
+          echo "The directory '#{fetch(:shared_path)}/#{linked_dir}' does not exist on the server"
+          echo "You may need to run 'mina setup' first"
+          exit 18
+        fi
+      }
       command %{mkdir -p #{File.dirname("./#{linked_dir}")}}
       command %{rm -rf "./#{linked_dir}"}
       command %{ln -s "#{fetch(:shared_path)}/#{linked_dir}" "./#{linked_dir}"}
