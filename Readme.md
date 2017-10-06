@@ -5,7 +5,7 @@
 [![Build Status](https://semaphoreci.com/api/v1/d4be4st/mina/branches/master/shields_badge.svg)](https://semaphoreci.com/d4be4st/mina)
 [![Gem Version](https://badge.fury.io/rb/mina.svg)](https://badge.fury.io/rb/mina)
 
-![mina](https://assets.infinum.co/attachments/ad98b5e667facece8bb0b790f3cafe5bcb2dc469/store/limit/1000/1000/291724d19624f688957cebb5a0549abb6ea07113bdac11026ad2d5a6d29f/Mina_Icon.png)
+![mina](https://photos.infinum.co/store/5273935c5deeabda0e98c943db2a7ade)
 
 Really fast deployer and server automation tool.
 
@@ -51,4 +51,4 @@ Mina is maintained and sponsored by [Infinum](https://infinum.co).
 
 You can reach us on twitter [Stef](https://twitter.com/_Beast_) & [Infinum](https://twitter.com/infinumco)
 
-![](https://assets.infinum.co/assets/brand-logo-9e079bfa1875e17c8c1f71d1fee49cf0.svg) © 2016 Infinum.  
+![](https://assets.infinum.co/assets/brand-logo-9e079bfa1875e17c8c1f71d1fee49cf0.svg) © 2016 Infinum.

@@ -70,3 +70,40 @@ task :test do
     command %{ls -al}
   end
 end
+
+desc 'Fails test'
+task :fail do
+  run :remote do
+    run :local do
+      command "pwd"
+    end
+  end
+end
+
+task :local_environment do
+  comment 'local environment run'
+  command 'export HERE=local'
+end
+
+task :remote_environment do
+  comment 'remote environment run'
+  command 'export HERE=remote'
+end
+
+task test_envs: :environment do
+  run(:local) do
+    command 'echo $HERE'
+  end
+
+  run(:remote) do
+    command 'echo $HERE'
+  end
+
+  run(:local) do
+    command 'echo $HERE'
+  end
+
+  run(:remote) do
+    command 'echo $HERE'
+  end
+end

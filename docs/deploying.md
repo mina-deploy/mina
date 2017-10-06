@@ -1,5 +1,4 @@
-Deploying
---------------------
+# Deploying
 
 Mina provides the `deploy` command which runs your commands on remote backend.
 

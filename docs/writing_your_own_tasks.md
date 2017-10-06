@@ -1,13 +1,12 @@
-Writing your own tasks
---------------------
+# Writing your own tasks
 
-# Defining tasks
+## Defining tasks
 
 The file `deploy.rb` is simply a Rakefile invoked by Rake. In fact, `mina` is
 mostly an alias that invokes Rake to load `deploy.rb`.
 
 ``` ruby
-# Sample config/deploy.rb
+## Sample config/deploy.rb
 set :domain, 'your.server.com'
 
 task :restart do
@@ -25,11 +24,11 @@ The `command` command queues up Bash commands to be run on the remote server.
 If you invoke `mina restart`, it will invoke the task above and run the queued
 commands on the remote server `your.server.com` via SSH.
 
-# DSL
+## DSL
 
-## Helpers
+### Helpers
 
-### invoke
+#### invoke
 Invokes another Rake task.
 
 ``` ruby
@@ -37,7 +36,7 @@ invoke :'git:clone'
 invoke :restart
 ```
 
-### command
+#### command
 Adds a command to the command queue.
 
 This queues code to be run on the current queue name (defaults to `:default`).
@@ -48,14 +47,14 @@ By default, whitespace is stripped from the beginning and end of the command.
 command %{ls -al} # => [ls -al]
 ```
 
-### comment
+#### comment
 Adds a comment to the command queue.
 
 ``` ruby
 comment %{ls -al} # => [echo "-----> ls -al"]
 ```
 
-### run
+#### run
 Runs the given block on the defined backend (remote or local)
 
 ``` ruby
@@ -64,7 +63,7 @@ run :remote do
 end
 ```
 
-### on
+#### on
 Change the queue name for the given block. Use this if you have multiple places where commands need to end up. Mainly used in `deploy` task.
 
 ``` ruby
@@ -73,7 +72,7 @@ on :launch do
 end
 ```
 
-### in_path
+#### in_path
 Change the path the commands in the given block is run.
 
 ``` ruby
@@ -82,16 +81,16 @@ in_path('some/new/path') do
 end
 ```
 
-## Configuration
+### Configuration
 
-### set
+#### set
 Sets configuration variable. Can a value or a proc/lambda.
 
 ``` ruby
 set :deploy_to -> '/path/to/deploy'
 ```
 
-### fetch
+#### fetch
 Gets configuration variable. Runs `.call` if callable.
 Returns nil if not set. If default parameter is passed returns default if not set.
 
@@ -100,14 +99,14 @@ fetch(:deploy_to)
 fetch(:deploy_to, 'some_default')
 ```
 
-### set?
+#### set?
 Checks if a variable is set.
 
 ``` ruby
 set?(:deploy_to)
 ```
 
-### ensure!
+#### ensure!
 Raises an error if variable is not set
 
 ``` ruby

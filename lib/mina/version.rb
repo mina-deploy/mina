@@ -1,3 +1,4 @@
 module Mina
-  VERSION = '1.0.6-pJRUBY'.freeze
+  VERSION = '1.2.1'.freeze
+
 end

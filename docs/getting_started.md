@@ -1,9 +1,8 @@
-Setting up a project
---------------------
+# Setting up a project
 
 Let's deploy a project using Mina.
 
-### Step 0: Configure server
+## Step 0: Configure server
 
 Your server needs to be properly configured for mina to work. Requirements for mina 1.0 to work:
 - SSH public/private key pair set up
@@ -12,7 +11,7 @@ Your server needs to be properly configured for mina to work. Requirements for m
 - installed ruby (some ruby manager recommended rbenv/rvm/chruby)
 - installed bundler
 
-### Step 1: Create a config/deploy.rb
+## Step 1: Create a config/deploy.rb
 
 In your project, type `mina init` to create a sample of this file.
 
@@ -53,7 +52,7 @@ end
 ...
 ```
 
-### Step 2: Run 'mina setup'
+## Step 2: Run 'mina setup'
 
 Back at your computer, do `mina setup` to set up the folder structure in `deploy_to` path.
 This will connect to your server via SSH and create the right directories.
@@ -61,9 +60,7 @@ This will connect to your server via SSH and create the right directories.
     $ mina setup
     -----> Creating folders... done.
 
-See [directory structure](https://github.com/mina-deploy/mina/wiki/Directory-structure) for more info.
-
-### Step 3: Deploy!
+## Step 3: Deploy!
 
 Use `mina deploy` to run the `deploy` task defined in *config/deploy.rb*.
 
@@ -73,3 +70,7 @@ Use `mina deploy` to run the `deploy` task defined in *config/deploy.rb*.
            Lots of things happening...
            ...
     -----> Done.
+
+## Step 4: Considerations after first deploy
+
+If you changed `shared_files` and `shared_dirs` in your `deploy.rb` you have to run `mina setup` again. This ensures all needed folders are created.

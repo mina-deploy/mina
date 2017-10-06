@@ -3,7 +3,7 @@ set :chruby_path, '/etc/profile.d/chruby.sh'
 task :chruby, :env do |_, args|
   unless args[:env]
     puts "Task 'chruby' needs a Ruby version as an argument."
-    puts "Example: invoke :'chruby[ruby-1.9.3-p392]'"
+    puts "Example: invoke :chruby, 'ruby-2.4'"
     exit 1
   end
 

@@ -6,7 +6,7 @@ set :remote, 'origin'
 set :git_not_pushed_message, -> { "Your branch #{fetch(:branch)} needs to be pushed to #{fetch(:remote)} before deploying" }
 
 namespace :git do
-  desc 'Clones the Git repository to the release path.'
+  desc 'Clones the Git repository to the current path.'
   task :clone do
     ensure!(:repository)
     ensure!(:deploy_to)
@@ -36,11 +36,13 @@ namespace :git do
     end
   end
 
+  desc 'Prints out current revision'
   task :revision do
     ensure!(:deploy_to)
     command %{cat #{fetch(:current_path)}/.mina_git_revision}
   end
 
+  desc 'Ensures local repository is pushed to remote'
   task :ensure_pushed do
     run :local do
       comment %{Ensuring everyting is pushed to git}
