@@ -30,6 +30,10 @@ module Mina
       queue.delete(stage) || []
     end
 
+    def empty(stage = :default)
+      queue[stage] = []
+    end
+
     def process(path = nil)
       if path
         queue[stage].unshift(%{echo "$ cd #{path}"}) if fetch(:verbose)

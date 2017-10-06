@@ -17,7 +17,11 @@ end
 
 task :run_commands do
   if commands.run_default?
+    # all this so remote_environent is inserted in before all other commands
+    old_commands = commands.queue[:default]
+    commands.empty
     invoke :remote_environment
+    commands.queue[:default] += old_commands
     commands.run(:remote)
   end
 end
