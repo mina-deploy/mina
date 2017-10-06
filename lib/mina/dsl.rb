@@ -24,7 +24,6 @@ module Mina
     end
 
     def run(backend)
-      require 'pry'; binding.pry
       error! "Can't use run block inside another run block. #{caller[2]}" if set?(:run_bock)
       set(:run_bock, true)
       invoke :"#{backend}_environment"
