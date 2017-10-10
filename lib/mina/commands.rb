@@ -9,7 +9,7 @@ module Mina
 
     def initialize(stage = :default)
       @stage = stage
-      @queue = Hash.new { |hash, key| hash[key] = [] }
+      @queue = Hash.new([])
     end
 
     def command(code, strip: true, quiet: false, indent: nil)
