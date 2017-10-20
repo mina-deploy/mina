@@ -1,6 +1,6 @@
 # Mina Documentations
 
-Mina is a tool that exstends rake (think ruby's make) in order to create bash scripts which are then run on your servers.
+Mina is a tool that extends rake (think ruby's make) in order to create bash scripts which are then run on your servers.
 
 * [Getting started](getting_started.md)
 * [How Mina Works](how_mina_works.md)
