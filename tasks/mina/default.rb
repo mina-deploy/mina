@@ -3,6 +3,13 @@ require 'mina/install'
 set :port, 22
 
 task :environment do
+  print_error ':environment is DEPRECATED! Please use local_environment and remote_environment'
+end
+
+task :local_environment do
+end
+
+task :remote_environment do
 end
 
 task :default do
@@ -10,7 +17,11 @@ end
 
 task :run_commands do
   if commands.run_default?
-    invoke :environment
+    # all this so remote_environent is inserted in before all other commands
+    old_commands = commands.queue[:default]
+    commands.empty
+    invoke :remote_environment
+    commands.queue[:default] += old_commands
     commands.run(:remote)
   end
 end
@@ -29,7 +40,7 @@ task :debug_configuration_variables do
   end
 end
 
-desc 'Adds current repo host to the known hosts'
+desc 'Adds repo host to the known hosts'
 task :ssh_keyscan_repo do
   ensure!(:repository)
   repo_host = fetch(:repository).split(%r{@|://}).last.split(%r{:|\/}).first
@@ -44,14 +55,14 @@ task :ssh_keyscan_repo do
   }
 end
 
-desc 'Adds domain known hosts'
+desc 'Adds domain to the known hosts'
 task :ssh_keyscan_domain do
   ensure!(:domain)
   ensure!(:port)
   run :local do
     command %{
       if ! ssh-keygen -H -F #{fetch(:domain)} &>/dev/null; then
-        ssh-keyscan -t rsa -p #{fetch(:port)} -H #{fetch(:domain)} >> ~/.ssh/known_hosts
+        ssh-keyscan -p #{fetch(:port)} #{fetch(:domain)} >> ~/.ssh/known_hosts
       fi
     }
   end

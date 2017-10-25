@@ -1,0 +1,2 @@
+echo "-----> DB schema load"
+RAILS_ENV="production" bundle exec rake db:schema:load
