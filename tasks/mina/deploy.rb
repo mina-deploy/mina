@@ -4,7 +4,7 @@ set :releases_path, -> { "#{fetch(:deploy_to)}/releases" }
 set :shared_path, -> { "#{fetch(:deploy_to)}/shared" }
 set :current_path, -> { "#{fetch(:deploy_to)}/current" }
 set :lock_file, 'deploy.lock'
-set :deploy_script, 'data/deploy.sh.erb'
+set :deploy_script, Mina.root_path('data/deploy.sh.erb')
 set :keep_releases, 5
 set :version_scheme, :sequence
 set :execution_mode, :pretty

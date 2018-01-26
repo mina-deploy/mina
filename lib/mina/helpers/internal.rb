@@ -5,7 +5,7 @@ module Mina
 
       def deploy_script
         yield
-        erb Mina.root_path(fetch(:deploy_script))
+        erb fetch(:deploy_script)
       end
 
       def erb(file, b = binding)
