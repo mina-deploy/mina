@@ -45,7 +45,7 @@ namespace :git do
   desc 'Ensures local repository is pushed to remote'
   task :ensure_pushed do
     run :local do
-      comment %{Ensuring everyting is pushed to git}
+      comment %{Ensuring everything is pushed to git}
       command %{
         if [ $(git log #{fetch(:remote)}/#{fetch(:branch)}..#{fetch(:branch)} | wc -l) -ne 0 ]; then
           echo "! #{fetch(:git_not_pushed_message)}"
