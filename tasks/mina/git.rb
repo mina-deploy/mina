@@ -31,6 +31,7 @@ namespace :git do
     command %{git submodule update}
     comment %{Using this git commit}
     command %{git rev-parse HEAD > .mina_git_revision}
+    command %{echo '#{fetch(:branch)}' > .mina_git_branch} if set?(:branch)
     command %{git --no-pager log --format="%aN (%h):%n> %s" -n 1}
     if fetch(:remove_git_dir)
       command %{rm -rf .git}
