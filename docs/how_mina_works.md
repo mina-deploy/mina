@@ -139,7 +139,7 @@ Folder | Description
 `current` | folders is a symbolic link to the current release (does not have to be the lastest one)
 `releases` | folder conains your last `keep_releases` releases
 `scm` | folder contains information about your version controll (git, svn, ...)
-`shared` | folder cotinas folders and files that are kept between releaes (logs, uploads, configs, ...)
+`shared` | folder contains folders and files that are kept between releases (logs, uploads, configs, ...)
 `tmp` | folder contains temporary build folders
 
 ## Features

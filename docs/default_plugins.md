@@ -129,7 +129,7 @@ loads:
   git:ensure_pushed       #=> Ensures local repository is pushed to remote
 ```
 
-## Bunlder
+## Bundler
 ``` ruby
 require 'mina/bunlder'
 ```
