@@ -10,7 +10,7 @@ describe Mina::Helpers::Internal do
 
   describe '#deploy_script' do
     before do
-      Mina::Configuration.instance.set(:deploy_script, 'data/deploy.sh.erb')
+      Mina::Configuration.instance.set(:deploy_script, Mina.root_path('data/deploy.sh.erb'))
       Mina::Configuration.instance.set(:version_scheme, :sequence)
     end
 
