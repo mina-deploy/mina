@@ -115,7 +115,7 @@ module Mina
       # successful (non-zero).
 
       def ensure_successful(result, this)
-        this.die result if result.is_a?(Fixnum) && result > 0
+        this.die result if result.is_a?(Integer) && result > 0
         result
       end
 
