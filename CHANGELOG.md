@@ -1,5 +1,47 @@
 # Change Log
 
+## [v1.2.3](https://github.com/mina-deploy/mina/tree/v1.2.3) (2017-11-22)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.2...v1.2.3)
+
+**Closed issues:**
+
+- Task :environment not valid any longer [\#583](https://github.com/mina-deploy/mina/issues/583)
+
+**Merged pull requests:**
+
+- Fix empty stage queue [\#592](https://github.com/mina-deploy/mina/pull/592) ([Narayanan170](https://github.com/Narayanan170))
+- fix typo [\#584](https://github.com/mina-deploy/mina/pull/584) ([MatzFan](https://github.com/MatzFan))
+
+## [v1.2.2](https://github.com/mina-deploy/mina/tree/v1.2.2) (2017-10-13)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.1...v1.2.2)
+
+**Implemented enhancements:**
+
+- Add shared folders validations [\#559](https://github.com/mina-deploy/mina/issues/559)
+
+**Fixed bugs:**
+
+- Add shared folders validations [\#559](https://github.com/mina-deploy/mina/issues/559)
+
+**Closed issues:**
+
+- prepend environments when run outside run block [\#576](https://github.com/mina-deploy/mina/issues/576)
+- rails:assets\_precompile from cache [\#494](https://github.com/mina-deploy/mina/issues/494)
+
+**Merged pull requests:**
+
+- Remove spec for now, unitl \#579 [\#580](https://github.com/mina-deploy/mina/pull/580) ([d4be4st](https://github.com/d4be4st))
+- Add folder validation for symlinking [\#578](https://github.com/mina-deploy/mina/pull/578) ([d4be4st](https://github.com/d4be4st))
+- Resolves \#576 [\#577](https://github.com/mina-deploy/mina/pull/577) ([d4be4st](https://github.com/d4be4st))
+- Remote environment in deploy example [\#573](https://github.com/mina-deploy/mina/pull/573) ([ozgg](https://github.com/ozgg))
+
+## [v1.2.1](https://github.com/mina-deploy/mina/tree/v1.2.1) (2017-10-02)
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.0...v1.2.1)
+
+**Closed issues:**
+
+- Deploy does not work since version 1.2.0 [\#572](https://github.com/mina-deploy/mina/issues/572)
+
 ## [v1.2.0](https://github.com/mina-deploy/mina/tree/v1.2.0) (2017-09-29)
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.1.1...v1.2.0)
 

@@ -27,7 +27,8 @@ namespace :git do
         #{echo_cmd %[git clone "#{fetch(:deploy_to)}/scm" . --recursive --branch "#{fetch(:branch)}"]}
       }, quiet: true
     end
-
+    comment %{Updating submodules}
+    command %{git submodule update}
     comment %{Using this git commit}
     command %{git rev-parse HEAD > .mina_git_revision}
     command %{git --no-pager log --format="%aN (%h):%n> %s" -n 1}
@@ -45,7 +46,7 @@ namespace :git do
   desc 'Ensures local repository is pushed to remote'
   task :ensure_pushed do
     run :local do
-      comment %{Ensuring everyting is pushed to git}
+      comment %{Ensuring everything is pushed to git}
       command %{
         if [ $(git log #{fetch(:remote)}/#{fetch(:branch)}..#{fetch(:branch)} | wc -l) -ne 0 ]; then
           echo "! #{fetch(:git_not_pushed_message)}"

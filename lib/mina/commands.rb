@@ -35,7 +35,7 @@ module Mina
     end
 
     def process(path = nil)
-      if path
+      if path && !queue[stage].empty?
         queue[stage].unshift(%{echo "$ cd #{path}"}) if fetch(:verbose)
         %{(cd #{path} && #{queue[stage].join(' && ')} && cd -)}
       else

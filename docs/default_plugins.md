@@ -63,7 +63,7 @@ loads:
   :shared_path            #=> "#{fetch(:deploy_to)}/shared"
   :current_path           #=> "#{fetch(:deploy_to)}/current"
   :lock_file              #=> 'deploy.lock'
-  :deploy_script          #=> 'data/deploy.sh.erb'
+  :deploy_script          #=> Mina.root_path('data/deploy.sh.erb')
   :keep_releases          #=> 5
   :version_scheme         #=> :sequence ## Can be [:sequence, :datetime]
   :shared_dirs            #=> []
@@ -129,7 +129,7 @@ loads:
   git:ensure_pushed       #=> Ensures local repository is pushed to remote
 ```
 
-## Bunlder
+## Bundler
 ``` ruby
 require 'mina/bunlder'
 ```
