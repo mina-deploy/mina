@@ -6,10 +6,10 @@ set :bundle_prefix, -> { %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
 set :compiled_asset_path, 'public/assets'
-set :asset_dirs, ['vendor/assets/', 'app/assets/', 'public/packs/']
+set :asset_dirs, ['vendor/assets/', 'app/assets/']
 set :migration_dirs, ['db/migrate']
 
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path))
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', 'public/packs/', fetch(:compiled_asset_path))
 
 desc 'Starts an interactive console.'
 task :console do
