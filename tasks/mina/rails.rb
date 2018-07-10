@@ -6,7 +6,7 @@ set :bundle_prefix, -> { %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
 set :compiled_asset_path, 'public/assets'
-set :asset_dirs, ['vendor/assets/', 'app/assets/']
+set :asset_dirs, ['vendor/assets/', 'app/assets/', 'app/javascript/']
 set :migration_dirs, ['db/migrate']
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', 'public/packs/', fetch(:compiled_asset_path))
