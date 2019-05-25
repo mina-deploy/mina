@@ -34,4 +34,5 @@
 * [mina-unicorn](https://github.com/openteam/mina-unicorn)
 * [mina-whenever](https://github.com/mina-deploy/mina-whenever)
 * [mina-lock](https://github.com/lorenzosinisi/mina-lock)
+* [mina-thinking-sphinx](https://github.com/airled/mina-thinking-sphinx)
 * [mina-multideploy](https://github.com/codica2/mina-multideploy)
