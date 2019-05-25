@@ -131,7 +131,7 @@ loads:
 
 ## Bundler
 ``` ruby
-require 'mina/bunlder'
+require 'mina/bundler'
 ```
 loads:
 - `mina/default`
