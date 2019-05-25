@@ -34,7 +34,7 @@ $ mina production deploy
 ```
 task :deploy do
   run(:local) do
-    comamnd "scp config/application.yml #{fetch(:user)}@#{fetch(:domain)}:#{fetch(:shared_path)}/config/application.yml"
+    command "scp config/application.yml #{fetch(:user)}@#{fetch(:domain)}:#{fetch(:shared_path)}/config/application.yml"
   end
 
   deploy do
