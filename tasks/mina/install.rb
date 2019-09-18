@@ -9,6 +9,13 @@ task :init do
   end
 
   outfile = './config/deploy.rb'
+
+  if File.exists?(outfile)
+    print 'deploy.rb already exists, do you want to overwrite it? (y/n) '
+
+    exit(8) if $stdin.readline.chomp.downcase != 'y'
+  end
+
   require 'fileutils'
   FileUtils.mkdir_p './config'
   FileUtils.cp Mina.root_path('data/deploy.rb'), outfile
