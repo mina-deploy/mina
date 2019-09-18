@@ -20,6 +20,6 @@ task :init do
   FileUtils.mkdir_p './config'
   FileUtils.cp Mina.root_path('data/deploy.rb'), outfile
 
-  puts "\n-----> Created #{outfile}"
+  puts "-----> Created #{outfile}"
   puts "Edit this file, then run `#{name} setup` after."
 end
