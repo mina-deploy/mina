@@ -5,11 +5,11 @@ set :rails_env, 'production'
 set :bundle_prefix, -> { %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec} }
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
-set :compiled_asset_path, 'public/assets'
-set :asset_dirs, ['vendor/assets/', 'app/assets/']
+set :compiled_asset_path, ['public/assets', 'public/packs']
+set :asset_dirs, ['vendor/assets/', 'app/assets/', 'app/javascript/']
 set :migration_dirs, ['db/migrate']
 
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path))
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', *fetch(:compiled_asset_path))
 
 desc 'Starts an interactive console.'
 task :console do
