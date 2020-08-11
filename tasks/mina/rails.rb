@@ -1,7 +1,7 @@
 require 'mina/deploy'
 require 'mina/bundler'
 
-set :rails_env, 'production'
+set :rails_env, fetch(:rails_env, 'production')
 set :bundle_prefix, -> { %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec} }
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
