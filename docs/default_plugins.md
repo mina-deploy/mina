@@ -130,6 +130,7 @@ loads:
 ```
 
 ## Bundler
+
 ``` ruby
 require 'mina/bundler'
 ```
@@ -137,7 +138,21 @@ loads:
 - `mina/default`
 
 ### Variables
+
+By default Mina assumes you're using Bundler 2 or newer. If you want to deploy with Bundler 1 you can set `bundle_version` to `1`.
+
 ``` ruby
+  :bundle_version         #=> 2
+  :bundle_bin             #=> 'bundle'
+  :bundle_path            #=> 'vendor/bundle'
+  :bundle_withouts        #=> 'development test'
+  :bundle_config          #=> { without: fetch(:bundle_withouts), path: fetch(:bundle_path), deployment: true }
+  :bundle_install_options #=> '--jobs=3 --retry=3'
+  :shared_dirs            #=> fetch(:shared_dirs, []).push(fetch(:bundle_path)) ## Add `bundle_path` to `shared_dirs`
+```
+
+``` ruby
+  :bundle_version         #=> 1
   :bundle_bin             #=> 'bundle'
   :bundle_path            #=> 'vendor/bundle'
   :bundle_withouts        #=> 'development test'
