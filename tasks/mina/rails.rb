@@ -19,6 +19,14 @@ task :console do
   end
 end
 
+desc 'Starts an interactive database console'
+task :dbconsole do
+  set :execution_mode, :exec
+  in_path "#{fetch(:current_path)}" do
+    command %{#{fetch(:rails)} dbconsole}
+  end
+end
+
 desc 'Tail log from server'
 task :log do
   set :execution_mode, :exec

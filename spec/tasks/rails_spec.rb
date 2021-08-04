@@ -7,6 +7,12 @@ RSpec.describe 'rails', type: :rake do
     end
   end
 
+  describe 'dbconsole' do
+    it 'opens a database console' do
+      expect { invoke_all }.to output(output_file('dbconsole')).to_stdout
+    end
+  end
+
   describe 'log' do
     it 'tails log' do
       expect { invoke_all }.to output(output_file('log')).to_stdout
