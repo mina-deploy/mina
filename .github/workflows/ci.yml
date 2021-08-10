@@ -2,6 +2,7 @@ name: CI
 on: [push, pull_request]
 jobs:
   test:
+    name: Ruby ${{ matrix.ruby }} (${{ matrix.os }})
     strategy:
       fail-fast: false
       matrix:
