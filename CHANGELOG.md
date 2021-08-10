@@ -1,6 +1,72 @@
-# Change Log
+# Changelog
+
+## [v1.2.4](https://github.com/mina-deploy/mina/tree/v1.2.4) (2021-08-10)
+
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.3...v1.2.4)
+
+**Fixed bugs:**
+
+- Make `in_path` tolerate "directory doesn't exist" case [\#587](https://github.com/mina-deploy/mina/issues/587)
+- Different behavior of environment task with 0.3.8 and 1.0.6 [\#505](https://github.com/mina-deploy/mina/issues/505)
+
+**Closed issues:**
+
+- Mina deploy failed with Rails and Vue? [\#659](https://github.com/mina-deploy/mina/issues/659)
+- Running "mina deploy" failed when "Precompiling asset files", without any detailed error info [\#658](https://github.com/mina-deploy/mina/issues/658)
+- Stuck on "Fetching new git commits" [\#654](https://github.com/mina-deploy/mina/issues/654)
+- remote: Repository not found.   fatal: Authentication failed for 'https://:@github.com/usre\_name/repo.git/' [\#649](https://github.com/mina-deploy/mina/issues/649)
+- Error ""The directory 'X' does not exist on the server", run 'mina setup' first! [\#648](https://github.com/mina-deploy/mina/issues/648)
+- git clone "/app/scm" [\#647](https://github.com/mina-deploy/mina/issues/647)
+- fatal: destination path '.' already exists and is not an empty directory. [\#646](https://github.com/mina-deploy/mina/issues/646)
+- Unable to run any rails command in the project server folder [\#645](https://github.com/mina-deploy/mina/issues/645)
+- Is this project alive? [\#642](https://github.com/mina-deploy/mina/issues/642)
+- Why need  run\(local\) do block? [\#638](https://github.com/mina-deploy/mina/issues/638)
+- mina init overrides config/deploy.rb [\#634](https://github.com/mina-deploy/mina/issues/634)
+- What's the role of "on :launch do" part of deploy.rb [\#631](https://github.com/mina-deploy/mina/issues/631)
+- Are there release notes for 1.0 [\#630](https://github.com/mina-deploy/mina/issues/630)
+- ArgumentError: invalid byte sequence in US-ASCII when deploying using GitLab CI with Docker [\#629](https://github.com/mina-deploy/mina/issues/629)
+- Git SHA information on deploy or rollback [\#626](https://github.com/mina-deploy/mina/issues/626)
+- \(Doc\) 0 downtime deploy example in Mina document? [\#619](https://github.com/mina-deploy/mina/issues/619)
+- ENV is not loading in production [\#617](https://github.com/mina-deploy/mina/issues/617)
+- how to add `config/database.yml` to shared\_path without an error [\#614](https://github.com/mina-deploy/mina/issues/614)
+- Deploy without using current/shared/releases? [\#613](https://github.com/mina-deploy/mina/issues/613)
+- mina deploy fails [\#612](https://github.com/mina-deploy/mina/issues/612)
+- Feature: Force precompile for webpacker [\#610](https://github.com/mina-deploy/mina/issues/610)
+- SSH Connection [\#608](https://github.com/mina-deploy/mina/issues/608)
+- Connection to closed after mina setup [\#607](https://github.com/mina-deploy/mina/issues/607)
+- NameError: undefined local variable or method `user' for main:Object [\#606](https://github.com/mina-deploy/mina/issues/606)
+- node\_modules in shared\_paths [\#604](https://github.com/mina-deploy/mina/issues/604)
+- mina deploy rails 5.2.0.beta2 [\#602](https://github.com/mina-deploy/mina/issues/602)
+- sudo systemctl restart apache2 [\#598](https://github.com/mina-deploy/mina/issues/598)
+- I got a 'extconf.rb failed' error when mina bundle install [\#597](https://github.com/mina-deploy/mina/issues/597)
+- Is it possible to view or output the generated bash script? [\#596](https://github.com/mina-deploy/mina/issues/596)
+- mina deploy throws error - bundle: command not found  !  ERROR: Deploy failed. [\#594](https://github.com/mina-deploy/mina/issues/594)
+- Could you add back set\_default? [\#588](https://github.com/mina-deploy/mina/issues/588)
+- Mina setup doesn't symlink the current folder [\#571](https://github.com/mina-deploy/mina/issues/571)
+- mina deploy Could not locate Gemfile [\#552](https://github.com/mina-deploy/mina/issues/552)
+- SSH to GitLab repository problem [\#533](https://github.com/mina-deploy/mina/issues/533)
+- Does a full bundle install every time [\#516](https://github.com/mina-deploy/mina/issues/516)
+- assets:precompile failed, but deploy succeeded [\#504](https://github.com/mina-deploy/mina/issues/504)
+- Could not find rack-cors-0.4.0 in any of the sources [\#500](https://github.com/mina-deploy/mina/issues/500)
+
+**Merged pull requests:**
+
+- Test suite CI [\#673](https://github.com/mina-deploy/mina/pull/673) ([lovro-bikic](https://github.com/lovro-bikic))
+- Fixes \#634 [\#650](https://github.com/mina-deploy/mina/pull/650) ([NBuhinicek](https://github.com/NBuhinicek))
+- Fix minor typo in documentation [\#641](https://github.com/mina-deploy/mina/pull/641) ([chartrandf](https://github.com/chartrandf))
+- Update cookbook.md [\#637](https://github.com/mina-deploy/mina/pull/637) ([oliveiradanielm](https://github.com/oliveiradanielm))
+- Update default\_plugins.md [\#635](https://github.com/mina-deploy/mina/pull/635) ([mpearce](https://github.com/mpearce))
+- Update deploy.rb [\#628](https://github.com/mina-deploy/mina/pull/628) ([Ajmal](https://github.com/Ajmal))
+- Added link to mina multideploy plugin [\#627](https://github.com/mina-deploy/mina/pull/627) ([volkov-sergey](https://github.com/volkov-sergey))
+- Add Thinking Sphinx plugin link [\#624](https://github.com/mina-deploy/mina/pull/624) ([airled](https://github.com/airled))
+- Typo 'everyting' [\#599](https://github.com/mina-deploy/mina/pull/599) ([wafiq](https://github.com/wafiq))
+- allow user to overwrite deploy\_script [\#595](https://github.com/mina-deploy/mina/pull/595) ([kuboon](https://github.com/kuboon))
+- Fixes \#506. Problem with git submodules and no master based branches. [\#593](https://github.com/mina-deploy/mina/pull/593) ([platbr](https://github.com/platbr))
+- Fix doc typos. [\#591](https://github.com/mina-deploy/mina/pull/591) ([pweldon](https://github.com/pweldon))
+- Allow setting a custom deploy script [\#585](https://github.com/mina-deploy/mina/pull/585) ([wpolicarpo](https://github.com/wpolicarpo))
 
 ## [v1.2.3](https://github.com/mina-deploy/mina/tree/v1.2.3) (2017-11-22)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.2...v1.2.3)
 
 **Closed issues:**
@@ -9,17 +75,14 @@
 
 **Merged pull requests:**
 
-- Fix empty stage queue [\#592](https://github.com/mina-deploy/mina/pull/592) ([Narayanan170](https://github.com/Narayanan170))
+- Fix empty stage queue [\#592](https://github.com/mina-deploy/mina/pull/592) ([fsuste](https://github.com/fsuste))
 - fix typo [\#584](https://github.com/mina-deploy/mina/pull/584) ([MatzFan](https://github.com/MatzFan))
 
 ## [v1.2.2](https://github.com/mina-deploy/mina/tree/v1.2.2) (2017-10-13)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.1...v1.2.2)
 
 **Implemented enhancements:**
-
-- Add shared folders validations [\#559](https://github.com/mina-deploy/mina/issues/559)
-
-**Fixed bugs:**
 
 - Add shared folders validations [\#559](https://github.com/mina-deploy/mina/issues/559)
 
@@ -36,6 +99,7 @@
 - Remote environment in deploy example [\#573](https://github.com/mina-deploy/mina/pull/573) ([ozgg](https://github.com/ozgg))
 
 ## [v1.2.1](https://github.com/mina-deploy/mina/tree/v1.2.1) (2017-10-02)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.0...v1.2.1)
 
 **Closed issues:**
@@ -43,6 +107,7 @@
 - Deploy does not work since version 1.2.0 [\#572](https://github.com/mina-deploy/mina/issues/572)
 
 ## [v1.2.0](https://github.com/mina-deploy/mina/tree/v1.2.0) (2017-09-29)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.1.1...v1.2.0)
 
 **Fixed bugs:**
@@ -50,9 +115,11 @@
 - Fix keyscan\_domain task [\#570](https://github.com/mina-deploy/mina/issues/570)
 
 ## [v1.1.1](https://github.com/mina-deploy/mina/tree/v1.1.1) (2017-09-29)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.1.0...v1.1.1)
 
 ## [v1.1.0](https://github.com/mina-deploy/mina/tree/v1.1.0) (2017-09-29)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.7...v1.1.0)
 
 **Implemented enhancements:**
@@ -91,6 +158,7 @@
 - Add skip-existing option to example rbenv install [\#527](https://github.com/mina-deploy/mina/pull/527) ([sunny](https://github.com/sunny))
 
 ## [v1.0.7](https://github.com/mina-deploy/mina/tree/v1.0.7) (2017-09-08)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.6...v1.0.7)
 
 **Closed issues:**
@@ -128,12 +196,15 @@
 - Add mina-hanami [\#495](https://github.com/mina-deploy/mina/pull/495) ([mgrachev](https://github.com/mgrachev))
 
 ## [v1.0.6](https://github.com/mina-deploy/mina/tree/v1.0.6) (2016-12-15)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.5...v1.0.6)
 
 ## [v1.0.5](https://github.com/mina-deploy/mina/tree/v1.0.5) (2016-12-15)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.4...v1.0.5)
 
 ## [v1.0.4](https://github.com/mina-deploy/mina/tree/v1.0.4) (2016-12-15)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.3...v1.0.4)
 
 **Implemented enhancements:**
@@ -166,6 +237,7 @@
 - Restore previous path after in\_path block [\#478](https://github.com/mina-deploy/mina/pull/478) ([sobrinho](https://github.com/sobrinho))
 
 ## [v1.0.3](https://github.com/mina-deploy/mina/tree/v1.0.3) (2016-11-08)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.2...v1.0.3)
 
 **Closed issues:**
@@ -191,6 +263,7 @@
 - Allow to overwrite existing :shared\_files with the symlink to shared \(fixes \#452\) [\#455](https://github.com/mina-deploy/mina/pull/455) ([ralfebert](https://github.com/ralfebert))
 
 ## [v1.0.2](https://github.com/mina-deploy/mina/tree/v1.0.2) (2016-10-12)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0...v1.0.2)
 
 **Fixed bugs:**
@@ -216,6 +289,7 @@
 - Fix rvm:use task [\#444](https://github.com/mina-deploy/mina/pull/444) ([devvmh](https://github.com/devvmh))
 
 ## [v1.0.0](https://github.com/mina-deploy/mina/tree/v1.0.0) (2016-09-27)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.rc2...v1.0.0)
 
 **Closed issues:**
@@ -224,9 +298,11 @@
 - Support for nvm [\#440](https://github.com/mina-deploy/mina/issues/440)
 
 ## [v1.0.0.rc2](https://github.com/mina-deploy/mina/tree/v1.0.0.rc2) (2016-09-19)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.rc1...v1.0.0.rc2)
 
 ## [v1.0.0.rc1](https://github.com/mina-deploy/mina/tree/v1.0.0.rc1) (2016-09-19)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.beta5...v1.0.0.rc1)
 
 **Implemented enhancements:**
@@ -254,6 +330,7 @@
 - strip whitespace from commands by default [\#427](https://github.com/mina-deploy/mina/pull/427) ([devvmh](https://github.com/devvmh))
 
 ## [v1.0.0.beta5](https://github.com/mina-deploy/mina/tree/v1.0.0.beta5) (2016-08-30)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.beta4...v1.0.0.beta5)
 
 **Closed issues:**
@@ -261,9 +338,11 @@
 - How to do a proper finish hook? [\#425](https://github.com/mina-deploy/mina/issues/425)
 
 ## [v1.0.0.beta4](https://github.com/mina-deploy/mina/tree/v1.0.0.beta4) (2016-08-28)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.beta3...v1.0.0.beta4)
 
 ## [v1.0.0.beta3](https://github.com/mina-deploy/mina/tree/v1.0.0.beta3) (2016-08-28)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.beta2...v1.0.0.beta3)
 
 **Implemented enhancements:**
@@ -285,12 +364,13 @@
 **Merged pull requests:**
 
 - change docs about invoking rvm:use with arguments [\#413](https://github.com/mina-deploy/mina/pull/413) ([devvmh](https://github.com/devvmh))
-- add Rbenv and RVM notes [\#412](https://github.com/mina-deploy/mina/pull/412) ([pinewong](https://github.com/pinewong))
+- add Rbenv and RVM notes [\#412](https://github.com/mina-deploy/mina/pull/412) ([songhuangcn](https://github.com/songhuangcn))
 - fix issues with rbenv:load [\#411](https://github.com/mina-deploy/mina/pull/411) ([devvmh](https://github.com/devvmh))
 - ensure git pushed function - code props to @fgarcia [\#410](https://github.com/mina-deploy/mina/pull/410) ([devvmh](https://github.com/devvmh))
 - fix infinite loop in suggested default config [\#409](https://github.com/mina-deploy/mina/pull/409) ([devvmh](https://github.com/devvmh))
 
 ## [v1.0.0.beta2](https://github.com/mina-deploy/mina/tree/v1.0.0.beta2) (2016-07-30)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.0.0.beta1...v1.0.0.beta2)
 
 **Implemented enhancements:**
@@ -364,6 +444,7 @@
 - Feature/configuration dsl [\#398](https://github.com/mina-deploy/mina/pull/398) ([vr4b4c](https://github.com/vr4b4c))
 
 ## [v1.0.0.beta1](https://github.com/mina-deploy/mina/tree/v1.0.0.beta1) (2016-06-30)
+
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v0.3.8...v1.0.0.beta1)
 
 **Closed issues:**
@@ -385,4 +466,4 @@
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
