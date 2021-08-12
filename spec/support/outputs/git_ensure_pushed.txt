@@ -1,11 +1,11 @@
 echo "-----> Ensuring everything is pushed to git"
 if \[ \$\(git branch --list master \| wc -l\) -eq 0 \]; then
-  echo "! Branch master doesn't exist locally"
+  echo "! Branch master doesn't exist"
   exit 1
 fi
 
-if \[ \$\(git ls-remote --heads origin master \| wc -l\) -eq 0 \]; then
-  echo "! Branch master doesn't exist on origin"
+if \[ \$\(git branch -r --list origin/master \| wc -l\) -eq 0 \]; then
+  echo "! Branch origin/master doesn't exist"
   exit 1
 fi
 
