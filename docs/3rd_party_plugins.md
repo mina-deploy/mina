@@ -32,6 +32,7 @@
 * [mina-systemd](https://github.com/alexkojin/mina-systemd)
 * [mina-tail](https://github.com/modomoto/mina-tail)
 * [mina-unicorn](https://github.com/openteam/mina-unicorn)
+* [mina-unicorn_systemd](https://github.com/coezbek/mina-unicorn_systemd)
 * [mina-whenever](https://github.com/mina-deploy/mina-whenever)
 * [mina-lock](https://github.com/lorenzosinisi/mina-lock)
 * [mina-thinking-sphinx](https://github.com/airled/mina-thinking-sphinx)
