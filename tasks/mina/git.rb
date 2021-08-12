@@ -4,6 +4,8 @@ set :branch, 'master'
 set :remove_git_dir, true
 set :remote, 'origin'
 set :git_not_pushed_message, -> { "Your branch #{fetch(:branch)} needs to be pushed to #{fetch(:remote)} before deploying" }
+set :git_local_branch_missing_message, -> { "Branch #{fetch(:branch)} doesn't exist locally" }
+set :git_remote_branch_missing_message, -> { "Branch #{fetch(:branch)} doesn't exist on #{fetch(:remote)}" }
 
 namespace :git do
   desc 'Clones the Git repository to the current path.'
@@ -48,6 +50,16 @@ namespace :git do
     run :local do
       comment %{Ensuring everything is pushed to git}
       command %{
+        if [ $(git branch --list #{fetch(:branch)} | wc -l) -eq 0 ]; then
+          echo "! #{fetch(:git_local_branch_missing_message)}"
+          exit 1
+        fi
+
+        if [ $(git ls-remote --heads #{fetch(:remote)} #{fetch(:branch)} | wc -l) -eq 0 ]; then
+          echo "! #{fetch(:git_remote_branch_missing_message)}"
+          exit 1
+        fi
+
         if [ $(git log #{fetch(:remote)}/#{fetch(:branch)}..#{fetch(:branch)} | wc -l) -ne 0 ]; then
           echo "! #{fetch(:git_not_pushed_message)}"
           exit 1

@@ -1,4 +1,14 @@
 echo "-----> Ensuring everything is pushed to git"
+if \[ \$\(git branch --list master \| wc -l\) -eq 0 \]; then
+  echo "! Branch master doesn't exist locally"
+  exit 1
+fi
+
+if \[ \$\(git ls-remote --heads origin master \| wc -l\) -eq 0 \]; then
+  echo "! Branch master doesn't exist on origin"
+  exit 1
+fi
+
 if \[ \$\(git log origin/master..master \| wc -l\) -ne 0 \]; then
   echo "! Your branch master needs to be pushed to origin before deploying"
   exit 1
