@@ -1,0 +1,5 @@
+echo "-----> Ensuring everything is pushed to git"
+if \[ \$\(git log origin/master..master \| wc -l\) -ne 0 \]; then
+  echo "! Your branch master needs to be pushed to origin before deploying"
+  exit 1
+fi
