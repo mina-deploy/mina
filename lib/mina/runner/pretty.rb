@@ -3,43 +3,47 @@ module Mina
     class Pretty
       include Mina::Helpers::Output
 
-      attr_reader :script, :coathooks
+      attr_reader :script
 
       def initialize(script)
-        @script = Shellwords.shellsplit(script)
+        @script = script
         @coathooks = 0
       end
 
       def run
-        status =
-          Open4.popen4(*script) do |pid, _stdin, stdout, stderr|
-            # Handle `^C`.
-            trap('INT') { handle_sigint(pid) }
+        exit_status = nil 
 
-            stdout_thread = Thread.new do
-              while (line = stdout.gets)
-                print_line(line)
-              end
+        Open3.popen3(script) do |_stdin, stdout, stderr, wait_thr|
+          pid = wait_thr.pid
+
+          trap('INT') { handle_sigint(pid) }
+
+          stdout_thread = Thread.new do
+            while (line = stdout.gets)
+              print_line(line)
             end
-
-            stderr_thread = Thread.new do
-              while (line = stderr.gets)
-                print_stderr(line)
-              end
-            end
-
-            stdout_thread.join
-            stderr_thread.join
           end
 
-        status.exitstatus == 0
+          stderr_thread = Thread.new do
+            while (line = stderr.gets)
+              print_stderr(line)
+            end
+          end
+
+          stdout_thread.join
+          stderr_thread.join
+
+          exit_status = wait_thr.value
+        end
+
+        exit_status.success?
       end
 
       private
 
       def handle_sigint(pid)
         puts ''
-        if coathooks > 1
+        if @coathooks > 1
           print_status 'Mina: SIGINT received again. Force quitting...'
           Process.kill 'KILL', pid
         else
