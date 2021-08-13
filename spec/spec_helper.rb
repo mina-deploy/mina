@@ -31,4 +31,13 @@ RSpec.configure do |config|
   config.after(:all, type: :rake) do
     Mina::Configuration.instance.remove :simulate
   end
+
+  config.around(:each, :suppressed_output) do |example|
+    original_stdout, $stdout = $stdout, File.open(File::NULL, 'w')
+    original_stderr, $stderr = $stderr, File.open(File::NULL, 'w')
+
+    example.run
+
+    $stdout, $stderr = original_stdout, original_stderr
+  end
 end
