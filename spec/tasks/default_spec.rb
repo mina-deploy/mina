@@ -20,9 +20,18 @@ RSpec.describe 'default', type: :rake do
   end
 
   describe 'ssh' do
-    it 'runs ssh' do
-      expect_any_instance_of(Kernel).to receive(:exec)
+    it 'runs ssh when :deploy_to exists' do
+      expect_any_instance_of(Kernel).to receive(:exec).with(output_file('ssh'))
       subject.invoke
+    end
+
+    it "exits with an error if :deploy_to doesn't exist" do
+      deploy_to = Mina::Configuration.instance.remove(:deploy_to)
+
+      expect { subject.invoke }.to raise_error(SystemExit)
+                               .and output(/deploy_to must be defined!/).to_stdout
+
+      Mina::Configuration.instance.set(:deploy_to, deploy_to)
     end
   end
 
