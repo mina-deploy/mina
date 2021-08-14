@@ -11,6 +11,6 @@ RSpec.describe 'init', type: :rake do
 
   it 'doesnt create deploy rb if already exists' do
     allow(File).to receive(:exist?).and_return(false)
-    expect { subject.invoke }.to raise_error(SystemExit)
+    expect { subject.invoke }.to raise_error(SystemExit).and output(/You already have/).to_stdout
   end
 end
