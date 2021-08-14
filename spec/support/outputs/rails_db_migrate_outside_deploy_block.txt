@@ -1,0 +1,1 @@
+Can't be run outside deploy do block\. Please use mina 'rake\[db_migrate\]' instead

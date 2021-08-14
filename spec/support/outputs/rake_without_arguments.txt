@@ -1,0 +1,1 @@
+You need to provide arguments. Try: mina "rake\[db:migrate\]"

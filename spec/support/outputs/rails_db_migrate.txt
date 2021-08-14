@@ -1,1 +1,0 @@
-if\ diff\ \-qrN\ ".*deploy/current/db/migrate"\ "\./db/migrate"\ 2>/dev/null\s*then\s*echo\ "\-\-\-\-\->\ DB\ migrations\ unchanged;\ skipping\ DB\ migration"\s*else\s*echo\ "\-\-\-\-\->\ Migrating\ database"\s*RAILS_ENV="production"\ bundle\ exec\ rake\ db:migrate\s*fi
