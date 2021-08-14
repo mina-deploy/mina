@@ -82,7 +82,7 @@ describe Mina::Commands do
   end
 
   describe '#run' do
-    it 'calls run on a backend' do
+    it 'calls run on a backend', :suppressed_output do
       commands.command('ls -al')
       runner = double(:runner)
       allow(Mina::Runner).to receive(:new).and_return(runner)
