@@ -11,10 +11,12 @@ module Mina
       'mina'
     end
 
+    # :nocov:
     def run
       Rake.application = self
       super
     end
+    # :nocov:
 
     def sort_options(options)
       not_applicable_to_mina = %w(quiet silent verbose dry-run)
