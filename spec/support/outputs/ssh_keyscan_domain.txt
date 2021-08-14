@@ -1,0 +1,3 @@
+if ! ssh-keygen -H -F localhost &>/dev/null; then
+  ssh-keyscan -p 22 localhost >> ~/.ssh/known_hosts
+fi
