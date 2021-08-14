@@ -26,6 +26,44 @@ describe Mina::Configuration do
       expect(key).to eq 'env'
       ENV['key'] = nil
     end
+
+    it "returns nil if a default value isn't provided" do
+      expect(config.fetch(:key)).to eq(nil)
+    end
+  end
+
+  describe '#remove' do
+    context 'when key exists' do
+      before do
+        config.set(:key, :value)
+      end
+
+      it 'removes the key' do
+        expect(config.set?(:key)).to eq(true)
+  
+        config.remove(:key)
+  
+        expect(config.set?(:key)).to eq(false)
+      end
+
+      it 'returns key value' do
+        expect(config.remove(:key)).to eq(:value)
+      end
+    end
+
+    context "when key doesn't exist" do
+      it "doesn't do anything" do
+        expect(config.set?(:key)).to eq(false)
+  
+        config.remove(:key)
+  
+        expect(config.set?(:key)).to eq(false)
+      end
+
+      it 'returns nil' do
+        expect(config.remove(:key)).to eq(nil)
+      end
+    end
   end
 
   describe '#set?' do
@@ -47,6 +85,20 @@ describe Mina::Configuration do
 
     it 'raises an error if key is not set' do
       expect { config.ensure!(:key) }.to raise_error(SystemExit)
+    end
+  end
+
+  describe '#reset!' do
+    before do
+      config.set(:key, :value)
+    end
+
+    it 'cleans all variables' do
+      expect(config.variables).not_to be_empty
+
+      config.reset!
+
+      expect(config.variables).to be_empty
     end
   end
 
