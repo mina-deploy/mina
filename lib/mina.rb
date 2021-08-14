@@ -7,7 +7,7 @@ Rake.application.options.trace = true
 require 'forwardable'
 require 'shellwords'
 require 'singleton'
-require 'open4'
+require 'open3'
 
 require 'mina/version'
 require 'mina/helpers/output'

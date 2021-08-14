@@ -152,11 +152,11 @@ Mode | Description
 -----|------------
 `:exec` | It uses [Kernel#exec](http://ruby-doc.org/core-2.4.2/Kernel.html#method-i-exec) to run your script. This means that it will execute and exit and won't run any other tasks. This is useful for tasks such as [`mina console`](https://github.com/mina-deploy/mina/blob/master/tasks/mina/rails.rb#L15)
 `:system` | It uses [Kernel#system](http://ruby-doc.org/core-2.4.2/Kernel.html#method-i-system) to run your script.
-`:pretty` | It uses [Open4#popen4](https://github.com/ahoward/open4/blob/master/lib/open4.rb#L33) to run your script. This mode pretty prints stdout and stderr and colors it. This the default mode for most of the default tasks.
+`:pretty` | It uses [Open3#popen3](https://ruby-doc.org/stdlib-3.0.0/libdoc/open3/rdoc/Open3.html#method-c-popen3) to run your script. This mode pretty prints stdout and stderr and colors it. This the default mode for most of the default tasks.
 `:printer` | It uses [Kernel#puts](http://ruby-doc.org/core-2.4.2/Kernel.html#method-i-puts) to run your script. This is used when `simulate` flag is set so it only prints out the generated script
 
 #### WARNING
-`:pretty` mode is using Popen4. In this mode STDIN is efectivly disabled. This means that any kind of inputs won't be forwarded to remote host. If you have a need for password input please use `:system` mode
+`:pretty` mode is using popen3. In this mode STDIN is efectivly disabled. This means that any kind of inputs won't be forwarded to remote host. If you have a need for password input please use `:system` mode
 
 ### Backends
 
