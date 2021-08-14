@@ -21,7 +21,7 @@ end
 
 task :'rvm:wrapper', :env, :name, :bin do |_, args|
   unless args[:env] && args[:name] && args[:bin]
-    puts "Task 'rvm:wrapper' needs an RVM environment name, an wrapper name and the binary name as arguments"
+    puts "Task 'rvm:wrapper' needs an RVM environment name, a wrapper name and the binary name as arguments"
     puts "Example: invoke :'rvm:wrapper', 'ruby-1.9.2@myapp,myapp,unicorn_rails'"
     exit 1
   end
