@@ -1,39 +1,100 @@
 require 'spec_helper'
 
 describe Mina::Application do
-  # let(:app) { Rake.application }
-  #
-  # %w(quiet silent dry-run).each do |switch|
-  #   it "doesn't include --#{switch} in help" do
-  #     binding.pry
-  #     expect(out).not_to match(/--#{switch}/)
-  #   end
-  # end
-  #
-  # it 'runs adds two default tasks to the task list' do
-  #   expect(subject.top_level_tasks).to include(:debug_configuration_variables)
-  #   expect(subject.top_level_tasks).to include(:run_commands)
-  # end
-  #
-  # it 'overrides the rake method, but still prints the rake version' do
-  #   out = capture_io do
-  #     flags '--version', '-V'
-  #   end
-  #   expect(out).to match(/\bMina, version\b/)
-  #   expect(out).to match(/\bv#{Mina::VERSION}\b/)
-  # end
-  #
-  # it 'enables simulation mode, and sets the backend Mina::Runner::Printer' do
-  #   capture_io do
-  #     flags '--simulate', '-s'
-  #   end
-  #   expect(Mina::Configuration.instance.fetch(:simulate)).to be true
-  # end
-  #
-  # it 'enables printing all config variables on command line parameter' do
-  #   capture_io do
-  #     flags '--debug-configuration-variables', '-d'
-  #   end
-  #   expect(Mina::Configuration.instance.fetch(:debug_configuration_variables)).to be true
-  # end
+  subject(:application) { described_class.new }
+
+  describe '#top_level_tasks' do
+    let(:default_tasks) { ['debug_configuration_variables', 'run_commands'] }
+
+    context 'when `init` task is added' do
+      it "removes default tasks" do
+        expect do
+          application.collect_command_line_tasks(['init'])
+        end.to change(application, :top_level_tasks).from(default_tasks).to(['init'])
+      end
+    end
+
+    context "when `init` task isn't added" do
+      it "keeps default tasks" do
+        expect do
+          application.collect_command_line_tasks(['a_task'])
+        end.to change(application, :top_level_tasks).from(default_tasks).to(['a_task', *default_tasks])
+      end 
+    end
+  end
+
+  describe 'command-line options' do
+    ['--version', '-V'].each do |option|
+      describe option do
+        it 'prints Mina version and exits' do
+          expect do
+            application.handle_options([option])
+          end.to raise_error(SystemExit)
+             .and output("Mina, version v#{Mina::VERSION}\n").to_stdout
+        end
+      end
+    end
+
+    ['--verbose', '-v'].each do |option|
+      describe option do
+        around do |example|
+          original_flag = application.fetch(:verbose)
+          example.run
+          application.set(:verbose, original_flag)
+        end
+
+        it 'sets verbose flag to true' do
+          expect do
+            application.handle_options([option])
+          end.to change { application.fetch(:verbose) }.from(nil).to(true)
+        end
+      end
+    end
+
+    ['--simulate', '-s'].each do |option|
+      describe option do
+        around do |example|
+          original_flag = application.fetch(:simulate)
+          example.run
+          application.set(:simulate, original_flag)
+        end
+
+        it 'sets simulate flag to true' do
+          expect do
+            application.handle_options([option])
+          end.to change { application.fetch(:simulate) }.from(nil).to(true)
+        end
+      end
+    end
+
+    ['--debug-configuration-variables', '-d'].each do |option|
+      describe option do
+        around do |example|
+          original_flag = application.fetch(:debug_configuration_variables)
+          example.run
+          application.set(:debug_configuration_variables, original_flag)
+        end
+
+        it 'sets debug_configuration_variables flag to true' do
+          expect do
+            application.handle_options([option])
+          end.to change { application.fetch(:debug_configuration_variables) }.from(nil).to(true)
+        end
+      end
+    end
+
+    describe '--no-report-time' do
+      around do |example|
+        original_flag = application.fetch(:skip_report_time)
+        example.run
+        application.set(:skip_report_time, original_flag)
+      end
+
+      it 'sets skip_report_time flag to true' do
+        expect do
+          application.handle_options(['--no-report-time'])
+        end.to change { application.fetch(:skip_report_time) }.from(nil).to(true)
+      end
+    end
+  end
 end

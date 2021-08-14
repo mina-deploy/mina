@@ -11,10 +11,12 @@ module Mina
       'mina'
     end
 
+    # :nocov:
     def run
       Rake.application = self
       super
     end
+    # :nocov:
 
     def sort_options(options)
       not_applicable_to_mina = %w(quiet silent verbose dry-run)
@@ -27,8 +29,9 @@ module Mina
 
     def top_level_tasks
       return @top_level_tasks if @top_level_tasks.include?('init')
-      @top_level_tasks << :debug_configuration_variables
-      @top_level_tasks << :run_commands
+
+      @top_level_tasks << 'debug_configuration_variables'
+      @top_level_tasks << 'run_commands'
     end
 
     private
@@ -38,48 +41,53 @@ module Mina
     end
 
     def version
-      ['--version', '-V',
-       'Display the program version.',
-       lambda do |_value|
-         puts "Mina, version v#{Mina::VERSION}"
-         exit
-       end
+      [
+        '--version', '-V',
+        'Display the program version.',
+        lambda do |_value|
+          puts "Mina, version v#{Mina::VERSION}"
+          exit
+        end
       ]
     end
 
     def verbose
-      ['--verbose', '-v',
-       'Print more info',
-       lambda do |_value|
-         set(:verbose, true)
-       end
+      [
+        '--verbose', '-v',
+        'Print more info',
+        lambda do |_value|
+          set(:verbose, true)
+        end
       ]
     end
 
     def simulate
-      ['--simulate', '-s',
-       'Do a simulate run without executing actions',
-       lambda do |_value|
-         set(:simulate, true)
-       end
+      [
+        '--simulate', '-s',
+        'Do a simulate run without executing actions',
+        lambda do |_value|
+          set(:simulate, true)
+        end
       ]
     end
 
     def debug_configuration_variables
-      ['--debug-configuration-variables', '-d',
-       'Display the defined config variables before runnig the tasks.',
-       lambda do |_value|
-         set(:debug_configuration_variables, true)
-       end
+      [
+        '--debug-configuration-variables', '-d',
+        'Display the defined config variables before runnig the tasks.',
+        lambda do |_value|
+          set(:debug_configuration_variables, true)
+        end
       ]
     end
 
     def no_report_time
-      ['--no-report-time', nil,
-       'Skip time reporting',
-       lambda do |_value|
-         set(:skip_report_time, true)
-       end
+      [
+        '--no-report-time', nil,
+        'Skip time reporting',
+        lambda do |_value|
+          set(:skip_report_time, true)
+        end
       ]
     end
   end
