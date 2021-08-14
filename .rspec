@@ -1,1 +1,1 @@
--c --order rand -t ~ssh
+-c --order rand
