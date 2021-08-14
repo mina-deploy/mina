@@ -1,0 +1,2 @@
+Task 'chruby' needs a Ruby version as an argument\.
+Example: invoke :chruby, 'ruby-2.4'

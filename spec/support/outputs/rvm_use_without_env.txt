@@ -1,0 +1,2 @@
+Task 'rvm:use' needs an RVM environment name as an argument\.
+Example: invoke :'rvm:use', 'ruby-1\.9\.2@default'
