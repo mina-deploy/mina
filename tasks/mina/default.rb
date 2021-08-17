@@ -83,7 +83,8 @@ task :run, [:command] do |_, args|
   end
 end
 
-desc 'Open an ssh session to the server and cd to deploy_to folder'
+desc 'Opens an SSH session and positions to :deploy_to folder'
 task :ssh do
+  ensure!(:deploy_to)
   exec %{#{Mina::Backend::Remote.new(nil).ssh} 'cd #{fetch(:deploy_to)} && exec $SHELL'}
 end
