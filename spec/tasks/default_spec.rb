@@ -16,6 +16,7 @@ RSpec.describe 'default', type: :rake do
 
     it 'exits if no command given' do
       expect { subject.invoke }.to raise_error(SystemExit)
+                               .and output(/You need to provide a command/).to_stdout
     end
   end
 
