@@ -48,7 +48,7 @@ module Mina
         when :sequence
           "$((`ls -1 #{fetch(:releases_path)} | sort -n | tail -n 1`+1))"
         else
-          error! 'Unrecognizes version scheme. Use :datetime or :sequence'
+          error! 'Unrecognized version scheme. Use :datetime or :sequence'
         end
       end
 

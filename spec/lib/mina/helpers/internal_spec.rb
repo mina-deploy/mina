@@ -30,7 +30,10 @@ describe Mina::Helpers::Internal do
 
   describe '#echo_cmd' do
     context 'when not verbose' do
-      it 'reuturns unedited code' do
+      before { Mina::Configuration.instance.set(:verbose, false) }
+      after { Mina::Configuration.instance.remove(:verbose) }
+
+      it 'returns unedited code' do
         expect(helper.echo_cmd('ls -al')).to eq('ls -al')
       end
     end
@@ -52,6 +55,88 @@ describe Mina::Helpers::Internal do
   describe '#indent' do
     it 'indents code' do
       expect(helper.indent(4, 'ls -al')).to eq('    ls -al')
+    end
+  end
+
+  describe '#unindent' do
+    it 'unindents code' do
+      expect(helper.unindent("    ls -al\n")).to eq('ls -al')
+    end
+  end
+
+  describe '#report_time' do
+    context 'when :skip_report_time is true' do
+      before { Mina::Configuration.instance.set(:skip_report_time, true) }
+      after { Mina::Configuration.instance.remove(:skip_report_time) }
+
+      it "doesn't output report time" do
+        expect do
+          helper.report_time {}
+        end.not_to output.to_stdout
+      end
+    end
+
+    context 'when :skip_report_time is false' do
+      before { Mina::Configuration.instance.set(:skip_report_time, false) }
+      after { Mina::Configuration.instance.remove(:skip_report_time) }
+
+      it 'outputs report time' do
+        expect do
+          helper.report_time {}
+        end.to output(/Elapsed time: \d+\.\d\d seconds/).to_stdout
+      end
+    end
+  end
+
+  describe '#next_version' do
+    around do |example|
+      original_releases_path = Mina::Configuration.instance.remove(:releases_path)
+      Mina::Configuration.instance.set(:releases_path, '/releases')
+      example.run
+      Mina::Configuration.instance.set(:releases_path, original_releases_path)
+    end
+
+    context 'when :version_scheme is :datetime' do
+      before do
+        Mina::Configuration.instance.set(:version_scheme, :datetime)
+
+        allow(Time).to receive(:now).and_return(Time.parse('2020-05-01 12:34:56 UTC'))
+      end
+
+      after { Mina::Configuration.instance.remove(:version_scheme) }
+
+      it 'formats current UTC time' do
+        expect(helper.next_version).to eq('20200501123456')
+      end
+    end
+
+    context 'when :version_scheme is :sequence' do
+      before { Mina::Configuration.instance.set(:version_scheme, :sequence) }
+      after { Mina::Configuration.instance.remove(:version_scheme) }
+
+      it 'generates a command to calculate the next version' do
+        expect(helper.next_version).to eq('$((`ls -1 /releases | sort -n | tail -n 1`+1))')
+      end
+    end
+
+    context 'when :version_scheme is unknown' do
+      before { Mina::Configuration.instance.set(:version_scheme, :foobar) }
+      after { Mina::Configuration.instance.remove(:version_scheme) }
+
+      it 'exits with an error message' do
+        expect do
+          helper.next_version
+        end.to raise_error(SystemExit)
+           .and output(/Unrecognized version scheme\. Use :datetime or :sequence/).to_stdout
+      end
+    end
+  end
+
+  describe '#error!' do
+    it 'exits with an error message' do
+      expect do
+        helper.error!('foobar')
+      end.to raise_error(SystemExit).and output(/foobar/).to_stdout
     end
   end
 end
