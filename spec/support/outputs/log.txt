@@ -1,1 +1,0 @@
-\(cd\ .*deploy/shared/log\ &&\ tail\ \-f\ production\.log\ &&\ cd\ -\)

@@ -1,1 +1,0 @@
-\(cd\ .*/deploy/current\ &&\ RAILS_ENV="production"\ bundle\ exec\ rails\ console\ &&\ cd\ -\)

@@ -1,0 +1,7 @@
+if diff -qrN ".*/deploy/current/vendor/assets/" "\./vendor/assets/" 2>/dev/null && diff -qrN ".*/deploy/current/app/assets/" "\./app/assets/" 2>/dev/null && diff -qrN ".*/deploy/current/app/javascript/" "\./app/javascript/" 2>/dev/null && diff -qrN ".*/deploy/current/package\.json" "\./package\.json" 2>/dev/null
+then
+  echo "-----> Skipping asset precompilation"
+else
+  echo "-----> Precompiling asset files"
+      RAILS_ENV="production" bundle exec rake assets:precompile
+fi
