@@ -72,6 +72,11 @@ describe Mina::Configuration do
       expect(config.set?(:key)).to be true
     end
 
+    it 'returns false if key is set with nil value' do
+      config.set(:key, nil)
+      expect(config.set?(:key)).to be false
+    end
+
     it 'returns false if key is not set' do
       expect(config.set?(:key)).to be false
     end
