@@ -1,1 +1,0 @@
-echo\ "\-\-\-\-\->\ Using\ RVM\ environment\ \\\"123\\\"\"\s*if\ \[\[\ !\ \-s\ "\$HOME/\.rvm/scripts/rvm"\ \]\];\ then\s*echo\ "!\ Ruby\ Version\ Manager\ not\ found"\s*echo\ "!\ If\ RVM\ is\ installed,\ check\ your\ :rvm_use_path\ setting\."\s*exit 1\s*fi\s*source\ \$HOME/\.rvm/scripts/rvm\n\s*rvm\ use\ \"123\"\ \-\-create

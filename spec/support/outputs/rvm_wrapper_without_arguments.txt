@@ -1,0 +1,2 @@
+Task 'rvm:wrapper' needs an RVM environment name, a wrapper name and the binary name as arguments
+Example: invoke :'rvm:wrapper', 'ruby-1\.9\.2@myapp,myapp,unicorn_rails'

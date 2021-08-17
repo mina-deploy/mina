@@ -18,8 +18,8 @@ module RakeExampleGroup
     end
   end
 
-  def invoke_all(args = nil)
-    subject.invoke(args)
+  def invoke_all(*args)
+    subject.invoke(*args)
     run_commands.invoke
   end
 

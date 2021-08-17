@@ -1,0 +1,8 @@
+echo "-----> creating RVM wrapper "myapp_unicorn" using \\"3\.0\.0\\""
+if \[\[ ! -s "\$HOME/\.rvm/scripts/rvm" \]\]; then
+  echo "! Ruby Version Manager not found"
+  echo "! If RVM is installed, check your :rvm_use_path setting\."
+  exit 1
+fi
+source \$HOME/\.rvm/scripts/rvm
+rvm wrapper 3\.0\.0 myapp unicorn \|\| exit 1
