@@ -1,15 +1,10 @@
 module RakeExampleGroup
-  extend RSpec::Matchers::DSL
+  extend RSpec::SharedContext
 
-  def self.included(klass)
-    klass.instance_eval do
-      let(:rake)         { Rake.application }
-      let(:task_name)    { self.class.description }
-      let(:run_commands) { rake['run_commands']}
-      let(:reset!)       { rake['reset!'] }
-      subject            { rake[task_name] }
-    end
-  end
+  let(:rake)         { Rake.application }
+  let(:task_name)    { self.class.description }
+  let(:run_commands) { rake['run_commands']}
+  subject            { rake[task_name] }
 
   def load_default_config
     load_config 'default'
