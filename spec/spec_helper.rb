@@ -1,9 +1,11 @@
 require 'simplecov'
 
-SimpleCov.start
+SimpleCov.start do
+  add_filter '/spec/'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+  enable_coverage :branch
+  primary_coverage :branch
+end
 
 require 'mina'
 require 'rspec'
