@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'ry', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'ry' do
     subject { rake['ry'] }
 

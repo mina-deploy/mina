@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'default', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'environment' do
     it 'outputs a deprecation warning' do
       expect { invoke_all }.to output(output_file('environment')).to_stdout
@@ -18,11 +22,8 @@ RSpec.describe 'default', type: :rake do
     subject { rake['ssh_keyscan_domain'] }
 
     context "when domain isn't set" do
-      around do |example|
-        original_domain = Mina::Configuration.instance.fetch(:domain)
+      before do
         Mina::Configuration.instance.remove(:domain)
-        example.run
-        Mina::Configuration.instance.set(:domain, original_domain)
       end
 
       it 'exits with an error message' do
@@ -34,11 +35,8 @@ RSpec.describe 'default', type: :rake do
     end
 
     context "when port isn't set" do
-      around do |example|
-        original_port = Mina::Configuration.instance.fetch(:port)
+      before do
         Mina::Configuration.instance.remove(:port)
-        example.run
-        Mina::Configuration.instance.set(:port, original_port)
       end
 
       it 'exits with an error message' do

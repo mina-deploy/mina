@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'git', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'git:clone' do
     it 'git clone' do
       expect { invoke_all }.to output(output_file('git_clone')).to_stdout

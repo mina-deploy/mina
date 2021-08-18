@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'rvm', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'rvm:use' do
     subject { rake['rvm:use'] }
 
