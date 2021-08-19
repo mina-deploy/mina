@@ -22,8 +22,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib', 'tasks']
 
   spec.add_dependency 'rake'
-  spec.add_development_dependency 'awesome_print'
-  spec.add_development_dependency 'codeclimate-test-reporter'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rspec', '~> 3.5.0'
   spec.add_development_dependency 'rubocop'

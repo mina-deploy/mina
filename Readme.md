@@ -1,6 +1,5 @@
 # Mina
 
-[![Code Climate](https://codeclimate.com/github/mina-deploy/mina/badges/gpa.svg)](https://codeclimate.com/github/mina-deploy/mina)
 [![Gem Version](https://badge.fury.io/rb/mina.svg)](https://badge.fury.io/rb/mina)
 
 ![mina](/docs/assets/images/mina.png?raw=true)
