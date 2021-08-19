@@ -3,7 +3,6 @@ test_env/deploy
 .rvmrc
 .ruby-gemset
 .ruby-version
-Gemfile.lock
 pkg/
 support/helpers.md
 support/modules.md
