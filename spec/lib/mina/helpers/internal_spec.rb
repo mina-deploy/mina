@@ -89,11 +89,8 @@ describe Mina::Helpers::Internal do
   end
 
   describe '#next_version' do
-    around do |example|
-      original_releases_path = Mina::Configuration.instance.remove(:releases_path)
+    before do
       Mina::Configuration.instance.set(:releases_path, '/releases')
-      example.run
-      Mina::Configuration.instance.set(:releases_path, original_releases_path)
     end
 
     context 'when :version_scheme is :datetime' do

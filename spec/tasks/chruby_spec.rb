@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'chruby', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'chruby' do
     subject { rake['chruby'] }
 

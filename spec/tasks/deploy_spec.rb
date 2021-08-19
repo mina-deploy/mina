@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'deploy', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'deploy:force_unlock' do
     it 'deploy force_unlock' do
       expect { invoke_all }.to output(output_file('deploy_force_unlock')).to_stdout

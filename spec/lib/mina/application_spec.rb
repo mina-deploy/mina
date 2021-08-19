@@ -37,12 +37,6 @@ describe Mina::Application do
 
     ['--verbose', '-v'].each do |option|
       describe option do
-        around do |example|
-          original_flag = application.fetch(:verbose)
-          example.run
-          application.set(:verbose, original_flag)
-        end
-
         it 'sets verbose flag to true' do
           expect do
             application.handle_options([option])
@@ -53,12 +47,6 @@ describe Mina::Application do
 
     ['--simulate', '-s'].each do |option|
       describe option do
-        around do |example|
-          original_flag = application.fetch(:simulate)
-          example.run
-          application.set(:simulate, original_flag)
-        end
-
         it 'sets simulate flag to true' do
           expect do
             application.handle_options([option])
@@ -69,12 +57,6 @@ describe Mina::Application do
 
     ['--debug-configuration-variables', '-d'].each do |option|
       describe option do
-        around do |example|
-          original_flag = application.fetch(:debug_configuration_variables)
-          example.run
-          application.set(:debug_configuration_variables, original_flag)
-        end
-
         it 'sets debug_configuration_variables flag to true' do
           expect do
             application.handle_options([option])
@@ -84,12 +66,6 @@ describe Mina::Application do
     end
 
     describe '--no-report-time' do
-      around do |example|
-        original_flag = application.fetch(:skip_report_time)
-        example.run
-        application.set(:skip_report_time, original_flag)
-      end
-
       it 'sets skip_report_time flag to true' do
         expect do
           application.handle_options(['--no-report-time'])

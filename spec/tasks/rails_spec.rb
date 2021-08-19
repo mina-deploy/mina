@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'rails', type: :rake do
+  before do
+    load_default_config
+  end
+
   describe 'console' do
     it 'starts console' do
       expect { invoke_all }.to output(output_file('rails_console')).to_stdout
@@ -17,10 +21,8 @@ RSpec.describe 'rails', type: :rake do
     subject { rake['rails:db_migrate'] }
 
     context 'when outside deploy block' do
-      around do |example|
-        original_flag = Mina::Configuration.instance.remove(:deploy_block)
-        example.run
-        Mina::Configuration.instance.set(:deploy_block, original_flag)
+      before do
+        Mina::Configuration.instance.remove(:deploy_block)
       end
 
       it 'exits with an error message' do
@@ -37,11 +39,6 @@ RSpec.describe 'rails', type: :rake do
         Mina::Configuration.instance.set(:deploy_block, true)
       end
 
-      after do
-        Mina::Configuration.instance.remove(:force_migrate)
-        Mina::Configuration.instance.set(:deploy_block, false)
-      end
-
       it 'runs rails db:migrate' do
         expect do
           invoke_all
@@ -52,10 +49,6 @@ RSpec.describe 'rails', type: :rake do
     context 'without force_migrate flag' do
       before do
         Mina::Configuration.instance.set(:deploy_block, true)
-      end
-
-      after do
-        Mina::Configuration.instance.set(:deploy_block, false)
       end
 
       it 'runs rails db:migrate but checks for changes first' do
@@ -82,10 +75,8 @@ RSpec.describe 'rails', type: :rake do
     subject { rake['rails:assets_precompile'] }
 
     context 'when outside deploy block' do
-      around do |example|
-        original_flag = Mina::Configuration.instance.remove(:deploy_block)
-        example.run
-        Mina::Configuration.instance.set(:deploy_block, original_flag)
+      before do
+        Mina::Configuration.instance.remove(:deploy_block)
       end
 
       it 'exits with an error message' do
@@ -102,11 +93,6 @@ RSpec.describe 'rails', type: :rake do
         Mina::Configuration.instance.set(:deploy_block, true)
       end
 
-      after do
-        Mina::Configuration.instance.remove(:force_asset_precompile)
-        Mina::Configuration.instance.set(:deploy_block, false)
-      end
-
       it 'runs rails assets:precompile' do
         expect do
           invoke_all
@@ -117,10 +103,6 @@ RSpec.describe 'rails', type: :rake do
     context 'without force_asset_precompile flag' do
       before do
         Mina::Configuration.instance.set(:deploy_block, true)
-      end
-
-      after do
-        Mina::Configuration.instance.set(:deploy_block, false)
       end
 
       it 'runs rails assets:precompile but checks for changes first' do

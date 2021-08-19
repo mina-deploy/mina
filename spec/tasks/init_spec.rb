@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe 'init', type: :rake do
+  before do
+    load_default_config
+  end
+
   it 'creates new deploy rb' do
     allow(File).to receive(:exist?).and_return(true)
     expect(FileUtils).to receive(:mkdir_p)
