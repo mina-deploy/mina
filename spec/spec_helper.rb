@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 
 SimpleCov.start do
@@ -14,7 +16,7 @@ require 'set'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 Rake.application = Mina::Application.new
-Dir["./tasks/mina/**/*.rb"].each { |f| require f }
+Dir['./tasks/mina/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
   config.include RakeExampleGroup, type: :rake
@@ -25,11 +27,11 @@ RSpec.configure do |config|
   initial_task_names = Rake.application.tasks.to_set(&:name)
   initial_variables = Mina::Configuration.instance.variables
 
-  config.before(:each) do
+  config.before do
     Mina::Configuration.instance.instance_variable_set(:@variables, initial_variables.clone)
   end
 
-  config.after(:each) do
+  config.after do
     Rake.application.instance_variable_get(:@tasks).keep_if { |task_name, _| initial_task_names.include?(task_name) }
     Rake.application.tasks.each(&:reenable)
   end
@@ -44,10 +46,8 @@ RSpec.configure do |config|
   end
 
   config.around(:all) do |example|
-    begin
-      example.run
-    rescue SystemExit => e
-      raise "Unhandled system exit (you're probably missing a raise_error(SystemExit) matcher somewhere)"
-    end
+    example.run
+  rescue SystemExit
+    raise "Unhandled system exit (you're probably missing a raise_error(SystemExit) matcher somewhere)"
   end
 end

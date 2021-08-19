@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe 'rvm', type: :rake do
@@ -6,7 +8,7 @@ RSpec.describe 'rvm', type: :rake do
   end
 
   describe 'rvm:use' do
-    subject { rake['rvm:use'] }
+    let(:task_name) { 'rvm:use' }
 
     context 'without an argument' do
       it 'exits with an error message' do
@@ -27,7 +29,7 @@ RSpec.describe 'rvm', type: :rake do
   end
 
   describe 'rvm:wrapper' do
-    subject { rake['rvm:wrapper'] }
+    let(:task_name) { 'rvm:wrapper' }
 
     context 'without all arguments' do
       it 'exits with an error message' do

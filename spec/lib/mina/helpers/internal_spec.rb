@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Mina::Helpers::Internal do
-  class DummyInternalHelper
-    include Mina::DSL
-    include Mina::Helpers::Internal
+  let(:dummy_class) do
+    Class.new do
+      include Mina::DSL
+      include Mina::Helpers::Internal
+    end
   end
-
-  let(:helper) { DummyInternalHelper.new }
+  let(:helper) { dummy_class.new }
 
   describe '#deploy_script' do
     before do
@@ -15,23 +18,21 @@ describe Mina::Helpers::Internal do
     end
 
     it 'returns whole script' do
-      expect(helper.deploy_script {}).to_not be_empty
+      expect(helper.deploy_script {}).not_to be_empty
     end
   end
 
   describe '#erb' do
     before { Mina::Configuration.instance.set(:version_scheme, :sequence) }
-    after { Mina::Configuration.instance.remove(:version_scheme) }
 
     it 'returns whole script' do
-      expect(helper.erb('data/deploy.sh.erb')).to_not be_empty
+      expect(helper.erb('data/deploy.sh.erb')).not_to be_empty
     end
   end
 
   describe '#echo_cmd' do
     context 'when not verbose' do
       before { Mina::Configuration.instance.set(:verbose, false) }
-      after { Mina::Configuration.instance.remove(:verbose) }
 
       it 'returns unedited code' do
         expect(helper.echo_cmd('ls -al')).to eq('ls -al')
@@ -40,7 +41,6 @@ describe Mina::Helpers::Internal do
 
     context 'when verbose' do
       before { Mina::Configuration.instance.set(:verbose, true) }
-      after { Mina::Configuration.instance.remove(:verbose) }
 
       it 'modifies code' do
         expect(helper.echo_cmd('ls -al')).to eq("echo \\$\\ ls\\ -al &&\nls -al")
@@ -67,7 +67,6 @@ describe Mina::Helpers::Internal do
   describe '#report_time' do
     context 'when :skip_report_time is true' do
       before { Mina::Configuration.instance.set(:skip_report_time, true) }
-      after { Mina::Configuration.instance.remove(:skip_report_time) }
 
       it "doesn't output report time" do
         expect do
@@ -78,7 +77,6 @@ describe Mina::Helpers::Internal do
 
     context 'when :skip_report_time is false' do
       before { Mina::Configuration.instance.set(:skip_report_time, false) }
-      after { Mina::Configuration.instance.remove(:skip_report_time) }
 
       it 'outputs report time' do
         expect do
@@ -109,7 +107,6 @@ describe Mina::Helpers::Internal do
 
     context 'when :version_scheme is :sequence' do
       before { Mina::Configuration.instance.set(:version_scheme, :sequence) }
-      after { Mina::Configuration.instance.remove(:version_scheme) }
 
       it 'generates a command to calculate the next version' do
         expect(helper.next_version).to eq('$((`ls -1 /releases | sort -n | tail -n 1`+1))')
@@ -118,7 +115,6 @@ describe Mina::Helpers::Internal do
 
     context 'when :version_scheme is unknown' do
       before { Mina::Configuration.instance.set(:version_scheme, :foobar) }
-      after { Mina::Configuration.instance.remove(:version_scheme) }
 
       it 'exits with an error message' do
         expect do

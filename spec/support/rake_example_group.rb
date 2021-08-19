@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 module RakeExampleGroup
   extend RSpec::SharedContext
+
+  subject(:task)     { rake[task_name] }
 
   let(:rake)         { Rake.application }
   let(:task_name)    { self.class.description }
   let(:run_commands) { rake['run_commands'] }
   let(:reset!)       { rake['reset!'] }
-  subject            { rake[task_name] }
 
-  after(:each) do
+  after do
     reset!.invoke
   end
 
@@ -20,7 +23,7 @@ module RakeExampleGroup
   end
 
   def invoke_all(*args)
-    subject.invoke(*args)
+    task.invoke(*args)
     run_commands.invoke
   end
 

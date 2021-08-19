@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Creates a sample config file.'
 task :init do
   name = Rake.application.name
@@ -10,7 +12,7 @@ task :init do
 
   outfile = './config/deploy.rb'
 
-  if File.exists?(outfile)
+  if File.exist?(outfile)
     print 'deploy.rb already exists, do you want to overwrite it? (y/n) '
 
     exit(8) if $stdin.readline.chomp.downcase != 'y'

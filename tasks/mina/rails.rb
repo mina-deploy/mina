@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'mina/deploy'
 require 'mina/bundler'
 
 set :rails_env, 'production'
-set :bundle_prefix, -> { %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec} }
+set :bundle_prefix, -> { %(RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec) }
 set :rake, -> { "#{fetch(:bundle_prefix)} rake" }
 set :rails, -> { "#{fetch(:bundle_prefix)} rails" }
 set :compiled_asset_path, ['public/assets', 'public/packs']
@@ -14,8 +16,8 @@ set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', 'node_modules
 desc 'Starts an interactive console.'
 task :console do
   set :execution_mode, :exec
-  in_path "#{fetch(:current_path)}" do
-    command %{#{fetch(:rails)} console}
+  in_path fetch(:current_path).to_s do
+    command %(#{fetch(:rails)} console)
   end
 end
 
@@ -23,7 +25,7 @@ desc 'Tail log from server'
 task :log do
   set :execution_mode, :exec
   in_path "#{fetch(:shared_path)}/log" do
-    command %{tail -f #{fetch(:rails_env)}.log}
+    command %(tail -f #{fetch(:rails_env)}.log)
   end
 end
 
@@ -32,72 +34,72 @@ namespace :rails do
   task :db_migrate do
     ensure!(:deploy_block, message: "Can't be run outside deploy do block. Please use mina 'rake[db_migrate]' instead")
     if fetch(:force_migrate)
-      comment %{Migrating database}
-      command %{#{fetch(:rake)} db:migrate}
+      comment %(Migrating database)
+      command %(#{fetch(:rake)} db:migrate)
     else
       command check_for_changes_script(
         at: fetch(:migration_dirs),
-        skip: %{echo "-----> DB migrations unchanged; skipping DB migration"},
-        changed: %{echo "-----> Migrating database"
-          #{echo_cmd("#{fetch(:rake)} db:migrate")}}
+        skip: %(echo "-----> DB migrations unchanged; skipping DB migration"),
+        changed: %(echo "-----> Migrating database"
+          #{echo_cmd("#{fetch(:rake)} db:migrate")})
       ), quiet: true
     end
   end
 
   desc 'Create database'
   task :db_create do
-    comment %{Creating database}
-    command %{#{fetch(:rake)} db:create}
+    comment %(Creating database)
+    command %(#{fetch(:rake)} db:create)
   end
 
   desc 'Rollback database'
   task :db_rollback do
-    comment %{Rollbacking database}
-    command %{#{fetch(:rake)} db:rollback}
+    comment %(Rollbacking database)
+    command %(#{fetch(:rake)} db:rollback)
   end
 
   desc 'Precompiles assets (skips if nothing has changed since the last release).'
   task :assets_precompile do
     ensure!(:deploy_block, message: "Can't be run outside deploy do block. Please use mina 'rake[assets_precompile]' instead")
     if fetch(:force_asset_precompile)
-      comment %{Precompiling asset files}
-      command %{#{fetch(:rake)} assets:precompile}
+      comment %(Precompiling asset files)
+      command %(#{fetch(:rake)} assets:precompile)
     else
       command check_for_changes_script(
         at: fetch(:asset_dirs),
-        skip: %{echo "-----> Skipping asset precompilation"},
-        changed: %{echo "-----> Precompiling asset files"
-          #{echo_cmd "#{fetch(:rake)} assets:precompile"}}
+        skip: %(echo "-----> Skipping asset precompilation"),
+        changed: %(echo "-----> Precompiling asset files"
+          #{echo_cmd "#{fetch(:rake)} assets:precompile"})
       ), quiet: true
     end
   end
 
   desc 'Clear older assets'
   task :assets_clean do
-    comment %{Removing older assets}
-    command %{#{fetch(:rake)} assets:clean}
+    comment %(Removing older assets)
+    command %(#{fetch(:rake)} assets:clean)
   end
 
   desc 'DB schema load'
   task :db_schema_load do
-    comment %{DB schema load}
-    command %{#{fetch(:rake)} db:schema:load}
+    comment %(DB schema load)
+    command %(#{fetch(:rake)} db:schema:load)
   end
 end
 
 def check_for_changes_script(options)
   diffs = options[:at].map do |path|
-    %{diff -qrN "#{fetch(:current_path)}/#{path}" "./#{path}" 2>/dev/null}
+    %(diff -qrN "#{fetch(:current_path)}/#{path}" "./#{path}" 2>/dev/null)
   end.join(' && ')
 
-  %{
+  %(
     if #{diffs}
     then
       #{options[:skip]}
     else
       #{options[:changed]}
     fi
-  }
+  )
 end
 
 # Macro used later by :rails, :rake, etc
@@ -107,10 +109,10 @@ make_run_task = lambda { |name, example|
 
     arguments = args[:arguments]
     unless arguments
-      puts %{You need to provide arguments. Try: mina "#{name}[#{example}]"}
+      puts %(You need to provide arguments. Try: mina "#{name}[#{example}]")
       exit 1
     end
-    in_path "#{fetch(:current_path)}" do
+    in_path fetch(:current_path).to_s do
       command %(#{fetch(name)} #{arguments})
     end
   end

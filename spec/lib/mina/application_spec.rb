@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Mina::Application do
@@ -7,7 +9,7 @@ describe Mina::Application do
     let(:default_tasks) { ['debug_configuration_variables', 'run_commands'] }
 
     context 'when `init` task is added' do
-      it "removes default tasks" do
+      it 'removes default tasks' do
         expect do
           application.collect_command_line_tasks(['init'])
         end.to change(application, :top_level_tasks).from(default_tasks).to(['init'])
@@ -15,11 +17,11 @@ describe Mina::Application do
     end
 
     context "when `init` task isn't added" do
-      it "keeps default tasks" do
+      it 'keeps default tasks' do
         expect do
           application.collect_command_line_tasks(['a_task'])
         end.to change(application, :top_level_tasks).from(default_tasks).to(['a_task', *default_tasks])
-      end 
+      end
     end
   end
 

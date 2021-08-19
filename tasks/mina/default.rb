@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mina/install'
 
 set :port, 22
@@ -43,16 +45,16 @@ end
 desc 'Adds repo host to the known hosts'
 task :ssh_keyscan_repo do
   ensure!(:repository)
-  repo_host = fetch(:repository).split(%r{@|://}).last.split(%r{:|\/}).first
+  repo_host = fetch(:repository).split(%r{@|://}).last.split(%r{:|/}).first
   repo_port = /:([0-9]+)/.match(fetch(:repository)) && /:([0-9]+)/.match(fetch(:repository))[1] || '22'
 
-  next if repo_host == ""
+  next if repo_host == ''
 
-  command %{
+  command %(
     if ! ssh-keygen -H -F #{repo_host} &>/dev/null; then
       ssh-keyscan -t rsa -p #{repo_port} -H #{repo_host} >> ~/.ssh/known_hosts
     fi
-  }
+  )
 end
 
 desc 'Adds domain to the known hosts'
@@ -60,11 +62,11 @@ task :ssh_keyscan_domain do
   ensure!(:domain)
   ensure!(:port)
   run :local do
-    command %{
+    command %(
       if ! ssh-keygen -H -F #{fetch(:domain)} &>/dev/null; then
         ssh-keyscan -p #{fetch(:port)} #{fetch(:domain)} >> ~/.ssh/known_hosts
       fi
-    }
+    )
   end
 end
 
@@ -86,5 +88,5 @@ end
 desc 'Opens an SSH session and positions to :deploy_to folder'
 task :ssh do
   ensure!(:deploy_to)
-  exec %{#{Mina::Backend::Remote.new(nil).ssh} 'cd #{fetch(:deploy_to)} && exec $SHELL'}
+  Kernel.exec %(#{Mina::Backend::Remote.new(nil).ssh} 'cd #{fetch(:deploy_to)} && exec $SHELL')
 end

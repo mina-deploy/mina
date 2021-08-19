@@ -1,11 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Mina::Helpers::Output do
-  class DummyOutputHelper
-    include Mina::Helpers::Output
-  end
-
-  let(:helper) { DummyOutputHelper.new }
+  let(:dummy_class) { Class.new { include Mina::Helpers::Output } }
+  let(:helper) { dummy_class.new }
 
   describe '#print_line' do
     it 'prints normally' do

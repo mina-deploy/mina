@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :chruby_path, '/etc/profile.d/chruby.sh'
 
 task :chruby, :env do |_, args|
@@ -7,13 +9,13 @@ task :chruby, :env do |_, args|
     exit 1
   end
 
-  comment %{chruby to version: \\"#{args[:env]}\\"}
-  command %{
+  comment %(chruby to version: \\"#{args[:env]}\\")
+  command %(
     if [[ ! -s "#{fetch(:chruby_path)}" ]]; then
       echo "! chruby.sh init file not found"
       exit 1
     fi
-  }
-  command %{source #{fetch(:chruby_path)}}
-  command %{chruby "#{args[:env]}" || exit 1}
+  )
+  command %(source #{fetch(:chruby_path)})
+  command %(chruby "#{args[:env]}" || exit 1)
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe 'default', type: :rake do
@@ -19,7 +21,7 @@ RSpec.describe 'default', type: :rake do
   end
 
   describe 'ssh_keyscan_domain' do
-    subject { rake['ssh_keyscan_domain'] }
+    let(:task_name) { 'ssh_keyscan_domain' }
 
     context "when domain isn't set" do
       before do
@@ -58,26 +60,29 @@ RSpec.describe 'default', type: :rake do
 
   describe 'run' do
     it 'runs command' do
-      subject.invoke('ls -al')
+      task.invoke('ls -al')
       expect { run_commands.invoke }.to output(output_file('run')).to_stdout
     end
 
     it 'exits if no command given' do
-      expect { subject.invoke }.to raise_error(SystemExit)
+      expect { task.invoke }.to raise_error(SystemExit)
                                .and output(/You need to provide a command/).to_stdout
     end
   end
 
   describe 'ssh' do
     it 'runs ssh when :deploy_to exists' do
-      expect_any_instance_of(Kernel).to receive(:exec).with(output_file('ssh'))
-      subject.invoke
+      allow(Kernel).to receive(:exec)
+
+      task.invoke
+
+      expect(Kernel).to have_received(:exec).with(output_file('ssh'))
     end
 
     it "exits with an error if :deploy_to doesn't exist" do
       deploy_to = Mina::Configuration.instance.remove(:deploy_to)
 
-      expect { subject.invoke }.to raise_error(SystemExit)
+      expect { task.invoke }.to raise_error(SystemExit)
                                .and output(/deploy_to must be defined!/).to_stdout
 
       Mina::Configuration.instance.set(:deploy_to, deploy_to)

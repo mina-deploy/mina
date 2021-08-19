@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe 'rails', type: :rake do
@@ -18,7 +20,7 @@ RSpec.describe 'rails', type: :rake do
   end
 
   describe 'rails:db_migrate' do
-    subject { rake['rails:db_migrate'] }
+    let(:task_name) { 'rails:db_migrate' }
 
     context 'when outside deploy block' do
       before do
@@ -72,7 +74,7 @@ RSpec.describe 'rails', type: :rake do
   end
 
   describe 'rails:assets_precompile' do
-    subject { rake['rails:assets_precompile'] }
+    let(:task_name) { 'rails:assets_precompile' }
 
     context 'when outside deploy block' do
       before do
@@ -126,7 +128,7 @@ RSpec.describe 'rails', type: :rake do
   end
 
   describe 'rails' do
-    subject { rake['rails'] }
+    let(:task_name) { 'rails' }
 
     context 'without arguments' do
       it 'exits with an error message' do
@@ -147,7 +149,7 @@ RSpec.describe 'rails', type: :rake do
   end
 
   describe 'rake' do
-    subject { rake['rake'] }
+    let(:task_name) { 'rake' }
 
     context 'without arguments' do
       it 'exits with an error message' do

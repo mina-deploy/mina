@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module Mina
   module Backend
     class Remote
       attr_reader :commands
+
       include Configuration::DSL
 
       def initialize(commands)
@@ -31,7 +34,6 @@ module Mina
         args += ' -tt'
         "ssh #{args}"
       end
-
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe 'ry', type: :rake do
@@ -6,7 +8,7 @@ RSpec.describe 'ry', type: :rake do
   end
 
   describe 'ry' do
-    subject { rake['ry'] }
+    let(:task_name) { 'ry' }
 
     let(:default_version_warning) { /Task 'ry' without argument will use default Ruby version\./ }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Mina::Runner::System do
@@ -6,11 +8,12 @@ describe Mina::Runner::System do
   describe '#run' do
     before do
       allow(Kernel).to receive(:system)
-      expect_any_instance_of(Kernel).to receive(:system).with('echo hello')
     end
 
     it 'executes the script' do
       runner.run
+
+      expect(Kernel).to have_received(:system).with('echo hello')
     end
   end
 end
