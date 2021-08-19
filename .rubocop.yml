@@ -5,6 +5,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - vendor/bundle/**/*
+  TargetRubyVersion: 2.6
 
 # TODO: require a minimum Ruby version (breaking change)
 Gemspec/RequiredRubyVersion:

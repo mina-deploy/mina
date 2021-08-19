@@ -14,9 +14,9 @@ require 'rspec'
 require 'pry'
 require 'set'
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].sort.each { |f| require f }
 Rake.application = Mina::Application.new
-Dir['./tasks/mina/**/*.rb'].each { |f| require f }
+Dir['./tasks/mina/**/*.rb'].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.include RakeExampleGroup, type: :rake
