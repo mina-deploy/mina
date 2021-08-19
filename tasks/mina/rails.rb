@@ -16,7 +16,7 @@ set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', 'node_modules
 desc 'Starts an interactive console.'
 task :console do
   set :execution_mode, :exec
-  in_path fetch(:current_path).to_s do
+  in_path fetch(:current_path) do
     command %(#{fetch(:rails)} console)
   end
 end
@@ -112,7 +112,7 @@ make_run_task = lambda { |name, example|
       puts %(You need to provide arguments. Try: mina "#{name}[#{example}]")
       exit 1
     end
-    in_path fetch(:current_path).to_s do
+    in_path fetch(:current_path) do
       command %(#{fetch(name)} #{arguments})
     end
   end

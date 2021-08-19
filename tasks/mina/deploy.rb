@@ -47,7 +47,7 @@ namespace :deploy do
     ensure!(:deploy_to)
 
     comment %{Cleaning up old releases (keeping #{fetch(:keep_releases)})}
-    in_path fetch(:releases_path).to_s do
+    in_path fetch(:releases_path) do
       command %{count=$(ls -A1 | sort -rn | wc -l)}
       command %{remove=$((count > #{fetch(:keep_releases)} ? count - #{fetch(:keep_releases)} : 0))}
       command %(ls -A1 | sort -rn | tail -n $remove | xargs rm -rf {})
@@ -59,7 +59,7 @@ desc 'Rollbacks the latest release'
 task :rollback do
   comment %(Rolling back to previous release)
 
-  in_path fetch(:releases_path).to_s do
+  in_path fetch(:releases_path) do
     # TODO: add check if there are more than 1 release
     command %{rollback_release=$(ls -1A | sort -n | tail -n 2 | head -n 1)}
     comment %(Rollbacking to release: $rollback_release)
@@ -79,7 +79,7 @@ task :setup do
   command %(mkdir -p "#{fetch(:releases_path)}")
   command %(mkdir -p "#{fetch(:shared_path)}")
 
-  in_path fetch(:shared_path).to_s do
+  in_path fetch(:shared_path) do
     fetch(:shared_dirs, []).each do |linked_dir|
       command %(mkdir -p "#{linked_dir}")
     end
