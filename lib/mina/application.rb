@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mina
   class Application < Rake::Application
     include Configuration::DSL
@@ -19,7 +21,7 @@ module Mina
     # :nocov:
 
     def sort_options(options)
-      not_applicable_to_mina = %w(quiet silent verbose dry-run)
+      not_applicable_to_mina = ['quiet', 'silent', 'verbose', 'dry-run']
       options.reject! do |(switch, *)|
         switch =~ /--#{Regexp.union(not_applicable_to_mina)}/
       end

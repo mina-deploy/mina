@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mina
   class Configuration
     include Singleton
@@ -6,7 +8,7 @@ module Mina
     module DSL
       def self.included(base)
         [:set, :fetch, :remove, :set?, :ensure!, :reset!].each do |method|
-          base.send :define_method, method do |*args,  &block|
+          base.send :define_method, method do |*args, &block|
             Configuration.instance.send(method, *args, &block)
           end
         end
@@ -16,7 +18,7 @@ module Mina
     attr_reader :variables
 
     def initialize
-      @variables ||= {}
+      @variables = {}
     end
 
     def set(key, value = nil, &block)
@@ -33,11 +35,12 @@ module Mina
     end
 
     def set?(key)
-      ENV.has_key?(key.to_s) || !variables.fetch(key, nil).nil?
+      ENV.key?(key.to_s) || !variables.fetch(key, nil).nil?
     end
 
     def ensure!(key, message: nil)
       return if set?(key)
+
       message ||= "#{key} must be defined!"
       error! message
     end

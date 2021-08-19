@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mina
   class Runner
     class Pretty
@@ -10,8 +12,8 @@ module Mina
         @coathooks = 0
       end
 
-      def run
-        exit_status = nil 
+      def run # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        exit_status = nil
 
         Open3.popen3(script) do |_stdin, stdout, stderr, wait_thr|
           pid = wait_thr.pid

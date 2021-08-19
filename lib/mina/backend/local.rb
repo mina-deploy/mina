@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mina
   module Backend
     class Local

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mina
   class Commands
     extend Forwardable
@@ -19,11 +21,11 @@ module Mina
     end
 
     def comment(code, indent: nil)
-      if indent
-        queue[stage] << indent(indent, %{echo "-----> #{code}"})
-      else
-        queue[stage] << %{echo "-----> #{code}"}
-      end
+      queue[stage] << if indent
+                        indent(indent, %(echo "-----> #{code}"))
+                      else
+                        %(echo "-----> #{code}")
+                      end
     end
 
     def delete(stage)
@@ -34,9 +36,9 @@ module Mina
       queue[stage] = []
     end
 
-    def process(path = nil)
+    def process(path = nil) # rubocop:disable Metrics/AbcSize
       if path && !queue[stage].empty?
-        queue[stage].unshift(%{echo "$ cd #{path}"}) if fetch(:verbose)
+        queue[stage].unshift(%(echo "$ cd #{path}")) if fetch(:verbose)
         %{(cd #{path} && #{queue[stage].join(' && ')} && cd -)}
       else
         queue[stage].join("\n")
@@ -49,6 +51,7 @@ module Mina
 
     def run(backend)
       return if queue.empty?
+
       report_time do
         status = Mina::Runner.new(process, backend).run
         error! 'Run Error' unless status

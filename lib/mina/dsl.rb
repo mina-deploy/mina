@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 module Mina
   module DSL
-    attr_reader :commands
-
     extend Forwardable
     def_delegators :configuration, :fetch, :set, :set?, :ensure!
     def_delegators :commands, :command, :comment

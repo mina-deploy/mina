@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Mina::DSL, type: :rake do
@@ -9,7 +11,7 @@ describe Mina::DSL, type: :rake do
   describe '#reset!' do
     let(:task_name) { 'reset_task' }
 
-    it "clears all commands before it" do
+    it 'clears all commands before it' do
       expect do
         invoke_all
       end.to output(output_file('dsl_reset')).to_stdout
@@ -47,7 +49,7 @@ describe Mina::DSL, type: :rake do
         end.to output(output_file('dsl_remote_run')).to_stdout
       end
     end
-    
+
     context "when backend doesn't exist" do
       let(:task_name) { 'nonexistent_run' }
 

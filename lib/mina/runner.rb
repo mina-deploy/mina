@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 module Mina
   class Runner
     attr_reader :commands, :backend
+
     include Configuration::DSL
 
     def initialize(commands, backend)
       fail 'You must specify execution mode' if execution_mode.nil?
       fail 'Unsuported execution mode (pretty on windows)' if unsuported_execution_mode?
+
       @backend = backend
       @commands = commands
     end
@@ -16,11 +20,11 @@ module Mina
 
     def execution_mode
       @execution_mode ||=
-      if fetch(:simulate)
-        :printer
-      else
-        fetch(:execution_mode)
-      end
+        if fetch(:simulate)
+          :printer
+        else
+          fetch(:execution_mode)
+        end
     end
 
     private

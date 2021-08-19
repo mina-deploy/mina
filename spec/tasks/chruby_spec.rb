@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe 'chruby', type: :rake do
@@ -6,7 +8,7 @@ RSpec.describe 'chruby', type: :rake do
   end
 
   describe 'chruby' do
-    subject { rake['chruby'] }
+    let(:task_name) { 'chruby' }
 
     context 'without an argument' do
       it 'exits with an error message' do

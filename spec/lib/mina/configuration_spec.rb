@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Mina::Configuration do
-  let(:config) { Class.new(Mina::Configuration).instance }
+  let(:config) { Class.new(described_class).instance }
   let(:key) { config.fetch(:key, :default) }
 
   describe '#set' do
@@ -40,9 +42,9 @@ describe Mina::Configuration do
 
       it 'removes the key' do
         expect(config.set?(:key)).to eq(true)
-  
+
         config.remove(:key)
-  
+
         expect(config.set?(:key)).to eq(false)
       end
 
@@ -54,9 +56,9 @@ describe Mina::Configuration do
     context "when key doesn't exist" do
       it "doesn't do anything" do
         expect(config.set?(:key)).to eq(false)
-  
+
         config.remove(:key)
-  
+
         expect(config.set?(:key)).to eq(false)
       end
 
@@ -85,7 +87,7 @@ describe Mina::Configuration do
   describe '#ensure!' do
     it 'does not raise error if key is set' do
       config.set(:key, :value)
-      expect { config.ensure!(:key) }.to_not raise_error
+      expect { config.ensure!(:key) }.not_to raise_error
     end
 
     it 'raises an error if key is not set' do
@@ -113,7 +115,7 @@ describe Mina::Configuration do
     let(:host) { host_class.new }
 
     [:fetch, :set].each do |method|
-      it "should respond to #{method}" do
+      it "responds to #{method}" do
         expect(host).to respond_to(method)
       end
     end

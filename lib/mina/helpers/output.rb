@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Mina
   module Helpers
     module Output
       def print_line(line)
         case line
-        when /^\-+> (.*?)$/
+        when /^-+> (.*?)$/
           print_status Regexp.last_match[1]
         when /^! (.*?)$/
           print_error Regexp.last_match[1]
@@ -42,8 +44,8 @@ module Mina
         puts "       #{msg}"
       end
 
-      def color(str, c)
-        ENV['NO_COLOR'] ? str : "\033[#{c}m#{str}\033[0m"
+      def color(str, color)
+        ENV['NO_COLOR'] ? str : "\033[#{color}m#{str}\033[0m"
       end
     end
   end

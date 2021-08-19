@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # # NOTE:
 # # Yes, you can deploy this project. It will deploy into the ./deploy/
 # # directory.  The commands have been stubbed, so it's harmless. No rails or
@@ -23,11 +25,10 @@ require 'mina/rvm'
 require 'mina/rbenv'
 require 'mina/chruby'
 require 'pry'
-#
 
 set :domain, 'localhost'
 set :deploy_to, "#{Dir.pwd}/deploy"
-set :repository, "#{Mina.root_path}"
+set :repository, Mina.root_path.to_s
 set :shared_paths, ['config/database.yml', 'log']
 set :keep_releases, 2
 
@@ -49,7 +50,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      comment %{in launch}
+      comment %(in launch)
     end
   end
 end
@@ -57,17 +58,17 @@ end
 desc 'Task description'
 task :test do
   run :remote do
-    comment %{PWD}
+    comment %(PWD)
     in_path('/Users') do
-      command %{ls -al}
+      command %(ls -al)
     end
     on :after do
-      command %{pwd}
+      command %(pwd)
     end
   end
 
   run :local do
-    command %{ls -al}
+    command %(ls -al)
   end
 end
 
@@ -75,7 +76,7 @@ desc 'Fails test'
 task :fail do
   run :remote do
     run :local do
-      command "pwd"
+      command 'pwd'
     end
   end
 end
