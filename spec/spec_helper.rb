@@ -45,7 +45,7 @@ RSpec.configure do |config|
     $stdout, $stderr = original_stdout, original_stderr
   end
 
-  config.around(:all) do |example|
+  config.around do |example|
     example.run
   rescue SystemExit
     raise "Unhandled system exit (you're probably missing a raise_error(SystemExit) matcher somewhere)"
