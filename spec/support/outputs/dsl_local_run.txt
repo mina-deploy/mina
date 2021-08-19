@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Executing the following:
+#
+echo "-----> I am a comment"
+echo Hello there

@@ -1,0 +1,6 @@
+# ============================
+# === Start up server => \(in deployer\)
+\(
+cd ".*/deploy/current"
+  echo Hello there
+\) &&

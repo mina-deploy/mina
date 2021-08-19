@@ -1,0 +1,4 @@
+(?m)#!/usr/bin/env bash
+# Executing the following via 'ssh localhost -p 22 -tt':
+.*
+  echo Hello there

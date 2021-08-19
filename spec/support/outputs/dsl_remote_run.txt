@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Executing the following via 'ssh localhost -p 22 -tt':
+#
+echo "-----> I am a comment"
+echo Hello there
