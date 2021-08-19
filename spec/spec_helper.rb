@@ -30,7 +30,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    Rake.application.tasks.keep_if { |task_name, _| initial_task_names.include?(task_name) }
+    Rake.application.instance_variable_get(:@tasks).keep_if { |task_name, _| initial_task_names.include?(task_name) }
     Rake.application.tasks.each(&:reenable)
   end
 
