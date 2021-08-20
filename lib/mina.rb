@@ -4,7 +4,6 @@ require 'rake'
 Rake.application.options.trace = true
 
 # require 'pry'
-# require 'awesome_print'
 
 require 'forwardable'
 require 'shellwords'
