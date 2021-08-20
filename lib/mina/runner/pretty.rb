@@ -8,14 +8,14 @@ module Mina
       attr_reader :script
 
       def initialize(script)
-        @script = script
+        @script = Shellwords.shellsplit(script)
         @coathooks = 0
       end
 
       def run # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         exit_status = nil
 
-        Open3.popen3(script) do |_stdin, stdout, stderr, wait_thr|
+        Open3.popen3(*script) do |_stdin, stdout, stderr, wait_thr|
           pid = wait_thr.pid
 
           trap('INT') { handle_sigint(pid) }
