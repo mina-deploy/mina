@@ -32,8 +32,8 @@ RSpec.configure do |config|
   end
 
   config.after do
-    Rake.application.instance_variable_get(:@tasks).keep_if { |task_name, _| initial_task_names.include?(task_name) }
     Rake.application.tasks.each(&:reenable)
+    Rake.application.instance_variable_get(:@tasks).keep_if { |task_name, _| initial_task_names.include?(task_name) }
   end
 
   config.around(:each, :suppressed_output) do |example|
