@@ -11,7 +11,7 @@ set :deploy_to, '/app'
 set :repository, 'https://github.com/mina-deploy/mina.git'
 set :branch, 'master'
 
-set :identity_file, './spec/e2e/ssh'
+set :identity_file, 'spec/e2e/ssh'
 
 set :ssh_options, '-o StrictHostKeyChecking=no'
 
