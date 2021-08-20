@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  mina-ssh:
+    image: ghcr.io/linuxserver/openssh-server
+    container_name: mina-ssh
+    hostname: mina-ssh
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - PUBLIC_KEY
+      - SUDO_ACCESS=true
+      - USER_NAME=mina-ssh
+    ports:
+      - 2222:2222
+    command: >
+      sh -c "
+        apk update && apk add git ruby && gem install bundler &&
+        touch /tmp/ready.txt &&
+        tail -f /dev/null
+      "
