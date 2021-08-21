@@ -25,12 +25,6 @@ jobs:
           bundler-cache: true
       - run: bundle exec rubocop
       - run: bundle exec rspec
-      - uses: actions/cache@v2
-        if: ${{ matrix.os == 'macos-10.15' }}
-        with:
-          key: ${{ matrix.os }}-brew
-          path: ~/Library/Caches/Homebrew/
-      - uses: docker-practice/actions-setup-docker@master
-        if: ${{ matrix.os == 'macos-10.15' }}
       - name: E2E tests
+        if: ${{ success() && matrix.os != 'macos-10.15' }}
         run: bash spec/e2e/e2e_run.sh
