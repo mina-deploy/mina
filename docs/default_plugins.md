@@ -166,7 +166,7 @@ loads:
   :bundle_prefix          #=> %{RAILS_ENV="#{fetch(:rails_env)}" #{fetch(:bundle_bin)} exec}
   :rake                   #=> "#{fetch(:bundle_prefix)} rake"
   :rails                  #=> "#{fetch(:bundle_prefix)} rails"
-  :compiled_asset_path    #=> 'public/assets'
+  :compiled_asset_path    #=> ['public/assets', 'public/packs']
   :asset_dirs             #=> ['vendor/assets/', 'app/assets/']
   :migration_dirs         #=> ['db/migrate']
   :force_migrate          #=> false
