@@ -37,7 +37,7 @@ task :debug_configuration_variables do
     puts
     puts '------- Printing current config variables -------'
     configuration.variables.each do |key, value|
-      puts "#{key.inspect} => #{value.inspect}"
+      puts "#{key.inspect} => #{(value.respond_to?(:call) ? value.call : value).inspect}"
     end
   end
 end
