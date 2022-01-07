@@ -4,10 +4,6 @@ on:
     paths-ignore:
       - 'docs/**'
       - '**.md'
-  pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - '**.md'
 jobs:
   test:
     name: Ruby ${{ matrix.ruby }} (${{ matrix.os }})
