@@ -14,9 +14,9 @@ module Mina
     end
 
     # :nocov:
-    def run
+    def run(*args)
       Rake.application = self
-      super
+      super(*args)
     end
     # :nocov:
 

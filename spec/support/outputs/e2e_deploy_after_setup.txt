@@ -1,0 +1,1 @@
+(?m)Cloning the Git repository.*Done\. Deployed version 1
