@@ -4,10 +4,6 @@ on:
     paths-ignore:
       - 'docs/**'
       - '**.md'
-  pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - '**.md'
 jobs:
   test:
     name: Ruby ${{ matrix.ruby }} (${{ matrix.os }})
@@ -15,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04, macos-10.15]
-        ruby: [2.6, 2.7, 3.0, jruby-head]
+        ruby: [2.6, 2.7, '3.0', 3.1, jruby-head]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
