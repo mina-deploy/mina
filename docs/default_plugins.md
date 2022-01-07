@@ -1,6 +1,6 @@
 # Default Plugins
 
-`mina` comes with a variaty of plugins for you to use out of the box. As `mina` is primarely written in ruby and for rails, it has
+`mina` comes with a variety of plugins for you to use out of the box. As `mina` is primarely written in ruby and for rails, it has
 ruby plugins, but it can be used to deploy any other application (static, js, php, etc)
 
 To use a plugin you only need to require it in your `deploy.rb`. Most of the plugins come with a set of their
