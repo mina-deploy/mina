@@ -8,7 +8,6 @@ module Mina
 
     def initialize(commands, backend)
       fail 'You must specify execution mode' if execution_mode.nil?
-      fail 'Unsuported execution mode (pretty on windows)' if unsuported_execution_mode?
 
       @backend = backend
       @commands = commands
@@ -31,10 +30,6 @@ module Mina
 
     def script
       Mina::Backend.const_get(class_name_for(backend)).new(commands).prepare
-    end
-
-    def unsuported_execution_mode?
-      execution_mode == :pretty && Gem::Platform.local.os == :windows
     end
 
     def class_name_for(symbol)
