@@ -4,6 +4,8 @@
 (.|\n)*
 :releases_path => ".*/releases"
 (.|\n)*
+:keep_releases => "1234"
+(.|\n)*
 :migration_dirs => \["db/migrate"\]
 (.|\n)*
 ========== Configuration variables ==========

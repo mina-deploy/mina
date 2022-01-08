@@ -92,10 +92,12 @@ RSpec.describe 'default', type: :rake do
   describe 'debug_configuration_variables' do
     before do
       Mina::Configuration.instance.set(:debug_configuration_variables, true)
+      ENV['keep_releases'] = '1234'
     end
 
     after do
       Mina::Configuration.instance.remove(:debug_configuration_variables)
+      ENV.delete('keep_releases')
     end
 
     it 'prints configuration variables' do
