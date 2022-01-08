@@ -90,10 +90,18 @@ RSpec.describe 'default', type: :rake do
   end
 
   describe 'debug_configuration_variables' do
-    it 'prints configrtion variables' do
+    before do
       Mina::Configuration.instance.set(:debug_configuration_variables, true)
-      expect { invoke_all }.to output(/------- Printing current config variables -------/).to_stdout
+    end
+
+    after do
       Mina::Configuration.instance.remove(:debug_configuration_variables)
+    end
+
+    it 'prints configuration variables' do
+      expect do
+        invoke_all
+      end.to output(output_file('debug_configuration_variables')).to_stdout
     end
   end
 end

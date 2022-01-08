@@ -1,0 +1,9 @@
+========== Configuration variables ==========
+(.|\n)*
+:bundle_bin => "bundle"
+(.|\n)*
+:releases_path => ".*/releases"
+(.|\n)*
+:migration_dirs => \["db/migrate"\]
+(.|\n)*
+========== Configuration variables ==========
