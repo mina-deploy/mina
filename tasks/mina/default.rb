@@ -34,11 +34,12 @@ end
 
 task :debug_configuration_variables do
   if fetch(:debug_configuration_variables)
-    puts
-    puts '------- Printing current config variables -------'
-    configuration.variables.each do |key, value|
-      puts "#{key.inspect} => #{(value.respond_to?(:call) ? value.call : value).inspect}"
+    puts '========== Configuration variables =========='
+    configuration.variables.each_key do |key|
+      puts "#{key.inspect} => #{fetch(key).inspect}"
     end
+    puts '========== Configuration variables =========='
+    puts
   end
 end
 
