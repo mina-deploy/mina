@@ -11,12 +11,6 @@ describe Mina::Runner do
       expect { described_class.new(nil, nil) }.to raise_error('You must specify execution mode')
     end
 
-    it 'raises an error when run on windows and pretty print' do
-      instance.set(:execution_mode, :pretty)
-      allow(Gem::Platform.local).to receive(:os).and_return(:windows)
-      expect { described_class.new(nil, nil) }.to raise_error('Unsuported execution mode (pretty on windows)')
-    end
-
     it 'sets execution mode to printer if simulate is true' do
       instance.set(:execution_mode, :pretty)
       instance.set(:simulate, true)
