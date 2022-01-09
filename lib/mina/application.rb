@@ -56,7 +56,7 @@ module Mina
     def verbose
       [
         '--verbose', '-v',
-        'Print more info',
+        'Print a command before its execution.',
         lambda do |_value|
           set(:verbose, true)
         end
@@ -66,7 +66,7 @@ module Mina
     def simulate
       [
         '--simulate', '-s',
-        'Do a simulate run without executing actions',
+        'Run a simulation. All commands will be printed but not executed.',
         lambda do |_value|
           set(:simulate, true)
         end
@@ -76,7 +76,7 @@ module Mina
     def debug_configuration_variables
       [
         '--debug-configuration-variables', '-d',
-        'Display the defined config variables before runnig the tasks.',
+        'Display configuration variables.',
         lambda do |_value|
           set(:debug_configuration_variables, true)
         end
@@ -86,7 +86,7 @@ module Mina
     def no_report_time
       [
         '--no-report-time', nil,
-        'Skip time reporting',
+        "Don't report execution time.",
         lambda do |_value|
           set(:skip_report_time, true)
         end
