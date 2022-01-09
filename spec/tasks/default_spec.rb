@@ -72,11 +72,9 @@ RSpec.describe 'default', type: :rake do
 
   describe 'ssh' do
     it 'runs ssh when :deploy_to exists' do
-      allow(Kernel).to receive(:exec)
-
-      task.invoke
-
-      expect(Kernel).to have_received(:exec).with(output_file('ssh'))
+      expect do
+        invoke_all
+      end.to output(output_file('ssh')).to_stdout
     end
 
     it "exits with an error if :deploy_to doesn't exist" do

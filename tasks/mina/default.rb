@@ -86,8 +86,11 @@ task :run, [:command] do |_, args|
   end
 end
 
-desc 'Opens an SSH session and positions to :deploy_to folder'
+desc 'Open an SSH connection and position to :deploy_to folder'
 task :ssh do
   ensure!(:deploy_to)
-  Kernel.exec %(#{Mina::Backend::Remote.new(nil).ssh} 'cd #{fetch(:deploy_to)} && exec $SHELL')
+
+  set :execution_mode, :exec
+
+  command "cd #{fetch(:deploy_to)} && exec $SHELL"
 end

@@ -1,1 +1,1 @@
-ssh localhost -p 22 -tt 'cd .*/deploy && exec \$SHELL'
+cd .*/deploy && exec \$SHELL
