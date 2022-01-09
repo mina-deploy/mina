@@ -75,4 +75,24 @@ describe Mina::Application do
       end
     end
   end
+
+  describe 'Rake options' do
+    let(:options) { application.standard_rake_options }
+
+    it 'shows --verbose' do
+      expect(options.any? { |(switch, *)| switch == '--verbose' }).to eq(true)
+    end
+
+    it "doesn't show --dry-run" do
+      expect(options.any? { |(switch, *)| switch == '--dry-run' }).to eq(false)
+    end
+
+    it "doesn't show --quiet" do
+      expect(options.any? { |(switch, *)| switch == '--quiet' }).to eq(false)
+    end
+
+    it "doesn't show --silent" do
+      expect(options.any? { |(switch, *)| switch == '--silent' }).to eq(false)
+    end
+  end
 end

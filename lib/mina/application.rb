@@ -21,12 +21,12 @@ module Mina
     # :nocov:
 
     def sort_options(options)
-      not_applicable_to_mina = ['quiet', 'silent', 'verbose', 'dry-run']
-      options.reject! do |(switch, *)|
-        switch =~ /--#{Regexp.union(not_applicable_to_mina)}/
-      end
+      options_not_applicable_to_mina = /--#{Regexp.union(['quiet', 'silent', 'verbose', 'dry-run'])}/
 
-      super.push(version, verbose, simulate, debug_configuration_variables, no_report_time)
+      mina_options = options.reject { |(switch, *)| switch =~ options_not_applicable_to_mina }
+      mina_options += [version, verbose, simulate, debug_configuration_variables, no_report_time]
+
+      super(mina_options)
     end
 
     def top_level_tasks
