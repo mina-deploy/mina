@@ -17,7 +17,7 @@ namespace :bundle do
 
   desc 'Cleans up unused gems in your bundler directory'
   task :clean do
-    comment %(Cleans up unsed gems)
-    command %(#{fetch(:bundle_bin)} clean #{fetch(:bundle_options)})
+    comment %(Cleaning up unused gems)
+    command %(#{fetch(:bundle_bin)} clean)
   end
 end
