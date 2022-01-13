@@ -2,8 +2,10 @@
 
 require 'mina/rails'
 require 'mina/git'
-# require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
-# require 'mina/rvm'    # for rvm support. (https://rvm.io)
+
+# Install https://github.com/mina-deploy/mina-version_managers for rbenv and rvm tasks
+# require 'mina/version_managers/rbenv'  # for rbenv support. (https://rbenv.org)
+# require 'mina/version_managers/rvm'    # for rvm support. (https://rvm.io)
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
