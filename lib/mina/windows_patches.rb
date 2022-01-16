@@ -14,10 +14,5 @@ if is_windows
       end
     end
     module_function :shellescape
-
-    def shellsplit(array)
-      array.map { |arg| shellescape(arg) }.join(' ')
-    end
-    module_function :shellsplit
   end
 end
