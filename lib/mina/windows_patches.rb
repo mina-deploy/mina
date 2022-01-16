@@ -18,6 +18,6 @@ if is_windows
     def shellsplit(array)
       array.map { |arg| shellescape(arg) }.join(' ')
     end
-    module_function :shelljoin
+    module_function :shellsplit
   end
 end
