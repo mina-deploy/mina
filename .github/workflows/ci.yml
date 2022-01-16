@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-20.04, macos-10.15, windows-2022]
         ruby: [2.6, 2.7, '3.0', 3.1, jruby-head]
     runs-on: ${{ matrix.os }}
     steps:
