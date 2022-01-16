@@ -24,7 +24,11 @@ describe Mina::Commands do
       it 'adds a echo command to the queue' do
         commands.command('ls -al')
 
-        expect(commands.queue[:default]).to include("echo \\$\\ ls\\ -al &&\nls -al")
+        if Mina::OS.windows?
+          expect(commands.queue[:default]).to include("echo \"$ ls -al\" &&\nls -al")
+        else
+          expect(commands.queue[:default]).to include("echo \\$\\ ls\\ -al &&\nls -al")
+        end
       end
 
       it 'adds a silent command to the queue' do

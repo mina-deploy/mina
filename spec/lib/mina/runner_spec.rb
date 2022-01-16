@@ -23,7 +23,12 @@ describe Mina::Runner do
     it 'runs the commands on a backend' do
       instance.set(:execution_mode, :printer)
       runner = described_class.new(['ls -al'], :local)
-      expect { runner.run }.to output("\\[\\\"ls\\ -al\\\"\\]\n").to_stdout
+
+      if Mina::OS.windows?
+        expect { runner.run }.to output("ls -al\n").to_stdout
+      else
+        expect { runner.run }.to output("\\[\\\"ls\\ -al\\\"\\]\n").to_stdout
+      end
     end
   end
 end

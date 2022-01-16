@@ -3,12 +3,17 @@
 require 'spec_helper'
 
 describe Mina::Backend::Local do
-  let(:backend) { described_class.new ['ls -al'] }
+  let(:backend) { described_class.new('ls -al') }
 
   describe '#prepare' do
     it 'escpaces shellwords' do
       Mina::Configuration.instance.remove(:simulate)
-      expect(backend.prepare).to eq('\\[\\"ls\\ -al\\"\\]')
+
+      if Mina::OS.windows?
+        expect(backend.prepare).to eq('"ls -al"')
+      else
+        expect(backend.prepare).to eq('ls\\ -al')
+      end
     end
 
     it 'adds debug if simualte' do

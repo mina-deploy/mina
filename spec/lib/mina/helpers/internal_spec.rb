@@ -43,7 +43,11 @@ describe Mina::Helpers::Internal do
       before { Mina::Configuration.instance.set(:verbose, true) }
 
       it 'modifies code' do
-        expect(helper.echo_cmd('ls -al')).to eq("echo \\$\\ ls\\ -al &&\nls -al")
+        if Mina::OS.windows?
+          expect(helper.echo_cmd('ls -al')).to eq("echo \"$ ls -al\" &&\nls -al")
+        else
+          expect(helper.echo_cmd('ls -al')).to eq("echo \\$\\ ls\\ -al &&\nls -al")
+        end
       end
 
       it 'does not modify code if ignore_verbose is true' do

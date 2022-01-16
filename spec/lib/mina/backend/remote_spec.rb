@@ -8,8 +8,12 @@ describe Mina::Backend::Remote do
   before { Mina::Configuration.instance.set(:domain, 'localhost') }
 
   describe '#prepare' do
-    it 'escpaces shellwords' do
-      expect(backend.prepare).to eq('ssh localhost -p 22 -tt -- \\[\\"ls\\ -al\\"\\]')
+    it 'escapes shellwords' do
+      if Mina::OS.windows?
+        expect(backend.prepare).to eq('ssh localhost -p 22 -tt -- ls -al')
+      else
+        expect(backend.prepare).to eq('ssh localhost -p 22 -tt -- \\[\\"ls\\ -al\\"\\]')
+      end
     end
 
     it 'adds debug if simualte' do
