@@ -36,6 +36,14 @@ RSpec.configure do |config|
     Rake.application.instance_variable_get(:@tasks).keep_if { |task_name, _| initial_task_names.include?(task_name) }
   end
 
+  # HACK: workaround for Windows until 2.0.0
+  config.around do |example|
+    user_env = ENV.delete('user')
+    example.run
+  ensure
+    ENV['user'] = user_env
+  end
+
   config.around(:each, :suppressed_output) do |example|
     original_stdout, $stdout = $stdout, File.open(File::NULL, 'w')
     original_stderr, $stderr = $stderr, File.open(File::NULL, 'w')
