@@ -18,7 +18,7 @@ module Mina
             '#', commands, ' '
           ].join("\n")
         else
-          command = Shellwords.escape(commands)
+          command = Shellwords.shellescape(commands)
           [ssh, '--', command].join(' ')
         end
       end

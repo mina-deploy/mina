@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
-# if windows os
 require 'rbconfig'
 is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
 if is_windows
   module Shellwords
     def shellescape(str)
-      "\"#{str.gsub(/\\(?=\\*")/, '\\\\\\').gsub(/"/, '\\"').gsub(/\\$/, '\\\\\\').gsub('%', '%%')}\""
-    end
+      return '""' if str.empty?
 
-    module_function :shellescape
-    class << self
-      alias escape shellescape
+      if str =~ /\s/
+        "\"#{str.gsub('"', '""')}\""
+      else
+        str
+      end
     end
+    module_function :shellescape
+
+    def shellsplit(array)
+      array.map { |arg| shellescape(arg) }.join(' ')
+    end
+    module_function :shelljoin
   end
 end

@@ -14,7 +14,7 @@ module Mina
         if fetch(:simulate)
           ['#!/usr/bin/env bash', '# Executing the following:', '#', commands, ' '].join("\n")
         else
-          Shellwords.escape(commands)
+          Shellwords.shellescape(commands)
         end
       end
     end

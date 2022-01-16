@@ -18,7 +18,7 @@ module Mina
 
       def echo_cmd(code, ignore_verbose = false)
         if fetch(:verbose) && !ignore_verbose
-          "echo #{Shellwords.escape("$ #{code}")} &&\n#{code}"
+          "echo #{Shellwords.shellescape("$ #{code}")} &&\n#{code}"
         else
           code
         end
