@@ -3,12 +3,12 @@
 An execution mode defines the means Mina uses to run a task and how the output is formatted.
 
 Overview of available execution modes:
-Mode       | Stdin enabled | Formatted stdout | Executes commands |
------------|---------------|------------------|-------------------|
-`:pretty`  | ❌            | ✅                | ✅                |
-`:exec`    | ✅            | ❌                | ✅                |
-`:system`  | ✅            | ❌                | ✅                |
-`:printer` | ✅            | ❌                | ❌                |
+ Mode                  | Stdin enabled | Formatted stdout | Executes commands |
+-----------------------|---------------|------------------|-------------------|
+[`:pretty`](#pretty)   | ❌            | ✅                | ✅                |
+[`:exec`](#exec)       | ✅            | ❌                | ✅                |
+[`:system`](#system)   | ✅            | ❌                | ✅                |
+[`:printer`](#printer) | ✅            | ❌                | ❌                |
 
 Execution mode can be changed by setting the `:execution_mode` variable:
 ```ruby
