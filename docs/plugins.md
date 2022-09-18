@@ -1,6 +1,19 @@
-# 3rd party modules
+# Plugins
 
-**Many are not updated to mina 1.x**
+Plugins offer integration with other software (like Sidekiq) in the form of tasks you can use in your deploy scripts.
+
+## Official plugins
+
+* [mina-foreman](https://github.com/mina-deploy/mina-foreman)
+* [mina-npm](https://github.com/mina-deploy/mina-npm)
+* [mina-whenever](https://github.com/mina-deploy/mina-whenever)
+* [mina-version_managers](https://github.com/mina-deploy/mina-version_managers)
+
+## Third-party plugins
+
+This is a non-exhaustive list. For the complete list of available plugins, see [RubyGems](https://rubygems.org/search?query=mina-).
+
+**Warning**: some plugins may not work with Mina v1.
 
 * [mina-blue_green](https://github.com/reedlaw/mina-blue_green)
 * [mina-cakephp](https://github.com/mobvox/mina-cakephp)
@@ -8,7 +21,6 @@
 * [mina-data_sync](https://github.com/d4be4st/mina-data_sync)
 * [mina-delayed_job](https://github.com/d4be4st/mina-delayed_job)
 * [mina-faye](https://github.com/NingenUA/mina-faye)
-* [mina-foreman](https://github.com/mina-deploy/mina-foreman)
 * [mina-ftp](https://github.com/stas/mina-ftp)
 * [mina-hanami](https://github.com/mgrachev/mina-hanami)
 * [mina-hipchat](https://github.com/apertureless/mina-hipchat)
@@ -17,7 +29,6 @@
 * [mina-multistage](https://github.com/endoze/mina-multistage)
 * [mina-newrelic](https://github.com/navinpeiris/mina-newrelic)
 * [mina-nginx](https://github.com/hbin/mina-nginx)
-* [mina-npm](https://github.com/mina-deploy/mina-npm)
 * [mina-puma](https://github.com/sandelius/mina-puma)
 * [mina-rbenv-addons](https://github.com/stas/mina-rbenv-addons)
 * [mina-rollbar](https://github.com/code-lever/mina-rollbar)
@@ -33,7 +44,6 @@
 * [mina-tail](https://github.com/modomoto/mina-tail)
 * [mina-unicorn](https://github.com/openteam/mina-unicorn)
 * [mina-unicorn_systemd](https://github.com/coezbek/mina-unicorn_systemd)
-* [mina-whenever](https://github.com/mina-deploy/mina-whenever)
 * [mina-lock](https://github.com/lorenzosinisi/mina-lock)
 * [mina-thinking-sphinx](https://github.com/airled/mina-thinking-sphinx)
 * [mina-multideploy](https://github.com/codica2/mina-multideploy)
