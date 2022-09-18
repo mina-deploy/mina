@@ -8,7 +8,7 @@ Note: the example above used a symbol (`:domain`) as variable key. Even though v
 
 ## DSL
 
-Mina provides custom methods for managing variables, which can be used in the `deploy.rb`. The following sections document available methods.
+Mina provides a couple of methods for managing variables. The following sections document them.
 
 ### `set(key, value)`
 
@@ -36,7 +36,7 @@ puts fetch(:path)
 
 Returns the variable value.
 
-If the key doesn't exist, the default value is returned, which, by default, is `nil`. You can override the default value by providing a second param to the method.
+If the key doesn't exist, the default value is returned, which, by default, is `nil`. You can override the default value by providing a second parameter to the method.
 
 Environment variables with the same name override values configured with `set`. (Note: this behavior is deprecated, it will be removed in v2)
 
