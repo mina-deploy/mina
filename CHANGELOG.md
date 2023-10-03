@@ -1,5 +1,73 @@
 # Changelog
 
+## [v1.2.5](https://github.com/mina-deploy/mina/tree/v1.2.5) (2023-10-03)
+
+[Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.4...v1.2.5)
+
+**Implemented enhancements:**
+
+- Add tests for dsl.rb [\#568](https://github.com/mina-deploy/mina/issues/568)
+- Enable Pretty runner on Windows [\#705](https://github.com/mina-deploy/mina/pull/705) ([lovro-bikic](https://github.com/lovro-bikic))
+- Enable Rubocop [\#696](https://github.com/mina-deploy/mina/pull/696) ([lovro-bikic](https://github.com/lovro-bikic))
+- Refactor pretty printer [\#686](https://github.com/mina-deploy/mina/pull/686) ([lovro-bikic](https://github.com/lovro-bikic))
+- Support Rails 6 asset recompilation through webpacker  [\#656](https://github.com/mina-deploy/mina/pull/656) ([the-spectator](https://github.com/the-spectator))
+
+**Fixed bugs:**
+
+- Getting the following warnings when using bundler 2.1.2 [\#657](https://github.com/mina-deploy/mina/issues/657)
+- git:ensure\_pushed needs to be more robust [\#639](https://github.com/mina-deploy/mina/issues/639)
+- Allow setup without shared folders/files [\#537](https://github.com/mina-deploy/mina/issues/537)
+- Mina 1.0.6, on windows, fork\(\) function is unimplemented on this machine [\#534](https://github.com/mina-deploy/mina/issues/534)
+- bundle:clean uses bundle\_options which are not supported by latests bundlers [\#521](https://github.com/mina-deploy/mina/issues/521)
+- Remove :bundle\_options from bundle clean [\#710](https://github.com/mina-deploy/mina/pull/710) ([lovro-bikic](https://github.com/lovro-bikic))
+- Fix `ssh` task escaping [\#708](https://github.com/mina-deploy/mina/pull/708) ([lovro-bikic](https://github.com/lovro-bikic))
+- Print correct values in `debug_configuration_variables` task [\#706](https://github.com/mina-deploy/mina/pull/706) ([lovro-bikic](https://github.com/lovro-bikic))
+- Resolve callables when printing debug\_configuration [\#702](https://github.com/mina-deploy/mina/pull/702) ([coezbek](https://github.com/coezbek))
+- Ensure branch exists locally and remotely before comparing it [\#677](https://github.com/mina-deploy/mina/pull/677) ([lovro-bikic](https://github.com/lovro-bikic))
+
+**Closed issues:**
+
+- Are we considering port mina to Crystal? [\#717](https://github.com/mina-deploy/mina/issues/717)
+- mina 1.2.4: Allow multiple deployments with different `RAILS_ENV` [\#713](https://github.com/mina-deploy/mina/issues/713)
+- Stuck on  Fetching new git commits [\#701](https://github.com/mina-deploy/mina/issues/701)
+- Mina Resurrection [\#676](https://github.com/mina-deploy/mina/issues/676)
+- PRESUMED ABANDONED ☠️ [\#671](https://github.com/mina-deploy/mina/issues/671)
+- the  Italiantranslation is to be corrected [\#669](https://github.com/mina-deploy/mina/issues/669)
+- Status of mina project [\#668](https://github.com/mina-deploy/mina/issues/668)
+- Files differ [\#644](https://github.com/mina-deploy/mina/issues/644)
+- I am getting fatal: not a git repository \(or any of the parent directories\): .git after mina deploy while deploying rails app [\#643](https://github.com/mina-deploy/mina/issues/643)
+- mina puma:start won't start [\#632](https://github.com/mina-deploy/mina/issues/632)
+- Can't invoke rake task from script [\#615](https://github.com/mina-deploy/mina/issues/615)
+- Make better rspec output testing [\#579](https://github.com/mina-deploy/mina/issues/579)
+
+**Merged pull requests:**
+
+- Revert "Deprecate version manager tasks" [\#724](https://github.com/mina-deploy/mina/pull/724) ([lovro-bikic](https://github.com/lovro-bikic))
+- Revert "Support Rails 6 asset recompilation through webpacker" [\#723](https://github.com/mina-deploy/mina/pull/723) ([lovro-bikic](https://github.com/lovro-bikic))
+- Update CI: Add Ruby 3.2 and update GA runners [\#722](https://github.com/mina-deploy/mina/pull/722) ([lovro-bikic](https://github.com/lovro-bikic))
+- Deprecate version manager tasks [\#709](https://github.com/mina-deploy/mina/pull/709) ([lovro-bikic](https://github.com/lovro-bikic))
+- Refactor CLI options [\#707](https://github.com/mina-deploy/mina/pull/707) ([lovro-bikic](https://github.com/lovro-bikic))
+- Test against Ruby 3.1 [\#704](https://github.com/mina-deploy/mina/pull/704) ([lovro-bikic](https://github.com/lovro-bikic))
+- Typo fix: 'variety' [\#703](https://github.com/mina-deploy/mina/pull/703) ([tommorris](https://github.com/tommorris))
+- E2E specs [\#698](https://github.com/mina-deploy/mina/pull/698) ([lovro-bikic](https://github.com/lovro-bikic))
+- Remove unused gems and update dependencies [\#697](https://github.com/mina-deploy/mina/pull/697) ([lovro-bikic](https://github.com/lovro-bikic))
+- DSL tests [\#695](https://github.com/mina-deploy/mina/pull/695) ([lovro-bikic](https://github.com/lovro-bikic))
+- Update tests for Rails tasks [\#694](https://github.com/mina-deploy/mina/pull/694) ([lovro-bikic](https://github.com/lovro-bikic))
+- Version manager tests [\#693](https://github.com/mina-deploy/mina/pull/693) ([lovro-bikic](https://github.com/lovro-bikic))
+- Test remaining default tasks [\#692](https://github.com/mina-deploy/mina/pull/692) ([lovro-bikic](https://github.com/lovro-bikic))
+- Improve test coverage for configuration [\#691](https://github.com/mina-deploy/mina/pull/691) ([lovro-bikic](https://github.com/lovro-bikic))
+- Improve test coverage for output helpers [\#690](https://github.com/mina-deploy/mina/pull/690) ([lovro-bikic](https://github.com/lovro-bikic))
+- Internal helpers tests [\#689](https://github.com/mina-deploy/mina/pull/689) ([lovro-bikic](https://github.com/lovro-bikic))
+- Application tests [\#688](https://github.com/mina-deploy/mina/pull/688) ([lovro-bikic](https://github.com/lovro-bikic))
+- Prevent stdout output in tests [\#687](https://github.com/mina-deploy/mina/pull/687) ([lovro-bikic](https://github.com/lovro-bikic))
+- Runner tests [\#685](https://github.com/mina-deploy/mina/pull/685) ([lovro-bikic](https://github.com/lovro-bikic))
+- SSH task tests [\#684](https://github.com/mina-deploy/mina/pull/684) ([lovro-bikic](https://github.com/lovro-bikic))
+- Exclude documentation from CI workflow [\#681](https://github.com/mina-deploy/mina/pull/681) ([lovro-bikic](https://github.com/lovro-bikic))
+- Fix readme issues [\#680](https://github.com/mina-deploy/mina/pull/680) ([lovro-bikic](https://github.com/lovro-bikic))
+- Update 3rd\_party\_plugins.md [\#665](https://github.com/mina-deploy/mina/pull/665) ([coezbek](https://github.com/coezbek))
+- FIX typo in Readme [\#664](https://github.com/mina-deploy/mina/pull/664) ([pabuisson](https://github.com/pabuisson))
+- generated deploy.rb "of" typo fix [\#661](https://github.com/mina-deploy/mina/pull/661) ([ncs1](https://github.com/ncs1))
+
 ## [v1.2.4](https://github.com/mina-deploy/mina/tree/v1.2.4) (2021-08-10)
 
 [Full Changelog](https://github.com/mina-deploy/mina/compare/v1.2.3...v1.2.4)
@@ -180,6 +248,7 @@
 -  Install nginx as module [\#512](https://github.com/mina-deploy/mina/issues/512)
 - Mina console 'bash: bundle: command not found' [\#510](https://github.com/mina-deploy/mina/issues/510)
 - Execution mode / Don't know how to build task [\#508](https://github.com/mina-deploy/mina/issues/508)
+- Problem with git submodules \(no master branches\)... [\#506](https://github.com/mina-deploy/mina/issues/506)
 - Mina setup and migrations: Files /home/base/rails/current/db/migrate/xxx.rb and ./db/migrate/xxx.rb differ [\#502](https://github.com/mina-deploy/mina/issues/502)
 - mina 1.0.6 problem on migration  [\#499](https://github.com/mina-deploy/mina/issues/499)
 - mina 1.0.6  Identity file [\#498](https://github.com/mina-deploy/mina/issues/498)
