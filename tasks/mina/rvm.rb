@@ -1,14 +1,5 @@
 # frozen_string_literal: true
 
-unless fetch(:silence_deprecation_warnings)
-  warn '[DEPRECATION] RVM support will be removed from Mina in v2.0.0.'
-  warn '[DEPRECATION] To continue using RVM tasks, install `mina-version_managers` gem and'
-  warn "[DEPRECATION] replace `require 'mina/rvm'` with `require 'mina/version_managers/rvm'`."
-  warn '[DEPRECATION] See https://github.com/mina-deploy/mina-version_managers for more info.'
-  warn '[DEPRECATION] You can silence this message by adding `set :silence_deprecation_warnings, true` to `config/deploy.rb`.'
-  warn ''
-end
-
 set :rvm_use_path, '$HOME/.rvm/scripts/rvm'
 
 task :'rvm:use', :env do |_, args|
