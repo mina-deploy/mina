@@ -35,9 +35,8 @@ set :deploy_to, '/var/www/flipstack.com'
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
-# Install https://github.com/mina-deploy/mina-version_managers for rbenv and rvm tasks
-# require 'mina/version_managers/rbenv'  # for rbenv support. (https://rbenv.org)
-# require 'mina/version_managers/rvm'    # for rvm support. (https://rvm.io)
+# require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
+# require 'mina/rvm'    # for rvm support. (http://rvm.io)
 ...
 ```
 ``` ruby
