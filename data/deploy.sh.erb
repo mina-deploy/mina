@@ -36,6 +36,7 @@ build_path="./tmp/build-$(date +%s)$RANDOM"
 
 version="<%= next_version %>"
 release_path="<%= fetch(:releases_path) %>/$version"
+release_relative_path="releases/$version"
 
 # Sanity check
 if [ -e "$build_path" ]; then
@@ -75,7 +76,7 @@ fi
 (
   echo "-----> Launching"
   echo "-----> Updating the <%= fetch(:current_path) %> symlink" &&
-  <%= echo_cmd %[ln -nfs "$release_path" "#{fetch(:current_path)}"] %>
+  <%= echo_cmd %[ln -nfs "$release_relative_path" "current"] %>
 ) &&
 
 # ============================
@@ -109,7 +110,7 @@ fi
   )
   (
     echo "Unlinking current"
-    [ -n "$previous_path" ] && <%= echo_cmd %[ln -nfs "$previous_path" "#{fetch(:current_path)}"] %>
+    [ -n "$previous_path" ] && <%= echo_cmd %[ln -nfs "$previous_path" "current"] %>
   )
 
   # Unlock
