@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mina (1.2.4)
+    mina (1.2.5)
       rake
 
 GEM
@@ -70,4 +70,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   2.2.25
+   2.3.13
