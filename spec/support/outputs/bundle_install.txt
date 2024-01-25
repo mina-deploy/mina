@@ -1,2 +1,5 @@
 echo "-----> Installing gem dependencies using Bundler"
-bundle install --without development test --path "vendor/bundle" --deployment
+bundle config set --local without 'development test'
+bundle config set --local path 'vendor/bundle'
+bundle config set --local deployment 'true'
+bundle install
