@@ -12,7 +12,10 @@ namespace :bundle do
   desc 'Install gem dependencies using Bundler.'
   task :install do
     comment %(Installing gem dependencies using Bundler)
-    command %(#{fetch(:bundle_bin)} install #{fetch(:bundle_options)})
+    command %(#{fetch(:bundle_bin)} config set --local without '#{fetch(:bundle_withouts)}')
+    command %(#{fetch(:bundle_bin)} config set --local path '#{fetch(:bundle_path)}')
+    command %(#{fetch(:bundle_bin)} config set --local deployment 'true')
+    command %(#{fetch(:bundle_bin)} install)
   end
 
   desc 'Cleans up unused gems in your bundler directory'
