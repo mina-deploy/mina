@@ -141,9 +141,12 @@ loads:
   :bundle_bin             #=> 'bundle'
   :bundle_path            #=> 'vendor/bundle'
   :bundle_withouts        #=> 'development test'
-  :bundle_options         #=> "--without #{fetch(:bundle_withouts)} --path "#{fetch(:bundle_path)}" --deployment"
+  :bundle_options         #=> '' ## Extra options appended to `bundle install` (config is set via `bundle config set`)
   :shared_dirs            #=> fetch(:shared_dirs, []).push(fetch(:bundle_path)) ## Add `bundle_path` to `shared_dirs`
 ```
+
+Bundler configuration (`deployment`, `path`, `without`) is set via `bundle config set --local` commands,
+which is compatible with Bundler 2.1+ and required for Bundler 4+.
 
 ### Tasks
 

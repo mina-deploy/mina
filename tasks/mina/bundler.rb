@@ -5,14 +5,19 @@ require 'mina/default'
 set :bundle_bin, 'bundle'
 set :bundle_path, 'vendor/bundle'
 set :bundle_withouts, 'development test'
-set :bundle_options, -> { %(--without #{fetch(:bundle_withouts)} --path "#{fetch(:bundle_path)}" --deployment) }
+set :bundle_options, ''
 set :shared_dirs, fetch(:shared_dirs, []).push(fetch(:bundle_path))
 
 namespace :bundle do
   desc 'Install gem dependencies using Bundler.'
   task :install do
     comment %(Installing gem dependencies using Bundler)
-    command %(#{fetch(:bundle_bin)} install #{fetch(:bundle_options)})
+    command %(#{fetch(:bundle_bin)} config set --local deployment true)
+    command %(#{fetch(:bundle_bin)} config set --local path "#{fetch(:bundle_path)}")
+    command %(#{fetch(:bundle_bin)} config set --local without "#{fetch(:bundle_withouts)}")
+    bundle_options = fetch(:bundle_options).to_s.strip
+    install_cmd = [fetch(:bundle_bin), 'install', bundle_options].reject(&:empty?).join(' ')
+    command install_cmd
   end
 
   desc 'Cleans up unused gems in your bundler directory'
