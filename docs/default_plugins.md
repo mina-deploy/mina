@@ -141,7 +141,7 @@ loads:
   :bundle_bin             #=> 'bundle'
   :bundle_path            #=> 'vendor/bundle'
   :bundle_withouts        #=> 'development test'
-  :bundle_options         #=> "--without #{fetch(:bundle_withouts)} --path "#{fetch(:bundle_path)}" --deployment"
+  :bundle_options         #=> '' ## Extra flags for `bundle install`
   :shared_dirs            #=> fetch(:shared_dirs, []).push(fetch(:bundle_path)) ## Add `bundle_path` to `shared_dirs`
 ```
 
@@ -149,6 +149,7 @@ loads:
 
 ``` ruby
   bundle:install          #=> Install gem dependencies using Bundler
+                          ##   (sets `deployment`, `path` and `without` via `bundle config set --local`)
   bundle:clean            #=> Cleans up unused gems in your bundler directory
 ```
 
